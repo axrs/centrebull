@@ -40,8 +40,8 @@
       (handler req)
       (catch Throwable t
         (log/error t)
-        (error-page {:status 500
-                     :title "Something very bad has happened!"
+        (error-page {:status  500
+                     :title   "Something very bad has happened!"
                      :message "We've dispatched a team of highly trained gnomes to take care of the problem."})))))
 
 (defn wrap-csrf [handler]
@@ -50,7 +50,7 @@
     {:error-response
      (error-page
        {:status 403
-        :title "Invalid anti-forgery token"})}))
+        :title  "Invalid anti-forgery token"})}))
 
 (defn wrap-formats [handler]
   (let [wrapped (wrap-restful-format
@@ -64,39 +64,37 @@
 (defn on-error [request response]
   (error-page
     {:status 403
-     :title (str "Access to " (:uri request) " is not authorized")}))
+     :title  (str "Access to " (:uri request) " is not authorized")}))
 
 (defn wrap-restricted [handler]
-  (restrict handler {:handler authenticated?
+  (restrict handler {:handler  authenticated?
                      :on-error on-error}))
 
 (def secret (random-bytes 32))
 
 (def token-backend
-  (jwe-backend {:secret secret
+  (jwe-backend {:secret  secret
                 :options {:alg :a256kw
                           :enc :a128gcm}}))
 
 (defn token [username]
   (let [claims {:user (keyword username)
-                :exp (plus (now) (minutes 60))}]
+                :exp  (plus (now) (minutes 60))}]
     (encrypt claims secret {:alg :a256kw :enc :a128gcm})))
 
 (defn wrap-auth [handler]
-  (let [backend token-backend(session-backend)]
+  (let [backend token-backend (session-backend)]
     (-> handler
-        (wrap-authentication backend)
-        (wrap-authorization backend))))
+      (wrap-authentication backend)
+      (wrap-authorization backend))))
 
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)
-      wrap-auth
-      wrap-webjars
-      wrap-flash
-      (wrap-session {:cookie-attrs {:http-only true}})
-      (wrap-defaults
-        (-> site-defaults
-            (assoc-in [:security :anti-forgery] false)
-            (dissoc :session)))
-      wrap-context
-      wrap-internal-error))
+    wrap-auth
+    wrap-webjars
+    wrap-flash
+    (wrap-defaults
+      (-> site-defaults
+        (dissoc :session)))
+    wrap-context
+    wrap-internal-error))
