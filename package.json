@@ -1,0 +1,31 @@
+{
+  "name": "Centrebull",
+  "version": "1.0.0",
+  "description": "TR Shooter competition management system",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axrs/centrebull.git"
+  },
+  "keywords": [
+    "WPS"
+  ],
+  "author": "Alexander Scott",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/axrs/centrebull/issues"
+  },
+  "homepage": "https://github.com/axrs/centrebull#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-less": "^3.3.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-watch-less": "^1.0.1"
+  }
+}
