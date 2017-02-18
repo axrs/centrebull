@@ -1,5 +1,8 @@
 # Centrebull 
 
+[![CircleCI](https://circleci.com/gh/axrs/centrebull/tree/master.svg?style=shield)](https://circleci.com/gh/axrs/centrebull/tree/master)
+
+[![CircleCI](https://circleci.com/gh/axrs/centrebull/tree/develop.svg?style=shield)](https://circleci.com/gh/axrs/centrebull/tree/develop)
 
 * [Dependencies](#dependencies)
 * [Setup](#setup)
