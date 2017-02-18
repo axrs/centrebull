@@ -16,3 +16,4 @@ profiles.clj
 node_modules/
 .idea/
 centrebull.iml
+.DS_Store
