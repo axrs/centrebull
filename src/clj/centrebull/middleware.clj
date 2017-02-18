@@ -2,7 +2,6 @@
   (:require [centrebull.env :refer [defaults]]
             [clojure.tools.logging :as log]
             [centrebull.layout :refer [*app-context* error-page]]
-            [ring.middleware.anti-forgery :refer [wrap-anti-forgery]]
             [ring.middleware.webjars :refer [wrap-webjars]]
             [ring.middleware.format :refer [wrap-restful-format]]
             [centrebull.config :refer [env]]
@@ -55,10 +54,12 @@
 
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)
-    wrap-webjars
-    wrap-flash
-    (wrap-defaults
-      (-> site-defaults
-        (dissoc :session)))
-    wrap-context
-    wrap-internal-error))
+      wrap-webjars
+      wrap-flash
+      wrap-formats
+      (wrap-defaults
+        (-> site-defaults
+            (assoc-in [:security :anti-forgery] false)
+            (dissoc :session)))
+      wrap-context
+      wrap-internal-error))
