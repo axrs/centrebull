@@ -41,4 +41,4 @@ service postgresql restart
 su - postgres -c "createuser -s centrebull"
 su - postgres -c "psql -c \"ALTER ROLE centrebull PASSWORD 'manager'\""
 su - postgres -c "createdb -O centrebull -EUTF-8 centrebull_dev"
-su - postgres -c "createdb -O centrebull -EUTF-8 centrebull_dev"
+su - postgres -c "createdb -O centrebull -EUTF-8 centrebull_test"
