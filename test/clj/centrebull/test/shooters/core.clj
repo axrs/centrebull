@@ -21,10 +21,10 @@
           (is (= status 200))))))
 
   (testing "shooter-suggest"
-    (let [rv (gen-shooter) es "Johnny Search Term"]
-      (with-redefs [dao/suggest (mock-dao/suggest es rv)]
+    (let [expected (gen-shooter) es "Johnny Search Term"]
+      (with-redefs [dao/suggest (mock-dao/suggest es expected)]
         (let [{:keys [status body]} (shooters/suggest {:params {:q es}})]
-          (is (= body (gen-shooter)))
+          (is (= body expected))
           (is (= status 200)))))))
 
 (deftest prepare-shooter-search-terms
