@@ -13,3 +13,6 @@
   "Splits search terms by spaces and wraps the words with '%' signs"
   [s]
   (map #(str "%" % "%") (split s #"\s+")))
+
+(defn suggest [s]
+  (shooters-suggest (prepare-shooter-search-terms s)))
