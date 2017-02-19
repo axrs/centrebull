@@ -1,15 +1,12 @@
 --Add suggest column to shooters
 ALTER TABLE shooters
-  ADD COLUMN suggest TEXT,
-  ADD COLUMN updated_at TIMESTAMPTZ DEFAULT now();
+  ADD COLUMN suggest TEXT;
 
 --Function to update the shooters suggestion field
 CREATE OR REPLACE FUNCTION update_shooters()
   RETURNS TRIGGER AS $$
 BEGIN
-  NEW.suggest := NEW.sid || ' ' || NEW.last_name || ' ' || NEW.first_name || ' ' || NEW.preferred_name || ' ' ||
-                 NEW.club;
-  NEW.updated_at := now();
+  NEW.suggest := NEW.sid || ' ' || NEW.last_name || ' ' || NEW.first_name || ' ' || NEW.preferred_name || ' ' || NEW.club;
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
