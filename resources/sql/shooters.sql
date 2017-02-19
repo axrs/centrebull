@@ -7,12 +7,7 @@ VALUES (:sid, :first-name, :last-name, :preferred-name, :club);
 -- :name shooters-suggest :? :*
 -- :require [clojure.string :as string]
 -- :doc Suggests shooters for given search terms
-SELECT
-  sid,
-  first_name,
-  last_name,
-  preferred_name,
-  club
+SELECT *
 FROM shooters
 WHERE /*~ (string/join " AND " (for [value params] (str "suggest ILIKE '" value "'"))) ~*/
 ORDER BY sid ASC, first_name ASC, last_name ASC
