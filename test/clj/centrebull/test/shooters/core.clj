@@ -20,7 +20,7 @@
           (is (= body nil))
           (is (= status 200)))))))
 
-(deftest test-prepare-shooter-search-terms
+(deftest prepare-shooter-search-terms
   (testing "prepare-shooter-search-terms"
     (is (= (#'centrebull.db.shooters/prepare-shooter-search-terms "Johnny Search Term")
            ["%johnny%" "%search%" "%term%"]))))
