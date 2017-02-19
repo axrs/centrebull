@@ -1,5 +1,6 @@
 (ns centrebull.db.shooters
-  (:require [centrebull.db.core :refer [shooters-create!]]))
+  (:require [clojure.string :refer [split lower-case]]
+            [centrebull.db.core :refer [shooters-create!]]))
 
 (defn create! [{:keys [sid first-name last-name preferred-name club]}]
   (shooters-create! {:sid            sid
@@ -7,3 +8,8 @@
                      :last-name      last-name
                      :preferred-name preferred-name
                      :club           club}))
+
+(defn- prepare-shooter-search-terms
+  "Splits search terms by spaces and wraps the words with '%' signs"
+  [s]
+  (map #(lower-case (str "%" % "%")) (split s #"\s+")))
