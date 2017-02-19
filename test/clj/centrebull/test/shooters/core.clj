@@ -18,4 +18,19 @@
       (with-redefs [dao/create! (mock-dao/create! expected nil)]
         (let [{:keys [status body]} (shooters/create! {:body-params expected})]
           (is (= body nil))
+          (is (= status 200))))))
+
+  (testing "shooter-suggest"
+    (let [expected (gen-shooter)
+          es "Johnny Search Term"]
+      (with-redefs [dao/suggest (mock-dao/suggest es expected)]
+        (let [{:keys [status body]} (shooters/suggest {:params {:q es}})]
+          (is (= body expected))
           (is (= status 200)))))))
+
+(def ^:private prepare-terms #'centrebull.db.shooters/prepare-shooter-search-terms)
+
+(deftest prepare-shooter-search-terms
+  (testing "prepare-shooter-search-terms"
+    (let [actual (prepare-terms "Johnny Search Term")]
+      (is (= actual ["%Johnny%" "%Search%" "%Term%"])))))
