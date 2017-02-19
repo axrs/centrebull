@@ -1,5 +1,4 @@
 {:dev true
  :port 3000
- :wrap-transaction true
  ;; when :nrepl-port is set the application starts the nREPL server on load
  :nrepl-port 7000}
