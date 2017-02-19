@@ -4,3 +4,6 @@
 
 (defn create! [{:keys [body-params]}]
   (response/ok (dao/create! body-params)))
+
+(defn suggest [{:keys [query-params]}]
+  (response/ok (dao/suggest (query-params "q"))))
