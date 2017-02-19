@@ -12,4 +12,5 @@
            (GET "/" [] (home-page))
 
            (context "/shooters" []
-             (POST "/" {:as request} (shooters/create! request))))
+             (POST "/" {:as request} (shooters/create! request))
+             (GET "/search" {:as request} (shooters/suggest request))))
