@@ -27,7 +27,9 @@
           (is (= body expected))
           (is (= status 200)))))))
 
+(def ^:private prepare-terms #'centrebull.db.shooters/prepare-shooter-search-terms)
+
 (deftest prepare-shooter-search-terms
   (testing "prepare-shooter-search-terms"
-    (is (= (#'centrebull.db.shooters/prepare-shooter-search-terms "Johnny Search Term")
-           ["%Johnny%" "%Search%" "%Term%"]))))
+    (let [actual (prepare-terms "Johnny Search Term")]
+      (is (= actual ["%Johnny%" "%Search%" "%Term%"])))))
