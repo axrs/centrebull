@@ -8,3 +8,11 @@
   (fn [shooter]
     (is (= shooter em))
     rv))
+
+(defn suggest
+  "es - Expected search string
+  rv - Return value"
+  [es rv]
+  (fn [s]
+    (is (= s es))
+    rv))
