@@ -16,3 +16,8 @@
 
 (defn suggest [s]
   (shooters-suggest (prepare-shooter-search-terms s)))
+
+(defn suggest [s]
+  (->> s
+       prepare-shooter-search-terms
+       shooters-suggest))
