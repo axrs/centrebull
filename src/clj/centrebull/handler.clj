@@ -1,7 +1,7 @@
 (ns centrebull.handler
   (:require [compojure.core :refer [routes wrap-routes]]
             [centrebull.layout :refer [error-page]]
-            [centrebull.routes.home :refer [home-routes]]
+            [centrebull.routes.core :refer [routes] :rename {routes cb-routes}]
             [compojure.route :as route]
             [centrebull.env :refer [defaults]]
             [mount.core :as mount]
@@ -13,7 +13,7 @@
 
 (def app-routes
   (routes
-    (-> #'home-routes
+    (-> #'cb-routes
       (wrap-routes middleware/wrap-formats))
     (route/not-found
       (:body
