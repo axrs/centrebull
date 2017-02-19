@@ -8,3 +8,8 @@
   (fn [shooter]
     (is (= shooter em))
     rv))
+
+(deftest test-prepare-shooter-search-terms
+  (testing "prepare-shooter-search-terms"
+    (is (= (#'centrebull.db.shooters/prepare-shooter-search-terms "Johnny Search Term")
+           ["%johnny%" "%search%" "%term%"]))))
