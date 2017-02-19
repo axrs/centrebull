@@ -23,7 +23,7 @@
   (testing "shooter-suggest"
     (let [rv (gen-shooter) es "Johnny Search Term"]
       (with-redefs [dao/suggest (mock-dao/suggest es rv)]
-        (let [{:keys [status body]} (shooters/suggest {:query-params {"q" es}})]
+        (let [{:keys [status body]} (shooters/suggest {:params {:q es}})]
           (is (= body (gen-shooter)))
           (is (= status 200)))))))
 
