@@ -90,6 +90,8 @@
                                  [binaryage/devtools "0.9.0"]
                                  [com.cemerick/piggieback "0.2.2-SNAPSHOT"]
                                  [doo "0.1.7"]
+                                 [faker "0.2.2"]
+                                 [org.clojure/data.generators "0.1.2"]
                                  [figwheel-sidecar "0.5.9"]]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.18.1"]
                                  [lein-doo "0.1.7"]

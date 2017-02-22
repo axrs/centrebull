@@ -36,11 +36,11 @@
   (let [handler ((middleware/specify nil) (fn [r] r))]
     (testing "Should run spec over a request, keywording params"
       (let [value {:foo "bar" :uri "http://montypython.com"}
-            request {:headers {"content-type" "application/json; charset=UTF-8"}
-                     :body    {:ignored-field "this"}
-                     :params  {"Michael--Palin" "It's…" "John-Cleese" "My hovercraft is full of eels."}}
+            request {:headers      {"content-type" "application/json; charset=UTF-8"}
+                     :body         {:ignored-field "this"}
+                     :route-params {"Michael--Palin" "It's…" "John-Cleese" "My hovercraft is full of eels."}}
             response (handler request)]
         (prn response)
         (is (= (:body response) (:body request)))
-        (is (= (:params response) {:Michael/Palin "It's…" :John-Cleese "My hovercraft is full of eels."}))))))
+        (is (= (:all-params response) {:Michael/Palin "It's…" :John-Cleese "My hovercraft is full of eels."}))))))
 
