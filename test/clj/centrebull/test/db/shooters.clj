@@ -16,3 +16,11 @@
   (fn [s]
     (is (= s es))
     rv))
+
+(defn find-by-id
+  "es - Expected id
+  rv - Return value"
+  [es rv]
+  (fn [id]
+    (is (= id es))
+    rv))
