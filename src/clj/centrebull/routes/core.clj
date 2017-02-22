@@ -19,7 +19,11 @@
       :spec :centrebull.spec/shooter-create
       (shooters/create! request))
 
-    (GET "/search" {:as request} (shooters/suggest request)))
+    (GET "/search" {:as request} (shooters/suggest request))
+
+    (GET "/:shooter--id" {:as request}
+         :spec :centrebull.spec/shooter-id-only
+         (shooters/findById request)))
 
   (context "/competitions" []
     (POST "/" {:as request}
