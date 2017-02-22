@@ -48,26 +48,12 @@ abort_on_error() {
 
 db_drop_db() {
   echo_message "DROPPING DB $1"
-
-  dropdb \
-      --host=${DATABASE_HOST} \
-      --port=${DATABASE_PORT} \
-      --username=${DATABASE_USER}  \
-      --no-password \
-      "$1"
+  vagrant ssh -c "export PGPASSWORD=${DATABASE_PASSWORD}; dropdb --host=localhost --port=5432 --username=${DATABASE_USER} --no-password  $1"
 }
 
 db_create_db() {
   echo_message "Creating DB $1"
-
-  createdb \
-  --host=${DATABASE_HOST} \
-  --port=${DATABASE_PORT} \
-  --username=${DATABASE_USER}  \
-  --no-password \
-  --owner=${DATABASE_USER} \
-  --encoding=UTF-8 \
-  "$1"
+  vagrant ssh -c "export PGPASSWORD=${DATABASE_PASSWORD}; createdb --host=localhost --port=5432 --username=${DATABASE_USER} --no-password --owner=${DATABASE_USER} --encoding=UTF-8 $1"
 }
 
 reset() {
