@@ -13,4 +13,5 @@
 
            (context "/shooters" []
              (POST "/" {:as request} (shooters/create! request))
-             (GET "/search" {:as request} (shooters/suggest request))))
+             (GET "/search" {:as request} (shooters/suggest request))
+             (GET "/:id" {:as request} (shooters/findById request))))
