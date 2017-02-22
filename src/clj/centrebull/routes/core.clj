@@ -23,7 +23,7 @@
 
     (GET "/:shooter--id" {:as request}
          :spec :centrebull.spec/shooter-id-only
-         (shooters/findById request)))
+         (shooters/find-by-id request)))
 
   (context "/competitions" []
     (POST "/" {:as request}
