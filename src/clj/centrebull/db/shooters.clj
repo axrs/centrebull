@@ -21,3 +21,6 @@
   (->> s
        prepare-shooter-search-terms
        shooters-suggest))
+
+(defn findById [sid]
+  (shooters-findById {:sid sid}))
