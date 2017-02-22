@@ -15,7 +15,8 @@
             [buddy.auth.backends.token :refer [jwe-backend]]
             [buddy.sign.jwt :refer [encrypt]]
             [buddy.core.nonce :refer [random-bytes]]
-            [clj-time.core :refer [plus now minutes]])
+            [clj-time.core :refer [plus now minutes]]
+            [centrebull.db.middleware :refer [wrap-transactional]])
   (:import [javax.servlet ServletContext]))
 
 (defn wrap-context [handler]
@@ -54,6 +55,7 @@
 
 (defn wrap-base [handler]
   (-> ((:middleware defaults) handler)
+      wrap-transactional
       wrap-webjars
       wrap-flash
       wrap-formats

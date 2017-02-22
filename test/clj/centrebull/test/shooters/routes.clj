@@ -4,7 +4,10 @@
             [centrebull.handler :refer :all]
             [centrebull.test.util :refer [parse-body]]
             [centrebull.shooters.core :as shooters]
-            [ring.util.http-response :as response]))
+            [ring.util.http-response :as response]
+            [centrebull.test.wrapper :refer [wrap-test]]))
+
+(use-fixtures :once wrap-test)
 
 (deftest shooter-routes
   (testing "Create Shooter Route"
