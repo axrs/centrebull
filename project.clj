@@ -8,6 +8,7 @@
                  [clj-time "0.12.0"]
                  [cljs-ajax "0.5.8"]
                  [compojure "1.5.2"]
+                 [metosin/compojure-api "1.1.10"]
                  [conman "0.6.3"]
                  [cprop "0.1.10"]
                  [luminus-immutant "0.2.3"]
