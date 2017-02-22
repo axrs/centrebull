@@ -1,4 +1,4 @@
 CREATE TABLE ranges (
-    id NUMERIC PRIMARY KEY,
+    id UUID PRIMARY KEY,
     description TEXT NOT NULL
 )
