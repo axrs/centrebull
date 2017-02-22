@@ -9,4 +9,4 @@
   (response/ok (dao/suggest (:q params))))
 
 (defn findById [{:keys [params]}]
-  (response/ok (dao/findById (:q params))))
+  (response/ok (dao/findById (:id params))))
