@@ -97,6 +97,10 @@
     :opt [:shooter/preferred-name
           :shooter/club]))
 
+(s/def ::shooter-id-only
+  (s/keys
+    :req [:shooter/sid]))
+
 (s/def ::range-id-only
   (s/keys
     :req [:range/id]))

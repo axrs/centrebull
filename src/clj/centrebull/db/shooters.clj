@@ -35,3 +35,8 @@
     prepare-shooter-search-terms
     shooters-suggest
     out-mapper))
+
+(defn findById [sid]
+  (->> {:sid sid}
+       shooters-findById
+       out-mapper))
