@@ -1,6 +1,6 @@
 (ns centrebull.db.shooters
   (:require [clojure.string :refer [split lower-case]]
-            [centrebull.db.core :refer [shooters-create! shooters-suggest]]))
+            [centrebull.db.core :refer [shooters-create! shooters-suggest shooters-find-by-id]]))
 
 (defn create! [{:keys [sid first-name last-name preferred-name club]}]
   (shooters-create! {:sid            sid
@@ -22,5 +22,5 @@
        prepare-shooter-search-terms
        shooters-suggest))
 
-(defn findById [sid]
-  (shooters-findById {:sid sid}))
+(defn find-by-id [sid]
+  (shooters-find-by-id {:sid sid}))

@@ -8,5 +8,5 @@
 (defn suggest [{:keys [params]}]
   (response/ok (dao/suggest (:q params))))
 
-(defn findById [{:keys [params]}]
-  (response/ok (dao/findById (:id params))))
+(defn find-by-id [{:keys [params]}]
+  (response/ok (dao/find-by-id (:id params))))
