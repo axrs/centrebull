@@ -1,0 +1,76 @@
+@import (reference) "_variables";
+
+/*	lists
+----------------------------------------------------------------------*/
+
+il@{n}, il@{x} {
+  display: flex;
+  flex-direction: row;
+
+  li {
+    display: block;
+    flex-grow: 1;
+    a {
+      margin-left: 5%;
+      color: @primary;
+    }
+  }
+  @media (max-width: @mobile) {
+    display: block;
+    li{
+      padding: 1rem;
+      display: block;
+      a{
+        position: absolute;
+        right:1rem;
+      }
+      &:nth-child(even) {
+        background-color: @grey-midlight;
+      }
+    }
+  }
+}
+
+ul, ol {
+  &@{n}, &@{x} {
+    padding-left: 2rem;
+    margin: 0 0 2rem;
+
+    ul, ol {
+      margin-bottom: 0
+    }
+  }
+}
+
+ul@{n}, ul@{x} {
+  list-style: disc;
+
+  ul {
+    list-style: circle
+  }
+}
+
+ol@{n}, ol@{x} {
+  list-style: decimal;
+
+  ol {
+    list-style: lower-alpha
+  }
+}
+
+auto-complete@{n}, auto-complete@{x} {
+  position: absolute;
+  top: 3.3rem;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  font-size: @fs-s;
+  list-style: none;
+
+  li {
+    padding: 0.25rem 1rem 0;
+    color: @secondary;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}

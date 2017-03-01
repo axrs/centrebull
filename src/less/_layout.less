@@ -1,0 +1,46 @@
+@import (reference) "_variables";
+
+/*	layouts
+----------------------------------------------------------------------*/
+
+img@{n}, img@{x} {
+  height: auto;
+  max-width: 100%;
+}
+
+section@{n}, section@{x} {
+  margin: auto;
+  padding: 2rem 2rem;
+  width: 100%;
+}
+
+page@{n}, page@{x} {
+  left: @sidebar-width + 2rem;
+  position: fixed;
+  right: 2rem;
+  top: 4.4rem;
+  bottom: 0rem;
+  overflow: auto;
+}
+
+p@{n}, p@{x} {
+  margin: 0 0 2rem;
+
+  &:last-child {
+    margin: 0
+  }
+}
+
+hr@{n}, hr@{x} {
+  background: @grey-light;
+  border: none;
+  width: 100%;
+  height: 1px;
+  margin: 4rem 0;
+}
+
+@media (max-width: @mobile) {
+  page@{n}, page@{x} {
+    left: 2rem;
+  }
+}

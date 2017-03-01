@@ -1,0 +1,359 @@
+@import (reference) "_variables";
+
+/*	navigation
+----------------------------------------------------------------------*/
+
+nav@{n}, nav@{x}, sidebar@{n}, sidebar@{x} {
+  background: #fff;
+  color: @black;
+  padding: 0 2rem;
+  border-bottom: 1px solid @primary;
+  z-index: 10;
+  min-height: 4.4rem;
+
+  // class to fix the nav bar to the top of the viewport
+  // eg: <nav fx></nav>
+
+  &[fx] {
+    background: rgba(255, 255, 255, 0.95);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 11;
+  }
+
+  // contains everything in the nav
+
+  label {
+    margin: auto;
+    display: block;
+
+    > input {
+      display: none
+    }
+  }
+
+  // where the main navigation items live
+
+  ul {
+    padding: 0 2rem;
+    margin: 0;
+    font-size: 0;
+    text-align: right;
+
+    li {
+      display: inline-block;
+      font-size: @fs-m;
+      color: @primary--;
+
+      &[fx] {
+        color: @primary--;
+        font-weight: bold;
+        background-color: @primary;
+      }
+      // Sub menu
+      ul {
+        padding: 0;
+        margin: 0;
+        background: @grey-dark;
+        z-index: 2;
+        text-align: left;
+        white-space: nowrap;
+        min-width: 100%;
+
+        li {
+          display: block;
+          border-top: none;
+          border-left: 4px solid transparent;
+
+          &:hover {
+            border-color: @primary;
+            background-color: @grey;
+          }
+
+          a {
+            text-transform: none;
+            padding: 0.5rem 2rem 0.5rem 2.6rem;
+            border: none;
+            font-size: @fs-s;
+          }
+        }
+      }
+    }
+
+    @media (min-width: (@mobile + .1)) {
+      li:hover menu,
+      menu:hover {
+        visibility: visible;
+        opacity: 1;
+        transform: translate3d(0, -1rem, 0);
+        pointer-events: auto;
+      }
+    }
+
+    label{
+        text-decoration: none;
+        text-transform: none;
+        padding: 0.8rem 2rem 0.4rem;
+        display: block;
+        color: @primary;
+        font-size: @fs-m;
+    }
+
+    a {
+      text-decoration: none;
+      text-transform: none;
+      padding: 0.8rem 2rem 0.4rem;
+      border-bottom: 4px solid transparent;
+      display: block;
+      cursor: pointer;
+      font-weight: 300;
+
+      // sets drop down menu styling
+
+      @media (min-width: (@mobile + .1)) {
+        &:not(:only-child) {
+          //Chevron-Down.svg
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path d="M14.83 16.42L24 25.59l9.17-9.17L36 19.25l-12 12-12-12z"/></svg>');
+          background-repeat: no-repeat;
+          background-position: right 1.5rem;
+          background-size: 2rem;
+          padding-right: 3rem;
+        }
+      }
+
+      &:hover {
+        color: @primary--;
+        border-color: @primary;
+        background-color: @primary;
+      }
+    }
+  }
+
+  // drop down menu
+
+  menu {
+    padding: 0;
+    margin: 0;
+    background: #fff;
+    z-index: 2;
+    text-align: left;
+    white-space: nowrap;
+    min-width: 100%;
+
+    @media (min-width: (@mobile + .1)) {
+      visibility: hidden;
+      opacity: 0;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      box-shadow: @box-shadow;
+      transform: translate3d(0, -2rem, 0);
+      pointer-events: none;
+    }
+
+    menuitem, mi {
+      display: block;
+      border-left: 4px solid transparent;
+
+      &:hover {
+        border-color: @primary;
+        background-color: @grey-ultralight;
+
+        a {
+          transform: translate3d(0.5rem, 0, 0)
+        }
+      }
+
+      a {
+        text-transform: none;
+        padding: 0.5rem 2rem 0.5rem 1.6rem;
+        border: none;
+        font-size: @fs-s;
+      }
+    }
+  }
+
+  // where the title/logo lives in the nav bar
+  // contains the hamburger menu in mobile view
+
+  header {
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 1rem;
+      width: 4.4rem;
+      height: 4.4rem;
+      display: none;
+      background-size: 3rem;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+
+    &:before {
+      //Hamburger.svg
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path fill="#2e3538" d="M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z"/></svg>');
+    }
+
+    &:after {
+      //Close.svg
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path d="M38 12.83L35.17 10 24 21.17 12.83 10 10 12.83 21.17 24 10 35.17 12.83 38 24 26.83 35.17 38 38 35.17 26.83 24z"/></svg>');
+      opacity: 0;
+      transform: rotate(180deg);
+    }
+
+    a {
+      position: absolute;
+      top: 1rem;
+      bottom: 1rem;
+      cursor: pointer;
+      z-index: 2;
+      font-size: @fs-l;
+      text-decoration: none;
+
+      strong {
+        color: @primary;
+      }
+
+      img {
+        height: 2rem;
+        vertical-align: middle;
+        top: -1px;
+        margin-right: 1rem;
+      }
+    }
+  }
+}
+
+// Sidebar
+sidebar@{n} {
+  border: none;
+  > ul {
+    position: fixed;
+    top: 4.4rem;
+    left: 0;
+    bottom: 0;
+    padding: 0;
+    transform: translate3d(0%, 0, 0);
+    border-top: none;
+    text-align: left;
+    background: @grey-dark;
+    box-shadow: @box-shadow-right;
+    overflow-x: visible;
+    overflow-y: auto;
+    width: @sidebar-width;
+    z-index: 200;
+
+    li {
+      display: block;
+      border-top: 1px solid @secondary;
+    }
+
+    a {
+      padding: 1rem 6rem 1rem 2rem;
+      border: none;
+    }
+  }
+}
+
+// mobile view
+
+@media (max-width: @mobile) {
+
+  // clears the top of the page for the fixed nav
+  body {
+    padding-top: 4.4rem;
+  }
+
+  nav@{n}, nav@{x} {
+    position: fixed;
+    padding: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      &:before, &:after {
+        display: block
+      }
+      a {
+        left: 6rem;
+      }
+    }
+
+    label {
+      height: 4.4rem;
+
+      // hides the nav off screen
+
+      > ul {
+        position: fixed;
+        top: 4.4rem;
+        right: 0;
+        bottom: 0;
+        padding: 0;
+        transform: translate3d(100%, 0, 0);
+        border-top: 1px solid @primary;
+        text-align: left;
+        background: #fff;
+        box-shadow: @box-shadow;
+        overflow-x: visible;
+        overflow-y: auto;
+
+        li {
+          display: block;
+          border-top: 1px solid @grey-light;
+        }
+
+        a {
+          padding: 1rem 6rem 1rem 2rem;
+          border: none;
+        }
+      }
+
+      input {
+        &:checked {
+
+          // shows the nav when input is checked
+
+          ~ ul {
+            transform: none;
+          }
+
+          // hides the hamburger and shows the cross when the input is checked
+
+          ~ header {
+            &:before {
+              transform: rotate(-180deg);
+              opacity: 0;
+            }
+
+            &:after {
+              transform: none;
+              opacity: 1;
+            }
+          }
+        }
+      }
+
+      menu {
+        menuitem, mi {
+          border-color: @grey-light;
+        }
+
+        a {
+          padding-left: 4rem;
+        }
+      }
+    }
+  }
+}
