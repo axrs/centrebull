@@ -19,3 +19,4 @@ node_modules/
 centrebull.iml
 .DS_Store
 *.sql--
+*.css

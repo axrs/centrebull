@@ -21,7 +21,10 @@
 (defn- get-invalid-field
   "Determines the invalid field of a given map structure."
   [{:keys [path via pred]}]
-  (merge via (eval (last pred))))
+  (cond
+    (and (seq? pred)
+      (s/get-spec (last pred))) (merge via (last pred))
+    :else via))
 
 (defn- explain-error [v]
   (or (get-in explain v) "__No error message found.__"))
@@ -63,10 +66,11 @@
 (defn- str->uuid [s] (java.util.UUID/fromString s))
 
 (def ^:private is-uuid? (s/and string? #(re-matches #"(\w{8}(-\w{4}){3}-\w{12}?)$" %) (s/conformer str->uuid)))
+(def ^:private non-empty-string (s/and string? #(not= "" %)))
 
 (s/def :shooter/sid number?)
-(s/def :shooter/first-name string?)
-(s/def :shooter/last-name string?)
+(s/def :shooter/first-name non-empty-string)
+(s/def :shooter/last-name non-empty-string)
 (s/def :shooter/preferred-name string?)
 (s/def :shooter/club string?)
 

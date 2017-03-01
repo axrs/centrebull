@@ -1,0 +1,167 @@
+@import (reference) "_variables";
+
+/*	grid
+----------------------------------------------------------------------*/
+
+// .grid acts as a container for .col
+// eg: <div class="grid"><div class="col twelve"></div></div>
+
+grid {
+  display: block;
+  font-size: 0;
+  width: auto;
+  margin: -1rem;
+
+  grid:not(:first-child) {
+    margin: 1rem -1rem 0
+  }
+}
+
+// columns
+
+@columns: 12;
+
+.width(@x) {
+  width: 100% / @columns * @x;
+}
+
+.left(@x) {
+  left: 100% / @columns * @x;
+}
+
+// eg: <div local="6"></div>
+[local="1/12"] {
+  .width(1)
+}
+
+[local="2/12"],
+[local="1/6"] {
+  .width(2)
+}
+
+[local="3/12"],
+[local="1/4"] {
+  .width(3)
+}
+
+[local="4/12"],
+[local="2/6"],
+[local="1/3"] {
+  .width(4)
+}
+
+[local="5/12"] {
+  .width(5)
+}
+
+[local="6/12"],
+[local="3/6"],
+[local="2/4"],
+[local="1/2"] {
+  .width(6)
+}
+
+[local="7/12"] {
+  .width(7)
+}
+
+[local="8/12"],
+[local="4/6"],
+[local="2/3"] {
+  .width(8)
+}
+
+[local="9/12"],
+[local="3/4"] {
+  .width(9)
+}
+
+[local="10/12"],
+[local="5/6"] {
+  .width(10)
+}
+
+[local="11/12"] {
+  .width(11)
+}
+
+[local="1/1"] {
+  .width(12)
+}
+
+// eg: <div data-pull-left="1/12"></div>
+[data-pull-left="1/12"] {
+  .left(1)
+}
+
+[data-pull-left="2/12"],
+[data-pull-left="1/6"] {
+  .left(2)
+}
+
+[data-pull-left="3/12"],
+[data-pull-left="1/4"] {
+  .left(3)
+}
+
+[data-pull-left="4/12"],
+[data-pull-left="2/6"],
+[data-pull-left="1/3"] {
+  .left(4)
+}
+
+[data-pull-left="5/12"] {
+  .left(5)
+}
+
+[data-pull-left="6/12"],
+[data-pull-left="3/6"],
+[data-pull-left="2/4"],
+[data-pull-left="1/2"] {
+  .left(6)
+}
+
+[data-pull-left="7/12"] {
+  .left(7)
+}
+
+[data-pull-left="8/12"],
+[data-pull-left="4/6"],
+[data-pull-left="2/3"] {
+  .left(8)
+}
+
+[data-pull-left="9/12"],
+[data-pull-left="3/4"] {
+  .left(9)
+}
+
+[data-pull-left="10/12"],
+[data-pull-left="5/6"] {
+  .left(10)
+}
+
+[data-pull-left="11/12"] {
+  .left(11)
+}
+
+[data-pull-left="1/1"] {
+  .left(12)
+}
+
+[local] {
+  display: inline-block;
+  font-size: @fs-m;
+  padding: 1rem;
+  vertical-align: top;
+
+  // columns go to 100% on @mobile width unless it has the .fx class
+  // eg: <div class="fx" local="six"></div>
+
+  @media (max-width: @mobile) {
+    &:not([fx]) {
+      width: 100%;
+      left: inherit;
+    }
+  }
+}
