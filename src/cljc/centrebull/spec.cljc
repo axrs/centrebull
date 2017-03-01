@@ -21,7 +21,6 @@
 (defn- get-invalid-field
   "Determines the invalid field of a given map structure."
   [{:keys [path via pred]}]
-  (prn path via pred)
   (cond
     (and (seq? pred)
       (s/get-spec (last pred))) (merge via (last pred))
