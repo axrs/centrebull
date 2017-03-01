@@ -15,6 +15,7 @@ profiles.clj
 .vagrant
 node_modules/
 .idea/
+.idea/codeStyleSettings.xml
 centrebull.iml
 .DS_Store
 *.sql--
