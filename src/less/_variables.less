@@ -1,0 +1,74 @@
+/*	variables
+----------------------------------------------------------------------*/
+
+// bare class (default is no class and 'xx')
+// Why xx? It's short and easy to search.
+
+@n: ~":not([class])";
+@x: ~"[xx]";
+
+// font families
+// currently uses browser defaults
+
+@serif: serif;
+@sans-serif: sans-serif;
+@monospace: monospace;
+
+// font sizes
+
+@fs-xs: 1.1rem;
+@fs-s: 1.2rem;
+@fs-m: 1.4rem;
+@fs-l: 1.6rem;
+@fs-xl: 2.4rem;
+
+// set your brand colour
+
+@primary: #1985A1;
+@primary--: #fff; // contrasting colour to the primary colour
+
+@success: #4BB543;
+@success-tint: lighten(@success, 40%);
+@danger: #FF0000;
+@danger-tint: lighten(@danger, 40%);
+
+@green-tint: lighten(#6CCC92, 25%);
+@red-tint: lighten(#E88C81, 20%);
+@yellow-tint: lighten(#E2D357, 25%);
+
+@secondary: #4C5C68;
+
+// set overall temperature with hue and intensity with saturation
+
+@hue: 200;
+@sat: 10%;
+
+// blacks and greys inherit colour temperature of hue and saturation
+
+@black: hsl(@hue, @sat, 20%);
+
+@grey: #46494C;
+
+@grey-light: #C5C3C6;
+@grey-midlight: lighten(@grey-light, 15%);
+@grey-ultralight: lighten(@grey-light, 20%);
+@grey-mid: @grey;
+@grey-dark: darken(@grey, 20%);
+@grey-ultradark: darken(@grey, 40%);
+
+// transparent overlays to darken or lighten background colour
+
+@dark: rgba(0, 0, 0, 0.5);
+@darken: rgba(0, 0, 0, 0.1);
+@light: rgba(255, 255, 255, 0.5);
+@lighten: rgba(255, 255, 255, 0.1);
+
+// shadows
+
+@box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+@box-shadow-right: 0 10px 10px 0 rgba(0, 0, 0, 0.8);
+
+// widths
+@sidebar-width: 20rem;
+@width: 90rem;
+@mobile: 50rem;
