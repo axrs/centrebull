@@ -69,6 +69,10 @@
 (s/def :shooter/last-name string?)
 (s/def :shooter/preferred-name string?)
 (s/def :shooter/club string?)
+
+
+(s/def :competition/id is-uuid?)
+(s/def :competition/description string?)
 ;----------------------------------------
 ; API END POINTS
 ;----------------------------------------
