@@ -8,3 +8,11 @@
   (fn [competition]
     (is (= em competition))
     rv))
+
+(defn find
+  "ei - Expected competition UUID
+  rv - Return Value"
+  [ei rv]
+  (fn [id]
+    (is (= ei id))
+    rv))
