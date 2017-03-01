@@ -19,11 +19,19 @@
          :shooter/preferred-name (last-name)
          :shooter/club           (string)}))
 
+(defn- random-date-string []
+  (let [year (+ 1970 (rand-int 20))
+        month (+ 1 (rand-int 11))
+        month (if (> 10 month) (str "0" month) month)
+        day (+ 1 (rand-int 27))
+        day (if (> 10 day) (str "0" day) day)]
+    (str year "-" month "-" day)))
+
 (defn gen-competition
   "Generates a random competition object with fields similar to the database result
   id [optional] - UUID to use instead"
   ([] (gen-competition (uuid)))
   ([id] {:competition/id          id
          :competition/description (string)
-         :competition/start-date  (f/parse date-formatter "1970-01-02")
-         :competition/end-date    (f/parse date-formatter "1970-01-04")}))
+         :competition/start-date  (random-date-string)
+         :competition/end-date    (random-date-string)}))
