@@ -54,7 +54,6 @@
   (log/info "Wrapping route in spec validation " spec)
   (fn [h]
     (fn [{body :body-params query :query-params route :route-params :as r}]
-      (prn body query route)
       (->> (merge body query route)
         convert-string-keys
         (validate spec)
