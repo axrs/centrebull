@@ -1,0 +1,88 @@
+@import (reference) "_variables";
+
+/*	table
+----------------------------------------------------------------------*/
+
+table@{n}, table@{x} {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 2rem;
+  text-align: left;
+  overflow: hidden;
+  font-size: @fs-m;
+
+  th, td, tdp {
+    border-bottom: 2px solid @grey-midlight;
+    padding: 1rem;
+  }
+
+  th {
+    font-weight: 700;
+    color: @primary;
+
+    &:before {
+      content: "";
+      width: 100%;
+      height: 10000%;
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      background: @grey-ultralight;
+      z-index: -1;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    &:hover:before {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  td, tdp {
+    border-bottom-width: 1px;
+    a {
+      color: @primary;
+      display: block;
+    }
+    &[data-fixed-small]{
+      max-width: 10rem;
+      width: 10rem;
+    }
+  }
+
+  tdp {
+    padding-left: 3rem;
+    display: table-cell;
+    vertical-align: middle;
+    span {
+      color: @grey-light;
+      font-size: @fs-s;
+      left: -2.5rem;
+      top: .3rem;
+      width: 0;
+      height: 0;
+      position: relative;
+      display: block;
+    }
+  }
+
+  tbody tr:hover {
+    background: @grey-ultralight
+  }
+
+
+  tr {
+    &[data-state="0"] {
+      background-color: @green-tint;
+    }
+    &[data-state="1"] {
+      background-color: @yellow-tint;
+    }
+    &[data-state="2"] {
+      background-color: @red-tint;
+    }
+  }
+}
