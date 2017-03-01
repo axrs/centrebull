@@ -5,8 +5,6 @@
 
 (def ^:private key-map {:range/description :description})
 
-(def ^:private value-map (map-invert key-map))
-
 (defn- in-mapper [m] (mapper key-map m))
 
 (defn create! [range]
