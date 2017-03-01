@@ -4,7 +4,8 @@
             [centrebull.routes.specify]
             [ring.util.http-response :as response]
             [clojure.java.io :as io]
-            [centrebull.shooters.core :as shooters]))
+            [centrebull.shooters.core :as shooters]
+            [centrebull.competitions.core :as competitions]))
 
 (defn home-page []
   (layout/render "home.html"))
@@ -17,4 +18,11 @@
       :spec :centrebull.spec/shooter-create
       (shooters/create! request))
 
-    (GET "/search" {:as request} (shooters/suggest request))))
+    (GET "/search" {:as request} (shooters/suggest request)))
+
+  (context "/competitions" []
+    (POST "/" {:as request}
+      :spec :centrebull.spec/competition-create
+      (competitions/create! request))))
+
+

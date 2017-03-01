@@ -11,6 +11,7 @@
                  [metosin/compojure-api "1.1.10"]
                  [conman "0.6.3"]
                  [cprop "0.1.10"]
+                 [clj-time "0.13.0"]
                  [luminus-immutant "0.2.3"]
                  [luminus-migrations "0.2.9"]
                  [luminus-nrepl "0.1.4"]
