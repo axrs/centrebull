@@ -70,6 +70,7 @@
 
 (def ^:private is-uuid? (s/and string? #(re-matches #"(\w{8}(-\w{4}){3}-\w{12}?)$" %) (s/conformer str->uuid)))
 (def ^:private non-empty-string (s/and string? #(not= "" %)))
+(def ^:private is-date? (s/and string? #(re-matches #"^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$" %)))
 
 (s/def :shooter/sid number?)
 (s/def :shooter/first-name non-empty-string)
@@ -78,6 +79,11 @@
 (s/def :shooter/club string?)
 
 (s/def :range/description non-empty-string)
+
+(s/def :competition/id is-uuid?)
+(s/def :competition/description non-empty-string)
+(s/def :competition/start-date is-date?)
+(s/def :competition/end-date is-date?)
 ;----------------------------------------
 ; API END POINTS
 ;----------------------------------------
@@ -93,3 +99,9 @@
 (s/def ::ranges-create
   (s/keys
     :req [:range/description]))
+
+(s/def ::competition-create
+  (s/keys
+    :req [:competition/description
+          :competition/start-date
+          :competition/end-date]))
