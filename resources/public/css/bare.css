@@ -1,0 +1,2204 @@
+/*	variables
+----------------------------------------------------------------------*/
+/*	mini browser reset
+----------------------------------------------------------------------*/
+html {
+  font-family: sans-serif;
+  font-size: 10px;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: 100%;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  position: relative;
+}
+:focus {
+  outline: 0;
+}
+body {
+  color: #2e3538;
+  margin: 0;
+  font-size: 1.4rem;
+  line-height: 1.8;
+  font-weight: 300;
+}
+@media (max-width: 50rem) {
+  body {
+    overflow-x: hidden;
+  }
+}
+a {
+  background-color: transparent;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+b,
+strong {
+  font-weight: 700;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 2rem;
+  font-weight: 200;
+}
+img {
+  border: 0;
+}
+::selection {
+  background-color: #1985A1;
+  color: #fff;
+}
+/*	anchor link
+----------------------------------------------------------------------*/
+a:not([class]),
+a[xx] {
+  color: inherit;
+  text-decoration: none;
+  display: inline-block;
+  z-index: 1;
+}
+p a:not([class]):not([btn]):before,
+p a[xx]:not([btn]):before {
+  content: "";
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background: #4C5C68;
+  position: absolute;
+  opacity: 0.5;
+  transform: scale3d(1, 0.1, 1);
+  transform-origin: bottom;
+  z-index: -1;
+}
+p a:not([class]):not([btn]):hover:before,
+p a[xx]:not([btn]):hover:before {
+  transform: none;
+}
+/*	blockquote
+----------------------------------------------------------------------*/
+blockquote:not([class]),
+blockquote[xx] {
+  margin: 2rem 0;
+  padding: 1rem 2rem;
+  border-left: 4px solid #1985A1;
+}
+/*	buttons
+----------------------------------------------------------------------*/
+button:not([class]),
+button[xx],
+input[type=submit],
+[btn] {
+  cursor: pointer;
+  color: #1985A1;
+  display: inline-block;
+  padding: 1.4rem 2rem;
+  background: #fff;
+  border: 1px solid #1985A1;
+  border-radius: 2px;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1rem;
+  -webkit-appearance: none;
+}
+button:not([class]):before,
+button[xx]:before,
+input[type=submit]:before,
+[btn]:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  transform: scale3d(1.2, 1.2, 1.2);
+  background: #1985A1;
+}
+button:not([class]):not(:disabled):hover,
+button[xx]:not(:disabled):hover,
+input[type=submit]:not(:disabled):hover,
+[btn]:not(:disabled):hover {
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  background: #f8f7f8;
+}
+button:not([class]):not(:disabled):hover:active,
+button[xx]:not(:disabled):hover:active,
+input[type=submit]:not(:disabled):hover:active,
+[btn]:not(:disabled):hover:active {
+  box-shadow: none;
+  transition: none;
+}
+button:not([class])[data-primary],
+button[xx][data-primary],
+input[type=submit][data-primary],
+[btn][data-primary] {
+  border-color: #156f87;
+  background: #1985A1;
+  color: #fff;
+  font-weight: 700;
+}
+button:not([class])[data-primary]:not(:disabled):hover,
+button[xx][data-primary]:not(:disabled):hover,
+input[type=submit][data-primary]:not(:disabled):hover,
+[btn][data-primary]:not(:disabled):hover {
+  background: #156f87;
+}
+button:not([class])[data-round],
+button[xx][data-round],
+input[type=submit][data-round],
+[btn][data-round] {
+  border-radius: 4rem;
+}
+@media (max-width: 50rem) {
+  button:not([class])[data-m-full],
+  button[xx][data-m-full],
+  input[type=submit][data-m-full],
+  [btn][data-m-full] {
+    width: 100%;
+    float: none !important;
+  }
+}
+@media (max-width: 50rem) {
+  button:not([class])[data-m-half],
+  button[xx][data-m-half],
+  input[type=submit][data-m-half],
+  [btn][data-m-half] {
+    width: 48%;
+    margin-right: 0;
+  }
+  button:not([class])[data-m-half][data-primary],
+  button[xx][data-m-half][data-primary],
+  input[type=submit][data-m-half][data-primary],
+  [btn][data-m-half][data-primary] {
+    margin-left: 1rem;
+  }
+}
+button:not([class]) ~ h1:after,
+button[xx] ~ h1:after,
+input[type=submit] ~ h1:after,
+[btn] ~ h1:after,
+button:not([class]) ~ h2:after,
+button[xx] ~ h2:after,
+input[type=submit] ~ h2:after,
+[btn] ~ h2:after,
+button:not([class]) ~ h3:after,
+button[xx] ~ h3:after,
+input[type=submit] ~ h3:after,
+[btn] ~ h3:after,
+button:not([class]) ~ h4:after,
+button[xx] ~ h4:after,
+input[type=submit] ~ h4:after,
+[btn] ~ h4:after,
+button:not([class]) ~ h5:after,
+button[xx] ~ h5:after,
+input[type=submit] ~ h5:after,
+[btn] ~ h5:after,
+button:not([class]) ~ h6:after,
+button[xx] ~ h6:after,
+input[type=submit] ~ h6:after,
+[btn] ~ h6:after {
+  content: "";
+  display: block;
+  clear: both;
+  opacity: 0;
+  visibility: hidden;
+}
+@media (max-width: 50rem) {
+  button:not([class]) ~ h1,
+  button[xx] ~ h1,
+  input[type=submit] ~ h1,
+  [btn] ~ h1,
+  button:not([class]) ~ h2,
+  button[xx] ~ h2,
+  input[type=submit] ~ h2,
+  [btn] ~ h2,
+  button:not([class]) ~ h3,
+  button[xx] ~ h3,
+  input[type=submit] ~ h3,
+  [btn] ~ h3,
+  button:not([class]) ~ h4,
+  button[xx] ~ h4,
+  input[type=submit] ~ h4,
+  [btn] ~ h4,
+  button:not([class]) ~ h5,
+  button[xx] ~ h5,
+  input[type=submit] ~ h5,
+  [btn] ~ h5,
+  button:not([class]) ~ h6,
+  button[xx] ~ h6,
+  input[type=submit] ~ h6,
+  [btn] ~ h6 {
+    margin-top: 2rem;
+  }
+}
+button:not([class])[data-right],
+button[xx][data-right],
+input[type=submit][data-right],
+[btn][data-right] {
+  float: right;
+  z-index: 100;
+}
+button:not([class]):disabled,
+button[xx]:disabled,
+input[type=submit]:disabled,
+[btn]:disabled,
+button:not([class]).disabled,
+button[xx].disabled,
+input[type=submit].disabled,
+[btn].disabled {
+  border-color: #C5C3C6;
+  background: #C5C3C6;
+  color: #46494C;
+  cursor: default;
+}
+/*	card
+----------------------------------------------------------------------*/
+card {
+  display: block;
+  padding: 2rem;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  margin-bottom: 2rem;
+}
+card hr:not([class]),
+card hr[xx] {
+  margin: 1rem 0;
+}
+card:last-child {
+  margin-bottom: 0;
+}
+card > img:not([class]),
+card > img[xx] {
+  width: calc(100% + 4rem);
+  max-width: none;
+  margin: 0 0 2rem -2rem;
+  display: block;
+}
+card > img:not([class]):first-child,
+card > img[xx]:first-child {
+  margin: -2rem 0 2rem -2rem;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+card > img:not([class]):last-child,
+card > img[xx]:last-child {
+  margin: 0 0 -2rem -2rem;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+/*	code
+----------------------------------------------------------------------*/
+code:not([class]),
+code[xx] {
+  display: inline-block;
+  background: #f8f7f8;
+  border: 1px solid #C5C3C6;
+  padding: 0 0.5rem;
+  color: #000000;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  font-family: monospace;
+  border-radius: 2px;
+  text-transform: none;
+  font-weight: 300;
+}
+pre:not([class]) code,
+pre[xx] code {
+  padding: 2rem;
+  border: none;
+  border-left: 4px solid #1985A1;
+  border-radius: 0;
+  width: 100%;
+  display: block;
+}
+/*	footer
+----------------------------------------------------------------------*/
+footer {
+  color: #fff;
+  width: 100%;
+  max-width: 90rem;
+  margin: auto;
+  padding: 2rem;
+  overflow: visible;
+}
+footer:before {
+  content: "";
+  background: #1985A1;
+  width: 102vw;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, 0);
+}
+/*	grid
+----------------------------------------------------------------------*/
+grid {
+  display: block;
+  font-size: 0;
+  width: auto;
+  margin: -1rem;
+}
+grid grid:not(:first-child) {
+  margin: 1rem -1rem 0;
+}
+[local="1/12"] {
+  width: 8.33333333%;
+}
+[local="2/12"],
+[local="1/6"] {
+  width: 16.66666667%;
+}
+[local="3/12"],
+[local="1/4"] {
+  width: 25%;
+}
+[local="4/12"],
+[local="2/6"],
+[local="1/3"] {
+  width: 33.33333333%;
+}
+[local="5/12"] {
+  width: 41.66666667%;
+}
+[local="6/12"],
+[local="3/6"],
+[local="2/4"],
+[local="1/2"] {
+  width: 50%;
+}
+[local="7/12"] {
+  width: 58.33333333%;
+}
+[local="8/12"],
+[local="4/6"],
+[local="2/3"] {
+  width: 66.66666667%;
+}
+[local="9/12"],
+[local="3/4"] {
+  width: 75%;
+}
+[local="10/12"],
+[local="5/6"] {
+  width: 83.33333333%;
+}
+[local="11/12"] {
+  width: 91.66666667%;
+}
+[local="1/1"] {
+  width: 100%;
+}
+[data-pull-left="1/12"] {
+  left: 8.33333333%;
+}
+[data-pull-left="2/12"],
+[data-pull-left="1/6"] {
+  left: 16.66666667%;
+}
+[data-pull-left="3/12"],
+[data-pull-left="1/4"] {
+  left: 25%;
+}
+[data-pull-left="4/12"],
+[data-pull-left="2/6"],
+[data-pull-left="1/3"] {
+  left: 33.33333333%;
+}
+[data-pull-left="5/12"] {
+  left: 41.66666667%;
+}
+[data-pull-left="6/12"],
+[data-pull-left="3/6"],
+[data-pull-left="2/4"],
+[data-pull-left="1/2"] {
+  left: 50%;
+}
+[data-pull-left="7/12"] {
+  left: 58.33333333%;
+}
+[data-pull-left="8/12"],
+[data-pull-left="4/6"],
+[data-pull-left="2/3"] {
+  left: 66.66666667%;
+}
+[data-pull-left="9/12"],
+[data-pull-left="3/4"] {
+  left: 75%;
+}
+[data-pull-left="10/12"],
+[data-pull-left="5/6"] {
+  left: 83.33333333%;
+}
+[data-pull-left="11/12"] {
+  left: 91.66666667%;
+}
+[data-pull-left="1/1"] {
+  left: 100%;
+}
+[local] {
+  display: inline-block;
+  font-size: 1.4rem;
+  padding: 1rem;
+  vertical-align: top;
+}
+@media (max-width: 50rem) {
+  [local]:not([fx]) {
+    width: 100%;
+    left: inherit;
+  }
+}
+/*	inputs
+----------------------------------------------------------------------*/
+label:not([class]),
+label[xx] {
+  display: inline-block;
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-top: 1rem;
+}
+label:not([class]):first-child,
+label[xx]:first-child {
+  margin-top: 0;
+}
+input:not([type=radio]):not([type=checkbox]):not([type=button]):not([type=submit]):not([class]),
+input:not([type=radio]):not([type=checkbox]):not([type=button]):not([type=submit])[xx] {
+  display: inline-block;
+  background: transparent;
+  width: 100%;
+  padding: 0.5rem 0 1rem;
+  margin-bottom: 2rem;
+  border: none;
+  border-bottom: 1px solid #C5C3C6;
+  font-size: 1.4rem;
+  font-weight: 300;
+  border-radius: 0;
+}
+input:not([type=radio]):not([type=checkbox]):not([type=button]):not([type=submit]):not([class]):focus,
+input:not([type=radio]):not([type=checkbox]):not([type=button]):not([type=submit])[xx]:focus,
+input:not([type=radio]):not([type=checkbox]):not([type=button]):not([type=submit]):not([class]):hover,
+input:not([type=radio]):not([type=checkbox]):not([type=button]):not([type=submit])[xx]:hover {
+  color: #1985A1;
+  border-color: #1985A1;
+  outline: 0;
+}
+textarea:not([class]),
+textarea[xx] {
+  display: inline-block;
+  background: transparent;
+  width: 100%;
+  padding: 0.5rem 0 1rem;
+  margin-bottom: 2rem;
+  border: none;
+  border-bottom: 1px solid #C5C3C6;
+  font-size: 1.4rem;
+  font-weight: 300;
+  border-radius: 0;
+  min-height: 8rem;
+  border-right: 1px solid #C5C3C6;
+  padding-right: 2rem;
+  border-bottom-right-radius: 0.5rem;
+}
+textarea:not([class]):focus,
+textarea[xx]:focus,
+textarea:not([class]):hover,
+textarea[xx]:hover {
+  color: #1985A1;
+  border-color: #1985A1;
+  outline: 0;
+}
+select:not([class]),
+select[xx] {
+  padding: 0.5rem 3rem 0.5rem 1rem;
+  display: block;
+  width: 100%;
+  border: 1px solid #C5C3C6;
+  background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path d="M14.83 16.42L24 25.59l9.17-9.17L36 19.25l-12 12-12-12z"/></svg>') no-repeat right 1rem center;
+  background-size: 2rem;
+  border-radius: 2px;
+  height: 4rem;
+  font-size: 1.4rem;
+  font-weight: 300;
+  text-indent: 0.5rem;
+  margin: 0.5rem 0 2rem;
+  appearance: none;
+  cursor: pointer;
+}
+select:not([class]):focus,
+select[xx]:focus,
+select:not([class]):hover,
+select[xx]:hover {
+  border-color: #1985A1;
+  outline: 0;
+}
+input:not([class])[type=text][required] + span:after,
+input[xx][type=text][required] + span:after,
+input:not([class])[type=text][required] + span:after,
+input[xx][type=text][required] + span:after,
+input:not([class])[type=password][required] + span:after,
+input[xx][type=password][required] + span:after,
+input:not([class])[type=password][required] + span:after,
+input[xx][type=password][required] + span:after {
+  display: block;
+  content: "*";
+  position: absolute;
+  pointer-events: none;
+  width: 2rem;
+  height: 2rem;
+  right: -1rem;
+  top: 0rem;
+  color: #1985A1;
+  font-size: 2rem;
+}
+input[type=radio]:not([class]),
+input[type=checkbox]:not([class]),
+input[type=radio][xx],
+input[type=checkbox][xx] {
+  z-index: 2;
+  opacity: 0;
+  margin-right: -2rem;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: middle;
+  cursor: pointer;
+}
+input[type=radio]:not([class]) + label,
+input[type=checkbox]:not([class]) + label,
+input[type=radio][xx] + label,
+input[type=checkbox][xx] + label {
+  width: auto;
+  text-transform: none;
+}
+input[type=radio]:not([class]) + label:before,
+input[type=checkbox]:not([class]) + label:before,
+input[type=radio][xx] + label:before,
+input[type=checkbox][xx] + label:before {
+  content: "";
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #46494C;
+  background: #fff;
+  vertical-align: middle;
+  margin-right: 1rem;
+}
+input[type=radio]:not([class]) + label:after,
+input[type=checkbox]:not([class]) + label:after,
+input[type=radio][xx] + label:after,
+input[type=checkbox][xx] + label:after {
+  content: "";
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  width: 1.6rem;
+  height: 1.6rem;
+  left: 2px;
+  top: 4px;
+  transform: scale(0);
+}
+input[type=radio] :not([class]) + label,
+input[type=radio] [xx] + label {
+  font-size: 1.4rem;
+  font-weight: 200;
+}
+input[type=radio] :not([class]) + label:before,
+input[type=radio] [xx] + label:before {
+  border-radius: 100%;
+}
+input[type=radio] :not([class]):checked + label:before,
+input[type=radio] [xx]:checked + label:before {
+  background: #1985A1;
+  border-color: #1985A1;
+}
+input[type=radio] :not([class]):checked + label:after,
+input[type=radio] [xx]:checked + label:after {
+  opacity: 1;
+  visibility: visible;
+  background: #1985A1;
+  border: 1px solid #fff;
+  border-radius: 100%;
+  transform: scale(1);
+  top: 0.5rem;
+}
+input[type=checkbox] :not([class]) + label,
+input[type=checkbox] [xx] + label {
+  font-size: 1.4rem;
+  font-weight: 200;
+}
+input[type=checkbox] :not([class]) + label:before,
+input[type=checkbox] [xx] + label:before {
+  border-radius: 2px;
+}
+input[type=checkbox] :not([class]) + label:after,
+input[type=checkbox] [xx] + label:after {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#fff" d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>') no-repeat center center;
+  border-radius: 100%;
+  background-size: 100%;
+}
+input[type=checkbox] :not([class]):checked + label:before,
+input[type=checkbox] [xx]:checked + label:before {
+  background: #1985A1;
+  border-color: #1985A1;
+}
+input[type=checkbox] :not([class]):checked + label:after,
+input[type=checkbox] [xx]:checked + label:after {
+  opacity: 1;
+  visibility: visible;
+  left: 2px;
+  top: 0.5rem;
+  transform: scale(1);
+}
+/*	layouts
+----------------------------------------------------------------------*/
+img:not([class]),
+img[xx] {
+  height: auto;
+  max-width: 100%;
+}
+section:not([class]),
+section[xx] {
+  margin: auto;
+  padding: 2rem 2rem;
+  width: 100%;
+}
+page:not([class]),
+page[xx] {
+  left: 22rem;
+  position: fixed;
+  right: 2rem;
+  top: 4.4rem;
+  bottom: 0rem;
+  overflow: auto;
+}
+p:not([class]),
+p[xx] {
+  margin: 0 0 2rem;
+}
+p:not([class]):last-child,
+p[xx]:last-child {
+  margin: 0;
+}
+hr:not([class]),
+hr[xx] {
+  background: #C5C3C6;
+  border: none;
+  width: 100%;
+  height: 1px;
+  margin: 4rem 0;
+}
+@media (max-width: 50rem) {
+  page:not([class]),
+  page[xx] {
+    left: 2rem;
+  }
+}
+/*	lists
+----------------------------------------------------------------------*/
+il:not([class]),
+il[xx] {
+  display: flex;
+  flex-direction: row;
+}
+il:not([class]) li,
+il[xx] li {
+  display: block;
+  flex-grow: 1;
+}
+il:not([class]) li a,
+il[xx] li a {
+  margin-left: 5%;
+  color: #1985A1;
+}
+@media (max-width: 50rem) {
+  il:not([class]),
+  il[xx] {
+    display: block;
+  }
+  il:not([class]) li,
+  il[xx] li {
+    padding: 1rem;
+    display: block;
+  }
+  il:not([class]) li a,
+  il[xx] li a {
+    position: absolute;
+    right: 1rem;
+  }
+  il:not([class]) li:nth-child(even),
+  il[xx] li:nth-child(even) {
+    background-color: #ebeaeb;
+  }
+}
+ul:not([class]),
+ol:not([class]),
+ul[xx],
+ol[xx] {
+  padding-left: 2rem;
+  margin: 0 0 2rem;
+}
+ul:not([class]) ul,
+ol:not([class]) ul,
+ul[xx] ul,
+ol[xx] ul,
+ul:not([class]) ol,
+ol:not([class]) ol,
+ul[xx] ol,
+ol[xx] ol {
+  margin-bottom: 0;
+}
+ul:not([class]),
+ul[xx] {
+  list-style: disc;
+}
+ul:not([class]) ul,
+ul[xx] ul {
+  list-style: circle;
+}
+ol:not([class]),
+ol[xx] {
+  list-style: decimal;
+}
+ol:not([class]) ol,
+ol[xx] ol {
+  list-style: lower-alpha;
+}
+auto-complete:not([class]),
+auto-complete[xx] {
+  position: absolute;
+  top: 3.3rem;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  font-size: 1.2rem;
+  list-style: none;
+}
+auto-complete:not([class]) li,
+auto-complete[xx] li {
+  padding: 0.25rem 1rem 0;
+  color: #4C5C68;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/*	navigation
+----------------------------------------------------------------------*/
+nav:not([class]),
+nav[xx],
+sidebar:not([class]),
+sidebar[xx] {
+  background: #fff;
+  color: #2e3538;
+  padding: 0 2rem;
+  border-bottom: 1px solid #1985A1;
+  z-index: 10;
+  min-height: 4.4rem;
+}
+nav:not([class])[fx],
+nav[xx][fx],
+sidebar:not([class])[fx],
+sidebar[xx][fx] {
+  background: rgba(255, 255, 255, 0.95);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 11;
+}
+nav:not([class]) label,
+nav[xx] label,
+sidebar:not([class]) label,
+sidebar[xx] label {
+  margin: auto;
+  display: block;
+}
+nav:not([class]) label > input,
+nav[xx] label > input,
+sidebar:not([class]) label > input,
+sidebar[xx] label > input {
+  display: none;
+}
+nav:not([class]) ul,
+nav[xx] ul,
+sidebar:not([class]) ul,
+sidebar[xx] ul {
+  padding: 0 2rem;
+  margin: 0;
+  font-size: 0;
+  text-align: right;
+}
+nav:not([class]) ul li,
+nav[xx] ul li,
+sidebar:not([class]) ul li,
+sidebar[xx] ul li {
+  display: inline-block;
+  font-size: 1.4rem;
+  color: #fff;
+}
+nav:not([class]) ul li[fx],
+nav[xx] ul li[fx],
+sidebar:not([class]) ul li[fx],
+sidebar[xx] ul li[fx] {
+  color: #fff;
+  font-weight: bold;
+  background-color: #1985A1;
+}
+nav:not([class]) ul li ul,
+nav[xx] ul li ul,
+sidebar:not([class]) ul li ul,
+sidebar[xx] ul li ul {
+  padding: 0;
+  margin: 0;
+  background: #151617;
+  z-index: 2;
+  text-align: left;
+  white-space: nowrap;
+  min-width: 100%;
+}
+nav:not([class]) ul li ul li,
+nav[xx] ul li ul li,
+sidebar:not([class]) ul li ul li,
+sidebar[xx] ul li ul li {
+  display: block;
+  border-top: none;
+  border-left: 4px solid transparent;
+}
+nav:not([class]) ul li ul li:hover,
+nav[xx] ul li ul li:hover,
+sidebar:not([class]) ul li ul li:hover,
+sidebar[xx] ul li ul li:hover {
+  border-color: #1985A1;
+  background-color: #46494C;
+}
+nav:not([class]) ul li ul li a,
+nav[xx] ul li ul li a,
+sidebar:not([class]) ul li ul li a,
+sidebar[xx] ul li ul li a {
+  text-transform: none;
+  padding: 0.5rem 2rem 0.5rem 2.6rem;
+  border: none;
+  font-size: 1.2rem;
+}
+@media (min-width: 50.1rem) {
+  nav:not([class]) ul li:hover menu,
+  nav[xx] ul li:hover menu,
+  sidebar:not([class]) ul li:hover menu,
+  sidebar[xx] ul li:hover menu,
+  nav:not([class]) ul menu:hover,
+  nav[xx] ul menu:hover,
+  sidebar:not([class]) ul menu:hover,
+  sidebar[xx] ul menu:hover {
+    visibility: visible;
+    opacity: 1;
+    transform: translate3d(0, -1rem, 0);
+    pointer-events: auto;
+  }
+}
+nav:not([class]) ul label,
+nav[xx] ul label,
+sidebar:not([class]) ul label,
+sidebar[xx] ul label {
+  text-decoration: none;
+  text-transform: none;
+  padding: 0.8rem 2rem 0.4rem;
+  display: block;
+  color: #1985A1;
+  font-size: 1.4rem;
+}
+nav:not([class]) ul a,
+nav[xx] ul a,
+sidebar:not([class]) ul a,
+sidebar[xx] ul a {
+  text-decoration: none;
+  text-transform: none;
+  padding: 0.8rem 2rem 0.4rem;
+  border-bottom: 4px solid transparent;
+  display: block;
+  cursor: pointer;
+  font-weight: 300;
+}
+@media (min-width: 50.1rem) {
+  nav:not([class]) ul a:not(:only-child),
+  nav[xx] ul a:not(:only-child),
+  sidebar:not([class]) ul a:not(:only-child),
+  sidebar[xx] ul a:not(:only-child) {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path d="M14.83 16.42L24 25.59l9.17-9.17L36 19.25l-12 12-12-12z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 1.5rem;
+    background-size: 2rem;
+    padding-right: 3rem;
+  }
+}
+nav:not([class]) ul a:hover,
+nav[xx] ul a:hover,
+sidebar:not([class]) ul a:hover,
+sidebar[xx] ul a:hover {
+  color: #fff;
+  border-color: #1985A1;
+  background-color: #1985A1;
+}
+nav:not([class]) menu,
+nav[xx] menu,
+sidebar:not([class]) menu,
+sidebar[xx] menu {
+  padding: 0;
+  margin: 0;
+  background: #fff;
+  z-index: 2;
+  text-align: left;
+  white-space: nowrap;
+  min-width: 100%;
+}
+@media (min-width: 50.1rem) {
+  nav:not([class]) menu,
+  nav[xx] menu,
+  sidebar:not([class]) menu,
+  sidebar[xx] menu {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+    transform: translate3d(0, -2rem, 0);
+    pointer-events: none;
+  }
+}
+nav:not([class]) menu menuitem,
+nav[xx] menu menuitem,
+sidebar:not([class]) menu menuitem,
+sidebar[xx] menu menuitem,
+nav:not([class]) menu mi,
+nav[xx] menu mi,
+sidebar:not([class]) menu mi,
+sidebar[xx] menu mi {
+  display: block;
+  border-left: 4px solid transparent;
+}
+nav:not([class]) menu menuitem:hover,
+nav[xx] menu menuitem:hover,
+sidebar:not([class]) menu menuitem:hover,
+sidebar[xx] menu menuitem:hover,
+nav:not([class]) menu mi:hover,
+nav[xx] menu mi:hover,
+sidebar:not([class]) menu mi:hover,
+sidebar[xx] menu mi:hover {
+  border-color: #1985A1;
+  background-color: #f8f7f8;
+}
+nav:not([class]) menu menuitem:hover a,
+nav[xx] menu menuitem:hover a,
+sidebar:not([class]) menu menuitem:hover a,
+sidebar[xx] menu menuitem:hover a,
+nav:not([class]) menu mi:hover a,
+nav[xx] menu mi:hover a,
+sidebar:not([class]) menu mi:hover a,
+sidebar[xx] menu mi:hover a {
+  transform: translate3d(0.5rem, 0, 0);
+}
+nav:not([class]) menu menuitem a,
+nav[xx] menu menuitem a,
+sidebar:not([class]) menu menuitem a,
+sidebar[xx] menu menuitem a,
+nav:not([class]) menu mi a,
+nav[xx] menu mi a,
+sidebar:not([class]) menu mi a,
+sidebar[xx] menu mi a {
+  text-transform: none;
+  padding: 0.5rem 2rem 0.5rem 1.6rem;
+  border: none;
+  font-size: 1.2rem;
+}
+nav:not([class]) header:before,
+nav[xx] header:before,
+sidebar:not([class]) header:before,
+sidebar[xx] header:before,
+nav:not([class]) header:after,
+nav[xx] header:after,
+sidebar:not([class]) header:after,
+sidebar[xx] header:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  width: 4.4rem;
+  height: 4.4rem;
+  display: none;
+  background-size: 3rem;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+nav:not([class]) header:before,
+nav[xx] header:before,
+sidebar:not([class]) header:before,
+sidebar[xx] header:before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path fill="#2e3538" d="M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z"/></svg>');
+}
+nav:not([class]) header:after,
+nav[xx] header:after,
+sidebar:not([class]) header:after,
+sidebar[xx] header:after {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path d="M38 12.83L35.17 10 24 21.17 12.83 10 10 12.83 21.17 24 10 35.17 12.83 38 24 26.83 35.17 38 38 35.17 26.83 24z"/></svg>');
+  opacity: 0;
+  transform: rotate(180deg);
+}
+nav:not([class]) header a,
+nav[xx] header a,
+sidebar:not([class]) header a,
+sidebar[xx] header a {
+  position: absolute;
+  top: 1rem;
+  bottom: 1rem;
+  cursor: pointer;
+  z-index: 2;
+  font-size: 1.6rem;
+  text-decoration: none;
+}
+nav:not([class]) header a strong,
+nav[xx] header a strong,
+sidebar:not([class]) header a strong,
+sidebar[xx] header a strong {
+  color: #1985A1;
+}
+nav:not([class]) header a img,
+nav[xx] header a img,
+sidebar:not([class]) header a img,
+sidebar[xx] header a img {
+  height: 2rem;
+  vertical-align: middle;
+  top: -1px;
+  margin-right: 1rem;
+}
+sidebar:not([class]) {
+  border: none;
+}
+sidebar:not([class]) > ul {
+  position: fixed;
+  top: 4.4rem;
+  left: 0;
+  bottom: 0;
+  padding: 0;
+  transform: translate3d(0%, 0, 0);
+  border-top: none;
+  text-align: left;
+  background: #151617;
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.8);
+  overflow-x: visible;
+  overflow-y: auto;
+  width: 20rem;
+  z-index: 200;
+}
+sidebar:not([class]) > ul li {
+  display: block;
+  border-top: 1px solid #4C5C68;
+}
+sidebar:not([class]) > ul a {
+  padding: 1rem 6rem 1rem 2rem;
+  border: none;
+}
+@media (max-width: 50rem) {
+  body {
+    padding-top: 4.4rem;
+  }
+  nav:not([class]),
+  nav[xx] {
+    position: fixed;
+    padding: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  nav:not([class]) header,
+  nav[xx] header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  nav:not([class]) header:before,
+  nav[xx] header:before,
+  nav:not([class]) header:after,
+  nav[xx] header:after {
+    display: block;
+  }
+  nav:not([class]) header a,
+  nav[xx] header a {
+    left: 6rem;
+  }
+  nav:not([class]) label,
+  nav[xx] label {
+    height: 4.4rem;
+  }
+  nav:not([class]) label > ul,
+  nav[xx] label > ul {
+    position: fixed;
+    top: 4.4rem;
+    right: 0;
+    bottom: 0;
+    padding: 0;
+    transform: translate3d(100%, 0, 0);
+    border-top: 1px solid #1985A1;
+    text-align: left;
+    background: #fff;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+    overflow-x: visible;
+    overflow-y: auto;
+  }
+  nav:not([class]) label > ul li,
+  nav[xx] label > ul li {
+    display: block;
+    border-top: 1px solid #C5C3C6;
+  }
+  nav:not([class]) label > ul a,
+  nav[xx] label > ul a {
+    padding: 1rem 6rem 1rem 2rem;
+    border: none;
+  }
+  nav:not([class]) label input:checked ~ ul,
+  nav[xx] label input:checked ~ ul {
+    transform: none;
+  }
+  nav:not([class]) label input:checked ~ header:before,
+  nav[xx] label input:checked ~ header:before {
+    transform: rotate(-180deg);
+    opacity: 0;
+  }
+  nav:not([class]) label input:checked ~ header:after,
+  nav[xx] label input:checked ~ header:after {
+    transform: none;
+    opacity: 1;
+  }
+  nav:not([class]) label menu menuitem,
+  nav[xx] label menu menuitem,
+  nav:not([class]) label menu mi,
+  nav[xx] label menu mi {
+    border-color: #C5C3C6;
+  }
+  nav:not([class]) label menu a,
+  nav[xx] label menu a {
+    padding-left: 4rem;
+  }
+}
+/*	table
+----------------------------------------------------------------------*/
+table:not([class]),
+table[xx] {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 2rem;
+  text-align: left;
+  overflow: hidden;
+  font-size: 1.4rem;
+}
+table:not([class]) th,
+table[xx] th,
+table:not([class]) td,
+table[xx] td,
+table:not([class]) tdp,
+table[xx] tdp {
+  border-bottom: 2px solid #ebeaeb;
+  padding: 1rem;
+}
+table:not([class]) th,
+table[xx] th {
+  font-weight: 700;
+  color: #1985A1;
+}
+table:not([class]) th:before,
+table[xx] th:before {
+  content: "";
+  width: 100%;
+  height: 10000%;
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  background: #f8f7f8;
+  z-index: -1;
+  opacity: 0;
+  visibility: hidden;
+}
+table:not([class]) th:hover:before,
+table[xx] th:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+table:not([class]) td,
+table[xx] td,
+table:not([class]) tdp,
+table[xx] tdp {
+  border-bottom-width: 1px;
+}
+table:not([class]) td a,
+table[xx] td a,
+table:not([class]) tdp a,
+table[xx] tdp a {
+  color: #1985A1;
+  display: block;
+}
+table:not([class]) td[data-fixed-small],
+table[xx] td[data-fixed-small],
+table:not([class]) tdp[data-fixed-small],
+table[xx] tdp[data-fixed-small] {
+  max-width: 10rem;
+  width: 10rem;
+}
+table:not([class]) tdp,
+table[xx] tdp {
+  padding-left: 3rem;
+  display: table-cell;
+  vertical-align: middle;
+}
+table:not([class]) tdp span,
+table[xx] tdp span {
+  color: #C5C3C6;
+  font-size: 1.2rem;
+  left: -2.5rem;
+  top: .3rem;
+  width: 0;
+  height: 0;
+  position: relative;
+  display: block;
+}
+table:not([class]) tbody tr:hover,
+table[xx] tbody tr:hover {
+  background: #f8f7f8;
+}
+table:not([class]) tr[data-state="0"],
+table[xx] tr[data-state="0"] {
+  background-color: #cbedd8;
+}
+table:not([class]) tr[data-state="1"],
+table[xx] tr[data-state="1"] {
+  background-color: #f5efc4;
+}
+table:not([class]) tr[data-state="2"],
+table[xx] tr[data-state="2"] {
+  background-color: #f8dbd7;
+}
+/*	table
+----------------------------------------------------------------------*/
+dl:not([class]),
+dl[xx] {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 2rem;
+  text-align: left;
+  overflow: hidden;
+}
+dl:not([class]) dt,
+dl[xx] dt,
+dl:not([class]) dd,
+dl[xx] dd {
+  box-sizing: border-box;
+  border-bottom: 1px solid #C5C3C6;
+  padding: 1rem;
+}
+dl:not([class]) dt,
+dl[xx] dt {
+  float: left;
+  clear: left;
+  width: 20%;
+  font-weight: 700;
+  color: #000000;
+}
+dl:not([class]) dt:hover,
+dl[xx] dt:hover {
+  background: #f8f7f8;
+}
+dl:not([class]) dt:hover + dd,
+dl[xx] dt:hover + dd {
+  background: #f8f7f8;
+}
+dl:not([class]) dt:before,
+dl[xx] dt:before {
+  content: "";
+  width: 100%;
+  height: 10000%;
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  background: #f8f7f8;
+  z-index: -1;
+  opacity: 0;
+  visibility: hidden;
+}
+dl:not([class]) dt:hover:before,
+dl[xx] dt:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+dl:not([class]) dd,
+dl[xx] dd {
+  margin: 0 0 0 20%;
+}
+dl:not([class]) dd a,
+dl[xx] dd a {
+  display: block;
+  color: #1985A1;
+}
+dl:not([class]) dd:hover,
+dl[xx] dd:hover {
+  background: #f8f7f8;
+}
+/*	tag
+----------------------------------------------------------------------*/
+tag {
+  display: inline-block;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #C5C3C6;
+  border-radius: 1.5rem;
+  background: #f8f7f8;
+  color: #1985A1;
+  padding: 0.2rem 1.2rem;
+  margin: 0 0.5rem 0.5rem 0;
+}
+/*	tooltip
+----------------------------------------------------------------------*/
+[tt],
+[dtt]:disabled,
+[att] {
+  overflow: visible;
+}
+[tt]:after,
+[dtt]:disabled:after,
+[att]:after {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 2;
+  background: #000000;
+  border-radius: 3px;
+  color: #fff;
+  font-family: sans-serif;
+  font-size: 1.2rem;
+  line-height: 2.5;
+  font-weight: 300;
+  letter-spacing: 0;
+  white-space: nowrap;
+  padding: 0 1rem;
+  transform: translate(-50%, -95%);
+  text-transform: none;
+}
+[tt]:hover:after,
+[dtt]:disabled:hover:after,
+[att]:hover:after {
+  opacity: 0.9;
+  visibility: visible;
+  transform: translate(-50%, calc(-100% - 5px));
+}
+[tt]:after {
+  content: attr(tt);
+}
+[dtt]:disabled:after {
+  content: attr(dtt);
+}
+[att]:after {
+  content: attr(href);
+}
+/*	transitions
+----------------------------------------------------------------------*/
+a,
+button,
+input,
+menu,
+menuitem,
+mi,
+textarea,
+select,
+tr,
+ul,
+:before,
+:after {
+  transition: all 0.3s ease-in-out;
+}
+/* typography
+----------------------------------------------------------------------*/
+h1:not([class]),
+h1[xx] {
+  font-size: 4rem;
+  letter-spacing: -1px;
+  margin: 0;
+}
+h1:not([class]) sub,
+h1[xx] sub {
+  color: #C5C3C6;
+  margin-left: 2rem;
+  vertical-align: inherit;
+}
+h2:not([class]),
+h2[xx] {
+  font-size: 3rem;
+  letter-spacing: -0.05rem;
+  margin: 0;
+}
+h2:not([class]) sub,
+h2[xx] sub {
+  color: #C5C3C6;
+  margin-left: 2rem;
+  vertical-align: inherit;
+}
+h3:not([class]),
+h3[xx] {
+  font-size: 2.5rem;
+  letter-spacing: -0.05rem;
+  margin: 0;
+}
+h3:not([class]) sub,
+h3[xx] sub {
+  color: #C5C3C6;
+  margin-left: 2rem;
+  vertical-align: inherit;
+}
+h4:not([class]),
+h4[xx] {
+  font-size: 2rem;
+  letter-spacing: -0.05rem;
+  margin: 0;
+}
+h4:not([class]) sub,
+h4[xx] sub {
+  color: #C5C3C6;
+  margin-left: 2rem;
+  vertical-align: inherit;
+}
+h5:not([class]),
+h5[xx] {
+  font-size: 1.4rem;
+  letter-spacing: 0rem;
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+h5:not([class]) sub,
+h5[xx] sub {
+  color: #C5C3C6;
+  margin-left: 2rem;
+  vertical-align: inherit;
+}
+h6:not([class]),
+h6[xx] {
+  font-size: 1.4rem;
+  letter-spacing: 0rem;
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+h6:not([class]) sub,
+h6[xx] sub {
+  color: #C5C3C6;
+  margin-left: 2rem;
+  vertical-align: inherit;
+}
+/*	buttons
+----------------------------------------------------------------------*/
+message:not([class]),
+message[xx] {
+  display: block;
+  padding: 2rem;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  margin-bottom: 2rem;
+  border-top: 5px solid #1985A1;
+}
+message:not([class])[data-success],
+message[xx][data-success] {
+  border-top: 5px solid #4BB543;
+}
+message:not([class])[data-warning],
+message[xx][data-warning] {
+  border-top: 5px solid #FF0000;
+}
+message:not([class]) hr:not([class]),
+message[xx] hr:not([class]),
+message:not([class]) hr[xx],
+message[xx] hr[xx] {
+  margin: 1rem 0;
+}
+message:not([class]):last-child,
+message[xx]:last-child {
+  margin-bottom: 0;
+}
+message:not([class]) > img:not([class]),
+message[xx] > img:not([class]),
+message:not([class]) > img[xx],
+message[xx] > img[xx] {
+  width: calc(100% + 4rem);
+  max-width: none;
+  margin: 0 0 2rem -2rem;
+  display: block;
+}
+message:not([class]) > img:not([class]):first-child,
+message[xx] > img:not([class]):first-child,
+message:not([class]) > img[xx]:first-child,
+message[xx] > img[xx]:first-child {
+  margin: -2rem 0 2rem -2rem;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+message:not([class]) > img:not([class]):last-child,
+message[xx] > img:not([class]):last-child,
+message:not([class]) > img[xx]:last-child,
+message[xx] > img[xx]:last-child {
+  margin: 0 0 -2rem -2rem;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+/*	utility classes (use with xx)
+----------------------------------------------------------------------*/
+[full] {
+  width: 100%;
+}
+[hidden] {
+  display: none;
+}
+[serif] {
+  font-family: serif;
+}
+[sans] {
+  font-family: sans-serif;
+}
+[mono] {
+  font-family: monospace;
+}
+[fs=xs] {
+  font-size: 1.1rem;
+}
+[fs=s] {
+  font-size: 1.2rem;
+}
+[fs=m] {
+  font-size: 1.4rem;
+}
+[fs=l] {
+  font-size: 1.6rem;
+}
+[fs=xl] {
+  font-size: 2.4rem;
+}
+[mt=0] {
+  margin-top: 0;
+}
+[mt=2] {
+  margin-top: 2rem;
+}
+[mt=4] {
+  margin-top: 4rem;
+}
+[mt=8] {
+  margin-top: 8rem;
+}
+[mb=0] {
+  margin-bottom: 0;
+}
+[mb=2] {
+  margin-bottom: 2rem;
+}
+[mb=4] {
+  margin-bottom: 4rem;
+}
+[mb=8] {
+  margin-bottom: 8rem;
+}
+[pt=0] {
+  padding-top: 0;
+}
+[pt=2] {
+  padding-top: 2rem;
+}
+[pt=4] {
+  padding-top: 4rem;
+}
+[pt=8] {
+  padding-top: 8rem;
+}
+[pb=0] {
+  padding-bottom: 0;
+}
+[pb=2] {
+  padding-bottom: 2rem;
+}
+[pb=4] {
+  padding-bottom: 4rem;
+}
+[pb=8] {
+  padding-bottom: 8rem;
+}
+[pa=0] {
+  padding: 0;
+}
+[pa=2] {
+  padding: 2;
+}
+[txt=l] {
+  text-align: left;
+}
+[txt=r] {
+  text-align: right;
+}
+[txt=c] {
+  text-align: center;
+}
+[txt=j] {
+  text-align: justify;
+}
+/********************
+ * SVG CSS
+ */
+svg {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Trying to get SVG to act like a greedy block in all browsers */
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/********************
+  Default CSS for an svg element nvd3 used
+*/
+svg.nvd3-svg {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  display: block;
+}
+/********************
+  Box shadow and border radius styling
+*/
+.nvtooltip.with-3d-shadow,
+.with-3d-shadow .nvtooltip {
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+/********************
+ * TOOLTIP CSS
+ */
+.nvtooltip {
+  position: absolute;
+  background-color: #ffffff;
+  padding: 1px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  text-align: left;
+  pointer-events: none;
+  white-space: nowrap;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/*Give tooltips that old fade in transition by
+    putting a "with-transitions" class on the container div.
+*/
+.nvtooltip.with-transitions,
+.with-transitions .nvtooltip {
+  transition: opacity 50ms linear;
+  -moz-transition: opacity 50ms linear;
+  -webkit-transition: opacity 50ms linear;
+  transition-delay: 200ms;
+  -moz-transition-delay: 200ms;
+  -webkit-transition-delay: 200ms;
+}
+.nvtooltip.x-nvtooltip,
+.nvtooltip.y-nvtooltip {
+  padding: 8px;
+}
+.nvtooltip h3 {
+  margin: 0;
+  padding: 4px 14px;
+  line-height: 18px;
+  font-weight: normal;
+  background-color: rgba(247, 247, 247, 0.75);
+  text-align: center;
+  border-bottom: 1px solid #ebebeb;
+  -webkit-border-radius: 5px 5px 0 0;
+  -moz-border-radius: 5px 5px 0 0;
+  border-radius: 1px 5px 0 0;
+}
+.nvtooltip p {
+  margin: 0;
+  padding: 5px 14px;
+  text-align: center;
+}
+.nvtooltip span {
+  display: inline-block;
+  margin: 2px 0;
+}
+.nvtooltip table {
+  margin: 6px;
+  border-spacing: 0;
+}
+.nvtooltip table td {
+  padding: 2px 9px 2px 0;
+  vertical-align: middle;
+}
+.nvtooltip table td.key {
+  font-weight: normal;
+}
+.nvtooltip table td.value {
+  text-align: right;
+  font-weight: bold;
+}
+.nvtooltip table tr.highlight td {
+  padding: 1px 9px 1px 0;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-top-style: solid;
+  border-top-width: 1px;
+}
+.nvtooltip table td.legend-color-guide div {
+  width: 8px;
+  height: 8px;
+  vertical-align: middle;
+}
+.nvtooltip .footer {
+  padding: 3px;
+  text-align: center;
+}
+.nvtooltip-pending-removal {
+  position: absolute;
+  pointer-events: none;
+}
+.nvd3 text {
+  font-size: 1.2rem;
+}
+.nvd3 .title {
+  font: bold 14px Arial;
+}
+.nvd3 .nv-background {
+  fill: white;
+  fill-opacity: 0;
+}
+.nvd3.nv-noData {
+  font-weight: bold;
+}
+/**********
+*  Brush
+*/
+.nv-brush .extent {
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+/**********
+*  Legend
+*/
+.nvd3 .nv-legend .nv-series {
+  cursor: pointer;
+}
+.nvd3 .nv-legend .nv-disabled circle {
+  fill-opacity: 0;
+}
+/**********
+*  Axes
+*/
+.axis {
+  opacity: 1;
+}
+.axis.nv-disabled {
+  opacity: 0;
+}
+.nvd3 .nv-axis {
+  pointer-events: none;
+}
+.nvd3 .nv-axis path {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .75;
+  shape-rendering: crispEdges;
+}
+.nvd3 .nv-axis path.domain {
+  stroke-opacity: .75;
+}
+.nvd3 .nv-axis.nv-x path.domain {
+  stroke-opacity: 0;
+}
+.nvd3 .nv-axis line {
+  fill: none;
+  stroke: #e5e5e5;
+  shape-rendering: crispEdges;
+}
+.nvd3 .nv-axis .zero line,
+.nvd3 .nv-axis line.zero {
+  stroke-opacity: .75;
+}
+.nvd3 .nv-axis .nv-axisMaxMin text {
+  font-weight: bold;
+}
+.nvd3 .x .nv-axis .nv-axisMaxMin text,
+.nvd3 .x2 .nv-axis .nv-axisMaxMin text,
+.nvd3 .x3 .nv-axis .nv-axisMaxMin text {
+  text-anchor: middle;
+}
+/**********
+*  Brush
+*/
+.nv-brush .resize path {
+  fill: #eee;
+  stroke: #666;
+}
+/**********
+*  Bars
+*/
+.nvd3 .nv-bars .negative rect {
+  zfill: brown;
+}
+.nvd3 .nv-bars rect {
+  zfill: steelblue;
+  fill-opacity: .75;
+  transition: fill-opacity 250ms linear;
+  -moz-transition: fill-opacity 250ms linear;
+  -webkit-transition: fill-opacity 250ms linear;
+}
+.nvd3 .nv-bars rect.hover {
+  fill-opacity: 1;
+}
+.nvd3 .nv-bars .hover rect {
+  fill: lightblue;
+}
+.nvd3 .nv-bars text {
+  fill: rgba(0, 0, 0, 0);
+}
+.nvd3 .nv-bars .hover text {
+  fill: #000000;
+}
+/**********
+*  Bars
+*/
+.nvd3 .nv-multibar .nv-groups rect,
+.nvd3 .nv-multibarHorizontal .nv-groups rect,
+.nvd3 .nv-discretebar .nv-groups rect {
+  stroke-opacity: 0;
+  transition: fill-opacity 250ms linear;
+  -moz-transition: fill-opacity 250ms linear;
+  -webkit-transition: fill-opacity 250ms linear;
+}
+.nvd3 .nv-multibar .nv-groups rect:hover,
+.nvd3 .nv-multibarHorizontal .nv-groups rect:hover,
+.nvd3 .nv-discretebar .nv-groups rect:hover {
+  fill-opacity: 1;
+}
+.nvd3 .nv-discretebar .nv-groups text,
+.nvd3 .nv-multibarHorizontal .nv-groups text {
+  font-weight: bold;
+  fill: #000000;
+  stroke: rgba(0, 0, 0, 0);
+}
+/***********
+*  Pie Chart
+*/
+.nvd3.nv-pie path {
+  stroke-opacity: 0;
+  transition: fill-opacity 250ms linear, stroke-width 250ms linear, stroke-opacity 250ms linear;
+  -moz-transition: fill-opacity 250ms linear, stroke-width 250ms linear, stroke-opacity 250ms linear;
+  -webkit-transition: fill-opacity 250ms linear, stroke-width 250ms linear, stroke-opacity 250ms linear;
+}
+.nvd3.nv-pie .nv-pie-title {
+  font-size: 24px;
+  fill: rgba(19, 196, 249, 0.59);
+}
+.nvd3.nv-pie .nv-slice text {
+  stroke: #000;
+  stroke-width: 0;
+}
+.nvd3.nv-pie path {
+  stroke: #fff;
+  stroke-width: 1px;
+  stroke-opacity: 1;
+}
+.nvd3.nv-pie .hover path {
+  fill-opacity: .7;
+}
+.nvd3.nv-pie .nv-label {
+  pointer-events: none;
+}
+.nvd3.nv-pie .nv-label rect {
+  fill-opacity: 0;
+  stroke-opacity: 0;
+}
+/**********
+* Lines
+*/
+.nvd3 .nv-groups path.nv-line {
+  fill: none;
+  stroke-width: 1.5px;
+}
+.nvd3 .nv-groups path.nv-line.nv-thin-line {
+  stroke-width: 1px;
+}
+.nvd3 .nv-groups path.nv-area {
+  stroke: none;
+}
+.nvd3 .nv-line.hover path {
+  stroke-width: 6px;
+}
+.nvd3.nv-line .nvd3.nv-scatter .nv-groups .nv-point {
+  fill-opacity: 0;
+  stroke-opacity: 0;
+}
+.nvd3.nv-scatter.nv-single-point .nv-groups .nv-point {
+  fill-opacity: .5 !important;
+  stroke-opacity: .5 !important;
+}
+.with-transitions .nvd3 .nv-groups .nv-point {
+  transition: stroke-width 250ms linear, stroke-opacity 250ms linear;
+  -moz-transition: stroke-width 250ms linear, stroke-opacity 250ms linear;
+  -webkit-transition: stroke-width 250ms linear, stroke-opacity 250ms linear;
+}
+.nvd3.nv-scatter .nv-groups .nv-point.hover,
+.nvd3 .nv-groups .nv-point.hover {
+  stroke-width: 7px;
+  fill-opacity: .95 !important;
+  stroke-opacity: .95 !important;
+}
+.nvd3 .nv-point-paths path {
+  stroke: #aaa;
+  stroke-opacity: 0;
+  fill: #eee;
+  fill-opacity: 0;
+}
+.nvd3 .nv-indexLine {
+  cursor: ew-resize;
+}
+/**********
+* Distribution
+*/
+.nvd3 .nv-distribution {
+  pointer-events: none;
+}
+/**********
+*  Scatter
+*/
+.nvd3 .nv-groups .nv-point.hover {
+  stroke-width: 20px;
+  stroke-opacity: .5;
+}
+.nvd3 .nv-scatter .nv-point.hover {
+  fill-opacity: 1;
+}
+/**********
+*  Stacked Area
+*/
+.nvd3.nv-stackedarea path.nv-area {
+  fill-opacity: .7;
+  stroke-opacity: 0;
+  transition: fill-opacity 250ms linear, stroke-opacity 250ms linear;
+  -moz-transition: fill-opacity 250ms linear, stroke-opacity 250ms linear;
+  -webkit-transition: fill-opacity 250ms linear, stroke-opacity 250ms linear;
+}
+.nvd3.nv-stackedarea path.nv-area.hover {
+  fill-opacity: .9;
+}
+.nvd3.nv-stackedarea .nv-groups .nv-point {
+  stroke-opacity: 0;
+  fill-opacity: 0;
+}
+/**********
+*  Line Plus Bar
+*/
+.nvd3.nv-linePlusBar .nv-bar rect {
+  fill-opacity: .75;
+}
+.nvd3.nv-linePlusBar .nv-bar rect:hover {
+  fill-opacity: 1;
+}
+/**********
+*  Bullet
+*/
+.nvd3.nv-bullet .nv-measure {
+  fill-opacity: .8;
+}
+.nvd3.nv-bullet .nv-measure:hover {
+  fill-opacity: 1;
+}
+.nvd3.nv-bullet .nv-marker {
+  stroke: #000;
+  stroke-width: 2px;
+}
+.nvd3.nv-bullet .nv-markerTriangle {
+  stroke: #000;
+  fill: #fff;
+  stroke-width: 1.5px;
+}
+.nvd3.nv-bullet .nv-tick line {
+  stroke: #666;
+  stroke-width: .5px;
+}
+.nvd3.nv-bullet .nv-range.nv-s0 {
+  fill: #fff;
+}
+.nvd3.nv-bullet .nv-range.nv-s1 {
+  fill: #ddd;
+}
+.nvd3.nv-bullet .nv-range.nv-s2 {
+  fill: #ccc;
+}
+.nvd3.nv-bullet .nv-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+.nvd3.nv-bullet .nv-subtitle {
+  fill: #999;
+}
+.nvd3.nv-bullet .nv-range.nv-rangeMax {
+  fill: #e88c81;
+  fill-opacity: 1;
+}
+.nvd3.nv-bullet .nv-range.nv-rangeAvg {
+  fill: #7fd3a0;
+  fill-opacity: 1;
+}
+.nvd3.nv-bullet .nv-range.nv-rangeMin {
+  fill: #e6d96d;
+  fill-opacity: 1;
+}
+.nvd3.nv-bullet .nv-range {
+  fill: #bababa;
+  fill-opacity: .4;
+}
+.nvd3.nv-bullet .nv-range:hover {
+  fill-opacity: .7;
+}
+/**********
+* Sparkline
+*/
+.nvd3.nv-sparkline path {
+  fill: none;
+}
+.nvd3.nv-sparklineplus g.nv-hoverValue {
+  pointer-events: none;
+}
+.nvd3.nv-sparklineplus .nv-hoverValue line {
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+.nvd3.nv-sparklineplus,
+.nvd3.nv-sparklineplus g {
+  pointer-events: all;
+}
+.nvd3 .nv-hoverArea {
+  fill-opacity: 0;
+  stroke-opacity: 0;
+}
+.nvd3.nv-sparklineplus .nv-xValue,
+.nvd3.nv-sparklineplus .nv-yValue {
+  stroke-width: 0;
+  font-size: .9em;
+  font-weight: normal;
+}
+.nvd3.nv-sparklineplus .nv-yValue {
+  stroke: #f66;
+}
+.nvd3.nv-sparklineplus .nv-maxValue {
+  stroke: #2ca02c;
+  fill: #2ca02c;
+}
+.nvd3.nv-sparklineplus .nv-minValue {
+  stroke: #d62728;
+  fill: #d62728;
+}
+.nvd3.nv-sparklineplus .nv-currentValue {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+/**********
+* historical stock
+*/
+.nvd3.nv-ohlcBar .nv-ticks .nv-tick {
+  stroke-width: 1px;
+}
+.nvd3.nv-ohlcBar .nv-ticks .nv-tick.hover {
+  stroke-width: 2px;
+}
+.nvd3.nv-ohlcBar .nv-ticks .nv-tick.positive {
+  stroke: #2ca02c;
+}
+.nvd3.nv-ohlcBar .nv-ticks .nv-tick.negative {
+  stroke: #d62728;
+}
+.nvd3.nv-historicalStockChart .nv-axis .nv-axislabel {
+  font-weight: bold;
+}
+.nvd3.nv-historicalStockChart .nv-dragTarget {
+  fill-opacity: 0;
+  stroke: none;
+  cursor: move;
+}
+.nvd3 .nv-brush .extent {
+  fill-opacity: 0 !important;
+}
+.nvd3 .nv-brushBackground rect {
+  stroke: #000;
+  stroke-width: .4;
+  fill: #fff;
+  fill-opacity: .7;
+}
+/**********
+* Parallel Coordinates
+*/
+.nvd3 .background path {
+  fill: none;
+  stroke: #EEE;
+  stroke-opacity: .4;
+  shape-rendering: crispEdges;
+}
+.nvd3 .foreground path {
+  fill: none;
+  stroke-opacity: .7;
+}
+.nvd3 .brush .extent {
+  fill-opacity: .3;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+.nvd3 .axis line,
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.nvd3 .axis text {
+  text-shadow: 0 1px 0 #fff;
+}
+/****
+Interactive Layer
+*/
+.nvd3 .nv-interactiveGuideLine {
+  pointer-events: none;
+}
+.nvd3 line.nv-guideline {
+  stroke: #ccc;
+}
