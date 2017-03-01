@@ -13,3 +13,8 @@
          :shooter/last-name      (last-name)
          :shooter/preferred-name (last-name)
          :shooter/club           (string)}))
+
+(defn gen-range
+  ([] (gen-range (rand-int 99999)))
+  ([id] {:range/id          id
+         :range/description (string)}))

@@ -13,7 +13,10 @@
 
 ; Spec error mapping for human readable messages
 (def ^:private explain {::shooter-create {:shooter/first-name "A first name is required."
-                                          :shooter/last-name  "A last name is requried."}})
+                                          :shooter/last-name  "A last name is requried."}
+                        ::ranges-create  {:range/description "A description is required."}})
+
+
 
 ;----------------------------------------
 ; SPEC VALIDATOR AND EXPLAIN
@@ -73,6 +76,8 @@
 (s/def :shooter/last-name non-empty-string)
 (s/def :shooter/preferred-name string?)
 (s/def :shooter/club string?)
+
+(s/def :range/description non-empty-string)
 ;----------------------------------------
 ; API END POINTS
 ;----------------------------------------
@@ -84,3 +89,7 @@
           :shooter/first-name]
     :opt [:shooter/preferred-name
           :shooter/club]))
+
+(s/def ::ranges-create
+  (s/keys
+    :req [:range/description]))
