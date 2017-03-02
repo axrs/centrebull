@@ -28,7 +28,7 @@
 
     (GET "/:competition--id" {:as request}
       :spec :centrebull.spec/competition-id-only
-      (competitions/find request))))
+      (competitions/find request)))
 
   (context "/ranges" []
     (POST "/" {:as request}
