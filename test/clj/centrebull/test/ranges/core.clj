@@ -16,7 +16,7 @@
   (testing "ranges-delete!"
     (let [id (uuid)
           expected (gen-range id)]
-      (with-redefs [dao/delete! (mock-dao/delete id expected)]
+      (with-redefs [dao/delete! (mock-dao/delete! id expected)]
         (let [{:keys [status body]} (ranges/delete! {:all-params expected})]
           (is (= body expected))
           (is (= status 200)))))))
