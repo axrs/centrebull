@@ -33,4 +33,7 @@
   (context "/ranges" []
     (POST "/" {:as request}
       :spec :centrebull.spec/ranges-create
-      (ranges/create! request))))
+      (ranges/create! request))
+    (DELETE "/:range--id" {:as request}
+      :spec :centrebull.spec/range-id-only
+      (ranges/delete! request))))
