@@ -3,6 +3,7 @@
     [clojure.test :refer :all]
     [centrebull.ranges.core :as ranges]
     [centrebull.db.ranges :as dao]
+    [centrebull.test.util :refer [uuid]]
     [centrebull.test.mock-generators :refer :all]
     [centrebull.test.db.ranges :as mock-dao]))
 
