@@ -12,5 +12,11 @@
       (with-redefs [dao/create! (mock-dao/create! expected nil)]
         (let [{:keys [status body]} (ranges/create! {:all-params expected})]
           (is (= body nil))
+          (is (= status 200))))))
+  (testing "ranges-delete!"
+    (let [id (uuid)
+          expected (gen-range id)]
+      (with-redefs [dao/delete! (mock-dao/delete id expected)]
+        (let [{:keys [status body]} (ranges/delete! {:all-params expected})]
+          (is (= body expected))
           (is (= status 200)))))))
-
