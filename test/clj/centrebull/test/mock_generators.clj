@@ -20,7 +20,7 @@
          :shooter/club           (string)}))
 
 (defn gen-range
-  ([] (gen-range (rand-int 99999)))
+  ([] (gen-range (uuid)))
   ([id] {:range/id          id
          :range/description (string)}))
 
