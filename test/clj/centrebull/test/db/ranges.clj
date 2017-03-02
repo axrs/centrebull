@@ -6,3 +6,9 @@
   (fn [range]
     (is (= em range))
     rv))
+
+(defn delete!
+  [ei rv]
+  (fn [id]
+    (is (= ei id))
+    rv))
