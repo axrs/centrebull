@@ -4,5 +4,5 @@
 (defn create!
   [em rv]
   (fn [range]
-    (is (= range em))
+    (is (= em range))
     rv))
