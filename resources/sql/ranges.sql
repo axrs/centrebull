@@ -8,4 +8,4 @@ VALUES (:description);
 -- :doc delete a range record
 DELETE
 FROM ranges
-WHERE id = :id;
+WHERE id = :id::UUID;
