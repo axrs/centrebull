@@ -24,8 +24,12 @@
   (context "/competitions" []
     (POST "/" {:as request}
       :spec :centrebull.spec/competition-create
-      (competitions/create! request)))
-  
+      (competitions/create! request))
+
+    (GET "/:competition--id" {:as request}
+      :spec :centrebull.spec/competition-id-only
+      (competitions/find request))))
+
   (context "/ranges" []
     (POST "/" {:as request}
       :spec :centrebull.spec/ranges-create

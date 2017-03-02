@@ -100,6 +100,10 @@
   (s/keys
     :req [:range/description]))
 
+(s/def ::competition-id-only
+  (s/keys
+    :req [:competition/id]))
+
 (s/def ::competition-create
   (s/keys
     :req [:competition/description

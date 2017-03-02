@@ -1,5 +1,6 @@
 (ns centrebull.test.competitions.routes
   (:require [clojure.test :refer :all]
+            [centrebull.test.util :refer [uuid]]
             [ring.mock.request :refer :all]
             [centrebull.handler :refer :all]
             [centrebull.test.util :refer [parse-body]]
@@ -22,4 +23,10 @@
     (with-redefs [competitions/create! (constantly (response/ok {:competition-create! "called"}))]
       (let [{:keys [status body]} ((app) (json-request :post "/competitions" (gen-competition)))]
         (is (= status 200))
-        (is (= {:competition-create! "called"} (parse-body body)))))))
+        (is (= {:competition-create! "called"} (parse-body body))))))
+
+  (testing "Find Competition Route"
+    (with-redefs [competitions/find (constantly (response/ok {:competition-find "called"}))]
+      (let [{:keys [status body]} ((app) (json-request :get (str "/competitions/" (uuid))))]
+        (is (= status 200))
+        (is (= {:competition-find "called"} (parse-body body)))))))
