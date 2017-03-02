@@ -91,6 +91,10 @@
     :opt [:shooter/preferred-name
           :shooter/club]))
 
+(s/def ::competition-id-only
+  (s/keys
+    :req [:competition/id]))
+
 (s/def ::competition-create
   (s/keys
     :req [:competition/description
