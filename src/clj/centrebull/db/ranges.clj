@@ -1,7 +1,7 @@
 (ns centrebull.db.ranges
   (:require [clojure.set :refer [map-invert]]
             [centrebull.db.util :refer [mapper]]
-            [centrebull.db.core :refer [ranges-create!]]))
+            [centrebull.db.core :refer [ranges-create! ranges-delete!]]))
 
 (def ^:private key-map {:range/description :description})
 
@@ -11,3 +11,7 @@
   (->> range
     in-mapper
     ranges-create!))
+
+(defn delete! [id]
+  (->> {:id id}
+    ranges-delete!))
