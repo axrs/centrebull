@@ -21,4 +21,9 @@
     (with-redefs [ranges/create! (constantly (response/ok {:range-create! "called"}))]
       (let [{:keys [status body]} ((app) (json-request :post "/ranges" (gen-range)))]
         (is (= status 200))
+        (is (= {:range-create! "called"} (parse-body body))))))
+  (testing "Delete Range Route"
+    (with-redefs [ranges/delete! (constantly (response/ok {:range-create! "called"}))]
+      (let [{:keys [status body]} (app) (json-request :delete (str "/ranges/" (uuid)))]
+        (is (= status 200))
         (is (= {:range-create! "called"} (parse-body body)))))))
