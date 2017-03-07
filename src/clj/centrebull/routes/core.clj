@@ -32,7 +32,7 @@
 
     (DELETE "/:competition--id" {:as request}
       :spec :centrebull.spec/competition-id-only
-      (competitions/delete! request))))
+      (competitions/delete! request)))
 
   (context "/ranges" []
     (POST "/" {:as request}
