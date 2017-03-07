@@ -13,3 +13,9 @@
     :competition/id
     dao/find
     response/ok))
+
+(defn delete! [{:keys [all-params]}]
+  (->> all-params
+    :competition/id
+    dao/delete!
+    response/ok))
