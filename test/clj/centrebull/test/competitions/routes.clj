@@ -29,4 +29,10 @@
     (with-redefs [competitions/find (constantly (response/ok {:competition-find "called"}))]
       (let [{:keys [status body]} ((app) (json-request :get (str "/competitions/" (uuid))))]
         (is (= status 200))
-        (is (= {:competition-find "called"} (parse-body body)))))))
+        (is (= {:competition-find "called"} (parse-body body))))))
+
+  (testing "Delete Competition Route"
+    (with-redefs [competitions/delete! (constantly (response/ok {:competition-delete! "called"}))]
+      (let [{:keys [status body]} ((app) (json-request :delete (str "/competitions/" (uuid))))]
+        (is (= status 200))
+        (is (= {:competition-delete! "called"} (parse-body body)))))))
