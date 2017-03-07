@@ -14,6 +14,7 @@
         (let [{:keys [status body]} (ranges/create! {:all-params expected})]
           (is (= body nil))
           (is (= status 200))))))
+
   (testing "ranges-delete!"
     (let [id (uuid)
           expected (gen-range id)]
