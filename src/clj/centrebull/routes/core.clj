@@ -27,4 +27,8 @@
 
     (GET "/:competition--id" {:as request}
       :spec :centrebull.spec/competition-id-only
-      (competitions/find request))))
+      (competitions/find request))
+
+    (DELETE "/:competition--id" {:as request}
+      :spec :centrebull.spec/competition-id-only
+      (competitions/delete! request))))
