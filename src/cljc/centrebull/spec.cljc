@@ -78,6 +78,7 @@
 (s/def :shooter/preferred-name string?)
 (s/def :shooter/club string?)
 
+(s/def :range/id is-uuid?)
 (s/def :range/description non-empty-string)
 
 (s/def :competition/id is-uuid?)
