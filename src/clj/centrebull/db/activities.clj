@@ -1,7 +1,7 @@
 (ns centrebull.db.activities
   (:require [clojure.set :refer [map-invert]]
             [centrebull.db.util :refer [mapper]]
-            [centrebull.db.core :refer [activity-create!]]))
+            [centrebull.db.core :refer [activities-create!]]))
 
 (def ^:private key-map {:activity/id             :id
                         :activity/competition-id :competition/id
@@ -17,5 +17,5 @@
 (defn create! [activity]
   (->> activity
     in-mapper
-    activity-create!
+    activities-create!
     out-mapper))
