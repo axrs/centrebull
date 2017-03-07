@@ -16,3 +16,9 @@
   (fn [id]
     (is (= ei id))
     rv))
+
+(defn delete!
+  [ei rv]
+  (fn [id]
+    (is (= ei id))
+    rv))
