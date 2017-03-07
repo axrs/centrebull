@@ -5,7 +5,8 @@
             [ring.util.http-response :as response]
             [clojure.java.io :as io]
             [centrebull.shooters.core :as shooters]
-            [centrebull.competitions.core :as competitions]))
+            [centrebull.competitions.core :as competitions]
+            [centrebull.activities.core :as activities]))
 
 (defn home-page []
   (layout/render "home.html"))
@@ -27,4 +28,9 @@
 
     (GET "/:competition--id" {:as request}
       :spec :centrebull.spec/competition-id-only
-      (competitions/find request))))
+      (competitions/find request)))
+
+  (context "/activities" []
+    (POST "/" {:as request}
+      :spec :centrebull.spec/activity-create
+      (activities/create! request))))

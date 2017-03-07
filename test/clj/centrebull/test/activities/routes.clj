@@ -4,6 +4,7 @@
             [centrebull.test.wrapper :refer [wrap-test]]
             [centrebull.activities.core :as activities]
             [centrebull.test.util :refer :all]
+            [centrebull.test.mock-generators :refer :all]
             [ring.util.http-response :as response]))
 
 (use-fixtures :once wrap-test)
@@ -17,6 +18,6 @@
 
   (testing "Create Activity Route"
     (with-redefs [activities/create! (constantly (response/ok {:activity-create! "called"}))]
-      (let [{:keys [status body]} ((app) (json-request :post "/activities" nil))]
+      (let [{:keys [status body]} ((app) (json-request :post "/activities" (gen-activity)))]
         (is (= status 200))
-        (is (= {:competition-create! "called"} (parse-body body)))))))
+        (is (= {:activity-create! "called"} (parse-body body)))))))

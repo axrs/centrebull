@@ -106,3 +106,10 @@
     :req [:competition/description
           :competition/start-date
           :competition/end-date]))
+
+(s/def ::activity-create
+  (s/keys
+    :req [:activity/competition-id
+          :activity/range-id
+          :activity/priority
+          :activity/date]))
