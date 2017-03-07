@@ -79,6 +79,12 @@
 (s/def :competition/description non-empty-string)
 (s/def :competition/start-date is-date?)
 (s/def :competition/end-date is-date?)
+
+(s/def :activity/id is-uuid?)
+(s/def :activity/competition-id is-uuid?)
+(s/def :activity/range-id is-uuid?)
+(s/def :activity/priority number?)
+(s/def :activity/date is-date?)
 ;----------------------------------------
 ; API END POINTS
 ;----------------------------------------

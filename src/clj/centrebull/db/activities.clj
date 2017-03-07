@@ -1,4 +1,4 @@
-(ns centrebull.db.activites
+(ns centrebull.db.activities
   (:require [clojure.set :refer [map-invert]]
             [centrebull.db.util :refer [mapper]]
             [centrebull.db.core :refer [activity-create!]]))

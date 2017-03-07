@@ -35,3 +35,13 @@
          :competition/description (string)
          :competition/start-date  (random-date-string)
          :competition/end-date    (random-date-string)}))
+
+(defn gen-activity
+  "Generates a random activity map with fields similar to the database result
+  id [optional] - UUID to use instead"
+  ([] (gen-activity (uuid)))
+  ([id] {:activity/id id
+         :activity/competition-id (uuid)
+         :activity/range-id (uuid)
+         :activity/priority (clojure.data.generators/int)
+         :activity/date (random-date-string)}))
