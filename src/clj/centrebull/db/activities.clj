@@ -4,7 +4,7 @@
             [centrebull.db.core :refer [activities-create!]]))
 
 (def ^:private key-map {:activity/id             :id
-                        :activity/competition-id :competition/id
+                        :activity/competition-id :competition-id
                         :activity/range-id       :range-id
                         :activity/priority       :priority
                         :activity/date           :date})
