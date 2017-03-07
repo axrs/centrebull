@@ -109,8 +109,8 @@
 
 (s/def ::activity-create
   (s/keys
-    :req [:activity/date]
-    :opt [:activity/competition-id
+    :req [:activity/date
+          :activity/competition-id
           :activity/range-id
           :activity/priority]))
 
