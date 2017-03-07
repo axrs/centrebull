@@ -21,7 +21,8 @@
 
 (conman/bind-connection *db*
   "sql/shooters.sql"
-  "sql/competitions.sql")
+  "sql/competitions.sql"
+  "sql/ranges.sql")
 
 (defn to-date [^java.sql.Date sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))

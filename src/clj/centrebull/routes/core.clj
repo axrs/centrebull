@@ -5,6 +5,7 @@
             [ring.util.http-response :as response]
             [clojure.java.io :as io]
             [centrebull.shooters.core :as shooters]
+            [centrebull.ranges.core :as ranges]
             [centrebull.competitions.core :as competitions]))
 
 (defn home-page []
@@ -27,4 +28,9 @@
 
     (GET "/:competition--id" {:as request}
       :spec :centrebull.spec/competition-id-only
-      (competitions/find request))))
+      (competitions/find request)))
+
+  (context "/ranges" []
+    (POST "/" {:as request}
+      :spec :centrebull.spec/ranges-create
+      (ranges/create! request))))
