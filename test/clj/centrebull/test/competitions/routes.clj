@@ -35,4 +35,10 @@
     (with-redefs [competitions/delete! (constantly (response/ok {:competition-delete! "called"}))]
       (let [{:keys [status body]} ((app) (json-request :delete (str "/competitions/" (uuid))))]
         (is (= status 200))
-        (is (= {:competition-delete! "called"} (parse-body body)))))))
+        (is (= {:competition-delete! "called"} (parse-body body))))))
+
+  (testing "Register Shooter for Competition Route"
+    (with-redefs [competitions/register-shooter! (constantly (response/ok {:competition-register-shooter "called"}))]
+      (let [{:keys [status body]} ((app) (json-request :post (str "/competitions/" (uuid) "/register") (gen-competition-regester-request)))]
+        (is (= status 200))
+        (is (= {:competition-register-shooter "called"} (parse-body body)))))))
