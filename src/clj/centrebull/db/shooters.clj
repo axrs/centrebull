@@ -38,5 +38,5 @@
 
 (defn find-by-id [sid]
   (->> {:sid sid}
-       shooters-findById
+       shooters-find-by-id
        out-mapper))

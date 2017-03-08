@@ -21,7 +21,7 @@
 
     (GET "/search" {:as request} (shooters/suggest request))
 
-    (GET "/:shooter--id" {:as request}
+    (GET "/:shooter--sid" {:as request}
          :spec :centrebull.spec/shooter-id-only
          (shooters/find-by-id request)))
 

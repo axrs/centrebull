@@ -67,12 +67,19 @@
 ; SPEC DEFINITIONS
 ;----------------------------------------
 (defn- str->uuid [s] (java.util.UUID/fromString s))
+(defn- str->int [s] #?(:cljs (cond (and (string? s) #(not= "" %)) (cljs.tools.reader/read-string s)
+                                      (integer? s) s
+                                      :else s)
+                          :clj  (cond (and (string? s) #(not= "" %)) (clojure.tools.reader/read-string s)
+                                      (integer? s) s
+                                      :else ::s/invalid)))
 
 (def ^:private is-uuid? (s/and string? #(re-matches #"(\w{8}(-\w{4}){3}-\w{12}?)$" %) (s/conformer str->uuid)))
 (def ^:private non-empty-string (s/and string? #(not= "" %)))
 (def ^:private is-date? (s/and string? #(re-matches #"^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$" %)))
+(def ^:private is-integer (s/conformer str->int))
 
-(s/def :shooter/sid number?)
+(s/def :shooter/sid is-integer)
 (s/def :shooter/first-name non-empty-string)
 (s/def :shooter/last-name non-empty-string)
 (s/def :shooter/preferred-name string?)

@@ -32,7 +32,7 @@
   (let [expected (gen-shooter)
         es "1234"]
     (with-redefs [dao/find-by-id (mock-dao/find-by-id es expected)]
-      (let [{:keys [status body]} (shooters/find-by-id {:params {:id es}})]
+      (let [{:keys [status body]} (shooters/find-by-id {:params {:sid es}})]
         (is (= body expected))
         (is (= status 200))))))
 
