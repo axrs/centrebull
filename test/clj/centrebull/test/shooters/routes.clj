@@ -28,4 +28,10 @@
     (with-redefs [shooters/suggest (constantly (response/ok {:shooter-suggest "called"}))]
       (let [{:keys [status body]} ((app) (request :get "/shooters/search?q=asdf" nil))]
         (is (= status 200))
-        (is (= {:shooter-suggest "called"} (parse-body body)))))))
+        (is (= {:shooter-suggest "called"} (parse-body body))))))
+
+  (testing "Find Shooter by ID Route"
+    (with-redefs [shooters/find-by-id (constantly (response/ok {:shooter-find-by-id "called"}))]
+      (let [{:keys [status body]} ((app) (request :get "/shooters/1" nil))]
+        (is (= status 200))
+        (is (= {:shooter-find-by-id "called"} (parse-body body)))))))

@@ -5,8 +5,9 @@
             [ring.util.http-response :as response]
             [clojure.java.io :as io]
             [centrebull.shooters.core :as shooters]
-            [centrebull.competitions.core :as competitions]
             [centrebull.activities.core :as activities]))
+            [centrebull.ranges.core :as ranges]
+            [centrebull.competitions.core :as competitions]))
 
 (defn home-page []
   (layout/render "home.html"))
@@ -19,7 +20,11 @@
       :spec :centrebull.spec/shooter-create
       (shooters/create! request))
 
-    (GET "/search" {:as request} (shooters/suggest request)))
+    (GET "/search" {:as request} (shooters/suggest request))
+
+    (GET "/:shooter--sid" {:as request}
+         :spec :centrebull.spec/shooter-id-only
+         (shooters/find-by-id request)))
 
   (context "/competitions" []
     (POST "/" {:as request}
@@ -28,9 +33,24 @@
 
     (GET "/:competition--id" {:as request}
       :spec :centrebull.spec/competition-id-only
-      (competitions/find request)))
 
+      (competitions/find request))
+
+    (DELETE "/:competition--id" {:as request}
+      :spec :centrebull.spec/competition-id-only
+      (competitions/delete! request)))
+  
   (context "/activities" []
     (POST "/" {:as request}
       :spec :centrebull.spec/activity-create
-      (activities/create! request))))
+      (activities/create! request)))
+           
+  (context "/ranges" []
+    (POST "/" {:as request}
+      :spec :centrebull.spec/ranges-create
+      (ranges/create! request))
+           
+    (DELETE "/:range--id" {:as request}
+      :spec :centrebull.spec/range-id-only
+      (ranges/delete! request))))
+

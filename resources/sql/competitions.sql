@@ -9,3 +9,9 @@ RETURNING *;
 SELECT *
 FROM competitions
 WHERE id = :id::UUID;
+
+-- :name competitions-delete! :! :n
+-- :doc Deletes a competition with a given id
+DELETE
+FROM competitions
+WHERE id = :id::UUID;

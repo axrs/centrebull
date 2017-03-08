@@ -677,6 +677,9 @@ section[xx] {
   padding: 2rem 2rem;
   width: 100%;
 }
+body section:first-of-type {
+  margin-top: 2rem;
+}
 page:not([class]),
 page[xx] {
   left: 22rem;

@@ -19,6 +19,11 @@
          :shooter/preferred-name (last-name)
          :shooter/club           (string)}))
 
+(defn gen-range
+  ([] (gen-range (uuid)))
+  ([id] {:range/id          id
+         :range/description (string)}))
+
 (defn- random-date-string []
   (let [year (+ 1970 (rand-int 20))
         month (+ 1 (rand-int 11))
