@@ -19,3 +19,8 @@
     :competition/id
     dao/delete!
     response/ok))
+
+(defn register-shooter! [{:keys [all-params]}]
+  (->> all-params
+    dao/register!
+    response/ok))
