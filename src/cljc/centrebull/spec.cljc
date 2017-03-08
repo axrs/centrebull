@@ -78,6 +78,7 @@
 (s/def :shooter/preferred-name string?)
 (s/def :shooter/club string?)
 
+(s/def :range/id is-uuid?)
 (s/def :range/description non-empty-string)
 
 (s/def :competition/id is-uuid?)
@@ -95,6 +96,10 @@
           :shooter/first-name]
     :opt [:shooter/preferred-name
           :shooter/club]))
+
+(s/def ::range-id-only
+  (s/keys
+    :req [:range/id]))
 
 (s/def ::ranges-create
   (s/keys
