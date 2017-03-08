@@ -7,3 +7,6 @@
 
 (defn suggest [{:keys [params]}]
   (response/ok (dao/suggest (:q params))))
+
+(defn find-by-id [{:keys [params]}]
+  (response/ok (dao/find-by-id (:sid params))))

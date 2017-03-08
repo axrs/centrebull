@@ -2,7 +2,7 @@
   (:require [clojure.string :refer [split lower-case]]
             [clojure.set :refer [map-invert]]
             [centrebull.db.util :refer [mapper]]
-            [centrebull.db.core :refer [shooters-create! shooters-suggest]]))
+            [centrebull.db.core :refer [shooters-create! shooters-suggest shooters-find-by-id]]))
 
 
 (def ^:private key-map {:shooter/sid            :sid
@@ -35,3 +35,8 @@
     prepare-shooter-search-terms
     shooters-suggest
     out-mapper))
+
+(defn find-by-id [sid]
+  (->> {:sid sid}
+       shooters-find-by-id
+       out-mapper))
