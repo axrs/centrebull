@@ -39,6 +39,6 @@
 
   (testing "Register Shooter for Competition Route"
     (with-redefs [competitions/register-shooter! (constantly (response/ok {:competition-register-shooter "called"}))]
-      (let [{:keys [status body]} ((app) (json-request :post (str "/competitions/" (uuid) "/register") (gen-competition-regester-request)))]
+      (let [{:keys [status body]} ((app) (json-request :post (str "/competitions/" (uuid) "/registrations") (gen-competition-regester-request)))]
         (is (= status 200))
         (is (= {:competition-register-shooter "called"} (parse-body body)))))))

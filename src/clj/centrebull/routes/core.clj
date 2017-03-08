@@ -38,7 +38,7 @@
       :spec :centrebull.spec/competition-id-only
       (competitions/delete! request))
 
-    (POST "/:competition--id/register" {:as request}
+    (POST "/:competition--id/registrations" {:as request}
       :spec :centrebull.spec/competition-register-shooter
       (competitions/register-shooter! request)))
 
