@@ -41,7 +41,7 @@
   id [optional] - UUID to use instead"
   ([] (gen-activity (uuid)))
   ([id] {:activity/id id
-         :activity/competition-id (uuid)
+         :competition/id  (uuid)
          :activity/range-id (uuid)
          :activity/priority (clojure.data.generators/int)
          :activity/date (random-date-string)}))
