@@ -1,7 +1,10 @@
 (ns centrebull.db.shooters
   (:require [clojure.string :refer [split lower-case]]
+   <<<<<<< HEAD
             [clojure.set :refer [map-invert]]
             [centrebull.db.util :refer [mapper]]
+   =======
+   >>>>>>> 8a5eefdd226c7ed19f171c7cbc7c1f25fe3bbc42
             [centrebull.db.core :refer [shooters-create! shooters-suggest shooters-find-by-id]]))
 
 
