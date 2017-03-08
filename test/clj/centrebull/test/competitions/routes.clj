@@ -41,4 +41,10 @@
     (with-redefs [competitions/register-shooter! (constantly (response/ok {:competition-register-shooter "called"}))]
       (let [{:keys [status body]} ((app) (json-request :post (str "/competitions/" (uuid) "/registrations") (gen-competition-regester-request)))]
         (is (= status 200))
-        (is (= {:competition-register-shooter "called"} (parse-body body)))))))
+        (is (= {:competition-register-shooter "called"} (parse-body body))))))
+
+  (testing "Search Competition Route"
+    (with-redefs [competitions/suggest (constantly (response/ok {:competition-suggest "called"}))]
+      (let [{:keys [status body]} ((app) (request :get "/competitions/search?q=asdf" nil))]
+        (is (= status 200))
+        (is (= {:competition-suggest "called"} (parse-body body)))))))

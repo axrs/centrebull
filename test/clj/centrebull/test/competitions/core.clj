@@ -38,4 +38,12 @@
       (with-redefs [dao-entries/create! (mock-dao-entries/create! expected nil)]
         (let [{:keys [status body]} (competitions/register-shooter! {:all-params expected})]
           (is (= body nil))
+          (is (= status 200))))))
+
+  (testing "Competition-Suggest"
+    (let [expected (gen-competition)
+          es "Johnny Search Term"]
+      (with-redefs [dao/suggest (mock-dao/suggest es expected)]
+        (let [{:keys [status body]} (competitions/suggest {:params {:q es}})]
+          (is (= body expected))
           (is (= status 200)))))))

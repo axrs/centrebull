@@ -48,3 +48,13 @@
   ([competition-id] {:competition/id competition-id
                      :shooter/sid    (rand-int 99999)
                      :shooter/grade  (string)}))
+
+(defn gen-activity
+  "Generates a random activity map with fields similar to the database result
+  id [optional] - UUID to use instead"
+  ([] (gen-activity (uuid)))
+  ([id] {:activity/id       id
+         :competition/id    (uuid)
+         :activity/range-id (uuid)
+         :activity/priority (clojure.data.generators/int)
+         :activity/date     (random-date-string)}))

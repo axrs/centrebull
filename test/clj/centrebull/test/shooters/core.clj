@@ -35,10 +35,3 @@
       (let [{:keys [status body]} (shooters/find-by-id {:params {:sid es}})]
         (is (= body expected))
         (is (= status 200))))))
-
-(def ^:private prepare-terms #'centrebull.db.shooters/prepare-shooter-search-terms)
-
-(deftest prepare-shooter-search-terms
-  (testing "prepare-shooter-search-terms"
-    (let [actual (prepare-terms "Johnny Search Term")]
-      (is (= actual ["%Johnny%" "%Search%" "%Term%"])))))
