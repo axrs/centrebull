@@ -5,6 +5,7 @@
             [ring.util.http-response :as response]
             [clojure.java.io :as io]
             [centrebull.shooters.core :as shooters]
+            [centrebull.activities.core :as activities]
             [centrebull.ranges.core :as ranges]
             [centrebull.competitions.core :as competitions]))
 
@@ -32,12 +33,18 @@
 
     (GET "/:competition--id" {:as request}
       :spec :centrebull.spec/competition-id-only
+
       (competitions/find request))
 
     (DELETE "/:competition--id" {:as request}
       :spec :centrebull.spec/competition-id-only
       (competitions/delete! request)))
-
+  
+  (context "/activities" []
+    (POST "/" {:as request}
+      :spec :centrebull.spec/activity-create
+      (activities/create! request)))
+           
   (context "/ranges" []
     (POST "/" {:as request}
       :spec :centrebull.spec/ranges-create
@@ -46,3 +53,4 @@
     (DELETE "/:range--id" {:as request}
       :spec :centrebull.spec/range-id-only
       (ranges/delete! request))))
+

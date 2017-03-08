@@ -94,6 +94,11 @@
 (s/def :competition/description non-empty-string)
 (s/def :competition/start-date is-date?)
 (s/def :competition/end-date is-date?)
+
+(s/def :activity/id is-uuid?)
+(s/def :activity/range-id is-uuid?)
+(s/def :activity/priority number?)
+(s/def :activity/date is-date?)
 ;----------------------------------------
 ; API END POINTS
 ;----------------------------------------
@@ -127,3 +132,11 @@
     :req [:competition/description
           :competition/start-date
           :competition/end-date]))
+
+(s/def ::activity-create
+  (s/keys
+    :req [:activity/date
+          :competition/id
+          :activity/range-id
+          :activity/priority]))
+
