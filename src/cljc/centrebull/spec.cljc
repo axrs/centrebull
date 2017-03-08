@@ -86,6 +86,7 @@
 (s/def :shooter/last-name non-empty-string)
 (s/def :shooter/preferred-name string?)
 (s/def :shooter/club string?)
+(s/def :shooter/grade string?)
 
 (s/def :range/id is-uuid?)
 (s/def :range/description non-empty-string)
@@ -127,3 +128,9 @@
     :req [:competition/description
           :competition/start-date
           :competition/end-date]))
+
+(s/def ::competition-register-shooter
+  (s/keys
+    :req [:competition/id
+          :shooter/sid
+          :shooter/grade]))
