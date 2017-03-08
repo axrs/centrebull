@@ -40,3 +40,8 @@
          :competition/description (string)
          :competition/start-date  (random-date-string)
          :competition/end-date    (random-date-string)}))
+
+(defn gen-competition-regester-request
+  "Generates the data needed for a competition register request"
+  ([] {:shooter/sid    (rand-int 99999)
+       :shooter/grade  (string)}))
