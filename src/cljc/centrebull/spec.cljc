@@ -100,6 +100,8 @@
 (s/def :activity/range-id is-uuid?)
 (s/def :activity/priority number?)
 (s/def :activity/date is-date?)
+
+(s/def :entry/id is-uuid?)
 ;----------------------------------------
 ; API END POINTS
 ;----------------------------------------
