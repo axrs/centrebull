@@ -12,3 +12,10 @@ FROM shooters
 WHERE /*~ (string/join " AND " (for [value params] (str "suggest ILIKE '" value "'"))) ~*/
 ORDER BY sid ASC, first_name ASC, last_name ASC
 LIMIT 25;
+
+-- :name shooters-find-by-id :? :*
+-- :doc Finds a shooter by an id
+SELECT *
+FROM shooters
+WHERE sid = :sid
+LIMIT 1;
