@@ -42,6 +42,9 @@
          :competition/end-date    (random-date-string)}))
 
 (defn gen-competition-regester-request
-  "Generates the data needed for a competition register request"
-  ([] {:shooter/sid    (rand-int 99999)
-       :shooter/grade  (string)}))
+  "Generates the data needed for a competition register request
+  competition-id [optional] - UUID to use instead"
+  ([] (gen-competition-regester-request (uuid)))
+  ([competition-id] {:competition/id competition-id
+                     :shooter/sid    (rand-int 99999)
+                     :shooter/grade  (string)}))
