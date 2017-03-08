@@ -3,6 +3,8 @@
     [cheshire.core :refer [generate-string parse-string]]
     [clojure.java.jdbc :as jdbc]
     [conman.core :as conman]
+    [camel-snake-kebab.extras :refer [transform-keys]]
+    [camel-snake-kebab.core :refer [->kebab-case-keyword]]
     [centrebull.config :refer [env]]
     [mount.core :refer [defstate]])
   (:import org.postgresql.util.PGobject
@@ -15,13 +17,36 @@
             Timestamp
             PreparedStatement]))
 
+(defn result-one-snake->kebab
+  [this result options]
+  (->> (hugsql.adapter/result-one this result options)
+    (transform-keys ->kebab-case-keyword)))
+
+(defn result-many-snake->kebab
+  [this result options]
+  (->> (hugsql.adapter/result-many this result options)
+    (map #(transform-keys ->kebab-case-keyword %))))
+
+(defmethod hugsql.core/hugsql-result-fn :1 [sym]
+  'centrebull.db.core/result-one-snake->kebab)
+
+(defmethod hugsql.core/hugsql-result-fn :one [sym]
+  'centrebull.db.core/result-one-snake->kebab)
+
+(defmethod hugsql.core/hugsql-result-fn :* [sym]
+  'centrebull.db.core/result-many-snake->kebab)
+
+(defmethod hugsql.core/hugsql-result-fn :many [sym]
+  'centrebull.db.core/result-many-snake->kebab)
+
 (defstate ^:dynamic *db*
   :start (conman/connect! {:jdbc-url (env :database-url)})
   :stop (conman/disconnect! *db*))
 
 (conman/bind-connection *db*
   "sql/shooters.sql"
-  "sql/competitions.sql")
+  "sql/competitions.sql"
+  "sql/ranges.sql")
 
 (defn to-date [^java.sql.Date sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
