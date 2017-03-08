@@ -22,3 +22,9 @@
   (fn [id]
     (is (= ei id))
     rv))
+
+(defn suggest
+  [es rv]
+  (fn [s]
+    (is (= s es))
+    rv))

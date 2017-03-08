@@ -29,4 +29,12 @@
       (with-redefs [dao/delete! (mock-dao/delete! id expected)]
         (let [{:keys [status body]} (competitions/delete! {:all-params expected})]
           (is (= body expected))
+          (is (= status 200))))))
+
+  (testing "Competition-Suggest"
+    (let [expected (gen-competition)
+          es "Johnny Search Term"]
+      (with-redefs [dao/suggest (mock-dao/suggest es expected)]
+        (let [{:keys [status body]} (competitions/suggest {:params {:q es}})]
+          (is (= body expected))
           (is (= status 200)))))))
