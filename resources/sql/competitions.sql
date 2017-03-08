@@ -15,3 +15,12 @@ WHERE id = :id::UUID;
 DELETE
 FROM competitions
 WHERE id = :id::UUID;
+
+-- :name competitions-suggest :? :*
+-- :require [clojure.string :as string]
+-- :doc Suggests competitions for given search terms
+SELECT *
+FROM competitions
+WHERE /*~ (string/join " AND " (for [value params] (str "suggest ILIKE '" value "'"))) ~*/
+ORDER BY id ASC, description ASC, start_date ASC, end_date ASC
+LIMIT 25
