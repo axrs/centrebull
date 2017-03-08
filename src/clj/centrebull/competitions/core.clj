@@ -1,6 +1,7 @@
 (ns centrebull.competitions.core
   (:refer-clojure :exclude [find get])
   (:require [centrebull.db.competitions :as dao]
+            [centrebull.db.entries :as dao-entries]
             [ring.util.http-response :as response]
             [clojure.tools.logging :as log]))
 
@@ -18,6 +19,11 @@
   (->> all-params
     :competition/id
     dao/delete!
+    response/ok))
+
+(defn register-shooter! [{:keys [all-params]}]
+  (->> all-params
+    dao-entries/create!
     response/ok))
 
 (defn suggest [{:keys [params]}]

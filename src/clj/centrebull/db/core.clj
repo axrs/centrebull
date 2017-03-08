@@ -46,6 +46,7 @@
 (conman/bind-connection *db*
   "sql/shooters.sql"
   "sql/competitions.sql"
+  "sql/entries.sql"
   "sql/activities.sql"
   "sql/ranges.sql")
 

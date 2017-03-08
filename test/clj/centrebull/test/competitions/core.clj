@@ -5,7 +5,9 @@
     [centrebull.test.mock-generators :refer :all]
     [centrebull.competitions.core :as competitions]
     [centrebull.db.competitions :as dao]
-    [centrebull.test.db.competitions :as mock-dao]))
+    [centrebull.db.entries :as dao-entries]
+    [centrebull.test.db.competitions :as mock-dao]
+    [centrebull.test.db.entries :as mock-dao-entries]))
 
 (deftest competitions
   (testing "Competition-Create!"
@@ -29,6 +31,13 @@
       (with-redefs [dao/delete! (mock-dao/delete! id expected)]
         (let [{:keys [status body]} (competitions/delete! {:all-params expected})]
           (is (= body expected))
+          (is (= status 200))))))
+
+  (testing "Competition-Register!"
+    (let [expected (gen-competition-regester-request)]
+      (with-redefs [dao-entries/create! (mock-dao-entries/create! expected nil)]
+        (let [{:keys [status body]} (competitions/register-shooter! {:all-params expected})]
+          (is (= body nil))
           (is (= status 200))))))
 
   (testing "Competition-Suggest"
