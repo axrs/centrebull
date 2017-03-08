@@ -23,5 +23,5 @@
 
 (defn register-shooter! [{:keys [all-params]}]
   (->> all-params
-    dao-entries/register!
+    dao-entries/create!
     response/ok))
