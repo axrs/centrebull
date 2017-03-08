@@ -36,7 +36,11 @@
 
     (DELETE "/:competition--id" {:as request}
       :spec :centrebull.spec/competition-id-only
-      (competitions/delete! request)))
+      (competitions/delete! request))
+
+    (POST "/:competition--id/register" {:as request}
+      :spec :centrebull.spec/competition-register-shooter
+      (competitions/register-shooter! request)))
 
   (context "/ranges" []
     (POST "/" {:as request}
