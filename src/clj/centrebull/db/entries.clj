@@ -2,9 +2,7 @@
   (:require [clojure.string :refer [split lower-case]]
             [clojure.set :refer [map-invert]]
             [centrebull.db.util :refer [mapper]]
-            [centrebull.db.core :refer [entries-create]]))
-
-
+            [centrebull.db.core :refer [entries-create!]]))
 
 (def ^:private key-map {:competition/id          :id
                         :shooter/id              :sid
@@ -18,4 +16,4 @@
 (defn create! [competition]
   (->> competition
     in-mapper
-    entries-create))
+    entries-create!))
