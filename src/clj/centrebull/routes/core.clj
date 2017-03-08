@@ -31,6 +31,8 @@
       :spec :centrebull.spec/competition-create
       (competitions/create! request))
 
+    (GET "/search" {:as request} (competitions/suggest request))
+
     (GET "/:competition--id" {:as request}
       :spec :centrebull.spec/competition-id-only
 

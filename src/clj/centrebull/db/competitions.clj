@@ -1,10 +1,11 @@
 (ns centrebull.db.competitions
   (:require [clojure.string :refer [split lower-case]]
             [clojure.set :refer [map-invert]]
-            [centrebull.db.util :refer [mapper]]
+            [centrebull.db.util :refer [mapper prepare-search-terms]]
             [centrebull.db.core :refer [competitions-create!
                                         competitions-find
-                                        competitions-delete!]]))
+                                        competitions-delete!
+                                        competitions-suggest]]))
 
 (def ^:private key-map {:competition/id          :id
                         :competition/description :description
@@ -30,3 +31,9 @@
 (defn delete! [id]
   (->> {:id id}
     competitions-delete!))
+
+(defn suggest [s]
+  (->> s
+    prepare-search-terms
+    competitions-suggest
+    out-mapper))

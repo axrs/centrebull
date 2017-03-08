@@ -19,3 +19,6 @@
     :competition/id
     dao/delete!
     response/ok))
+
+(defn suggest [{:keys [params]}]
+  (response/ok (dao/suggest (:q params))))
