@@ -1,7 +1,6 @@
 (ns centrebull.db.shooters
-  (:require [clojure.string :refer [split lower-case]]
-            [clojure.set :refer [map-invert]]
-            [centrebull.db.util :refer [mapper]]
+  (:require [clojure.set :refer [map-invert]]
+            [centrebull.db.util :refer [mapper prepare-search-terms]]
             [centrebull.db.core :refer [shooters-create! shooters-suggest]]))
 
 
@@ -25,13 +24,8 @@
     (merge default-fields)
     shooters-create!))
 
-(defn- prepare-shooter-search-terms
-  "Splits search terms by spaces and wraps the words with '%' signs"
-  [s]
-  (map #(str "%" % "%") (split s #"\s+")))
-
 (defn suggest [s]
   (->> s
-    prepare-shooter-search-terms
+    prepare-search-terms
     shooters-suggest
     out-mapper))

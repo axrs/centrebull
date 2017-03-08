@@ -1,6 +1,6 @@
 (ns centrebull.test.db.util
   (:require [clojure.test :refer :all]
-            [centrebull.db.util :refer [mapper]]
+            [centrebull.db.util :refer [mapper prepare-search-terms]]
             [clojure.set :refer [map-invert]]))
 
 (def ^:private key-map {:company/name :name
@@ -21,3 +21,8 @@
           input {:name "AXRS" :id "1234" :field "ignored"}
           actual (mapper value-map input)]
       (is (= actual expected)))))
+
+(deftest prepare-search-terms-test
+  (testing "prepare-search-terms"
+    (let [actual (prepare-search-terms "Johnny Search Term")]
+      (is (= actual ["%Johnny%" "%Search%" "%Term%"])))))
