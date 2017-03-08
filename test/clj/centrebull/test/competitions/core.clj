@@ -21,12 +21,12 @@
       (with-redefs [dao/find (mock-dao/find id expected)]
         (let [{:keys [status body]} (competitions/find {:all-params expected})]
           (is (= body expected))
-          (is (= status 200))))))
-
+          (is (= status 200)))))))
+x
   (testing "Competition-Delete!"
     (let [id (uuid)
           expected (gen-competition id)]
       (with-redefs [dao/delete! (mock-dao/delete! id expected)]
         (let [{:keys [status body]} (competitions/delete! {:all-params expected})]
           (is (= body expected))
-          (is (= status 200)))))))
+          (is (= status 200))))))

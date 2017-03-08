@@ -14,10 +14,11 @@
         (let [{:keys [status body]} (activities/create! {:all-params expected})]
           (is (= body nil))
           (is (= status 200))))))
+
   (testing "Activity-Delete"
     (let [id (uuid)
           expected (gen-activity id)]
-      (with-redefs [dao/delete! (mock-dao/delete! {:all-params expected})]
+      (with-redefs [dao/delete! (mock-dao/delete! id expected)]
         (let [{:keys [status body]} (activities/delete! {:all-params expected})]
           (is (= body expected))
           (is (= status 200)))))))
