@@ -81,7 +81,6 @@
 (s/def :competition/end-date is-date?)
 
 (s/def :activity/id is-uuid?)
-(s/def :activity/competition-id is-uuid?)
 (s/def :activity/range-id is-uuid?)
 (s/def :activity/priority number?)
 (s/def :activity/date is-date?)
@@ -110,7 +109,7 @@
 (s/def ::activity-create
   (s/keys
     :req [:activity/date
-          :activity/competition-id
+          :competition/id
           :activity/range-id
           :activity/priority]))
 
