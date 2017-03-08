@@ -9,10 +9,10 @@ var autoprefix = require('gulp-autoprefixer');
 var minifyCSS = require('gulp-minify-css');
 
 var lessDir = 'src/less';
-var targetCSSDir = 'public/css';
+var targetCSSDir = 'resources/public/css';
 
 gulp.task('css', function () {
-    return gulp.src(lessDir + '/semantic.less')
+    return gulp.src(lessDir + '/bare.less')
         .pipe(less({style: 'compressed'}).on('error', gutil.log))
         .pipe(gulp.dest(targetCSSDir))
         .pipe(notify('CSS minified'))
