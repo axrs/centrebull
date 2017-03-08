@@ -133,6 +133,10 @@
           :competition/start-date
           :competition/end-date]))
 
+(s/def ::activity-id-only
+  (s/keys
+    :req [:activity/id]))
+
 (s/def ::activity-create
   (s/keys
     :req [:activity/date
