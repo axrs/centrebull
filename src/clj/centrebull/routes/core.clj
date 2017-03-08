@@ -5,7 +5,7 @@
             [ring.util.http-response :as response]
             [clojure.java.io :as io]
             [centrebull.shooters.core :as shooters]
-            [centrebull.activities.core :as activities]))
+            [centrebull.activities.core :as activities]
             [centrebull.ranges.core :as ranges]
             [centrebull.competitions.core :as competitions]))
 
