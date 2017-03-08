@@ -6,3 +6,9 @@
   (fn [activity]
     (is (= em activity))
     rv))
+
+(defn delete!
+  [ei rv]
+  (fn [id]
+    (is (= ei id))
+    rv))

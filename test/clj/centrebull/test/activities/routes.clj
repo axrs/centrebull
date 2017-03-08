@@ -20,4 +20,10 @@
     (with-redefs [activities/create! (constantly (response/ok {:activity-create! "called"}))]
       (let [{:keys [status body]} ((app) (json-request :post "/activities" (gen-activity)))]
         (is (= status 200))
-        (is (= {:activity-create! "called"} (parse-body body)))))))
+        (is (= {:activity-create! "called"} (parse-body body))))))
+
+  (testing "Delete Activity Route"
+    (with-redefs [activities/delete! (constantly (response/ok {:competition-delete! "called"}))]
+      (let [{:keys [status body]} ((app) (json-request :delete (str "/activities/" (uuid))))]
+        (is (= status 200))
+        (is (= {:competition-delete! "called"} (parse-body body)))))))
