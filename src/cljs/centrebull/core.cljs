@@ -1,35 +1,19 @@
 (ns centrebull.core
   (:require [reagent.core :as r]
             [re-frame.core :as rf]
+            [day8.re-frame.http-fx]
             [secretary.core :as secretary]
+            [accountant.core :as accountant]
             [goog.events :as events]
             [goog.history.EventType :as HistoryEventType]
             [markdown.core :refer [md->html]]
             [ajax.core :refer [GET POST]]
             [centrebull.ajax :refer [load-interceptors!]]
             [centrebull.handlers]
-            [centrebull.subscriptions])
+            [centrebull.components.navigation :refer [topbar sidebar]]
+            [centrebull.subscriptions]
+            [centrebull.competitions.core :as competitions])
   (:import goog.History))
-
-(defn nav-link [uri title page collapsed?]
-  (let [selected-page (rf/subscribe [:page])]
-    [:li.nav-item
-     {:class (when (= page @selected-page) "active")}
-     [:a.nav-link
-      {:href uri
-       :on-click #(reset! collapsed? true)} title]]))
-
-(defn navbar []
-  (r/with-let [collapsed? (r/atom true)]
-    [:nav.navbar.navbar-dark.bg-primary
-     [:button.navbar-toggler.hidden-sm-up
-      {:on-click #(swap! collapsed? not)} "☰"]
-     [:div.collapse.navbar-toggleable-xs
-      (when-not @collapsed? {:class "in"})
-      [:a.navbar-brand {:href "#/"} "centrebull"]
-      [:ul.nav.navbar-nav
-       [nav-link "#/" "Home" :home collapsed?]
-       [nav-link "#/about" "About" :about collapsed?]]]]))
 
 (defn about-page []
   [:div.container
@@ -38,23 +22,31 @@
      [:img {:src (str js/context "/img/warning_clojure.png")}]]]])
 
 (defn home-page []
-  [:div.container
-   (when-let [docs @(rf/subscribe [:docs])]
-     [:div.row>div.col-sm-12
-      [:div {:dangerouslySetInnerHTML
-             {:__html (md->html docs)}}]])])
+  [:div.container])
 
-(def pages
+(def base-pages
   {:home #'home-page
    :about #'about-page})
 
+(defn pages []
+  (-> {}
+    (merge
+      base-pages
+      competitions/pages)))
+
 (defn page []
   [:div
-   [navbar]
-   [(pages @(rf/subscribe [:page]))]])
+   [topbar]
+   [sidebar]
+   [:page
+    [((pages) @(rf/subscribe [:page]))]]])
+
 
 ;; -------------------------
 ;; Routes
+(accountant/configure-navigation! {:nav-handler  (fn [path] (secretary/dispatch! path))
+                                   :path-exists? (fn [path] (secretary/locate-route path))})
+
 (secretary/set-config! :prefix "#")
 
 (secretary/defroute "/" []
@@ -62,6 +54,7 @@
 
 (secretary/defroute "/about" []
   (rf/dispatch [:set-active-page :about]))
+
 
 ;; -------------------------
 ;; History
@@ -71,21 +64,24 @@
     (events/listen
       HistoryEventType/NAVIGATE
       (fn [event]
-        (secretary/dispatch! (.-token event))))
+        (accountant/navigate! (str "#" (.-token event)))))
     (.setEnabled true)))
 
 ;; -------------------------
 ;; Initialize app
-(defn fetch-docs! []
-  (GET "/docs" {:handler #(rf/dispatch [:set-docs %])}))
+
+(defn on-window-resize [evt]
+  (rf/dispatch [:set-page-width (.-innerWidth js/window)]))
+
 
 (defn mount-components []
   (rf/clear-subscription-cache!)
-  (r/render [#'page] (.getElementById js/document "app")))
+  (r/render [#'page] (.getElementById js/document "app"))
+  (.addEventListener js/window "resize" on-window-resize)
+  (rf/dispatch [:set-page-width (.-innerWidth js/window)]))
 
 (defn init! []
   (rf/dispatch-sync [:initialize-db])
   (load-interceptors!)
-  (fetch-docs!)
   (hook-browser-navigation!)
   (mount-components))

@@ -7,6 +7,11 @@
     (:page db)))
 
 (reg-sub
-  :docs
+  :sidebar-open?
   (fn [db _]
-    (:docs db)))
+    (:sidebar-open? db)))
+
+(reg-sub
+  :force-sidebar-open?
+  (fn [db _]
+    (:force-sidebar-open? db)))
