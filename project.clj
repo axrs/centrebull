@@ -36,6 +36,7 @@
                  [ring/ring-core "1.5.1"]
                  [ring/ring-defaults "0.2.3"]
                  [secretary "1.2.3"]
+                 [com.lucasbradstreet/cljs-uuid-utils "1.0.2"]
                  [selmer "1.10.6"]]
 
   :min-lein-version "2.0.0"
@@ -93,6 +94,7 @@
                                  [com.cemerick/piggieback "0.2.2-SNAPSHOT"]
                                  [doo "0.1.7"]
                                  [faker "0.2.2"]
+                                 [com.lucasbradstreet/cljs-uuid-utils "1.0.2"]
                                  [org.clojure/data.generators "0.1.2"]
                                  [figwheel-sidecar "0.5.9"]]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.18.1"]
@@ -124,7 +126,7 @@
                   :cljsbuild
                   {:builds
                    {:test
-                    {:source-paths ["src/cljc" "src/cljs" "test/cljs"]
+                    {:source-paths ["src/cljc" "src/cljs" "test/cljs" "test/cljc"]
                      :compiler
                      {:output-to "target/test.js"
                       :main "centrebull.doo-runner"
