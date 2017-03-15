@@ -21,6 +21,20 @@ ${txtbld}DESCRIPTION${txtrst}
         drops all tables and runs a database ${txtbld}migration${txtrst}
     ${txtbld}reset${txtrst}
         drops all tables from the dratbase.${txtrst}
+    ${txtbld}migrate${txtrst}
+        Runs database migration.${txtrst}
+    ${txtbld}test${txtrst}
+        runs all unit tests.${txtrst}
+    ${txtbld}test-refresh${txtrst}
+        runs all unit tests and starts a watch.${txtrst}
+    ${txtbld}setup${txtrst}
+        sets up the application database for running and debugging.${txtrst}
+    ${txtbld}shutdown${txtrst}
+        terminates the application; shutting down the database.${txtrst}
+    ${txtbld}run${txtrst}
+        runs the application, serving files and folders.${txtrst}
+    ${txtbld}figwheel${txtrst}
+        runs figwheel.${txtrst}
 EOF
 exit 1
 }
@@ -67,20 +81,108 @@ reset() {
     abort_on_error "Reset failed, exiting."
 }
 
-clean() {
-    reset
+migrate() {
     echo_message "Running Migration"
     lein migratus migrate
 }
 
+clean() {
+    reset
+    migrate
+}
+
+check_exec_exists() {
+    echo_message "Looking for $1..."
+
+    if ! type "$1" > /dev/null; then
+        echo_error "Unable to find $1... Aborting"
+        exit 1
+    fi
+
+    echo_message "$1 found..."
+}
+
+build_docker_database() {
+    echo_message "Building Docker Database Image"
+    docker build -t cb-postgres ./tools/Postgres/
+}
+
+run_docker_database() {
+    check_exec_exists "docker"
+    echo_message "Starting..."
+
+    docker_image=$(docker images -q cb-postgres)
+
+    if [ "$docker_image" ]; then
+        echo_message "Using existing container"
+        docker start cb-postgres
+    else
+        echo_message "No container found... Building new container"
+        build_docker_database
+        docker run -d -p 5432:5432 --name cb-postgres cb-postgres
+    fi
+}
+
+stop_docker_database() {
+    echo_message "Shutting down Database Image"
+    docker stop cb-postgres
+}
+
+docker_clean() {
+    stop_docker_database
+    docker rm cb-postgres
+    run_docker_database
+    migrate
+}
+
+run() {
+    lein run
+}
+
+test_refresh() {
+    echo_message "Running Test Refresh"
+    lein test-refresh
+}
+
+test() {
+    echo_message "Testing code base"
+    lein test
+}
+
+figwheel() {
+    lein figwheel
+}
+
+parse () {
+    if [[ $# -eq 0 ]]; then
+        usage
+    elif [ $1 = "clean" ]; then
+        clean
+    elif [ $1 = "docker-clean" ]; then
+        docker_clean
+    elif [ $1 = "reset" ]; then
+        reset
+    elif [ $1 = "migrate" ]; then
+        migrate
+    elif [ $1 = "test" ]; then
+        test
+    elif [ $1 = "test-refresh" ]; then
+        test_refresh
+    elif [ $1 = "setup" ]; then
+        run_docker_database
+        migrate
+        run
+    elif [ $1 = "shutdown" ]; then
+        stop_docker_database
+    elif [ $1 = "run" ]; then
+        run
+    elif [ $1 = "figwheel" ]; then
+        figwheel
+    else
+      usage
+    fi
+}
+
 export PGPASSWORD=${DATABASE_PASSWORD}
 
-if [[ $# -eq 0 ]]; then
-    usage
-elif [ $1 = "clean" ]; then
-    clean
-elif [ $1 = "reset" ]; then
-      reset
-else
-  usage
-fi
+parse $@
