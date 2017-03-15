@@ -10,6 +10,10 @@ dl@{n}, dl@{x} {
   margin-bottom: 2rem;
   text-align: left;
   overflow: hidden;
+  display: flex;
+  flex-flow: row wrap;
+  align-content: space-between;
+  justify-content: space-between;
 
   dt, dd {
     box-sizing: border-box;
@@ -18,13 +22,11 @@ dl@{n}, dl@{x} {
   }
 
   dt {
-    float: left;
-    clear: left;
     width: 20%;
     font-weight: 700;
     color: @grey-ultradark;
 
-    &:hover{
+    &:hover {
       background: @grey-ultralight;
       & + dd {
         background: @grey-ultralight;
@@ -52,9 +54,9 @@ dl@{n}, dl@{x} {
   }
 
   dd {
-    margin: 0 0 0 20%;
-
-    a{
+    width: 80%;
+    margin: 0;
+    a {
       display: block;
       color: @primary;
     }

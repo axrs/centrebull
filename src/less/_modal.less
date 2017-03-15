@@ -1,0 +1,32 @@
+@import (reference) "_variables";
+
+/*	layouts
+----------------------------------------------------------------------*/
+
+modal@{n}, modal@{x} {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-height: 100vh;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 200;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  padding: 5rem;
+
+  & > card {
+    position: relative;
+    margin: 10% auto;
+    z-index: 300;
+    background: #fff;
+  }
+}
+
+@media (max-width: @mobile) {
+  modal@{n}, modal@{x} {
+    padding: 1rem;
+    left: 0;
+  }
+}

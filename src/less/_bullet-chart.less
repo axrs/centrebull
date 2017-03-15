@@ -1,0 +1,57 @@
+.bullet-graph {
+  font-family: sans-serif;
+
+  [data-state="st-2"] {
+    fill: #f8dbd7;
+  }
+
+  [data-state="st-1"] {
+    fill: #f5efc4;
+
+  }
+
+  [data-state="st-0"] {
+    fill: #b8e6ca;
+  }
+}
+
+.bullet-graph .bullet .bar {
+  fill: #1985a1;
+}
+
+.bullet-graph .bullet text {
+  fill: white;
+  font-size: 30%;
+}
+
+.bullet-graph .bullet text.value {
+  text-anchor: end;
+}
+
+.bullet-graph .bullet text.title {
+  text-anchor: start;
+}
+
+.bullet-graph .labels text {
+  font-size: 30%;
+}
+
+.bullet-graph .labels rect {
+  width: 0.25%;
+  height: 10%;
+}
+
+.bullet-graph .labels .start text {
+  text-anchor: start
+}
+
+.bullet-graph .labels .internal {
+  text {
+    text-anchor: middle;
+  }
+  &:last-of-type {
+    text {
+      text-anchor: end;
+    }
+  }
+}
