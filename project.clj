@@ -117,7 +117,7 @@
 
 
                   :doo {:build "test"}
-                  :source-paths ["env/dev/clj" "test/clj"]
+                  :source-paths ["env/dev/clj" "test/clj" "test/cljc"]
                   :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns user}
                   :injections [(require 'pjstadig.humane-test-output)
@@ -126,7 +126,7 @@
                   :cljsbuild
                   {:builds
                    {:test
-                    {:source-paths ["src/cljc" "src/cljs" "test/cljs" "test/cljc"]
+                    {:source-paths ["src/cljc" "src/cljs" "test/cljc" "test/cljs"]
                      :compiler
                      {:output-to "target/test.js"
                       :main "centrebull.doo-runner"

@@ -1,6 +1,5 @@
-(ns cljc.centrebull.util
-  (:require
-    [clojure.test :refer [is deftest testing]]))
+(ns centrebull.test.extend
+  (:require [clojure.test :refer [is deftest testing]]))
 
 (defmacro is-not
   ([form] `(is (not ~form)))
