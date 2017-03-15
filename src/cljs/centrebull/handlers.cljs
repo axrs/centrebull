@@ -39,3 +39,9 @@
     (post-json {:url           url
                 :body          params
                 :after-success [[::update-results-atom ratom]]})))
+
+(reg-event-fx
+  :toggle
+  (fn [_ [_ ratom]]
+    (reset! ratom (not @ratom))
+    {}))

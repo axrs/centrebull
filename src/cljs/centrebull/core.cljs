@@ -8,6 +8,7 @@
             [goog.history.EventType :as HistoryEventType]
             [markdown.core :refer [md->html]]
             [ajax.core :refer [GET POST]]
+            [centrebull.spec]
             [centrebull.ajax :refer [load-interceptors!]]
             [centrebull.handlers]
             [centrebull.components.navigation :refer [topbar sidebar]]
