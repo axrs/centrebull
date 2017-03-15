@@ -1,7 +1,8 @@
 (ns centrebull.competitions.views
   (:require
     [centrebull.components.search :refer [search]]
-    [centrebull.components.input :refer [input]]))
+    [centrebull.components.input :refer [input]]
+    [re-frame.core :as rf]))
 
 (defn competitions-page [toggle-action]
   [:section
@@ -9,7 +10,13 @@
     [:h2 {:local "9/12"} "Competitions"]
     [:button {:local "3/12" :on-click toggle-action} "New Competition"]
 
-    [search "/competitions/search" #([:h1 %])]]])
+    [search "/competitions/search"
+
+     (fn [{:keys [competition/id competition/description competition/start-date competition/end-date]}]
+       [:div {:on-click #(rf/dispatch [:set-active-competition id])}
+        [:div {:local "3/4"} description]
+        [:div {:local "1/4"} start-date [:br] end-date]])]]])
+
 
 (defn register-modal [state valid? toggle-action submit-action]
   [:modal {:on-click toggle-action}

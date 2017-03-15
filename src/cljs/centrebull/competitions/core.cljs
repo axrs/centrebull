@@ -11,8 +11,8 @@
   (let [new-competition (r/atom {})
         errors (r/atom {})
         show-modal? (r/atom false)
-        toggle-action #(rf/dispatch [:toggle show-modal?])
-        submit-action #(rf/dispatch [:competitions-create @new-competition errors [[:toggle show-modal?]]])
+        toggle-action #(rf/dispatch [:toggle show-modal? new-competition errors])
+        submit-action #(rf/dispatch [:competitions-create @new-competition errors [[:toggle show-modal? new-competition errors]]])
         valid? (fn [] (s/valid? :centrebull.spec/competition-create @new-competition))]
     (fn []
       [:div

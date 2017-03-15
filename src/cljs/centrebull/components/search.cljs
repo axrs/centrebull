@@ -11,7 +11,7 @@
    (if-not (empty? results)
      (if (nil? results)
        [:p "No results found"]
-       (for [r results] [row-render r])))])
+       (for [r results] (row-render r))))])
 
 (defn- set-search-watch [url ratom results]
   (let [timer (r/atom nil)]

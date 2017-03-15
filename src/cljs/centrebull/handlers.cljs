@@ -42,6 +42,7 @@
 
 (reg-event-fx
   :toggle
-  (fn [_ [_ ratom]]
+  (fn [_ [_ ratom & others]]
     (reset! ratom (not @ratom))
+    (doall (map #(reset! % {}) others))
     {}))
