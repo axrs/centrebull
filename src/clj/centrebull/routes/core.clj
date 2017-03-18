@@ -21,6 +21,7 @@
       (shooters/create! request))
 
     (GET "/search" {:as request} (shooters/suggest request))
+
     (POST "/search" {:as request} (shooters/suggest request))
 
     (GET "/:shooter--sid" {:as request}
@@ -33,11 +34,11 @@
       (competitions/create! request))
 
     (GET "/search" {:as request} (competitions/suggest request))
+
     (POST "/search" {:as request} (competitions/suggest request))
 
     (GET "/:competition--id" {:as request}
       :spec :centrebull.spec/competition-id-only
-
       (competitions/find request))
 
     (DELETE "/:competition--id" {:as request}
