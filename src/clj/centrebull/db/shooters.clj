@@ -22,7 +22,8 @@
   (->> shooter
     in-mapper
     (merge default-fields)
-    shooters-create!))
+    shooters-create!
+    out-mapper))
 
 (defn suggest [s]
   (->> s

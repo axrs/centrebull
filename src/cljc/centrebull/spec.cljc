@@ -74,7 +74,7 @@
 ;Clojure spec predicate for a non empty string
 (def non-empty-string (s/and string? #(not= "" %)))
 
-(defn- str->int [s] #?(:cljs (cond (and (string? s) #(not= "" %)) (cljs.tools.reader/read-string s)
+(defn- str->int [s] #?(:cljs (cond (and (string? s) #(not= "" %)) s
                                    (integer? s) s
                                    :else s)
                        :clj  (cond (and (string? s) #(not= "" %))
