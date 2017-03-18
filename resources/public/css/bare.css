@@ -53,7 +53,7 @@ img {
   border: 0;
 }
 ::selection {
-  background-color: #1985A1;
+  background-color: indianred;
   color: #fff;
 }
 /*	anchor link
@@ -88,7 +88,7 @@ blockquote:not([class]),
 blockquote[xx] {
   margin: 2rem 0;
   padding: 1rem 2rem;
-  border-left: 4px solid #1985A1;
+  border-left: 4px solid indianred;
 }
 /*	buttons
 ----------------------------------------------------------------------*/
@@ -97,11 +97,11 @@ button[xx],
 input[type=submit],
 [btn] {
   cursor: pointer;
-  color: #1985A1;
+  color: indianred;
   display: inline-block;
   padding: 1.4rem 2rem;
   background: #fff;
-  border: 1px solid #1985A1;
+  border: 1px solid indianred;
   border-radius: 2px;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   text-transform: uppercase;
@@ -125,7 +125,7 @@ input[type=submit]:before,
   left: 0;
   top: 0;
   transform: scale3d(1.2, 1.2, 1.2);
-  background: #1985A1;
+  background: indianred;
 }
 button:not([class]):not(:disabled):hover,
 button[xx]:not(:disabled):hover,
@@ -145,8 +145,8 @@ button:not([class])[data-primary],
 button[xx][data-primary],
 input[type=submit][data-primary],
 [btn][data-primary] {
-  border-color: #156f87;
-  background: #1985A1;
+  border-color: #c64545;
+  background: indianred;
   color: #fff;
   font-weight: 700;
 }
@@ -154,7 +154,7 @@ button:not([class])[data-primary]:not(:disabled):hover,
 button[xx][data-primary]:not(:disabled):hover,
 input[type=submit][data-primary]:not(:disabled):hover,
 [btn][data-primary]:not(:disabled):hover {
-  background: #156f87;
+  background: #c64545;
 }
 button:not([class])[data-round],
 button[xx][data-round],
@@ -319,7 +319,7 @@ pre:not([class]) code,
 pre[xx] code {
   padding: 2rem;
   border: none;
-  border-left: 4px solid #1985A1;
+  border-left: 4px solid indianred;
   border-radius: 0;
   width: 100%;
   display: block;
@@ -336,7 +336,7 @@ footer {
 }
 footer:before {
   content: "";
-  background: #1985A1;
+  background: indianred;
   width: 102vw;
   height: 100%;
   position: absolute;
@@ -493,8 +493,8 @@ input:not([type=radio]):not([type=checkbox]):not([type=button]):not([type=submit
 input:not([type=radio]):not([type=checkbox]):not([type=button]):not([type=submit])[xx]:focus,
 input:not([type=radio]):not([type=checkbox]):not([type=button]):not([type=submit]):not([class]):hover,
 input:not([type=radio]):not([type=checkbox]):not([type=button]):not([type=submit])[xx]:hover {
-  color: #1985A1;
-  border-color: #1985A1;
+  color: indianred;
+  border-color: indianred;
   outline: 0;
 }
 textarea:not([class]),
@@ -518,8 +518,8 @@ textarea:not([class]):focus,
 textarea[xx]:focus,
 textarea:not([class]):hover,
 textarea[xx]:hover {
-  color: #1985A1;
-  border-color: #1985A1;
+  color: indianred;
+  border-color: indianred;
   outline: 0;
 }
 select:not([class]),
@@ -543,7 +543,7 @@ select:not([class]):focus,
 select[xx]:focus,
 select:not([class]):hover,
 select[xx]:hover {
-  border-color: #1985A1;
+  border-color: indianred;
   outline: 0;
 }
 input:not([class])[type=text][required] + span:after,
@@ -562,7 +562,7 @@ input[xx][type=password][required] + span:after {
   height: 2rem;
   right: -1rem;
   top: 0rem;
-  color: #1985A1;
+  color: indianred;
   font-size: 2rem;
 }
 input[type=radio]:not([class]),
@@ -623,14 +623,14 @@ input[type=radio] [xx] + label:before {
 }
 input[type=radio] :not([class]):checked + label:before,
 input[type=radio] [xx]:checked + label:before {
-  background: #1985A1;
-  border-color: #1985A1;
+  background: indianred;
+  border-color: indianred;
 }
 input[type=radio] :not([class]):checked + label:after,
 input[type=radio] [xx]:checked + label:after {
   opacity: 1;
   visibility: visible;
-  background: #1985A1;
+  background: indianred;
   border: 1px solid #fff;
   border-radius: 100%;
   transform: scale(1);
@@ -653,8 +653,8 @@ input[type=checkbox] [xx] + label:after {
 }
 input[type=checkbox] :not([class]):checked + label:before,
 input[type=checkbox] [xx]:checked + label:before {
-  background: #1985A1;
-  border-color: #1985A1;
+  background: indianred;
+  border-color: indianred;
 }
 input[type=checkbox] :not([class]):checked + label:after,
 input[type=checkbox] [xx]:checked + label:after {
@@ -726,7 +726,7 @@ il[xx] li {
 il:not([class]) li a,
 il[xx] li a {
   margin-left: 5%;
-  color: #1985A1;
+  color: indianred;
 }
 @media (max-width: 50rem) {
   il:not([class]),
@@ -807,7 +807,7 @@ sidebar[xx] {
   background: #fff;
   color: #2e3538;
   padding: 0 2rem;
-  border-bottom: 1px solid #1985A1;
+  border-bottom: 1px solid indianred;
   z-index: 10;
   min-height: 4.4rem;
 }
@@ -858,7 +858,7 @@ sidebar:not([class]) ul li[fx],
 sidebar[xx] ul li[fx] {
   color: #fff;
   font-weight: bold;
-  background-color: #1985A1;
+  background-color: indianred;
 }
 nav:not([class]) ul li ul,
 nav[xx] ul li ul,
@@ -884,7 +884,7 @@ nav:not([class]) ul li ul li:hover,
 nav[xx] ul li ul li:hover,
 sidebar:not([class]) ul li ul li:hover,
 sidebar[xx] ul li ul li:hover {
-  border-color: #1985A1;
+  border-color: indianred;
   background-color: #46494C;
 }
 nav:not([class]) ul li ul li a,
@@ -919,7 +919,7 @@ sidebar[xx] ul label {
   text-transform: none;
   padding: 0.8rem 2rem 0.4rem;
   display: block;
-  color: #1985A1;
+  color: indianred;
   font-size: 1.4rem;
 }
 nav:not([class]) ul a,
@@ -951,8 +951,8 @@ nav[xx] ul a:hover,
 sidebar:not([class]) ul a:hover,
 sidebar[xx] ul a:hover {
   color: #fff;
-  border-color: #1985A1;
-  background-color: #1985A1;
+  border-color: indianred;
+  background-color: indianred;
 }
 nav:not([class]) menu,
 nav[xx] menu,
@@ -1000,7 +1000,7 @@ nav:not([class]) menu mi:hover,
 nav[xx] menu mi:hover,
 sidebar:not([class]) menu mi:hover,
 sidebar[xx] menu mi:hover {
-  border-color: #1985A1;
+  border-color: indianred;
   background-color: #f8f7f8;
 }
 nav:not([class]) menu menuitem:hover a,
@@ -1075,7 +1075,7 @@ nav:not([class]) header a strong,
 nav[xx] header a strong,
 sidebar:not([class]) header a strong,
 sidebar[xx] header a strong {
-  color: #1985A1;
+  color: indianred;
 }
 nav:not([class]) header a img,
 nav[xx] header a img,
@@ -1155,7 +1155,7 @@ sidebar:not([class]) > ul a {
     bottom: 0;
     padding: 0;
     transform: translate3d(100%, 0, 0);
-    border-top: 1px solid #1985A1;
+    border-top: 1px solid indianred;
     text-align: left;
     background: #fff;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
@@ -1221,7 +1221,7 @@ table[xx] tdp {
 table:not([class]) th,
 table[xx] th {
   font-weight: 700;
-  color: #1985A1;
+  color: indianred;
 }
 table:not([class]) th:before,
 table[xx] th:before {
@@ -1252,7 +1252,7 @@ table:not([class]) td a,
 table[xx] td a,
 table:not([class]) tdp a,
 table[xx] tdp a {
-  color: #1985A1;
+  color: indianred;
   display: block;
 }
 table:not([class]) td[data-fixed-small],
@@ -1359,7 +1359,7 @@ dl[xx] dd {
 dl:not([class]) dd a,
 dl[xx] dd a {
   display: block;
-  color: #1985A1;
+  color: indianred;
 }
 dl:not([class]) dd:hover,
 dl[xx] dd:hover {
@@ -1373,7 +1373,7 @@ tag {
   border-bottom: 1px solid #C5C3C6;
   border-radius: 1.5rem;
   background: #f8f7f8;
-  color: #1985A1;
+  color: indianred;
   padding: 0.2rem 1.2rem;
   margin: 0 0.5rem 0.5rem 0;
 }
@@ -1526,7 +1526,7 @@ message[xx] {
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
   border-radius: 2px;
   margin-bottom: 2rem;
-  border-top: 5px solid #1985A1;
+  border-top: 5px solid indianred;
 }
 message:not([class])[data-success],
 message[xx][data-success] {
