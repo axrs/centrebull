@@ -1,6 +1,7 @@
 (ns centrebull.handlers
   (:require [centrebull.db :as db]
-            [re-frame.core :refer [dispatch reg-event-db]]))
+            [centrebull.ajax :refer [post-json]]
+            [re-frame.core :refer [dispatch reg-event-db reg-event-fx]]))
 
 (reg-event-db
   :initialize-db
@@ -13,6 +14,35 @@
     (assoc db :page page)))
 
 (reg-event-db
-  :set-docs
-  (fn [db [_ docs]]
-    (assoc db :docs docs)))
+  :toggle-sidebar
+  (fn [db [_]]
+    (assoc db :sidebar-open? (not (:sidebar-open? db)))))
+
+(reg-event-db
+  :try-force-sidebar-open
+  (fn [db [_ value]]
+    (assoc db :force-sidebar-open? (> value 800))))
+
+(reg-event-fx
+  :set-page-width
+  (fn [{:keys [db]} [_ value]]
+    {:db       (assoc db :page-width value)
+     :dispatch [:try-force-sidebar-open value]}))
+
+(reg-event-fx ::update-results-atom
+  (fn [_ [_ ratom results]]
+    (reset! ratom results)))
+
+(reg-event-fx
+  :search
+  (fn [_ [_ url params ratom]]
+    (post-json {:url           url
+                :body          params
+                :after-success [[::update-results-atom ratom]]})))
+
+(reg-event-fx
+  :toggle
+  (fn [_ [_ ratom & others]]
+    (reset! ratom (not @ratom))
+    (doall (map #(reset! % {}) others))
+    {}))

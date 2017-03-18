@@ -29,6 +29,7 @@
                  [org.webjars/font-awesome "4.7.0"]
                  [org.webjars/webjars-locator-jboss-vfs "0.1.0"]
                  [re-frame "0.9.1"]
+                 [day8.re-frame/http-fx "0.1.3"]
                  [reagent "0.6.0"]
                  [reagent-utils "0.2.0"]
                  [ring-middleware-format "0.7.2"]
@@ -36,6 +37,7 @@
                  [ring/ring-core "1.5.1"]
                  [ring/ring-defaults "0.2.3"]
                  [secretary "1.2.3"]
+                 [venantius/accountant "0.1.7"]
                  [com.lucasbradstreet/cljs-uuid-utils "1.0.2"]
                  [selmer "1.10.6"]]
 
