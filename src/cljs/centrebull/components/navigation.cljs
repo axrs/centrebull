@@ -28,4 +28,7 @@
     (let [is-open? (rf/subscribe [:sidebar-open?])]
       [:input {:type "checkbox" :value @is-open? :on-change #(rf/dispatch [:toggle-sidebar])}])
     [:header
-     [:a {:on-click #(accountant/navigate! "#/")} "Centre" [:strong "Bull"]]]]])
+     (let [comp-desc (:competition/description @(rf/subscribe [:active-competition]))]
+       [:a {:on-click #(accountant/navigate! "#/")} "Centre" [:strong "Bull"]
+        (when comp-desc [:span {:style {:font-weight 100}} (str " - " comp-desc)])])]]])
+
