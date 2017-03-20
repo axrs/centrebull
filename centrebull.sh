@@ -107,8 +107,21 @@ build_docker_database() {
     docker build -t cb-postgres ./tools/Postgres/
 }
 
+wait_for_docker() {
+	echo_message "Waiting for docker to start"
+	D=$(docker ps 2>&1)
+
+	if [[ "$D" == *"daemon"* ]]; then
+		sleep 5
+		wait_for_docker
+	fi
+}
+
 run_docker_database() {
     check_exec_exists "docker"
+    echo_message "Opening Docker"
+	open -a Docker
+	wait_for_docker
     echo_message "Starting..."
 
     docker_image=$(docker images -q cb-postgres)
