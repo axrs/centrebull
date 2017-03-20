@@ -18,7 +18,7 @@
   [{:keys [path via pred]}]
   (cond
     (and (seq? pred)
-      (s/get-spec (last pred))) (merge via (last pred))
+         (s/get-spec (last pred))) (merge via (last pred))
     :else via))
 
 (defn- explain-error [v]
@@ -27,10 +27,10 @@
 (defn- assoc-errors [e]
   "Associates errors with their human readable description"
   (->> e
-    explain-error
-    (assoc-in {} e)
-    first
-    val))
+       explain-error
+       (assoc-in {} e)
+       first
+       val))
 
 (defn- explain-spec-errors [errors]
   "Finds the human readable message for each error and produces a single map
@@ -44,8 +44,8 @@
 (defn- pretty-format-spec [spec m]
   (let [x
         (->> m
-          (find-problems spec)
-          explain-spec-errors)]
+             (find-problems spec)
+             explain-spec-errors)]
     x))
 
 (defn validate-spec

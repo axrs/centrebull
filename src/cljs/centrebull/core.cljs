@@ -26,14 +26,14 @@
   [:div.container])
 
 (def base-pages
-  {:home #'home-page
+  {:home  #'home-page
    :about #'about-page})
 
 (defn pages []
   (-> {}
-    (merge
-      base-pages
-      competitions/pages)))
+      (merge
+        base-pages
+        competitions/pages)))
 
 (defn page []
   [:div
@@ -51,10 +51,10 @@
 (secretary/set-config! :prefix "#")
 
 (secretary/defroute "/" []
-  (rf/dispatch [:set-active-page :home]))
+                    (rf/dispatch [:set-active-page :home]))
 
 (secretary/defroute "/about" []
-  (rf/dispatch [:set-active-page :about]))
+                    (rf/dispatch [:set-active-page :about]))
 
 
 ;; -------------------------

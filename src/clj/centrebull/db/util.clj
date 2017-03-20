@@ -7,9 +7,9 @@
   and rename them accordingly returning an updated map"
   [col m]
   (->> m
-    (filter #(contains? col (first %)))
-    (postwalk #(if (keyword? %) (% col) %))
-    (into {})))
+       (filter #(contains? col (first %)))
+       (postwalk #(if (keyword? %) (% col) %))
+       (into {})))
 
 (defn mapper [col m]
   (cond

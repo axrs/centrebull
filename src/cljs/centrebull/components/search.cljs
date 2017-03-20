@@ -16,12 +16,12 @@
 (defn- set-search-watch [url ratom results]
   (let [timer (r/atom nil)]
     (add-watch ratom :auto-searcher
-      (fn [_ s]
-        (let [query (:search @s)]
-          (when @timer (js/clearTimeout @timer))
-          (if (not-empty query)
-            (reset! timer (js/setTimeout #(rf/dispatch [:search url {:q query} results]) 500))
-            (reset! results nil)))))))
+               (fn [_ s]
+                 (let [query (:search @s)]
+                   (when @timer (js/clearTimeout @timer))
+                   (if (not-empty query)
+                     (reset! timer (js/setTimeout #(rf/dispatch [:search url {:q query} results]) 500))
+                     (reset! results nil)))))))
 
 (defn search
   "Renders the HTML to view the all the pools matching the the search"

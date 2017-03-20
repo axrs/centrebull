@@ -8,13 +8,13 @@
             [centrebull.middleware :as middleware]))
 
 (mount/defstate init-app
-  :start ((or (:init defaults) identity))
-  :stop ((or (:stop defaults) identity)))
+                :start ((or (:init defaults) identity))
+                :stop ((or (:stop defaults) identity)))
 
 (def app-routes
   (routes
     (-> #'cb-routes
-      (wrap-routes middleware/wrap-formats))
+        (wrap-routes middleware/wrap-formats))
     (route/not-found
       (:body
         (error-page {:status 404

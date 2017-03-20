@@ -3,11 +3,11 @@
             [centrebull.db.util :refer [mapper]]
             [centrebull.db.core :refer [activities-create! activities-delete!]]))
 
-(def ^:private key-map {:activity/id             :id
-                        :competition/id :competition-id
-                        :activity/range-id       :range-id
-                        :activity/priority       :priority
-                        :activity/date           :date})
+(def ^:private key-map {:activity/id       :id
+                        :competition/id    :competition-id
+                        :activity/range-id :range-id
+                        :activity/priority :priority
+                        :activity/date     :date})
 
 (def ^:private value-map (map-invert key-map))
 
@@ -16,10 +16,10 @@
 
 (defn create! [activity]
   (->> activity
-    in-mapper
-    activities-create!
-    out-mapper))
+       in-mapper
+       activities-create!
+       out-mapper))
 
 (defn delete! [id]
   (->> {:id id}
-    activities-delete!))
+       activities-delete!))

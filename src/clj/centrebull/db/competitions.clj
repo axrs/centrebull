@@ -19,21 +19,21 @@
 
 (defn create! [competition]
   (->> competition
-    in-mapper
-    competitions-create!
-    out-mapper))
+       in-mapper
+       competitions-create!
+       out-mapper))
 
 (defn find [id]
   (->> {:id id}
-    competitions-find
-    out-mapper))
+       competitions-find
+       out-mapper))
 
 (defn delete! [id]
   (->> {:id id}
-    competitions-delete!))
+       competitions-delete!))
 
 (defn suggest [s]
   (->> s
-    prepare-search-terms
-    competitions-suggest
-    out-mapper))
+       prepare-search-terms
+       competitions-suggest
+       out-mapper))
