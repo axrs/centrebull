@@ -32,7 +32,7 @@ ${txtbld}DESCRIPTION${txtrst}
     ${txtbld}shutdown${txtrst}
         terminates the application; shutting down the database.${txtrst}
     ${txtbld}run${txtrst}
-        runs the application, serving files and folders.${txtrst}
+        starts the database and runs the application, serving files and folders.${txtrst}
     ${txtbld}figwheel${txtrst}
         runs figwheel.${txtrst}
 EOF
@@ -136,6 +136,7 @@ docker_clean() {
 }
 
 run() {
+    run_docker_database
     lein run
 }
 
