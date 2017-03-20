@@ -16,5 +16,5 @@
 
 (defn create! [competition]
   (->> competition
-    in-mapper
-    entries-create!))
+       in-mapper
+       entries-create!))

@@ -20,15 +20,15 @@
 
 (defn create! [shooter]
   (->> shooter
-    in-mapper
-    (merge default-fields)
-    shooters-create!))
+       in-mapper
+       (merge default-fields)
+       shooters-create!))
 
 (defn suggest [s]
   (->> s
-    prepare-search-terms
-    shooters-suggest
-    out-mapper))
+       prepare-search-terms
+       shooters-suggest
+       out-mapper))
 
 (defn find-by-id [sid]
   (->> {:sid sid}

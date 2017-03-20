@@ -7,6 +7,6 @@
 
 (defn delete! [{:keys [all-params]}]
   (->> all-params
-    :range/id
-    dao/delete!
-    response/ok))
+       :range/id
+       dao/delete!
+       response/ok))

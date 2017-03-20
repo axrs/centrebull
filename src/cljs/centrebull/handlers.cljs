@@ -30,8 +30,8 @@
      :dispatch [:try-force-sidebar-open value]}))
 
 (reg-event-fx ::update-results-atom
-  (fn [_ [_ ratom results]]
-    (reset! ratom results)))
+              (fn [_ [_ ratom results]]
+                (reset! ratom results)))
 
 (reg-event-fx
   :search
