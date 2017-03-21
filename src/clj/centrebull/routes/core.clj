@@ -25,8 +25,8 @@
     (POST "/search" {:as request} (shooters/suggest request))
 
     (GET "/:shooter--sid" {:as request}
-         :spec :centrebull.spec/shooter-id-only
-         (shooters/find-by-id request)))
+      :spec :centrebull.spec/shooter-id-only
+      (shooters/find-by-id request)))
 
   (context "/competitions" []
     (POST "/" {:as request}

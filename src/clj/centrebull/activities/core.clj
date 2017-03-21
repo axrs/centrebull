@@ -7,6 +7,6 @@
 
 (defn delete! [{:keys [all-params]}]
   (->> all-params
-    :activity/id
-    dao/delete!
-    response/ok))
+       :activity/id
+       dao/delete!
+       response/ok))
