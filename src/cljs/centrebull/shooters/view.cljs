@@ -8,9 +8,10 @@
    [:card
     [:h2 {:local "9/12"} "Shooters"]
     [:button {:local "3/12" :on-click toggle-action} "New Shooter"]
-    ;(prn @(rf/subscribe [:active-competition]))
     (let [competition-id (:competition/id @(rf/subscribe [:active-competition]))]
-      [search (str "/competitions/" competition-id "/registrations/search")
+      [search (if competition-id
+                (str "/competitions/" competition-id "/registrations/search")
+                "/shooters/search")
        (fn [{:keys [shooter/sid
                     shooter/preferred-name
                     shooter/first-name
@@ -22,8 +23,9 @@
           [:div {:local "1/4"} (if (empty? preferred-name) (str first-name " " last-name) preferred-name)]
           [:div {:local "1/4"} club]
           [:div {:local "1/4"}
-           (if id [:h4 {:style {:color "indianred"}} "Registed"]
-                  [:button {} "Register"])]])])]])
+           (when competition-id
+             (if id [:h4 {:style {:color "indianred"}} "Registed"]
+                    [:button {} "Register"]))]])])]])
 
 
 (defn register-modal [state valid? toggle-action submit-action]
