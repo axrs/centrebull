@@ -105,6 +105,7 @@
 (s/def :activity/range-id (s/conformer ->uuid))
 (s/def :activity/priority number?)
 (s/def :activity/date is-date?)
+(s/def :competition/q string?)
 
 (s/def :entry/id (s/conformer ->uuid))
 ;----------------------------------------
@@ -146,6 +147,11 @@
     :req [:competition/id
           :shooter/sid
           :shooter/grade]))
+
+(s/def ::competition-suggest-registration
+  (s/keys
+    :req [:competition/id
+          :competition/q]))
 
 (s/def ::activity-id-only
   (s/keys

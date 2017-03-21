@@ -47,7 +47,11 @@
 
     (POST "/:competition--id/registrations" {:as request}
       :spec :centrebull.spec/competition-register-shooter
-      (competitions/register-shooter! request)))
+      (competitions/register-shooter! request))
+
+    (POST "/:competition--id/registrations/search" {:as request}
+      (prn request)
+      (competitions/suggest-registration request)))
 
   (context "/activities" []
     (POST "/" {:as request}

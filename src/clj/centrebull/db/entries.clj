@@ -4,10 +4,10 @@
             [centrebull.db.util :refer [mapper]]
             [centrebull.db.core :refer [entries-create!]]))
 
-(def ^:private key-map {:entry/id       :id
-                        :competition/id :competition-id
-                        :shooter/id     :sid
-                        :shooter/grade  :class})
+(def key-map {:entry/id       :id
+              :competition/id :competition-id
+              :shooter/id     :sid
+              :shooter/grade  :class})
 
 (def ^:private value-map (map-invert key-map))
 

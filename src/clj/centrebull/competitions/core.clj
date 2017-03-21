@@ -26,5 +26,10 @@
     dao-entries/create!
     response/ok))
 
-(defn suggest [{:keys [params]}]
-  (response/ok (dao/suggest (:q params))))
+(defn suggest [{:keys [body-params]}]
+  (response/ok (dao/suggest (:q body-params))))
+
+(defn suggest-registration [{:keys [route-params body-params]}]
+  (prn (:q body-params))
+  (prn (:competition--id route-params))
+  (response/ok (dao/suggest-registration (:q body-params) (:competition--id route-params))))

@@ -44,6 +44,7 @@
   :stop (conman/disconnect! *db*))
 
 (conman/bind-connection *db*
+
   "sql/shooters.sql"
   "sql/competitions.sql"
   "sql/entries.sql"

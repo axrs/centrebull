@@ -12,9 +12,12 @@
     [search "/shooters/search"
      (fn [{:keys [shooter/sid shooter/preferred-name shooter/first-name shooter/last-name shooter/club]}]
        [:div {:on-click #(rf/dispatch [:set-active-shooter sid])}
-        [:div {:local "1/3"} sid]
-        [:div {:local "1/3"} (if (empty? preferred-name) (str first-name " " last-name) preferred-name)]
-        [:div {:local "1/3"} club]])]]])
+        [:div {:local "1/4"} sid]
+        [:div {:local "1/4"} (if (empty? preferred-name) (str first-name " " last-name) preferred-name)]
+        [:div {:local "1/4"} club]
+        [:div {:local "1/4"}
+         [:button {} "Register"]]])]]])
+
 
 (defn register-modal [state valid? toggle-action submit-action]
   [:modal {:on-click toggle-action}
