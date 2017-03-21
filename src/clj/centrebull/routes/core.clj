@@ -50,7 +50,6 @@
       (competitions/register-shooter! request))
 
     (POST "/:competition--id/registrations/search" {:as request}
-      (prn request)
       (competitions/suggest-registration request)))
 
   (context "/activities" []

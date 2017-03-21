@@ -11,7 +11,14 @@
 (def ^:private key-map {:competition/id          :id
                         :competition/description :description
                         :competition/start-date  :start-date
-                        :competition/end-date    :end-date})
+                        :competition/end-date    :end-date
+                        :shooter/last-name       :last-name
+                        :shooter/first-name      :first-name
+                        :shooter/preferred-name  :preferred-name
+                        :shooter/grade           :class
+                        :shooter/club            :club
+                        :shooter/sid             :sid})
+
 
 (def ^:private value-map (map-invert key-map))
 
@@ -40,5 +47,6 @@
     out-mapper))
 
 (defn suggest-registration [s id]
-  (prn s)
-  (competitions-suggest-registration {:id id :s (prepare-search-terms s)}))
+  (->> {:id id :s (prepare-search-terms s)}
+    competitions-suggest-registration
+    out-mapper))

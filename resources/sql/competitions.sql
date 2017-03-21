@@ -28,7 +28,7 @@ LIMIT 25;
 -- :name competitions-suggest-registration :? :*
 -- :require [clojure.string :as string]
 -- :doc Suggests shooters for given search terms and whether or not they're registered in supplied competition
-SELECT description, preferred_name, first_name, last_name, start_date, end_date, competition_id, shooters.sid, class, club
+SELECT description, preferred_name, first_name, last_name, start_date, end_date, t1.id, shooters.sid, class, club
 FROM shooters
 LEFT JOIN entries
   ON shooters.sid = entries.sid

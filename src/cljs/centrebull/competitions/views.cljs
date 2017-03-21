@@ -13,7 +13,6 @@
     [search "/competitions/search"
 
      (fn [competition]
-       (prn competition)
        [:div {:on-click #(rf/dispatch [:set-active-competition competition])}
         [:div {:local "3/4"} (:competition/description competition)]
         [:div {:local "1/4"} (:competition/start-date competition)
