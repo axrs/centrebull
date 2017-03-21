@@ -5,7 +5,7 @@
     [centrebull.competitions.views :as v]
     [re-frame.core :as rf]
     [reagent.core :as r]
-    [cljs.spec :as s]))
+    [clojure.spec :as s]))
 
 (defn- page []
   (let [new-competition (r/atom {})
