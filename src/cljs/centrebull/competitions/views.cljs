@@ -20,7 +20,7 @@
 
 (defn register-modal [state valid? toggle-action submit-action]
   [:modal {:on-click toggle-action}
-   [:card {:on-click toggle-action}
+   [:card {:on-click #(.stopPropagation %)}
     [:h2 "Register New Competition"]
     [:grid
      [input {:title       "Description"
