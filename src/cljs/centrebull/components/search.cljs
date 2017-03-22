@@ -34,6 +34,6 @@
        :reagent-render      (fn []
                               [:div
                                [input {:ratom search :key :search :placeholder "Search" :required? false :autofocus true}]
-                               (when header [header])
+                               (when header [header results])
                                [results-table results row]
-                               (when footer [footer])])})))
+                               (when footer [footer results])])})))
