@@ -4,11 +4,11 @@
             [centrebull.db.util :refer [mapper prepare-search-terms]]
             [centrebull.db.core :refer [shooters-create! shooters-suggest shooters-find-by-id]]))
 
-(def key-map {:shooter/sid            :sid
-              :shooter/first-name     :first-name
-              :shooter/last-name      :last-name
-              :shooter/preferred-name :preferred-name
-              :shooter/club           :club})
+(def  ^:private key-map {:shooter/sid            :sid
+                         :shooter/first-name     :first-name
+                         :shooter/last-name      :last-name
+                         :shooter/preferred-name :preferred-name
+                         :shooter/club           :club})
 
 (def ^:private value-map (map-invert key-map))
 
