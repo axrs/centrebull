@@ -12,7 +12,7 @@
         show-model? (r/atom false)
         toggle-action #(rf/dispatch [:toggle show-model? new-shooter errors])
         submit-action #(rf/dispatch [:shooters-create @new-shooter errors [[:toggle show-model? new-shooter errors]]])
-        valid? (fn [] (s/valid? :centrebull.spec/shooter-create @new-shooter))]
+        valid? (fn [] (s/valid? :api/shooter-create @new-shooter))]
 
     (fn []
       [:div
