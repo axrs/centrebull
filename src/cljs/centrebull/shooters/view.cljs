@@ -32,7 +32,7 @@
                                                            :competition/id competition-id}]
                                                  (rf/dispatch [:shooters-register body results
                                                                (r/atom {})
-                                                               [[:update-registed-shooters body results]]]))}
+                                                               [[:update-registered-shooters body results]]]))}
                            "Register"]))]])}])]])
 
 (defn register-modal [state valid? toggle-action submit-action]

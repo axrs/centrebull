@@ -19,7 +19,7 @@
                 :after-success after-success})))
 
 (reg-event-fx
-  :update-registed-shooters
+  :update-registered-shooters
   (fn [_ [_ body results]]
     (let [sid (:shooter/sid body)]
       (swap! results #(map (fn [shooter] (if (= (:shooter/sid shooter) sid)
