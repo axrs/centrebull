@@ -6,7 +6,7 @@
             [ring.util.anti-forgery :refer [anti-forgery-field]]))
 
 (declare ^:dynamic *app-context*)
-(parser/set-resource-path!  (clojure.java.io/resource "templates"))
+(parser/set-resource-path! (clojure.java.io/resource "templates"))
 (filters/add-filter! :markdown (fn [content] [:safe (md-to-html-string content)]))
 
 (defn render

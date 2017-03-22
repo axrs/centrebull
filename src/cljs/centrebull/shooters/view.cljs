@@ -19,8 +19,7 @@
                     shooter/first-name
                     shooter/last-name
                     shooter/club
-                    competition/id
-                    shooter/grade]} results]
+                    competition/id]} results]
          [:div
           [:div {:local "1/4"} sid]
           [:div {:local "1/4"} (if (empty? preferred-name) (str first-name " " last-name) preferred-name)]
@@ -35,7 +34,6 @@
                                                             (r/atom {})
                                                             [[:update-registed-shooters body results]]]))}
                      "Register"]))]])])]])
-
 
 (defn register-modal [state valid? toggle-action submit-action]
   [:modal {:on-click toggle-action}

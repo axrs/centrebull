@@ -11,20 +11,20 @@
 
 (defn find [{:keys [all-params]}]
   (->> all-params
-    :competition/id
-    dao/find
-    response/ok))
+       :competition/id
+       dao/find
+       response/ok))
 
 (defn delete! [{:keys [all-params]}]
   (->> all-params
-    :competition/id
-    dao/delete!
-    response/ok))
+       :competition/id
+       dao/delete!
+       response/ok))
 
 (defn register-shooter! [{:keys [all-params]}]
   (->> all-params
-    dao-entries/create!
-    response/ok))
+       dao-entries/create!
+       response/ok))
 
 (defn suggest [{:keys [body-params]}]
   (response/ok (dao/suggest (:q body-params))))

@@ -16,16 +16,16 @@
 (defn- set-search-watch [url ratom results]
   (let [timer (r/atom nil)]
     (add-watch ratom :auto-searcher
-      (fn [_ s]
-        (let [query (:search @s)]
-          (when @timer (js/clearTimeout @timer))
-          (if (not-empty query)
-            (reset! timer (js/setTimeout #(rf/dispatch [:search url {:q query} results]) 500))
-            (reset! results nil)))))))
+               (fn [_ s]
+                 (let [query (:search @s)]
+                   (when @timer (js/clearTimeout @timer))
+                   (if (not-empty query)
+                     (reset! timer (js/setTimeout #(rf/dispatch [:search url {:q query} results]) 500))
+                     (reset! results nil)))))))
 
 (defn search
   "Renders the HTML to view the all the pools matching the the search"
-  [url row-render]
+  [url {:keys [header row footer]}]
   (let [results (r/atom nil)
         search (r/atom {})]
     (reagent/create-class
@@ -34,4 +34,7 @@
        :reagent-render      (fn []
                               [:div
                                [input {:ratom search :key :search :placeholder "Search" :required? false :autofocus true}]
-                               [results-table results row-render]])})))
+                               (when header [header results])
+                               [results-table results row]
+                               (when footer [footer results])])})))
+

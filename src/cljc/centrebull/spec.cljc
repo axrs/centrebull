@@ -6,9 +6,9 @@
     [clojure.walk :refer [postwalk]]))
 
 ; Spec error mapping for human readable messages
-(def ^:private explain {::shooter-create {:shooter/first-name "A first name is required."
-                                          :shooter/last-name  "A last name is requried."}
-                        ::ranges-create  {:range/description "A description is required."}})
+(def ^:private explain {:api/shooter-create {:shooter/first-name "A first name is required."
+                                             :shooter/last-name  "A last name is requried."}
+                        :api/ranges-create  {:range/description "A description is required."}})
 
 ;----------------------------------------
 ; SPEC VALIDATOR AND EXPLAIN
@@ -18,7 +18,7 @@
   [{:keys [path via pred]}]
   (cond
     (and (seq? pred)
-      (s/get-spec (last pred))) (merge via (last pred))
+         (s/get-spec (last pred))) (merge via (last pred))
     :else via))
 
 (defn- explain-error [v]
@@ -27,10 +27,10 @@
 (defn- assoc-errors [e]
   "Associates errors with their human readable description"
   (->> e
-    explain-error
-    (assoc-in {} e)
-    first
-    val))
+       explain-error
+       (assoc-in {} e)
+       first
+       val))
 
 (defn- explain-spec-errors [errors]
   "Finds the human readable message for each error and produces a single map
@@ -44,8 +44,8 @@
 (defn- pretty-format-spec [spec m]
   (let [x
         (->> m
-          (find-problems spec)
-          explain-spec-errors)]
+             (find-problems spec)
+             explain-spec-errors)]
     x))
 
 (defn validate-spec
@@ -74,7 +74,7 @@
 ;Clojure spec predicate for a non empty string
 (def non-empty-string (s/and string? #(not= "" %)))
 
-(defn- str->int [s] #?(:cljs (cond (and (string? s) #(not= "" %)) s
+(defn- str->int [s] #?(:cljs (cond (and (string? s) #(not= "" %)) (clojure.tools.reader/read-string s)
                                    (integer? s) s
                                    :else s)
                        :clj  (cond (and (string? s) #(not= "" %))
@@ -112,7 +112,7 @@
 ; API END POINTS
 ;----------------------------------------
 
-(s/def ::shooter-create
+(s/def :api/shooter-create
   (s/keys
     :req [:shooter/sid
           :shooter/last-name
@@ -120,44 +120,44 @@
     :opt [:shooter/preferred-name
           :shooter/club]))
 
-(s/def ::shooter-id-only
+(s/def :api/shooter-id-only
   (s/keys
     :req [:shooter/sid]))
 
-(s/def ::range-id-only
+(s/def :api/range-id-only
   (s/keys
     :req [:range/id]))
 
-(s/def ::ranges-create
+(s/def :api/ranges-create
   (s/keys
     :req [:range/description]))
 
-(s/def ::competition-id-only
+(s/def :api/competition-id-only
   (s/keys
     :req [:competition/id]))
 
-(s/def ::competition-create
+(s/def :api/competition-create
   (s/keys
     :req [:competition/description
           :competition/start-date
           :competition/end-date]))
 
-(s/def ::competition-register-shooter
+(s/def :api/competition-register-shooter
   (s/keys
     :req [:competition/id
           :shooter/sid
           :shooter/grade]))
 
-(s/def ::competition-suggest-registration
+(s/def :api/competition-suggest-registration
   (s/keys
     :req [:competition/id
           :competition/q]))
 
-(s/def ::activity-id-only
+(s/def :api/activity-id-only
   (s/keys
     :req [:activity/id]))
 
-(s/def ::activity-create
+(s/def :api/activity-create
   (s/keys
     :req [:activity/date
           :competition/id

@@ -1517,6 +1517,17 @@ h6[xx] sub {
   margin-left: 2rem;
   vertical-align: inherit;
 }
+header:not([class]),
+header[xx] {
+  font-weight: 700;
+  font-size: 1.6rem;
+}
+header:not([class]) caption:not([class]),
+header[xx] caption:not([class]),
+header:not([class]) caption[xx],
+header[xx] caption[xx] {
+  text-align: left;
+}
 /*	buttons
 ----------------------------------------------------------------------*/
 message:not([class]),
@@ -1729,7 +1740,7 @@ modal[xx] {
 modal:not([class]) > card,
 modal[xx] > card {
   position: relative;
-  margin: 10% auto;
+  margin: 1rem auto;
   z-index: 300;
   background: #fff;
 }

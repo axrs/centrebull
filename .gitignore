@@ -20,3 +20,4 @@ centrebull.iml
 .DS_Store
 *.sql--
 *.css
+resources/public/css/*.css

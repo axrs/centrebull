@@ -15,4 +15,4 @@
   ([method uri] (json-request method uri nil))
   ([method uri body]
    (-> (request method uri (json/generate-string body))
-     (content-type "application/json"))))
+       (content-type "application/json"))))

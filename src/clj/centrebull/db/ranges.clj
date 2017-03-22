@@ -4,7 +4,7 @@
             [centrebull.db.core :refer [ranges-create! ranges-delete!]]))
 
 (def ^:private key-map {:range/description :description
-                        :range/id :id})
+                        :range/id          :id})
 
 (def ^:private value-map (map-invert key-map))
 
@@ -13,10 +13,10 @@
 
 (defn create! [range]
   (->> range
-    in-mapper
-    ranges-create!
-    out-mapper))
+       in-mapper
+       ranges-create!
+       out-mapper))
 
 (defn delete! [id]
   (->> {:id id}
-    ranges-delete!))
+       ranges-delete!))
