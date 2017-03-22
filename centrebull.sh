@@ -17,6 +17,8 @@ ${txtbld}SYNOPSIS${txtrst}
 	$0 reset
 
 ${txtbld}DESCRIPTION${txtrst}
+	${txtbld}gulp${txtrst}
+	    runs the default gulp task. i.e. Compiling Less
 	${txtbld}clean${txtrst}
 		drops all tables and runs a database ${txtbld}migration${txtrst}
 	${txtbld}reset${txtrst}
@@ -168,9 +170,24 @@ figwheel() {
 	lein figwheel
 }
 
+run_gulp() {
+    check_exec_exists "npm"
+    npm install
+    check_exec_exists "gulp"
+    gulp build
+}
+
+setup() {
+    run_docker_database
+    migrate
+    run
+}
+
 parse () {
 	if [[ $# -eq 0 ]]; then
 		usage
+    elif [ $1 = "gulp" ]; then
+	    run_gulp
 	elif [ $1 = "clean" ]; then
 		clean
 	elif [ $1 = "docker-clean" ]; then
@@ -184,9 +201,8 @@ parse () {
 	elif [ $1 = "test-refresh" ]; then
 		test_refresh
 	elif [ $1 = "setup" ]; then
-		run_docker_database
-		migrate
-		run
+	    run_gulp
+	    setup
 	elif [ $1 = "shutdown" ]; then
 		stop_docker_database
 	elif [ $1 = "run" ]; then

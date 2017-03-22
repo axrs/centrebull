@@ -13,13 +13,14 @@ var targetCSSDir = 'resources/public/css';
 
 gulp.task('css', function () {
     return gulp.src(lessDir + '/bare.less')
-        .pipe(less({style: 'compressed'}).on('error', gutil.log))
+        .pipe(less({ style: 'compressed' }).on('error', gutil.log))
         .pipe(gulp.dest(targetCSSDir))
         .pipe(notify('CSS minified'))
 });
 
 gulp.task('watch', function () {
-    gulp.watch(lessDir + '/*.less', ['css']);
+    gulp.watch(lessDir + '/*.less', [ 'css' ]);
 });
 
-gulp.task('default', ['css', 'watch']);
+gulp.task('default', [ 'css', 'watch' ]);
+gulp.task('build', [ 'css' ]);
