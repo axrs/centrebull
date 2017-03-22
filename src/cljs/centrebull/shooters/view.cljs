@@ -1,7 +1,8 @@
 (ns centrebull.shooters.view
   (:require [centrebull.components.search :refer [search]]
             [centrebull.components.input :refer [input]]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [reagent.core :as r]))
 
 (defn shooters-page [toggle-action]
   [:section
@@ -9,6 +10,7 @@
     [:h2 {:local "9/12"} "Shooters"]
     [:button {:local "3/12" :on-click toggle-action} "New Shooter"]
     (let [competition-id (:competition/id @(rf/subscribe [:active-competition]))]
+
       [search (if competition-id
                 (str "/competitions/" competition-id "/registrations/search")
                 "/shooters/search")
@@ -17,15 +19,22 @@
                     shooter/first-name
                     shooter/last-name
                     shooter/club
-                    competition/id]}]
-         [:div {:on-click #(rf/dispatch [:set-active-shooter sid])}
+                    competition/id
+                    shooter/grade]} results]
+         [:div
           [:div {:local "1/4"} sid]
           [:div {:local "1/4"} (if (empty? preferred-name) (str first-name " " last-name) preferred-name)]
           [:div {:local "1/4"} club]
           [:div {:local "1/4"}
            (when competition-id
              (if id [:h4 {:style {:color "indianred"}} "Registed"]
-                    [:button {} "Register"]))]])])]])
+                    [:button {:on-click #(let [body {:shooter/sid sid
+                                                     :shooter/grade (js/prompt "Shooter Grade")
+                                                     :competition/id competition-id}]
+                                              (rf/dispatch [:shooters-register body results
+                                                            (r/atom {})
+                                                            [[:update-registed-shooters body results]]]))}
+                     "Register"]))]])])]])
 
 
 (defn register-modal [state valid? toggle-action submit-action]

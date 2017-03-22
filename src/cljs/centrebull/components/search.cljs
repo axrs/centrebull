@@ -8,10 +8,10 @@
 
 (defn- results-table [results row-render]
   [:div
-   (if-not (empty? results)
-     (if (nil? results)
+   (if-not (empty? @results)
+     (if (nil? @results)
        [:p "No results found"]
-       (for [r results] (row-render r))))])
+       (for [r @results] (row-render r results))))])
 
 (defn- set-search-watch [url ratom results]
   (let [timer (r/atom nil)]
@@ -34,4 +34,4 @@
        :reagent-render      (fn []
                               [:div
                                [input {:ratom search :key :search :placeholder "Search" :required? false :autofocus true}]
-                               [results-table @results row-render]])})))
+                               [results-table results row-render]])})))
