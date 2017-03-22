@@ -47,4 +47,12 @@
     (with-redefs [competitions/suggest (constantly (response/ok {:competition-suggest "called"}))]
       (let [{:keys [status body]} ((app) (json-request :post "/competitions/search" {:search/q "asdf"}))]
         (is (= status 200))
-        (is (= {:competition-suggest "called"} (parse-body body)))))))
+        (is (= {:competition-suggest "called"} (parse-body body))))))
+
+  (testing "Search competition Registrations"
+    (with-redefs [competitions/suggest-registration (constantly (response/ok {:comp-registrations-suggest "called"}))]
+      (let [{:keys [status body]} ((app) (json-request :post
+                                                       (str "/competitions/" (uuid) "/registrations/search")
+                                                       {:search/q "asdf"}))]
+        (is (= status 200))
+        (is (= {:comp-registrations-suggest "called"} (parse-body body)))))))
