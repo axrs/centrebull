@@ -20,9 +20,10 @@
 
 (defn create! [shooter]
   (->> shooter
-       in-mapper
-       (merge default-fields)
-       shooters-create!))
+    in-mapper
+    (merge default-fields)
+    shooters-create!
+    out-mapper))
 
 (defn suggest [s]
   (->> s
