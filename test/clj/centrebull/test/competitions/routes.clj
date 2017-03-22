@@ -45,10 +45,7 @@
 
   (testing "Search Competition Route"
     (with-redefs [competitions/suggest (constantly (response/ok {:competition-suggest "called"}))]
-      (let [{:keys [status body]} ((app) (request :get "/competitions/search?q=asdf" nil))]
-        (is (= status 200))
-        (is (= {:competition-suggest "called"} (parse-body body))))
-
-      (let [{:keys [status body]} ((app) (request :post "/competitions/search" {:q "asdf"}))]
+      (prn {:search/q "asdf"})
+      (let [{:keys [status body]} ((app) (request :post "/competitions/search" {:search/q "asdf"}))]
         (is (= status 200))
         (is (= {:competition-suggest "called"} (parse-body body)))))))

@@ -24,7 +24,7 @@
     (let [expected (gen-shooter)
           es "Johnny Search Term"]
       (with-redefs [dao/suggest (mock-dao/suggest es expected)]
-        (let [{:keys [status body]} (shooters/suggest {:params {:q es}})]
+        (let [{:keys [status body]} (shooters/suggest {:all-params {:search/q es}})]
           (is (= body expected))
           (is (= status 200)))))))
 
@@ -32,6 +32,6 @@
   (let [expected (gen-shooter)
         es "1234"]
     (with-redefs [dao/find-by-id (mock-dao/find-by-id es expected)]
-      (let [{:keys [status body]} (shooters/find-by-id {:params {:sid es}})]
+      (let [{:keys [status body]} (shooters/find-by-id {:all-params {:sid es}})]
         (is (= body expected))
         (is (= status 200))))))

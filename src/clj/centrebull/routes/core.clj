@@ -33,9 +33,8 @@
       :spec :api/competition-create
       (competitions/create! request))
 
-    (GET "/search" {:as request} (competitions/suggest request))
-
     (POST "/search" {:as request}
+      (prn request)
       :spec :api/competition-suggest
       (competitions/suggest request))
 
