@@ -4,19 +4,19 @@
     [centrebull.components.input :refer [input]]
     [re-frame.core :as rf]))
 
+(defn- competition-row [{:keys [competition/id competition/description
+                                competition/start-date competition/end-date]}
+                        atom]
+  [:div {:on-click #(rf/dispatch [:set-active-competition id])}
+   [:div {:local "3/4"} description]
+   [:div {:local "1/4"} start-date [:br] end-date]])
+
 (defn competitions-page [toggle-action]
   [:section
    [:card
     [:h2 {:local "9/12"} "Competitions"]
     [:button {:local "3/12" :on-click toggle-action} "New Competition"]
-
-    [search "/competitions/search"
-
-     (fn [{:keys [competition/id competition/description competition/start-date competition/end-date]}]
-       [:div {:on-click #(rf/dispatch [:set-active-competition id])}
-        [:div {:local "3/4"} description]
-        [:div {:local "1/4"} start-date [:br] end-date]])]]])
-
+    [search "/competitions/search" {:row competition-row}]]])
 
 (defn register-modal [state valid? toggle-action submit-action]
   [:modal {:on-click toggle-action}

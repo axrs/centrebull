@@ -8,10 +8,10 @@
 
 (defn- results-table [results row-render]
   [:div
-   (if-not (empty? results)
-     (if (nil? results)
+   (if-not (empty? @results)
+     (if (nil? @results)
        [:p "No results found"]
-       (for [r results] (row-render r))))])
+       (for [r @results] (row-render r results))))])
 
 (defn- set-search-watch [url ratom results]
   (let [timer (r/atom nil)]
@@ -25,7 +25,7 @@
 
 (defn search
   "Renders the HTML to view the all the pools matching the the search"
-  [url row-render]
+  [url {:keys [header row footer]}]
   (let [results (r/atom nil)
         search (r/atom {})]
     (reagent/create-class
@@ -34,4 +34,6 @@
        :reagent-render      (fn []
                               [:div
                                [input {:ratom search :key :search :placeholder "Search" :required? false :autofocus true}]
-                               [results-table @results row-render]])})))
+                               (when header [header])
+                               [results-table results row]
+                               (when footer [footer])])})))
