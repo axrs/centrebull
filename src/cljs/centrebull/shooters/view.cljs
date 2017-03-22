@@ -12,8 +12,8 @@
     (let [competition-id (:competition/id @(rf/subscribe [:active-competition]))]
 
       [search (if competition-id
-                (str "/competitions/" competition-id "/registrations/search")
-                "/shooters/search")
+                  (str "/competitions/" competition-id "/registrations/search")
+                  "/shooters/search")
        (fn [{:keys [shooter/sid
                     shooter/preferred-name
                     shooter/first-name

@@ -27,7 +27,7 @@
        response/ok))
 
 (defn suggest [{:keys [all-params]}]
-  (response/ok (dao/suggest (:q all-params))))
+  (response/ok (dao/suggest (:search/q all-params))))
 
-(defn suggest-registration [{:keys [route-params body-params]}]
-  (response/ok (dao/suggest-registration (:q body-params) (:competition--id route-params))))
+(defn suggest-registration [{:keys [all-params]}]
+  (response/ok (dao/suggest-registration (:search/q all-params) (:competition/id all-params))))

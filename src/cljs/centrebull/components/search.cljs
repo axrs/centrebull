@@ -20,7 +20,7 @@
                  (let [query (:search @s)]
                    (when @timer (js/clearTimeout @timer))
                    (if (not-empty query)
-                     (reset! timer (js/setTimeout #(rf/dispatch [:search url {:q query} results]) 500))
+                     (reset! timer (js/setTimeout #(rf/dispatch [:search url {:search/q query} results]) 500))
                      (reset! results nil)))))))
 
 (defn search
