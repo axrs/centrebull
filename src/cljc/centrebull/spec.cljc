@@ -3,7 +3,8 @@
      (:import java.util.UUID))
   (:require
     [clojure.spec :as s]
-    [clojure.walk :refer [postwalk]]))
+    [clojure.walk :refer [postwalk]]
+    [clojure.tools.reader :refer [read-string]]))
 
 ; Spec error mapping for human readable messages
 (def ^:private explain {:api/shooter-create {:shooter/first-name "A first name is required."
@@ -74,7 +75,7 @@
 ;Clojure spec predicate for a non empty string
 (def non-empty-string (s/and string? #(not= "" %)))
 
-(defn- str->int [s] #?(:cljs (cond (and (string? s) #(not= "" %)) (clojure.tools.reader/read-string s)
+(defn- str->int [s] #?(:cljs (cond (and (string? s) #(not= "" %)) (read-string s)
                                    (integer? s) s
                                    :else s)
                        :clj  (cond (and (string? s) #(not= "" %))
