@@ -30,6 +30,4 @@
   (response/ok (dao/suggest (:q all-params))))
 
 (defn suggest-registration [{:keys [route-params body-params]}]
-  (prn (:q body-params))
-  (prn (:competition--id route-params))
   (response/ok (dao/suggest-registration (:q body-params) (:competition--id route-params))))
