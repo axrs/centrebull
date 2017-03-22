@@ -17,7 +17,7 @@
 
   (context "/shooters" []
     (POST "/" {:as request}
-      :spec :centrebull.spec/shooter-create
+      :spec :api/shooter-create
       (shooters/create! request))
 
     (GET "/search" {:as request} (shooters/suggest request))
@@ -25,12 +25,12 @@
     (POST "/search" {:as request} (shooters/suggest request))
 
     (GET "/:shooter--sid" {:as request}
-      :spec :centrebull.spec/shooter-id-only
+      :spec :api/shooter-id-only
       (shooters/find-by-id request)))
 
   (context "/competitions" []
     (POST "/" {:as request}
-      :spec :centrebull.spec/competition-create
+      :spec :api/competition-create
       (competitions/create! request))
 
     (GET "/search" {:as request} (competitions/suggest request))
@@ -38,32 +38,32 @@
     (POST "/search" {:as request} (competitions/suggest request))
 
     (GET "/:competition--id" {:as request}
-      :spec :centrebull.spec/competition-id-only
+      :spec :api/competition-id-only
       (competitions/find request))
 
     (DELETE "/:competition--id" {:as request}
-      :spec :centrebull.spec/competition-id-only
+      :spec :api/competition-id-only
       (competitions/delete! request))
 
     (POST "/:competition--id/registrations" {:as request}
-      :spec :centrebull.spec/competition-register-shooter
+      :spec :api/competition-register-shooter
       (competitions/register-shooter! request)))
 
   (context "/activities" []
     (POST "/" {:as request}
-      :spec :centrebull.spec/activity-create
+      :spec :api/activity-create
       (activities/create! request))
 
     (DELETE "/:activity--id" {:as request}
-      :spec :centrebull.spec/activity-id-only
+      :spec :api/activity-id-only
       (activities/delete! request)))
 
   (context "/ranges" []
     (POST "/" {:as request}
-      :spec :centrebull.spec/ranges-create
+      :spec :api/ranges-create
       (ranges/create! request))
 
     (DELETE "/:range--id" {:as request}
-      :spec :centrebull.spec/range-id-only
+      :spec :api/range-id-only
       (ranges/delete! request))))
 
