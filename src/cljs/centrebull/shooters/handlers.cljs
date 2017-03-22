@@ -21,13 +21,7 @@
 (reg-event-fx
   :update-registed-shooters
   (fn [_ [_ body results]]
-    (prn "YOYOYO")
-    (prn body)
     (let [sid (:shooter/sid body)]
-      (prn (map (fn [shooter] (if (= (:shooter/sid shooter) sid)
-                                (assoc shooter :competition/id (:competition/id body))
-                                shooter))
-                @results))
       (swap! results #(map (fn [shooter] (if (= (:shooter/sid shooter) sid)
                                            (assoc shooter :competition/id (:competition/id body))
                                            shooter))
