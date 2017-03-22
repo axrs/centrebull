@@ -2,10 +2,10 @@
   (:require
     [secretary.core :as secretary]
     [centrebull.competitions.handlers]
-    [clojure.spec :as s]
     [centrebull.competitions.views :as v]
     [re-frame.core :as rf]
-    [reagent.core :as r]))
+    [reagent.core :as r]
+    [clojure.spec :as s]))
 
 (defn- page []
   (let [new-competition (r/atom {})
