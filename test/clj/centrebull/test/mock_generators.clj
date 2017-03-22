@@ -58,3 +58,23 @@
          :activity/range-id (uuid)
          :activity/priority (clojure.data.generators/int)
          :activity/date     (random-date-string)}))
+
+(defn gen-search-query
+  "Generates a search query"
+  []
+  {:search/q (string)
+   :competition/id (uuid)})
+
+(defn gen-shooters-registered
+  "Generates a shooter with registration details"
+  []
+  {:competition/id          (uuid)
+   :competition/description (string)
+   :competition/start-date  (random-date-string)
+   :competition/end-date    (random-date-string)
+   :shooter/last-name       (string)
+   :shooter/first-name      (string)
+   :shooter/preferred-name  (string)
+   :shooter/grade           (string)
+   :shooter/club            (string)
+   :shooter/sid             (rand-int 99999)})
