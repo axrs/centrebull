@@ -44,6 +44,6 @@
     (let [expected (gen-competition)
           es "Johnny Search Term"]
       (with-redefs [dao/suggest (mock-dao/suggest es expected)]
-        (let [{:keys [status body]} (competitions/suggest {:params {:q es}})]
+        (let [{:keys [status body]} (competitions/suggest {:all-params {:q es}})]
           (is (= body expected))
           (is (= status 200)))))))
