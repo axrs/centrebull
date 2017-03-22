@@ -14,26 +14,26 @@
       [search (if competition-id
                   (str "/competitions/" competition-id "/registrations/search")
                   "/shooters/search")
-       (fn [{:keys [shooter/sid
-                    shooter/preferred-name
-                    shooter/first-name
-                    shooter/last-name
-                    shooter/club
-                    competition/id]} results]
-         [:div
-          [:div {:local "1/4"} sid]
-          [:div {:local "1/4"} (if (empty? preferred-name) (str first-name " " last-name) preferred-name)]
-          [:div {:local "1/4"} club]
-          [:div {:local "1/4"}
-           (when competition-id
-             (if id [:h4 {:style {:color "indianred"}} "Registed"]
-                    [:button {:on-click #(let [body {:shooter/sid sid
-                                                     :shooter/grade (js/prompt "Shooter Grade")
-                                                     :competition/id competition-id}]
-                                              (rf/dispatch [:shooters-register body results
-                                                            (r/atom {})
-                                                            [[:update-registed-shooters body results]]]))}
-                     "Register"]))]])])]])
+       {:row (fn [{:keys [shooter/sid
+                          shooter/preferred-name
+                          shooter/first-name
+                          shooter/last-name
+                          shooter/club
+                          competition/id]} results]
+               [:div
+                [:div {:local "1/4"} sid]
+                [:div {:local "1/4"} (if (empty? preferred-name) (str first-name " " last-name) preferred-name)]
+                [:div {:local "1/4"} club]
+                [:div {:local "1/4"}
+                 (when competition-id
+                   (if id [:h4 {:style {:color "indianred"}} "Registed"]
+                          [:button {:on-click #(let [body {:shooter/sid sid
+                                                           :shooter/grade (js/prompt "Shooter Grade")
+                                                           :competition/id competition-id}]
+                                                 (rf/dispatch [:shooters-register body results
+                                                               (r/atom {})
+                                                               [[:update-registed-shooters body results]]]))}
+                           "Register"]))]])}])]])
 
 (defn register-modal [state valid? toggle-action submit-action]
   [:modal {:on-click toggle-action}

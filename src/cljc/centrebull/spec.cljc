@@ -137,6 +137,10 @@
   (s/keys
     :req [:competition/id]))
 
+(s/def :api/competition-suggest
+  (s/keys
+    :req [:search/q]))
+
 (s/def :api/competition-create
   (s/keys
     :req [:competition/description

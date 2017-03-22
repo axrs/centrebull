@@ -35,7 +35,9 @@
 
     (GET "/search" {:as request} (competitions/suggest request))
 
-    (POST "/search" {:as request} (competitions/suggest request))
+    (POST "/search" {:as request}
+      :spec :api/competition-suggest
+      (competitions/suggest request))
 
     (GET "/:competition--id" {:as request}
       :spec :api/competition-id-only

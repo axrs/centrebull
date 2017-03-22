@@ -27,6 +27,8 @@
        response/ok))
 
 (defn suggest [{:keys [all-params]}]
+  (prn all-params)
+  (prn "aaaa")
   (response/ok (dao/suggest (:search/q all-params))))
 
 (defn suggest-registration [{:keys [all-params]}]
