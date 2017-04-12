@@ -122,7 +122,7 @@ wait_for_docker() {
 run_docker_database() {
 	check_exec_exists "docker"
 	echo_message "Opening Docker"
-	#open -a Docker
+	open -a Docker
 	wait_for_docker
 	echo_message "Starting..."
 
