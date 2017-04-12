@@ -26,11 +26,7 @@
 
   (testing "Search Shooter Route"
     (with-redefs [shooters/suggest (constantly (response/ok {:shooter-suggest "called"}))]
-      (let [{:keys [status body]} ((app) (request :get "/shooters/search?q=asdf" nil))]
-        (is (= status 200))
-        (is (= {:shooter-suggest "called"} (parse-body body))))
-
-      (let [{:keys [status body]} ((app) (request :post "/shooters/search" {:q "asdf"}))]
+      (let [{:keys [status body]} ((app) (request :post "/shooters/search" {:search/q "asdf"}))]
         (is (= status 200))
         (is (= {:shooter-suggest "called"} (parse-body body))))))
 

@@ -44,6 +44,17 @@
     (let [expected (gen-competition)
           es "Johnny Search Term"]
       (with-redefs [dao/suggest (mock-dao/suggest es expected)]
-        (let [{:keys [status body]} (competitions/suggest {:params {:q es}})]
+        (let [{:keys [status body]} (competitions/suggest {:all-params {:search/q es}})]
+          (is (= body expected))
+          (is (= status 200))))))
+
+  (testing "Competition-suggest-registration"
+    (let [expected (gen-shooters-registered)
+          expected-input (gen-search-query)
+          id (:competition/id expected-input)
+          q (:search/q expected-input)]
+      (prn)
+      (with-redefs [dao/suggest-registration (mock-dao/suggest-registration q id expected)]
+        (let [{:keys [status body]} (competitions/suggest-registration {:all-params expected-input})]
           (is (= body expected))
           (is (= status 200)))))))

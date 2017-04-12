@@ -33,9 +33,9 @@
       :spec :api/competition-create
       (competitions/create! request))
 
-    (GET "/search" {:as request} (competitions/suggest request))
-
-    (POST "/search" {:as request} (competitions/suggest request))
+    (POST "/search" {:as request}
+      :spec :api/competition-suggest
+      (competitions/suggest request))
 
     (GET "/:competition--id" {:as request}
       :spec :api/competition-id-only
@@ -47,7 +47,11 @@
 
     (POST "/:competition--id/registrations" {:as request}
       :spec :api/competition-register-shooter
-      (competitions/register-shooter! request)))
+      (competitions/register-shooter! request))
+
+    (POST "/:competition--id/registrations/search" {:as request}
+      :spec :api/competition-suggest-registration
+      (competitions/suggest-registration request)))
 
   (context "/activities" []
     (POST "/" {:as request}

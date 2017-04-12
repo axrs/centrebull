@@ -23,4 +23,16 @@ SELECT *
 FROM competitions
 WHERE /*~ (string/join " AND " (for [value params] (str "suggest ILIKE '" value "'"))) ~*/
 ORDER BY id ASC, description ASC, start_date ASC, end_date ASC
-LIMIT 25
+LIMIT 25;
+
+-- :name competitions-suggest-registration :? :*
+-- :require [clojure.string :as string]
+-- :doc Suggests shooters for given search terms and whether or not they're registered in supplied competition
+SELECT *
+FROM shooters
+LEFT JOIN entries
+  ON shooters.sid = entries.sid
+  AND competition_id = :id::UUID
+WHERE /*~ (string/join " AND " (for [value (:s params)] (str "shooters.suggest ILIKE '" value "'"))) ~*/
+ORDER BY shooters.sid ASC, shooters.first_name ASC, shooters.last_name ASC
+LIMIT 25;

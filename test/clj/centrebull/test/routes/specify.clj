@@ -40,7 +40,6 @@
                      :body         {:ignored-field "this"}
                      :route-params {"Michael--Palin" "It's…" "John-Cleese" "My hovercraft is full of eels."}}
             response (handler request)]
-        (prn response)
         (is (= (:body response) (:body request)))
         (is (= (:all-params response) {:Michael/Palin "It's…" :John-Cleese "My hovercraft is full of eels."}))))))
 

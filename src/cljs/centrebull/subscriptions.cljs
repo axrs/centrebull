@@ -15,3 +15,8 @@
   :force-sidebar-open?
   (fn [db _]
     (:force-sidebar-open? db)))
+
+(reg-sub
+  :active-competition
+  (fn [db _]
+    (:active-competition db)))

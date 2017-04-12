@@ -9,3 +9,8 @@
                 :body          state
                 :errors        errors
                 :after-success after-success})))
+
+(reg-event-db
+  :set-active-competition
+  (fn [db [_ competition]]
+    (assoc db :active-competition competition)))

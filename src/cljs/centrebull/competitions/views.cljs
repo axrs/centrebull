@@ -22,7 +22,16 @@
    [:card
     [:h2 {:local "9/12"} "Competitions"]
     [:button {:local "3/12" :on-click toggle-action} "New Competition"]
-    [search "/competitions/search" {:header competition-header :row competition-row}]]])
+
+    [search "/competitions/search"
+
+     {:header competition-header
+      :row (fn [competition]
+             [:div {:on-click #(rf/dispatch [:set-active-competition competition])}
+              [:div {:local "3/4"} (:competition/description competition)]
+              [:div {:local "1/4"} (:competition/start-date competition)
+               [:br]
+               (:competition/end-date competition)]])}]]])
 
 (defn register-modal [state valid? toggle-action submit-action]
   [:modal {:on-click toggle-action}

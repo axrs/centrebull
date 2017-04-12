@@ -45,10 +45,14 @@
 
   (testing "Search Competition Route"
     (with-redefs [competitions/suggest (constantly (response/ok {:competition-suggest "called"}))]
-      (let [{:keys [status body]} ((app) (request :get "/competitions/search?q=asdf" nil))]
+      (let [{:keys [status body]} ((app) (json-request :post "/competitions/search" {:search/q "asdf"}))]
         (is (= status 200))
-        (is (= {:competition-suggest "called"} (parse-body body))))
+        (is (= {:competition-suggest "called"} (parse-body body))))))
 
-      (let [{:keys [status body]} ((app) (request :post "/competitions/search" {:q "asdf"}))]
+  (testing "Search competition Registrations"
+    (with-redefs [competitions/suggest-registration (constantly (response/ok {:comp-registrations-suggest "called"}))]
+      (let [{:keys [status body]} ((app) (json-request :post
+                                                       (str "/competitions/" (uuid) "/registrations/search")
+                                                       {:search/q "asdf"}))]
         (is (= status 200))
-        (is (= {:competition-suggest "called"} (parse-body body)))))))
+        (is (= {:comp-registrations-suggest "called"} (parse-body body)))))))

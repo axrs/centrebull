@@ -3,7 +3,8 @@
      (:import java.util.UUID))
   (:require
     [clojure.spec :as s]
-    [clojure.walk :refer [postwalk]]))
+    [clojure.walk :refer [postwalk]]
+    [clojure.tools.reader :refer [read-string]]))
 
 ; Spec error mapping for human readable messages
 (def ^:private explain {:api/shooter-create {:shooter/first-name "A first name is required."
@@ -74,7 +75,7 @@
 ;Clojure spec predicate for a non empty string
 (def non-empty-string (s/and string? #(not= "" %)))
 
-(defn- str->int [s] #?(:cljs (cond (and (string? s) #(not= "" %)) (clojure.tools.reader/read-string s)
+(defn- str->int [s] #?(:cljs (cond (and (string? s) #(not= "" %)) (read-string s)
                                    (integer? s) s
                                    :else s)
                        :clj  (cond (and (string? s) #(not= "" %))
@@ -106,6 +107,8 @@
 (s/def :activity/priority number?)
 (s/def :activity/date is-date?)
 
+(s/def :search/q string?)
+
 (s/def :entry/id (s/conformer ->uuid))
 ;----------------------------------------
 ; API END POINTS
@@ -135,6 +138,10 @@
   (s/keys
     :req [:competition/id]))
 
+(s/def :api/competition-suggest
+  (s/keys
+    :req [:search/q]))
+
 (s/def :api/competition-create
   (s/keys
     :req [:competition/description
@@ -146,6 +153,11 @@
     :req [:competition/id
           :shooter/sid
           :shooter/grade]))
+
+(s/def :api/competition-suggest-registration
+  (s/keys
+    :req [:competition/id
+          :search/q]))
 
 (s/def :api/activity-id-only
   (s/keys

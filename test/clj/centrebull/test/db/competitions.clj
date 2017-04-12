@@ -28,3 +28,10 @@
   (fn [s]
     (is (= s es))
     rv))
+
+(defn suggest-registration
+  [expected-q expected-id rv]
+  (fn [q id]
+    (is (= q expected-q))
+    (is (= id expected-id))
+    rv))
