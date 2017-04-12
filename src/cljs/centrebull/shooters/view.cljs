@@ -12,8 +12,8 @@
     (let [competition-id (:competition/id @(rf/subscribe [:active-competition]))]
 
       [search (if competition-id
-                  (str "/competitions/" competition-id "/registrations/search")
-                  "/shooters/search")
+                (str "/competitions/" competition-id "/registrations/search")
+                "/shooters/search")
        {:row (fn [{:keys [shooter/sid
                           shooter/preferred-name
                           shooter/first-name
@@ -27,8 +27,8 @@
                 [:div {:local "1/4"}
                  (when competition-id
                    (if id [:h4 {:style {:color "indianred"}} "Registed"]
-                          [:button {:on-click #(let [body {:shooter/sid sid
-                                                           :shooter/grade (js/prompt "Shooter Grade")
+                          [:button {:on-click #(let [body {:shooter/sid    sid
+                                                           :shooter/grade  (js/prompt "Shooter Grade")
                                                            :competition/id competition-id}]
                                                  (rf/dispatch [:shooters-register body results
                                                                (r/atom {})

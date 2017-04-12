@@ -33,11 +33,11 @@
 
 (defn pages []
   (-> {}
-    (merge
-      base-pages
-      ranges/pages
-      competitions/pages
-      shooters/pages)))
+      (merge
+        base-pages
+        ranges/pages
+        competitions/pages
+        shooters/pages)))
 
 (defn page []
   [:div
