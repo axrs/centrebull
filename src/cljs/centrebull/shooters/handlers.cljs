@@ -22,9 +22,12 @@
   :update-registered-shooters
   (fn [_ [_ body results]]
     (prn results)
+    (prn body)
     (let [sid (:shooter/sid body)]
       (swap! results #(map (fn [shooter] (if (= (:shooter/sid shooter) sid)
-                                           (assoc shooter :competition/id (:competition/id body))
+                                           (-> shooter
+                                             (assoc :competition/id (:competition/id shooter))
+                                             (assoc :entry/id (:entry/id shooter)))
                                            shooter))
                            @results)))))
 
@@ -33,13 +36,15 @@
   (fn [_ [_ id results]]
     (prn results)
     (swap! results #(map (fn [shooter] (if (= (:entry/id shooter) id)
-                                         (dissoc shooter :entry/id)
+                                         (-> shooter
+                                           (dissoc :entry/id)
+                                           (dissoc :competition/id))
                                          shooter))
                          @results))))
 
 (reg-event-fx
   :shooters-unregister
-  (fn [_ [_ id results]]
+  (fn [_ [_ id results shooter]]
     (prn "dicks")
     (delete-json {:url (str "/registrations/" id)
-                  :after-success [[::shooters-unregister-in-atom id results]]})))
+                  :after-success [[::shooters-unregister-in-atom id results shooter]]})))

@@ -10,7 +10,6 @@
     [:h2 {:local "9/12"} "Shooters"]
     [:button {:local "3/12" :on-click toggle-action} "New Shooter"]
     (let [competition-id (:competition/id @(rf/subscribe [:active-competition]))]
-
       [search (if competition-id
                   (str "/registrations/search?competition%2Fid=" competition-id)
                   "/shooters/search")
@@ -19,8 +18,7 @@
                           shooter/first-name
                           shooter/last-name
                           shooter/club
-                          ;entry/id
-                          competition/id]} results]
+                          entry/id] :as shooter} results]
                [:div
                 [:div {:local "2/12"} sid]
                 [:div {:local "3/12"} (if (empty? preferred-name) (str first-name " " last-name) preferred-name)]
