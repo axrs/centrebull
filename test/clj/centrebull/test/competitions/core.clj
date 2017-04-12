@@ -53,7 +53,6 @@
           expected-input (gen-search-query)
           id (:competition/id expected-input)
           q (:search/q expected-input)]
-      (prn)
       (with-redefs [dao/suggest-registration (mock-dao/suggest-registration q id expected)]
         (let [{:keys [status body]} (competitions/suggest-registration {:all-params expected-input})]
           (is (= body expected))

@@ -17,7 +17,8 @@
 (defn create! [entry]
   (->> entry
        in-mapper
-       entries-create!))
+       entries-create!
+       out-mapper))
 
 (defn delete! [id]
   (->> {:id id}
