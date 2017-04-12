@@ -16,6 +16,7 @@ profiles.clj
 node_modules/
 .idea/
 .idea/codeStyleSettings.xml
+.idea/editorconfig
 centrebull.iml
 .DS_Store
 *.sql--
