@@ -15,7 +15,7 @@
              valid? (fn [] (s/valid? :api/ranges-create @new-range))]
             (fn []
                 [:div
-                 (v/competitions-page toggle-action)
+                 (v/ranges-page toggle-action)
                  (when @show-modal?
                        (v/register-modal new-range valid? toggle-action submit-action))])))
 

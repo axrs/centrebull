@@ -13,7 +13,7 @@
        [:div
         [:p description]])
 
-(defn competitions-page [toggle-action]
+(defn ranges-page [toggle-action]
       [:section
        [:card
         [:h2 {:local "9/12"} "Ranges"]
