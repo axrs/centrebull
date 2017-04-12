@@ -28,4 +28,10 @@
     (with-redefs [ranges/delete! (constantly (response/ok {:range-delete! "called"}))]
       (let [{:keys [status body]} ((app) (json-request :delete (str "/ranges/" (uuid))))]
         (is (= status 200))
-        (is (= {:range-delete! "called"} (parse-body body)))))))
+        (is (= {:range-delete! "called"} (parse-body body))))))
+
+  (testing "Search Range Route"
+    (with-redefs [ranges/suggest (constantly (response/ok {:range-suggest "called"}))]
+      (let [{:keys [status body]} ((app) (json-request :post "/ranges/search" {:search/q "asdf"}))]
+        (is (= status 200))
+        (is (= {:range-suggest "called"} (parse-body body)))))))

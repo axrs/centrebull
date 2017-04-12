@@ -169,3 +169,7 @@
           :competition/id
           :activity/range-id
           :activity/priority]))
+
+(s/def :api/ranges-suggest
+  (s/keys
+    :req [:search/q]))

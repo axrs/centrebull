@@ -14,7 +14,8 @@
             [centrebull.components.navigation :refer [topbar sidebar]]
             [centrebull.subscriptions]
             [centrebull.competitions.core :as competitions]
-            [centrebull.shooters.core :as shooters])
+            [centrebull.shooters.core :as shooters]
+            [centrebull.ranges.core :as ranges])
   (:import goog.History))
 
 (defn about-page []
@@ -34,6 +35,7 @@
   (-> {}
     (merge
       base-pages
+      ranges/pages
       competitions/pages
       shooters/pages)))
 

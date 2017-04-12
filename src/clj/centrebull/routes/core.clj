@@ -67,6 +67,10 @@
       :spec :api/ranges-create
       (ranges/create! request))
 
+    (POST "/search" {:as request}
+      :spec :api/ranges-suggest
+      (ranges/suggest request))
+
     (DELETE "/:range--id" {:as request}
       :spec :api/range-id-only
       (ranges/delete! request))))
