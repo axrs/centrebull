@@ -12,4 +12,6 @@
            response/ok))
 
 (defn suggest [{:keys [all-params]}]
-      (response/ok (dao/suggest (:search/q all-params))))
+      (->> all-params
+           :search/q
+           response/ok))
