@@ -14,7 +14,7 @@
 (defn- out-mapper [m] (mapper value-map m))
 (defn- in-mapper [m] (mapper key-map m))
 
-(defn create! [competition]
-  (->> competition
+(defn create! [entry]
+  (->> entry
        in-mapper
        entries-create!))
