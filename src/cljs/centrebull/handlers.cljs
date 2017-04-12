@@ -40,9 +40,13 @@
                 :body          params
                 :after-success [[::update-results-atom ratom]]})))
 
+(defn- reset-atom [a]
+  (if (instance? reagent.ratom/RAtom a)
+    (reset! a {})))
+
 (reg-event-fx
   :toggle
   (fn [_ [_ ratom & others]]
     (reset! ratom (not @ratom))
-    (doall (map #(reset! % {}) others))
+    (doall (map reset-atom others))
     {}))

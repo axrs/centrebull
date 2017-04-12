@@ -10,3 +10,9 @@
        :range/id
        dao/delete!
        response/ok))
+
+(defn suggest [{:keys [all-params]}]
+  (->> all-params
+       :search/q
+       dao/suggest
+       response/ok))

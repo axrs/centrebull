@@ -21,7 +21,7 @@
          (v/register-modal new-shooter valid? toggle-action submit-action))])))
 
 (secretary/defroute "/shooters" []
-  (rf/dispatch [:set-active-page :shooters]))
+                    (rf/dispatch [:set-active-page :shooters]))
 
 (def pages
   {:shooters #'page})

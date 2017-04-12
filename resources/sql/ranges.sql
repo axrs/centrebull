@@ -10,3 +10,12 @@ RETURNING *;
 DELETE
 FROM ranges
 WHERE id = :id::UUID;
+
+-- :name ranges-suggest :? :*
+-- :require [clojure.string :as string]
+-- :doc Suggests ranges for given search terms
+SELECT *
+FROM ranges
+WHERE /*~ (string/join " AND " (for [value params] (str "description ILIKE '" value "'"))) ~*/
+ORDER BY description ASC
+LIMIT 25;

@@ -62,7 +62,7 @@
 (defn gen-search-query
   "Generates a search query"
   []
-  {:search/q (string)
+  {:search/q       (string)
    :competition/id (uuid)})
 
 (defn gen-shooters-registered

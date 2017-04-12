@@ -21,4 +21,12 @@
       (with-redefs [dao/delete! (mock-dao/delete! id expected)]
         (let [{:keys [status body]} (ranges/delete! {:all-params expected})]
           (is (= body expected))
+          (is (= status 200))))))
+
+  (testing "Range-Suggest"
+    (let [expected (gen-range)
+          es "Johnny Search Term"]
+      (with-redefs [dao/suggest (mock-dao/suggest es expected)]
+        (let [{:keys [status body]} (ranges/suggest {:all-params {:search/q es}})]
+          (is (= body expected))
           (is (= status 200)))))))
