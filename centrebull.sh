@@ -121,9 +121,17 @@ wait_for_docker() {
 
 run_docker_database() {
 	check_exec_exists "docker"
-	echo_message "Opening Docker"
-	open -a Docker
-	wait_for_docker
+
+    echo_message "Opening Docker"
+
+	if [[ `uname` == 'Darwin' ]]; then
+        open -a Docker
+    elif [[ `uname` == 'Linux' ]]; then
+        service docker start
+	fi
+
+    wait_for_docker
+
 	echo_message "Starting..."
 
 	docker_image=$(docker images -q cb-postgres)
