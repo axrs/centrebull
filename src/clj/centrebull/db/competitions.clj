@@ -42,11 +42,11 @@
 
 (defn suggest [s]
   (->> s
-    prepare-search-terms
-    competitions-suggest
-    out-mapper))
+       prepare-search-terms
+       competitions-suggest
+       out-mapper))
 
 (defn suggest-registration [s id]
   (->> {:id id :s (prepare-search-terms s)}
-    competitions-suggest-registration
-    out-mapper))
+       competitions-suggest-registration
+       out-mapper))

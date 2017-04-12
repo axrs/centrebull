@@ -1,18 +1,18 @@
 (ns centrebull.ranges.core
-    (:require [centrebull.db.ranges :as dao]
-      [ring.util.http-response :as response]))
+  (:require [centrebull.db.ranges :as dao]
+            [ring.util.http-response :as response]))
 
 (defn create! [{:keys [all-params]}]
-      (response/ok (dao/create! all-params)))
+  (response/ok (dao/create! all-params)))
 
 (defn delete! [{:keys [all-params]}]
-      (->> all-params
-           :range/id
-           dao/delete!
-           response/ok))
+  (->> all-params
+       :range/id
+       dao/delete!
+       response/ok))
 
 (defn suggest [{:keys [all-params]}]
-      (->> all-params
-           :search/q
-           dao/suggest
-           response/ok))
+  (->> all-params
+       :search/q
+       dao/suggest
+       response/ok))

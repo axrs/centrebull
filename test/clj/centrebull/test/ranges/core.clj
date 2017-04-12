@@ -28,5 +28,5 @@
           es "Johnny Search Term"]
       (with-redefs [dao/suggest (mock-dao/suggest es expected)]
         (let [{:keys [status body]} (ranges/suggest {:all-params {:search/q es}})]
-             (is (= body expected))
-             (is (= status 200)))))))
+          (is (= body expected))
+          (is (= status 200)))))))
