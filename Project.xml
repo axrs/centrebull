@@ -1,0 +1,38 @@
+<code_scheme name="Project">
+  <option name="OTHER_INDENT_OPTIONS">
+    <value>
+      <option name="INDENT_SIZE" value="2" />
+      <option name="CONTINUATION_INDENT_SIZE" value="8" />
+      <option name="TAB_SIZE" value="2" />
+      <option name="USE_TAB_CHARACTER" value="true" />
+      <option name="SMART_TABS" value="true" />
+      <option name="LABEL_INDENT_SIZE" value="0" />
+      <option name="LABEL_INDENT_ABSOLUTE" value="false" />
+      <option name="USE_RELATIVE_INDENTS" value="false" />
+    </value>
+  </option>
+  <JSCodeStyleSettings>
+    <option name="USE_SEMICOLON_AFTER_STATEMENT" value="false" />
+    <option name="USE_DOUBLE_QUOTES" value="false" />
+    <option name="SPACES_WITHIN_OBJECT_LITERAL_BRACES" value="true" />
+    <option name="SPACES_WITHIN_IMPORTS" value="true" />
+  </JSCodeStyleSettings>
+  <MarkdownNavigatorCodeStyleSettings>
+    <option name="RIGHT_MARGIN" value="-1" />
+  </MarkdownNavigatorCodeStyleSettings>
+  <XML>
+    <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
+  </XML>
+  <codeStyleSettings language="JavaScript">
+    <option name="KEEP_BLANK_LINES_IN_CODE" value="1" />
+    <option name="SPACE_WITHIN_BRACKETS" value="true" />
+    <option name="SPACE_BEFORE_METHOD_PARENTHESES" value="true" />
+    <option name="KEEP_SIMPLE_BLOCKS_IN_ONE_LINE" value="true" />
+    <option name="KEEP_SIMPLE_METHODS_IN_ONE_LINE" value="true" />
+    <indentOptions>
+      <option name="INDENT_SIZE" value="2" />
+      <option name="CONTINUATION_INDENT_SIZE" value="2" />
+      <option name="TAB_SIZE" value="2" />
+    </indentOptions>
+  </codeStyleSettings>
+</code_scheme>
