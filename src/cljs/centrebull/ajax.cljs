@@ -91,6 +91,18 @@
                 :on-success      [::good-http-result nil after-success]
                 :on-failure      [::bad-http-result nil after-errors]}})
 
+(defn delete-json
+  "Issues a DELETE request to a specified URL, dispatching success or error handlers respectively"
+  [{:keys [url after-success after-errors]
+    :or   {after-success [] after-errors []}
+    :as   request}]
+  {:http-xhrio {:method          :delete
+                :uri             url
+                :format          (ajax/json-request-format)
+                :response-format (ajax/json-response-format {:keywords? true})
+                :on-success      [::good-http-result nil after-success]
+                :on-failure      [::bad-http-result nil after-errors]}})
+
 (defn post-json
   "Issues a POST request to a specified URL, sending a provided body and dispatching success or
   error handlers respectively"

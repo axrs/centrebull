@@ -10,7 +10,7 @@
   (:gen-class))
 
 (def cli-options
-  [["-p" "--port PORT" "Port number"
+  [["-p" "--port PORT" "LLPort number"
     :parse-fn #(Integer/parseInt %)]])
 
 (mount/defstate ^{:on-reload :noop}

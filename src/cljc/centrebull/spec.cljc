@@ -154,6 +154,10 @@
           :shooter/sid
           :shooter/grade]))
 
+(s/def :api/competition-unregister-shooter
+  (s/keys
+    :req [:entry/id]))
+
 (s/def :api/competition-suggest-registration
   (s/keys
     :req [:competition/id

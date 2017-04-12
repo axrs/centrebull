@@ -26,8 +26,15 @@
        dao-entries/create!
        response/ok))
 
+(defn unregister-shooter! [{:keys [all-params]}]
+  (->> all-params
+       :entry/id
+       dao-entries/delete!
+       response/ok))
+
 (defn suggest [{:keys [all-params]}]
   (response/ok (dao/suggest (:search/q all-params))))
 
-(defn suggest-registration [{:keys [all-params]}]
+(defn suggest-registration [{:keys [all-params] :as req}]
+  (clojure.pprint/pprint req)
   (response/ok (dao/suggest-registration (:search/q all-params) (:competition/id all-params))))
