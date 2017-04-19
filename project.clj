@@ -7,7 +7,7 @@
 
   :dependencies [[bouncer "1.0.0"]
                  [buddy "1.3.0"]
-                 [clj-time "0.12.0"]
+                 [com.andrewmcveigh/cljs-time "0.4.0"]
                  [cljs-ajax "0.5.8"]
                  [compojure "1.5.2"]
                  [metosin/compojure-api "1.1.10"]
@@ -73,12 +73,12 @@
                                     {:min
                                      {:source-paths ["src/cljc" "src/cljs" "env/prod/cljs"]
                                       :compiler
-                                                    {:output-to     "target/cljsbuild/public/js/app.js"
-                                                     :optimizations :advanced
-                                                     :pretty-print  false
+                                                    {:output-to        "target/cljsbuild/public/js/app.js"
+                                                     :optimizations    :advanced
+                                                     :pretty-print     false
                                                      :closure-warnings {:non-standard-jsdoc :off}
-                                                     :foreign-libs         ~extern-libs
-                                                     :externs       ["react/externs/react.js" "src/externs.js"]}}}}
+                                                     :foreign-libs     ~extern-libs
+                                                     :externs          ["react/externs/react.js" "src/externs.js"]}}}}
 
 
                    :aot            :all
@@ -115,8 +115,8 @@
                                                      :output-dir    "target/cljsbuild/public/js/out"
                                                      :source-map    true
                                                      :optimizations :none
-                                                     :foreign-libs         ~extern-libs
-                                                     :externs              ["src/externs/externs.js"]
+                                                     :foreign-libs  ~extern-libs
+                                                     :externs       ["src/externs/externs.js"]
                                                      :pretty-print  true}}}}
 
 

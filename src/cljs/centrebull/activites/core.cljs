@@ -8,7 +8,7 @@
     [clojure.spec :as s]))
 
 (defn- page []
-  (let [activites @(rf/subscribe [:activities])
+  (let [activites (rf/subscribe [:activities])
         show-modal? (r/atom false)
         competition-id @(rf/subscribe [:active-competition-id])
         new (r/atom {})
@@ -17,7 +17,7 @@
         valid? (fn [] (s/valid? :api/activity-create @new))]
     (fn []
       [:div
-       [v/activites-page toggle-action activites]
+       [v/activites-page toggle-action @activites]
        (when @show-modal?
          (swap! new assoc :competition/id competition-id :activity/priority 0)
          [v/register-modal toggle-action submit-action new valid?])])))

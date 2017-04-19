@@ -3,6 +3,7 @@
     [centrebull.components.autocomplete :refer [autocomplete]]
     [centrebull.components.search :refer [search]]
     [centrebull.components.input :refer [input]]
+    [centrebull.date-utils :refer [format-date]]
     [re-frame.core :as rf]))
 
 (defn activity-row
@@ -11,7 +12,7 @@
            activity/priority]}]
   [:div
    [:div {:local "2/12"} priority]
-   [:div {:local "5/12"} date]
+   [:div {:local "5/12"} (format-date date)]
    [:div {:local "5/12"} description]])
 
 (defn activites-page [toggle-action activities]
@@ -19,6 +20,7 @@
    [:card
     [:h2 {:local "9/12"} "Activities"]
     [:button {:local "3/12" :on-click toggle-action} "New Activity"]
+    (prn activities)
     (for [act activities]
       ^{:key (:activity/id act)} [activity-row act])]])
 

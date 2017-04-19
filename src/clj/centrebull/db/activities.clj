@@ -7,6 +7,7 @@
 
 (def ^:private key-map {:activity/id       :id
                         :competition/id    :competition-id
+                        :range/description :description
                         :activity/range-id :range-id
                         :activity/priority :priority
                         :activity/date     :date})
