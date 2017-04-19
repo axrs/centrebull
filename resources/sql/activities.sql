@@ -15,4 +15,4 @@ WHERE id = :id::UUID;
 SELECT *
 FROM activities
 WHERE competition_id = :competition-id::UUID
-ORDER BY date DESC, priority DESC;
+ORDER BY date ASC, priority ASC;

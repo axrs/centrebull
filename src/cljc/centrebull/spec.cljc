@@ -104,7 +104,7 @@
 
 (s/def :activity/id (s/conformer ->uuid))
 (s/def :activity/range-id (s/conformer ->uuid))
-(s/def :activity/priority number?)
+(s/def :activity/priority is-integer)
 (s/def :activity/date is-date?)
 
 (s/def :search/q string?)

@@ -3,9 +3,16 @@
             [re-frame.core :refer [dispatch reg-event-fx]]))
 
 (reg-event-fx
+  :activity-create
+  (fn [_ [_ state after-success]]
+    (post-json {:url           "/activities"
+                :body          state
+                :after-success after-success})))
+
+(reg-event-fx
   ::set-active-activites
   (fn [{:keys [db]} [_ results]]
-    {:db (assoc db :activites results)}))
+    {:db (assoc db :activities results)}))
 
 (reg-event-fx
   :refresh-activities

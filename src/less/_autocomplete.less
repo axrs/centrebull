@@ -1,0 +1,26 @@
+@import (reference) "_variables";
+
+autocomplete {
+  display: block;
+  padding: 2rem;
+  box-shadow: @box-shadow;
+  border-radius: 2px;
+  margin-bottom: 2rem;
+  background-color: white;
+  margin-top: -2rem;
+  position: absolute;
+
+  z-index: 200;
+  left: 0;
+  right: 0;
+
+  li {
+    list-style: none;
+    padding: 0.5rem;
+
+    &:hover {
+      cursor: pointer;
+      background-color: @grey-ultralight;
+    }
+  }
+}
