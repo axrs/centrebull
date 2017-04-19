@@ -13,9 +13,9 @@
 (reg-event-fx
   :shooters-register
   (fn [_ [_ body results errors after-success]]
-    (post-json {:url "/registrations"
-                :body body
-                :errors errors
+    (post-json {:url           "/registrations"
+                :body          body
+                :errors        errors
                 :after-success after-success})))
 
 (reg-event-fx

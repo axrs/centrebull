@@ -11,9 +11,8 @@
      [:caption {:local "1/4"} "Dates"]]))
 
 (defn- competition-row [{:keys [competition/id competition/description
-                                competition/start-date competition/end-date]}
-                        atom]
-  [:div {:on-click #(rf/dispatch [:set-active-competition id])}
+                                competition/start-date competition/end-date] :as comp}]
+  [:div {:on-click #(rf/dispatch [:set-active-competition comp])}
    [:p {:local "3/4"} description]
    [:p {:local "1/4"} start-date [:br] end-date]])
 
@@ -24,14 +23,8 @@
     [:button {:local "3/12" :on-click toggle-action} "New Competition"]
 
     [search "/competitions/search"
-
      {:header competition-header
-      :row (fn [competition]
-             [:div {:on-click #(rf/dispatch [:set-active-competition competition])}
-              [:div {:local "3/4"} (:competition/description competition)]
-              [:div {:local "1/4"} (:competition/start-date competition)
-               [:br]
-               (:competition/end-date competition)]])}]]])
+      :row    competition-row}]]])
 
 (defn register-modal [state valid? toggle-action submit-action]
   [:modal {:on-click toggle-action}

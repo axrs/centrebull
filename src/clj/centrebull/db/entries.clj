@@ -10,7 +10,7 @@
 
 (def ^:private key-map {:entry/id       :id
                         :competition/id :competition-id
-                        :shooter/sid     :sid
+                        :shooter/sid    :sid
                         :shooter/grade  :class})
 
 (def ^:private value-map (map-invert key-map))

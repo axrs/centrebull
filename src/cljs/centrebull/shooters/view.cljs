@@ -4,39 +4,43 @@
             [re-frame.core :as rf]
             [reagent.core :as r]))
 
+(defn shooter-row [competition-id]
+  (fn [{:keys [shooter/sid
+               shooter/preferred-name
+               shooter/first-name
+               shooter/last-name
+               shooter/club
+               competition/id]}
+       results]
+    [:div
+     [:div {:local "1/12"} sid]
+     [:div {:local "4/12"} (str first-name
+                                (when preferred-name (str " (" preferred-name ")"))
+                                " " last-name)]
+     [:div {:local "4/12"} club]
+     [:div {:local "3/12"}
+      (if id [:h4 {:style {:color "indianred"}} "Registed"]
+             [:button {:on-click #(let [body {:shooter/sid    sid
+                                              :shooter/grade  (js/prompt "Shooter Grade")
+                                              :competition/id competition-id}]
+                                    (rf/dispatch [:shooters-register body results (r/atom {}) [[:update-registered-shooters body results]]]))}
+              "Register"])]
+     [:div {:local "1/12"}
+      (when id
+        [:button {:on-click #(rf/dispatch [:shooters-unregister id results])}
+         "Unregister"])]]))
+
+
 (defn shooters-page [toggle-action]
   [:section
    [:card
     [:h2 {:local "9/12"} "Shooters"]
     [:button {:local "3/12" :on-click toggle-action} "New Shooter"]
-    (let [competition-id (:competition/id @(rf/subscribe [:active-competition]))]
-      [search (if competition-id
-                  (str "/registrations/search?competition%2Fid=" competition-id)
-                  "/shooters/search")
-       {:row (fn [{:keys [shooter/sid
-                          shooter/preferred-name
-                          shooter/first-name
-                          shooter/last-name
-                          shooter/club
-                          entry/id] :as shooter} results]
-               [:div
-                [:div {:local "2/12"} sid]
-                [:div {:local "3/12"} (if (empty? preferred-name) (str first-name " " last-name) preferred-name)]
-                [:div {:local "3/12"} club]
-                [:div {:local "2/12"}
-                 (when competition-id
-                   (if id [:h4 {:style {:color "indianred"}} "Registed"]
-                          [:button {:on-click #(let [body {:shooter/sid sid
-                                                           :shooter/grade (js/prompt "Shooter Grade")
-                                                           :competition/id competition-id}]
-                                                 (rf/dispatch [:shooters-register body results
-                                                               (r/atom {})
-                                                               [[:update-registered-shooters body results]]]))}
-                           "Register"]))]
-                [:div {:local "1/12"}
-                 (when id
-                   [:button {:on-click #(rf/dispatch [:shooters-unregister id results])}
-                    "Unregister"])]])}])]])
+    (let [competition-id @(rf/subscribe [:active-competition-id])
+          endpoint (if competition-id
+                     (str "/competitions/" competition-id "/registrations/search")
+                     "/shooters/search")]
+      [search endpoint {:row (shooter-row competition-id)}])]])
 
 (defn register-modal [state valid? toggle-action submit-action]
   [:modal {:on-click toggle-action}

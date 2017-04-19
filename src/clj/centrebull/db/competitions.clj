@@ -41,6 +41,6 @@
 
 (defn suggest [s]
   (->> s
-    prepare-search-terms
-    competitions-suggest
-    out-mapper))
+       prepare-search-terms
+       competitions-suggest
+       out-mapper))

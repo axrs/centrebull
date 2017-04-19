@@ -1,17 +1,26 @@
 (ns centrebull.handlers
   (:require [centrebull.db :as db]
             [centrebull.ajax :refer [post-json]]
-            [re-frame.core :refer [dispatch reg-event-db reg-event-fx]]))
+            [re-frame.core :refer [dispatch reg-event-db reg-event-fx]]
+            [accountant.core :as accountant]
+            [clojure.string :as str]))
 
 (reg-event-db
   :initialize-db
-  (fn [_ _]
-    db/default-db))
+  (fn [_ _] db/default-db))
 
 (reg-event-db
   :set-active-page
   (fn [db [_ page]]
+    (.warn js/console "FX `set-active-page` is depricated. Please use `set-page-url` instead.")
     (assoc db :page page)))
+
+(defn- prefix-url [u]
+  (if (str/starts-with? u "#") u (str "#" u)))
+
+(reg-event-fx
+  :set-page-url
+  (fn [_ [_ url]] (accountant/navigate! (prefix-url url))))
 
 (reg-event-db
   :toggle-sidebar
@@ -30,8 +39,8 @@
      :dispatch [:try-force-sidebar-open value]}))
 
 (reg-event-fx ::update-results-atom
-              (fn [_ [_ ratom results]]
-                (reset! ratom results)))
+  (fn [_ [_ ratom results]]
+    (reset! ratom results)))
 
 (reg-event-fx
   :search
@@ -40,9 +49,13 @@
                 :body          params
                 :after-success [[::update-results-atom ratom]]})))
 
+(defn- reset-atom [a]
+  (if (instance? reagent.ratom/RAtom a)
+    (reset! a {})))
+
 (reg-event-fx
   :toggle
   (fn [_ [_ ratom & others]]
     (reset! ratom (not @ratom))
-    (doall (map #(reset! % {}) others))
+    (doall (map reset-atom others))
     {}))

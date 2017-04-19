@@ -2,12 +2,28 @@
 charset=utf-8
 end_of_line=lf
 insert_final_newline=true
+indent_style=tab
+tab_width=2
+
+[{*.sht,*.twig,*.html,*.shtm,*.shtml,*.htm}]
 indent_style=space
 indent_size=4
 
-[{.babelrc,.stylelintrc,.eslintrc,*.bowerrc,*.jsb3,*.jsb2,*.json}]
+[{*.mod,*.dtd,*.ent,*.elt}]
+indent_style=space
+indent_size=4
+
+[{phpunit.xml.dist,*.jhm,*.xjb,*.rng,*.wsdl,*.fxml,*.qrc,*.plan,*.pom,*.xslt,*.jrxml,*.ant,*.svg,*.xul,*.xsl,*.xsd,*.tld,*.jnlp,*.wsdd,*.wadl,*.xml}]
+indent_style=space
+indent_size=4
+
+[{.babelrc,.stylelintrc,.eslintrc,jest.config,*.bowerrc,*.jsb3,*.jsb2,*.json}]
 indent_style=space
 indent_size=2
+
+[*.java]
+indent_style=space
+indent_size=4
 
 [*.clj]
 indent_style=space
@@ -25,6 +41,14 @@ indent_size=2
 indent_style=space
 indent_size=2
 
+[*.css]
+indent_style=space
+indent_size=4
+
+[{*.applejs,*.js}]
+indent_style=space
+indent_size=2
+
 [{*.jscs.json,*.jscsrc}]
 indent_style=space
 indent_size=2
@@ -32,6 +56,14 @@ indent_size=2
 [{*.ddl,*.sql}]
 indent_style=space
 indent_size=2
+
+[{*.module,*.hphp,*.phtml,*.php5,*.php4,*.php,*.inc}]
+indent_style=space
+indent_size=4
+
+[{*.gson,*.gradle,*.groovy,*.gant,*.gdsl,*.gy}]
+indent_style=space
+indent_size=4
 
 [*.coffee]
 indent_style=space
