@@ -9,3 +9,10 @@ RETURNING *;
 DELETE
 FROM activities
 WHERE id = :id::UUID;
+
+-- :name activities-find-for-competition :? :*
+-- :doc Finds all activities for a given competition id
+SELECT *
+FROM activities
+WHERE competition_id = :id::UUID
+ORDER BY date DESC, priority DESC;

@@ -2,6 +2,7 @@
   (:refer-clojure :exclude [find get])
   (:require [centrebull.db.competitions :as dao]
             [centrebull.db.entries :as dao-entries]
+            [centrebull.db.activities :as dao-activities]
             [ring.util.http-response :as response]
             [clojure.tools.logging :as log]))
 
@@ -11,20 +12,26 @@
 
 (defn find [{:keys [all-params]}]
   (->> all-params
-       :competition/id
-       dao/find
-       response/ok))
+    :competition/id
+    dao/find
+    response/ok))
 
 (defn delete! [{:keys [all-params]}]
   (->> all-params
-       :competition/id
-       dao/delete!
-       response/ok))
+    :competition/id
+    dao/delete!
+    response/ok))
+
+
+(defn find-activities [{:keys [all-params]}]
+  (->> all-params
+    dao-activities/find-for-competition
+    response/ok))
 
 (defn register-shooter! [{:keys [all-params]}]
   (->> all-params
-       dao-entries/create!
-       response/ok))
+    dao-entries/create!
+    response/ok))
 
 (defn suggest [{:keys [all-params]}]
   (response/ok (dao/suggest (:search/q all-params))))

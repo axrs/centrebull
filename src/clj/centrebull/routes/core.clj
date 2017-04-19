@@ -45,6 +45,10 @@
       :spec :api/competition-id-only
       (competitions/delete! request))
 
+    (GET "/:competition--id/activities" {:as request}
+      :spec :api/competition-id-only
+      (competitions/find-activities request))
+
     (POST "/:competition--id/registrations" {:as request}
       :spec :api/competition-register-shooter
       (competitions/register-shooter! request))

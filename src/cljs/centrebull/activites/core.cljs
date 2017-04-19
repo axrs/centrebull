@@ -12,7 +12,7 @@
     [:div]))
 
 (secretary/defroute "/activities" []
-  (rf/dispatch [:set-active-page :activities]))
+  (rf/dispatch [:activities-load]))
 
 (def pages
   {:activities #'page})
