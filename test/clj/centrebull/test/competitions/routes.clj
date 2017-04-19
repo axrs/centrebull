@@ -37,6 +37,12 @@
         (is (= status 200))
         (is (= {:competition-delete! "called"} (parse-body body))))))
 
+  (testing "Find Competition Activities Route"
+    (with-redefs [competitions/find-activities (constantly (response/ok {:competition-find-activites "called"}))]
+      (let [{:keys [status body]} ((app) (json-request :get (str "/competitions/" (uuid) "/activities")))]
+        (is (= status 200))
+        (is (= {:competition-find-activites "called"} (parse-body body))))))
+
   (testing "Register Shooter for Competition Route"
     (with-redefs [competitions/register-shooter! (constantly (response/ok {:competition-register-shooter "called"}))]
       (let [{:keys [status body]} ((app) (json-request :post (str "/competitions/" (uuid) "/registrations") (gen-competition-regester-request)))]
@@ -52,7 +58,7 @@
   (testing "Search competition Registrations"
     (with-redefs [competitions/suggest-registration (constantly (response/ok {:comp-registrations-suggest "called"}))]
       (let [{:keys [status body]} ((app) (json-request :post
-                                                       (str "/competitions/" (uuid) "/registrations/search")
-                                                       {:search/q "asdf"}))]
+                                           (str "/competitions/" (uuid) "/registrations/search")
+                                           {:search/q "asdf"}))]
         (is (= status 200))
         (is (= {:comp-registrations-suggest "called"} (parse-body body)))))))

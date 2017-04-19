@@ -6,8 +6,10 @@
     [centrebull.competitions.core :as competitions]
     [centrebull.db.competitions :as dao]
     [centrebull.db.entries :as dao-entries]
+    [centrebull.db.activities :as dao-activities]
     [centrebull.test.db.competitions :as mock-dao]
-    [centrebull.test.db.entries :as mock-dao-entries]))
+    [centrebull.test.db.entries :as mock-dao-entries]
+    [centrebull.test.db.activities :as mock-dao-activities]))
 
 (deftest competitions
   (testing "Competition-Create!"
@@ -33,6 +35,15 @@
           (is (= body expected))
           (is (= status 200))))))
 
+  (testing "Competition-Find-Activities"
+    (let [id (uuid)
+          params {:competition/id id}
+          expected (gen-activity)]
+      (with-redefs [dao-activities/find-for-competition (mock-dao-activities/find-for-competition id expected)]
+        (let [{:keys [status body]} (competitions/find-activities {:all-params params})]
+          (is (= body expected))
+          (is (= status 200))))))
+
   (testing "Competition-Register!"
     (let [expected (gen-competition-regester-request)]
       (with-redefs [dao-entries/create! (mock-dao-entries/create! expected nil)]
@@ -53,7 +64,6 @@
           expected-input (gen-search-query)
           id (:competition/id expected-input)
           q (:search/q expected-input)]
-      (prn)
       (with-redefs [dao/suggest-registration (mock-dao/suggest-registration q id expected)]
         (let [{:keys [status body]} (competitions/suggest-registration {:all-params expected-input})]
           (is (= body expected))

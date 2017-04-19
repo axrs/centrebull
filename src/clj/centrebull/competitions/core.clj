@@ -22,9 +22,9 @@
     dao/delete!
     response/ok))
 
-
 (defn find-activities [{:keys [all-params]}]
   (->> all-params
+    :competition/id
     dao-activities/find-for-competition
     response/ok))
 
