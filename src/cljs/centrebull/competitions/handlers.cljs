@@ -10,7 +10,8 @@
                 :errors        errors
                 :after-success after-success})))
 
-(reg-event-db
+(reg-event-fx
   :set-active-competition
-  (fn [db [_ competition]]
-    (assoc db :active-competition competition)))
+  (fn [{:keys [db]} [_ competition]]
+    {:db       (assoc db :active-competition competition)
+     :dispatch [:set-page-url "/shooters"]}))
