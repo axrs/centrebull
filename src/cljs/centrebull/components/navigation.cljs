@@ -14,13 +14,13 @@
 
 (defn- sidebar []
   (let [is-open? (rf/subscribe [:sidebar-open?])
+        competiton-id (rf/subscribe [:active-competition-id])
         is-forced? (rf/subscribe [:force-sidebar-open?])]
     [:sidebar
      [:ul {:style {:transform (when (and (not @is-open?) (not @is-forced?)) "translate3d(-100%,0,0)")}}
       [sidebar-link #(accountant/navigate! "#/ranges") "Ranges" :ranges]
-      [sidebar-link #(accountant/navigate! "#/competitions") "Competitions" :competitions]
+      (when (not @competiton-id) [sidebar-link #(accountant/navigate! "#/competitions") "Competitions" :competitions])
       [sidebar-link #(accountant/navigate! "#/shooters") "Shooters" :shooters]]]))
-
 
 (defn topbar []
   [:nav
