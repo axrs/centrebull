@@ -19,7 +19,9 @@
     [:sidebar
      [:ul {:style {:transform (when (and (not @is-open?) (not @is-forced?)) "translate3d(-100%,0,0)")}}
       [sidebar-link #(accountant/navigate! "#/ranges") "Ranges" :ranges]
-      (when (not @competiton-id) [sidebar-link #(accountant/navigate! "#/competitions") "Competitions" :competitions])
+      (if @competiton-id
+        [sidebar-link #(accountant/navigate! "#/activities") "Activities" :activities]
+        [sidebar-link #(accountant/navigate! "#/competitions") "Competitions" :competitions])
       [sidebar-link #(accountant/navigate! "#/shooters") "Shooters" :shooters]]]))
 
 (defn topbar []
