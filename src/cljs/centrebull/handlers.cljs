@@ -1,17 +1,26 @@
 (ns centrebull.handlers
   (:require [centrebull.db :as db]
             [centrebull.ajax :refer [post-json]]
-            [re-frame.core :refer [dispatch reg-event-db reg-event-fx]]))
+            [re-frame.core :refer [dispatch reg-event-db reg-event-fx]]
+            [accountant.core :as accountant]
+            [clojure.string :as str]))
 
 (reg-event-db
   :initialize-db
-  (fn [_ _]
-    db/default-db))
+  (fn [_ _] db/default-db))
 
 (reg-event-db
   :set-active-page
   (fn [db [_ page]]
+    (.warn js/console "FX `set-active-page` is depricated. Please use `set-page-url` instead.")
     (assoc db :page page)))
+
+(defn- prefix-url [u]
+  (if (str/starts-with? u "#") u (str "#" u)))
+
+(reg-event-fx
+  :set-page-url
+  (fn [_ [_ url]] (accountant/navigate! (prefix-url url))))
 
 (reg-event-db
   :toggle-sidebar
