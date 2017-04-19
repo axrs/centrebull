@@ -4,7 +4,8 @@ INSERT INTO entries (competition_id, sid, class)
 VALUES (:competition-id::UUID, :sid, :class)
 RETURNING *;
 
--- :name entries-delete! :! :n
--- :doc Deletes an entry
-DELETE FROM entries
+-- :name entries-withdraw! :! :n
+-- :doc Withdraws a shooters entry into a competition
+UPDATE entries
+SET active = FALSE
 WHERE id = :id::UUID;

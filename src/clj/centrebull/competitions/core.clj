@@ -29,7 +29,7 @@
 (defn unregister-shooter! [{:keys [all-params]}]
   (->> all-params
        :entry/id
-       dao-entries/delete!
+       dao-entries/withdraw!
        response/ok))
 
 (defn suggest [{:keys [all-params]}]

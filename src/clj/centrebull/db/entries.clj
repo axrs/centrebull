@@ -2,7 +2,7 @@
   (:require [clojure.string :refer [split lower-case]]
             [clojure.set :refer [map-invert]]
             [centrebull.db.util :refer [mapper]]
-            [centrebull.db.core :refer [entries-create! entries-delete!]]))
+            [centrebull.db.core :refer [entries-create! entries-withdraw!]]))
 
 (def ^:private key-map {:entry/id       :id
                         :competition/id :competition-id
@@ -20,6 +20,6 @@
        entries-create!
        out-mapper))
 
-(defn delete! [id]
+(defn withdraw! [id]
   (->> {:id id}
-       entries-delete!))
+       entries-withdraw!))
