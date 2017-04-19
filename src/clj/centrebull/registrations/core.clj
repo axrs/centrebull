@@ -5,9 +5,10 @@
     [clojure.tools.logging :as log]))
 
 (defn register-shooter! [{:keys [all-params]}]
-  (let [existing-entries (dao/find all-params)
-        id (:entry/id existing-entries)]
-    (if (empty? existing-entries)
+  (let [id (-> all-params
+               dao/find
+               :entry/id)]
+    (if (nil? id)
         (->> all-params
              dao/create!
              response/ok)
