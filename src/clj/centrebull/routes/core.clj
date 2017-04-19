@@ -48,7 +48,7 @@
 
     (GET "/:competition--id/activities" {:as request}
       :spec :api/competition-id-only
-      (competitions/find-activities request))
+      (competitions/find-activities request)))
 
   (context "/registrations" []
     (DELETE "/:entry--id" {:as request}
