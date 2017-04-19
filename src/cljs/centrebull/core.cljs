@@ -14,6 +14,7 @@
             [centrebull.components.navigation :refer [topbar sidebar]]
             [centrebull.subscriptions]
             [centrebull.competitions.core :as competitions]
+            [centrebull.activities.core :as activities]
             [centrebull.shooters.core :as shooters]
             [centrebull.ranges.core :as ranges])
   (:import goog.History))
@@ -33,11 +34,12 @@
 
 (defn pages []
   (-> {}
-      (merge
-        base-pages
-        ranges/pages
-        competitions/pages
-        shooters/pages)))
+    (merge
+      base-pages
+      ranges/pages
+      competitions/pages
+      activities/pages
+      shooters/pages)))
 
 (defn page []
   [:div
@@ -55,10 +57,10 @@
 (secretary/set-config! :prefix "#")
 
 (secretary/defroute "/" []
-                    (rf/dispatch [:set-active-page :home]))
+  (rf/dispatch [:set-active-page :home]))
 
 (secretary/defroute "/about" []
-                    (rf/dispatch [:set-active-page :about]))
+  (rf/dispatch [:set-active-page :about]))
 
 
 ;; -------------------------
