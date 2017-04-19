@@ -13,8 +13,8 @@
     (let [competition-id (get-in db [:active-competition :competition/id])]
       (if competition-id
         (get-json {:url           (str "competitions/" competition-id "/activities")
-                   :after-success [[::set-active-activites]]}))
-      {})))
+                   :after-success [[::set-active-activites]]})
+        {}))))
 
 
 (reg-event-fx

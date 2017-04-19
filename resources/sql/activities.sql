@@ -14,5 +14,5 @@ WHERE id = :id::UUID;
 -- :doc Finds all activities for a given competition id
 SELECT *
 FROM activities
-WHERE competition_id = :id::UUID
+WHERE competition_id = :competition-id::UUID
 ORDER BY date DESC, priority DESC;
