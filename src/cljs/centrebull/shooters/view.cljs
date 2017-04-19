@@ -24,7 +24,11 @@
                                               :shooter/grade  (js/prompt "Shooter Grade")
                                               :competition/id competition-id}]
                                     (rf/dispatch [:shooters-register body results (r/atom {}) [[:update-registered-shooters body results]]]))}
-              "Register"])]]))
+              "Register"])]
+     [:div {:local "1/12"}
+      (when id
+        [:button {:on-click #(rf/dispatch [:shooters-unregister id results])}
+         "Unregister"])]]))
 
 
 (defn shooters-page [toggle-action]

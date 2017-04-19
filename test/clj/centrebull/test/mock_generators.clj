@@ -78,3 +78,11 @@
    :shooter/grade           (string)
    :shooter/club            (string)
    :shooter/sid             (rand-int 99999)})
+
+(defn gen-entry
+  "Generates an entry/registrations"
+  []
+  {:entry/id (uuid)
+   :competition/id (uuid)
+   :shooter/sid (rand-int 99999)
+   :shooter/grade (string)})

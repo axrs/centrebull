@@ -33,6 +33,7 @@ FROM shooters
 LEFT JOIN entries
   ON shooters.sid = entries.sid
   AND competition_id = :id::UUID
+  AND entries.active = TRUE
 WHERE /*~ (string/join " AND " (for [value (:s params)] (str "shooters.suggest ILIKE '" value "'"))) ~*/
 ORDER BY shooters.sid ASC, shooters.first_name ASC, shooters.last_name ASC
 LIMIT 25;
