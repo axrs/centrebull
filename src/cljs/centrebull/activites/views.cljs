@@ -20,7 +20,6 @@
    [:card
     [:h2 {:local "9/12"} "Activities"]
     [:button {:local "3/12" :on-click toggle-action} "New Activity"]
-    (prn activities)
     (for [act activities]
       ^{:key (:activity/id act)} [activity-row act])]])
 
