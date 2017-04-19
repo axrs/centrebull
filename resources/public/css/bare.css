@@ -1751,3 +1751,24 @@ modal[xx] > card {
     left: 0;
   }
 }
+autocomplete {
+  display: block;
+  padding: 2rem;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  margin-bottom: 2rem;
+  background-color: white;
+  margin-top: -2rem;
+  position: absolute;
+  z-index: 200;
+  left: 0;
+  right: 0;
+}
+autocomplete li {
+  list-style: none;
+  padding: 0.5rem;
+}
+autocomplete li:hover {
+  cursor: pointer;
+  background-color: #f8f7f8;
+}

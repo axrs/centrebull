@@ -12,3 +12,9 @@
   (fn [id]
     (is (= ei id))
     rv))
+
+(defn find-for-competition
+  [ei rv]
+  (fn [id]
+    (is (= ei id))
+    rv))

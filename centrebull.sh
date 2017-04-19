@@ -160,7 +160,6 @@ docker_clean() {
 }
 
 run() {
-	run_docker_database
 	lein run
 }
 

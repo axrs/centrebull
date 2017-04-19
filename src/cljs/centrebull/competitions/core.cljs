@@ -21,7 +21,7 @@
          (v/register-modal new-competition valid? toggle-action submit-action))])))
 
 (secretary/defroute "/competitions" []
-                    (rf/dispatch [:set-active-page :competitions]))
+  (rf/dispatch [:set-active-page :competitions]))
 
 (def pages
   {:competitions #'page})

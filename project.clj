@@ -1,3 +1,5 @@
+(def extern-libs [])
+
 (defproject centrebull "0.1.0-SNAPSHOT"
 
   :description "FIXME: write description"
@@ -5,7 +7,7 @@
 
   :dependencies [[bouncer "1.0.0"]
                  [buddy "1.3.0"]
-                 [clj-time "0.12.0"]
+                 [com.andrewmcveigh/cljs-time "0.4.0"]
                  [cljs-ajax "0.5.8"]
                  [compojure "1.5.2"]
                  [metosin/compojure-api "1.1.10"]
@@ -55,86 +57,87 @@
             [lein-cljsbuild "1.1.4"]
             [lein-immutant "2.1.0"]
             [lein-kibit "0.1.2"]]
-  :clean-targets ^{:protect false}
-  [:target-path [:cljsbuild :builds :app :compiler :output-dir] [:cljsbuild :builds :app :compiler :output-to]]
+  :clean-targets ^{:protect false} [:target-path [:cljsbuild :builds :app :compiler :output-dir] [:cljsbuild :builds :app :compiler :output-to]]
   :figwheel
   {:http-server-root "public"
-   :nrepl-port 7002
-   :css-dirs ["resources/public/css"]
+   :nrepl-port       7002
+   :css-dirs         ["resources/public/css"]
    :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
 
 
   :profiles
-  {:uberjar {:omit-source true
-             :prep-tasks ["compile" ["cljsbuild" "once" "min"]]
-             :cljsbuild
-             {:builds
-              {:min
-               {:source-paths ["src/cljc" "src/cljs" "env/prod/cljs"]
-                :compiler
-                {:output-to "target/cljsbuild/public/js/app.js"
-                 :optimizations :advanced
-                 :pretty-print false
-                 :closure-warnings
-                 {:externs-validation :off :non-standard-jsdoc :off}
-                 :externs ["react/externs/react.js"]}}}}
+  {:uberjar       {:omit-source    true
+                   :prep-tasks     ["compile" ["cljsbuild" "once" "min"]]
+                   :cljsbuild
+                                   {:builds
+                                    {:min
+                                     {:source-paths ["src/cljc" "src/cljs" "env/prod/cljs"]
+                                      :compiler
+                                                    {:output-to        "target/cljsbuild/public/js/app.js"
+                                                     :optimizations    :advanced
+                                                     :pretty-print     false
+                                                     :closure-warnings {:non-standard-jsdoc :off}
+                                                     :foreign-libs     ~extern-libs
+                                                     :externs          ["react/externs/react.js" "src/externs.js"]}}}}
 
 
-             :aot :all
-             :uberjar-name "centrebull.jar"
-             :source-paths ["env/prod/clj"]
-             :resource-paths ["env/prod/resources"]}
+                   :aot            :all
+                   :uberjar-name   "centrebull.jar"
+                   :source-paths   ["env/prod/clj"]
+                   :resource-paths ["env/prod/resources"]}
 
    :dev           [:project/dev :profiles/dev]
    :test          [:project/dev :project/test :profiles/test]
 
-   :project/dev  {:dependencies [[prone "1.1.4"]
-                                 [ring/ring-mock "0.3.0"]
-                                 [ring/ring-devel "1.5.1"]
-                                 [pjstadig/humane-test-output "0.8.1"]
-                                 [binaryage/devtools "0.9.0"]
-                                 [com.cemerick/piggieback "0.2.2-SNAPSHOT"]
-                                 [doo "0.1.7"]
-                                 [faker "0.2.2"]
-                                 [com.lucasbradstreet/cljs-uuid-utils "1.0.2"]
-                                 [org.clojure/data.generators "0.1.2"]
-                                 [figwheel-sidecar "0.5.9"]]
-                  :plugins      [[com.jakemccrary/lein-test-refresh "0.18.1"]
-                                 [lein-doo "0.1.7"]
-                                 [lein-figwheel "0.5.9"]
-                                 [org.clojure/clojurescript "1.9.473"]]
-                  :cljsbuild
-                  {:builds
-                   {:app
-                    {:source-paths ["src/cljs" "src/cljc" "env/dev/cljs"]
-                     :compiler
-                     {:main "centrebull.app"
-                      :asset-path "/js/out"
-                      :output-to "target/cljsbuild/public/js/app.js"
-                      :output-dir "target/cljsbuild/public/js/out"
-                      :source-map true
-                      :optimizations :none
-                      :pretty-print true}}}}
+   :project/dev   {:dependencies   [[prone "1.1.4"]
+                                    [ring/ring-mock "0.3.0"]
+                                    [ring/ring-devel "1.5.1"]
+                                    [pjstadig/humane-test-output "0.8.1"]
+                                    [binaryage/devtools "0.9.0"]
+                                    [com.cemerick/piggieback "0.2.2-SNAPSHOT"]
+                                    [doo "0.1.7"]
+                                    [faker "0.2.2"]
+                                    [com.lucasbradstreet/cljs-uuid-utils "1.0.2"]
+                                    [org.clojure/data.generators "0.1.2"]
+                                    [figwheel-sidecar "0.5.9"]]
+                   :plugins        [[com.jakemccrary/lein-test-refresh "0.18.1"]
+                                    [lein-doo "0.1.7"]
+                                    [lein-figwheel "0.5.9"]
+                                    [org.clojure/clojurescript "1.9.473"]]
+                   :cljsbuild
+                                   {:builds
+                                    {:app
+                                     {:source-paths ["src/cljs" "src/cljc" "env/dev/cljs"]
+                                      :compiler
+                                                    {:main          "centrebull.app"
+                                                     :asset-path    "/js/out"
+                                                     :output-to     "target/cljsbuild/public/js/app.js"
+                                                     :output-dir    "target/cljsbuild/public/js/out"
+                                                     :source-map    true
+                                                     :optimizations :none
+                                                     :foreign-libs  ~extern-libs
+                                                     :externs       ["src/externs/externs.js"]
+                                                     :pretty-print  true}}}}
 
 
 
-                  :doo {:build "test"}
-                  :source-paths ["env/dev/clj" "test/clj" "test/cljc"]
-                  :resource-paths ["env/dev/resources"]
-                  :repl-options {:init-ns user}
-                  :injections [(require 'pjstadig.humane-test-output)
-                               (pjstadig.humane-test-output/activate!)]}
-   :project/test {:resource-paths ["env/test/resources"]
-                  :cljsbuild
-                  {:builds
-                   {:test
-                    {:source-paths ["src/cljc" "src/cljs" "test/cljc" "test/cljs"]
-                     :compiler
-                     {:output-to "target/test.js"
-                      :main "centrebull.doo-runner"
-                      :optimizations :whitespace
-                      :pretty-print true}}}}}
+                   :doo            {:build "test"}
+                   :source-paths   ["env/dev/clj" "test/clj" "test/cljc"]
+                   :resource-paths ["env/dev/resources"]
+                   :repl-options   {:init-ns user}
+                   :injections     [(require 'pjstadig.humane-test-output)
+                                    (pjstadig.humane-test-output/activate!)]}
+   :project/test  {:resource-paths ["env/test/resources"]
+                   :cljsbuild
+                                   {:builds
+                                    {:test
+                                     {:source-paths ["src/cljc" "src/cljs" "test/cljc" "test/cljs"]
+                                      :compiler
+                                                    {:output-to     "target/test.js"
+                                                     :main          "centrebull.doo-runner"
+                                                     :optimizations :whitespace
+                                                     :pretty-print  true}}}}}
 
 
-   :profiles/dev {}
+   :profiles/dev  {}
    :profiles/test {}})

@@ -9,11 +9,10 @@
   :initialize-db
   (fn [_ _] db/default-db))
 
-(reg-event-db
+(reg-event-fx
   :set-active-page
-  (fn [db [_ page]]
-    (.warn js/console "FX `set-active-page` is depricated. Please use `set-page-url` instead.")
-    (assoc db :page page)))
+  (fn [{:keys [db]} [_ page]]
+    {:db (assoc db :page page)}))
 
 (defn- prefix-url [u]
   (if (str/starts-with? u "#") u (str "#" u)))

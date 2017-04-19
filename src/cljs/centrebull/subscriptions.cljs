@@ -21,3 +21,6 @@
   :active-competition-id
   (fn [db _] (get-in db [:active-competition :competition/id])))
 
+(reg-sub
+  :activities
+  (fn [db _] (:activities db)))

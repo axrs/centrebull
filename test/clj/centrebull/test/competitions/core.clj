@@ -6,8 +6,10 @@
     [centrebull.competitions.core :as competitions]
     [centrebull.db.competitions :as dao]
     [centrebull.db.entries :as dao-entries]
+    [centrebull.db.activities :as dao-activities]
     [centrebull.test.db.competitions :as mock-dao]
-    [centrebull.test.db.entries :as mock-dao-entries]))
+    [centrebull.test.db.entries :as mock-dao-entries]
+    [centrebull.test.db.activities :as mock-dao-activities]))
 
 (deftest competitions
   (testing "Competition-Create!"

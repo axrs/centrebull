@@ -37,10 +37,14 @@
         (is (= status 200))
         (is (= {:competition-delete! "called"} (parse-body body))))))
 
+  (testing "Find Competition Activities Route"
+    (with-redefs [competitions/find-activities (constantly (response/ok {:competition-find-activites "called"}))]
+      (let [{:keys [status body]} ((app) (json-request :get (str "/competitions/" (uuid) "/activities")))]
+        (is (= status 200))
+        (is (= {:competition-find-activites "called"} (parse-body body))))))
+
   (testing "Search Competition Route"
     (with-redefs [competitions/suggest (constantly (response/ok {:competition-suggest "called"}))]
       (let [{:keys [status body]} ((app) (json-request :post "/competitions/search" {:search/q "asdf"}))]
         (is (= status 200))
         (is (= {:competition-suggest "called"} (parse-body body)))))))
-
-

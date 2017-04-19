@@ -46,9 +46,9 @@
       :spec :api/competition-id-only
       (competitions/delete! request))
 
-    (POST "/:competition--id/registrations/search" {:as request}
-      :spec :api/competition-suggest-registration
-      (registrations/suggest-registration request)))
+    (GET "/:competition--id/activities" {:as request}
+      :spec :api/competition-id-only
+      (competitions/find-activities request)))
 
   (context "/registrations" []
     (DELETE "/:entry--id" {:as request}
