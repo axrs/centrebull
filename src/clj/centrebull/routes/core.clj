@@ -7,7 +7,8 @@
             [centrebull.shooters.core :as shooters]
             [centrebull.activities.core :as activities]
             [centrebull.ranges.core :as ranges]
-            [centrebull.competitions.core :as competitions]))
+            [centrebull.competitions.core :as competitions]
+            [centrebull.registrations.core :as registrations]))
 
 (defn home-page []
   (layout/render "home.html"))
@@ -49,13 +50,18 @@
       :spec :api/competition-id-only
       (competitions/find-activities request))
 
-    (POST "/:competition--id/registrations" {:as request}
-      :spec :api/competition-register-shooter
-      (competitions/register-shooter! request))
+  (context "/registrations" []
+    (DELETE "/:entry--id" {:as request}
+      :spec :api/competition-unregister-shooter
+      (registrations/unregister-shooter! request))
 
-    (POST "/:competition--id/registrations/search" {:as request}
+    (POST "/" {:as request}
+      :spec :api/competition-register-shooter
+      (registrations/register-shooter! request))
+
+    (POST "/search" {:as request}
       :spec :api/competition-suggest-registration
-      (competitions/suggest-registration request)))
+      (registrations/suggest-registration request)))
 
   (context "/activities" []
     (POST "/" {:as request}
