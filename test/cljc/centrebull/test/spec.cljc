@@ -90,4 +90,5 @@
   (testing "Testing the spec for result/shots"
     (is (s/valid? :result/shots "VVVVVVVVVV"))
     (is-not (s/valid? :result/shots ""))
-    (is-not (s/valid? :result/shots ""))))
+    (is-not (s/valid? :result/shots "abcde"))
+    (is-not (s/valid? :result/shots "VVVVVV"))))
