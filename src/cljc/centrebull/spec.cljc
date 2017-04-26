@@ -76,9 +76,7 @@
 (defn- shot-length-10-15
   "Ensures the shots are either 10 or 15 shot matches (with 2 optional siders)"
   [s]
-  (if (some #{(count s)} [10 11 12 15 16 17])
-    s
-    ::s/invalid))
+  (some #{(count s)} [10 11 12 15 16 17]))
 
 (defn- valid-shot-chars-only
   "Ensures the shots are either -0123456V or X"
@@ -86,8 +84,6 @@
   (if (empty? (filter #(not (some #{%} "-0123456VX")) s))
     s
     ::s/invalid))
-
-
 
 (defn- shot->int [v]
   (case v
@@ -157,7 +153,10 @@
 (s/def :search/q string?)
 
 (s/def :result/id (s/conformer ->uuid))
-;(s/def :result/shots (s/conformer shots))
+(s/def :result/shots (s/and string?
+                       shot-length-10-15
+                       valid-shot-chars-only))
+;(s/conformer calcualte-result)))
 
 (s/def :entry/id (s/conformer ->uuid))
 ;----------------------------------------

@@ -37,20 +37,20 @@
 (def ^:private shot-length-10-15 #'centrebull.spec/shot-length-10-15)
 (deftest test-score-length
   (testing "Conforms an incoming :activity/shots is of length 10-12 or 15-17 inclusive"
-    (is (s/invalid? (shot-length-10-15 "VVV")))
-    (is (s/invalid? (shot-length-10-15 "")))
-    (is (s/invalid? (shot-length-10-15 "VVV444555")))
+    (is-not (shot-length-10-15 "VVV"))
+    (is-not (shot-length-10-15 ""))
+    (is-not (shot-length-10-15 "VVV444555"))
     ;;10
-    (is (= "VVV4445556" (shot-length-10-15 "VVV4445556")))
-    (is (= "VVV44455566" (shot-length-10-15 "VVV44455566")))
-    (is (= "VVV444555666" (shot-length-10-15 "VVV444555666")))
-    (is (s/invalid? (shot-length-10-15 "VVV4445556667")))
-    (is (s/invalid? (shot-length-10-15 "VVV44455566677")))
+    (is (shot-length-10-15 "VVV4445556"))
+    (is (shot-length-10-15 "VVV44455566"))
+    (is (shot-length-10-15 "VVV444555666"))
+    (is-not (shot-length-10-15 "VVV4445556667"))
+    (is-not (shot-length-10-15 "VVV44455566677"))
     ;;15
-    (is (= "VVV444555666777" (shot-length-10-15 "VVV444555666777")))
-    (is (= "VVV4445556667778" (shot-length-10-15 "VVV4445556667778")))
-    (is (= "VVV44455566677788" (shot-length-10-15 "VVV44455566677788")))
-    (is (s/invalid? (shot-length-10-15 "VVV444555666777788")))))
+    (is (shot-length-10-15 "VVV444555666777"))
+    (is (shot-length-10-15 "VVV4445556667778"))
+    (is (shot-length-10-15 "VVV44455566677788"))
+    (is-not (shot-length-10-15 "VVV444555666777788"))))
 
 (def ^:private valid-shot-chars-only #'centrebull.spec/valid-shot-chars-only)
 (deftest test-valid-shot-chars-only
@@ -85,3 +85,9 @@
     (is (= {:score 0 :vs 0 :shots ""} (calculate-result {:shots ""})))
     (is (= {:score 10 :vs 2 :shots "VV"} (calculate-result {:shots "VV"})))
     (is (= {:score 9 :vs 1 :shots "V4"} (calculate-result {:shots "V4"})))))
+
+(deftest test-shots-spec
+  (testing "Testing the spec for result/shots"
+    (is (s/valid? :result/shots "VVVVVVVVVV"))
+    (is-not (s/valid? :result/shots ""))
+    (is-not (s/valid? :result/shots ""))))
