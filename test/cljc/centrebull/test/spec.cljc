@@ -59,3 +59,21 @@
     (is (= "-0123456VXXX" (valid-shot-chars-only "-0123456VXXX")))
     (is (s/invalid? (valid-shot-chars-only "a")))
     (is (s/invalid? (valid-shot-chars-only "VVV4VVV5VVa")))))
+
+(def ^:private calculate-vs #'centrebull.spec/calculate-vs)
+(deftest test-calculate-vs
+  (testing "Should count the number of Vs in a string"
+    (is (= 0 (calculate-vs "")))
+    (is (= 3 (calculate-vs "VVV")))
+    (is (= 3 (calculate-vs "aV VxV")))))
+
+(def ^:private calculate-score #'centrebull.spec/calculate-score)
+(deftest test-calculate-score
+  (testing "Should count the score values"
+    (is (= 0 (calculate-score "")))
+    (is (= 16 (calculate-score "VV42")))
+    (is (= 19 (calculate-score "VV54")))
+    (is (= 30 (calculate-score "XXX")))
+    (is (= 50 (calculate-score "34VVVVVVVVVV")))
+    (is (= 74 (calculate-score "34VVVVVVVVVVVVVV4")))
+    (is (= 75 (calculate-score "34VVVVVVVVVVVVVVV")))))

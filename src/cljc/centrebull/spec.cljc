@@ -4,6 +4,7 @@
   (:require
     [clojure.spec :as s]
     [clojure.walk :refer [postwalk]]
+    [clojure.string :as string]
     [clojure.tools.reader :refer [read-string]]))
 
 ; Spec error mapping for human readable messages
@@ -72,15 +73,43 @@
                      :cljs (UUID. s nil))
     :else ::s/invalid))
 
-(defn- shot-length-10-15 [s]
+(defn- shot-length-10-15
+  "Ensures the shots are either 10 or 15 shot matches (with 2 optional siders)"
+  [s]
   (if (some #{(count s)} [10 11 12 15 16 17])
     s
     ::s/invalid))
 
-(defn- valid-shot-chars-only [s]
+(defn- valid-shot-chars-only
+  "Ensures the shots are either -0123456V or X"
+  [s]
   (if (empty? (filter #(not (some #{%} "-0123456VX")) s))
     s
     ::s/invalid))
+
+(defn- calculate-vs [s]
+  (count (filter #(= \V %) s)))
+
+(defn- shot->int [v]
+  (case v
+    \X 10
+    \6 6
+    \V 5
+    \5 5
+    \4 4
+    \3 3
+    \2 2
+    \1 1
+    0))
+
+(defn- calculate-score [s]
+  (let [s (string/reverse s)
+        c (count s)
+        len (if (< 12 c) 15 10)]
+    (->> (min c len)
+      (subs s 0)
+      (map shot->int)
+      (apply +))))
 
 ;Clojure spec predicate for a non empty string
 (def non-empty-string (s/and string? #(not= "" %)))
