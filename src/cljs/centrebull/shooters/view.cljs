@@ -15,8 +15,8 @@
     [:div
      [:div {:local "1/12"} sid]
      [:div {:local "4/12"} (str first-name
-                                (when preferred-name (str " (" preferred-name ")"))
-                                " " last-name)]
+                             (when preferred-name (str " (" preferred-name ")"))
+                             " " last-name)]
      [:div {:local "4/12"} club]
      [:div {:local "3/12"}
       (if id [:h4 {:style {:color "indianred"}} "Registed"]
@@ -37,10 +37,9 @@
     [:h2 {:local "9/12"} "Shooters"]
     [:button {:local "3/12" :on-click toggle-action} "New Shooter"]
     (let [competition-id @(rf/subscribe [:active-competition-id])
-          endpoint (if competition-id
-                     (str "/competitions/" competition-id "/registrations/search")
-                     "/shooters/search")]
-      [search endpoint {:row (shooter-row competition-id)}])]])
+          endpoint (if competition-id "/registrations/search" "/shooters/search")
+          atom (r/atom {:competition/id competition-id})]
+      [search endpoint {:atom atom :row (shooter-row competition-id)}])]])
 
 (defn register-modal [state valid? toggle-action submit-action]
   [:modal {:on-click toggle-action}
