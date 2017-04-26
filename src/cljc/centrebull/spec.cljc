@@ -110,6 +110,12 @@
 (s/def :search/q string?)
 
 (s/def :entry/id (s/conformer ->uuid))
+
+(s/def :result/shots string?)
+(s/def :result/score int?)
+(s/def :result/vs string?)
+(s/def :result/id (s/conformer ->uuid))
+
 ;----------------------------------------
 ; API END POINTS
 ;----------------------------------------
@@ -152,7 +158,6 @@
           :shooter/sid
           :shooter/grade]))
 
-
 (s/def :api/competition-unregister-shooter
   (s/keys
     :req [:entry/id]))
@@ -176,3 +181,9 @@
 (s/def :api/ranges-suggest
   (s/keys
     :req [:search/q]))
+
+(s/def :api/result-create
+  (s/keys
+    :req [:result/shots
+          :shooter/sid
+          :activity/id]))
