@@ -82,8 +82,8 @@
   "Ensures the shots are either -0123456V or X"
   [s]
   (if (empty? (filter #(not (some #{%} "-0123456VX")) s))
-    s
-    ::s/invalid))
+    true
+    false))
 
 (defn- shot->int [v]
   (case v
@@ -109,11 +109,11 @@
 (defn- calculate-vs [s]
   (count (filter #(= \V %) s)))
 
-(defn- calcualte-result [{:keys [shots]
+(defn- calcualte-result [{:keys [result/shots]
                           :or   {shots ""}
                           :as   m}]
   (-> m
-    (merge {:score (calculate-score shots) :vs (calculate-vs shots)})))
+    (merge {:result/score (calculate-score shots) :result/vs (calculate-vs shots)})))
 
 ;Clojure spec predicate for a non empty string
 (def non-empty-string (s/and string? #(not= "" %)))
@@ -225,3 +225,8 @@
 (s/def :api/ranges-suggest
   (s/keys
     :req [:search/q]))
+
+(s/def :api/activity-result
+  (s/and
+    (s/keys :req [:result/shots :activity/id :shooter/sid])
+    (s/conformer calcualte-result)))
