@@ -1,6 +1,7 @@
 (ns centrebull.activities.handlers
   (:require [centrebull.ajax :refer [post-json get-json]]
-            [re-frame.core :refer [dispatch reg-event-fx]]))
+            [re-frame.core :refer [dispatch reg-event-fx]]
+            [re-frame.core :as rf]))
 
 (reg-event-fx
   :activity-create
@@ -37,3 +38,10 @@
   (fn [_ _]
     {:dispatch-n [[:set-active-page :activities]
                   [:refresh-activities]]}))
+
+
+(reg-event-fx
+  :set-active-activity
+  (fn [{:keys [db]} [_ id]]
+    {:db       (assoc db :active-activity (first (filter #(= id (:activity/id %)) (:activities db))))
+     :dispatch [:set-active-page :activity]}))

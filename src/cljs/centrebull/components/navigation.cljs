@@ -13,16 +13,28 @@
       [:li (when (= page @selected-page) {:fx "active"})
        [:a {:on-click action} title]])))
 
-(defn- sidebar []K
+(defn activity-link [{:keys [range/description activity/id]}]
+  [:li
+   [:a {:on-click #(accountant/navigate! (str "#/activities/" id))} description]])
+
+(defn activity-section []
+  (let [all-activities @(rf/subscribe [:activities])]
+    [:li
+     [:label "All activities"
+      [:ul
+       (map activity-link all-activities)]]]))
+
+(defn- sidebar []
   (let [is-open? (rf/subscribe [:sidebar-open?])
         competiton-id (rf/subscribe [:active-competition-id])
         is-forced? (rf/subscribe [:force-sidebar-open?])]
     [:sidebar
      [:ul {:style {:transform (when (and (not @is-open?) (not @is-forced?)) "translate3d(-100%,0,0)")}}
       [sidebar-link #(accountant/navigate! "#/shooters") "Shooters" :shooters @competiton-id]
-      [sidebar-link #(accountant/navigate! "#/activities") "Activities" :activities @competiton-id]
       [sidebar-link #(accountant/navigate! "#/competitions") "Competitions" :competitions (not @competiton-id)]
-      [sidebar-link #(accountant/navigate! "#/ranges") "Ranges" :ranges true]]]))
+      [sidebar-link #(accountant/navigate! "#/ranges") "Ranges" :ranges true]
+      [sidebar-link #(accountant/navigate! "#/activities") "New activity" :activities @competiton-id]
+      (activity-section)]]))
 
 (defn topbar []
   [:nav
