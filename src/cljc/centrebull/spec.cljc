@@ -81,9 +81,7 @@
 (defn- valid-shot-chars-only
   "Ensures the shots are either -0123456V or X"
   [s]
-  (if (empty? (filter #(not (some #{%} "-0123456VX")) s))
-    true
-    false))
+  (empty? (filter #(not (some #{%} "-0123456VX")) s)))
 
 (defn- shot->int [v]
   (case v
