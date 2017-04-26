@@ -10,7 +10,7 @@
                shooter/first-name
                shooter/last-name
                shooter/club
-               competition/id]}
+               competition/id] :as shooter}
        results]
     [:div
      [:div {:local "1/12"} sid]
@@ -27,7 +27,7 @@
               "Register"])]
      [:div {:local "1/12"}
       (when id
-        [:button {:on-click #(rf/dispatch [:shooters-unregister id results])}
+        [:button {:on-click #(rf/dispatch [:shooters-unregister (:entry/id shooter) results])}
          "Unregister"])]]))
 
 
