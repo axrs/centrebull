@@ -35,6 +35,6 @@
 
     (testing "Retrieve registrations"
       (with-redefs [registrations/retrieve-registrations (constantly (response/ok {:retrieve-registrations "called"}))]
-        (let [{:keys [status body]} ((app) (json-request :get (str "/registrations?competition%2Fid=" (uuid))))]
+        (let [{:keys [status body]} ((app) (json-request :get (str "/competitions/" (uuid) "/registrations?activity%2Fid=" (uuid))))]
           (is (= status 200))
           (is (= {:retrieve-registrations "called"} (parse-body body)))))))

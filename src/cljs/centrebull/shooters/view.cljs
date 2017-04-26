@@ -30,7 +30,6 @@
         [:button {:on-click #(rf/dispatch [:shooters-unregister (:entry/id shooter) results])}
          "Unregister"])]]))
 
-
 (defn shooters-page [toggle-action]
   [:section
    [:card

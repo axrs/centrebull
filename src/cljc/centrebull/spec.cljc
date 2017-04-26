@@ -144,6 +144,11 @@
   (s/keys
     :req [:competition/id]))
 
+(s/def :api/competition-and-activity-id-only
+  (s/keys
+    :req [:competition/id
+          :activity/id]))
+
 (s/def :api/search (s/keys :req [:search/q]))
 
 (s/def :api/competition-create

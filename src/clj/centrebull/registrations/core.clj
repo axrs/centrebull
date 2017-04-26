@@ -25,4 +25,4 @@
   (response/ok (dao/suggest-registration (:search/q all-params) (:competition/id all-params))))
 
 (defn retrieve-registrations [{:keys [all-params]}]
-  (response/ok (dao/retrieve-registrations (:competition/id all-params))))
+  (response/ok (dao/retrieve-registrations (:competition/id all-params) (:activity/id all-params))))

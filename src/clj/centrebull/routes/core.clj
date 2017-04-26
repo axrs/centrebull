@@ -43,17 +43,22 @@
       :spec :api/search
       (competitions/suggest request))
 
-    (GET "/:competition--id" {:as request}
-      :spec :api/competition-id-only
-      (competitions/find request))
+    (context "/:competition--id" []
+      (GET "/" {:as request}
+        :spec :api/competition-id-only
+        (competitions/find request))
 
-    (DELETE "/:competition--id" {:as request}
-      :spec :api/competition-id-only
-      (competitions/delete! request))
+      (DELETE "/" {:as request}
+        :spec :api/competition-id-only
+        (competitions/delete! request))
 
-    (GET "/:competition--id/activities" {:as request}
-      :spec :api/competition-id-only
-      (competitions/find-activities request)))
+      (GET "/activities" {:as request}
+        :spec :api/competition-id-only
+        (competitions/find-activities request))
+
+      (GET "/registrations" {:as request}
+        :spec :api/competition-and-activity-id-only
+        (registrations/retrieve-registrations request))))
 
   (context "/registrations" []
     (DELETE "/:entry--id" {:as request}
@@ -66,11 +71,7 @@
 
     (POST "/search" {:as request}
       :spec :api/competition-suggest-registration
-      (registrations/suggest-registration request))
-
-    (GET "/" {:as request}
-      :spec :api/competition-id-only
-      (registrations/retrieve-registrations request)))
+      (registrations/suggest-registration request)))
 
   (context "/results" []
     (POST "/" {:as request}

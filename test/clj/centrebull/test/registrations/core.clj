@@ -43,8 +43,9 @@
 
   (testing "retrieve registrations"
     (let [expected (gen-registration-with-shooter)
-          id (uuid)]
-      (with-redefs [dao/retrieve-registrations (mock/retrieve-registrations id expected)]
-        (let [{:keys [status body]} (registrations/retrieve-registrations {:all-params {:competition/id id}})]
+          a-id (uuid)
+          c-id (uuid)]
+      (with-redefs [dao/retrieve-registrations (mock/retrieve-registrations c-id a-id expected)]
+        (let [{:keys [status body]} (registrations/retrieve-registrations {:all-params {:competition/id c-id :activity/id a-id}})]
           (is (= body expected))
           (is (= status 200)))))))

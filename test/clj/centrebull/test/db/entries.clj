@@ -24,9 +24,10 @@
     rv))
 
 (defn retrieve-registrations
-  [expected-id rv]
-  (fn [id]
-    (is (= expected-id id))
+  [expected-comp-id expected-activity-id rv]
+  (fn [comp-id activity-id]
+    (is (= expected-comp-id comp-id))
+    (is (= expected-activity-id activity-id))
     rv))
 
 (defn do-not-call

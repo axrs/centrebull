@@ -16,7 +16,11 @@
                         :shooter/last-name      :last-name
                         :shooter/preferred-name :preferred-name
                         :shooter/club           :club
-                        :shooter/grade          :class})
+                        :shooter/grade          :class
+                        :activity/id            :activity-id
+                        :result/vs              :vs
+                        :result/score           :score
+                        :result/shots           :shots})
 
 (def ^:private value-map (map-invert key-map))
 
@@ -44,7 +48,7 @@
     competitions-suggest-registration
     out-mapper))
 
-(defn retrieve-registrations [id]
-  (->> {:competition-id id}
+(defn retrieve-registrations [comp-id activity-id]
+  (->> {:competition-id comp-id :activity-id activity-id}
     competitions-retrieve-registrations
     out-mapper))
