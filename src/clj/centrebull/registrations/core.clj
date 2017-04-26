@@ -1,21 +1,21 @@
 (ns centrebull.registrations.core
   (:refer-clojure :exclude [find get])
   (:require [centrebull.db.entries :as dao]
-    [ring.util.http-response :as response]
-    [clojure.tools.logging :as log]))
+            [ring.util.http-response :as response]
+            [clojure.tools.logging :as log]))
 
 (defn register-shooter! [{:keys [all-params]}]
   (let [id (-> all-params
-               dao/find
-               :entry/id)]
+             dao/find
+             :entry/id)]
     (if (nil? id)
-        (->> all-params
-             dao/create!
-             response/ok)
-        (do (dao/update-active! id true)
-            (->> all-params
-                 dao/find
-                 response/ok)))))
+      (->> all-params
+        dao/create!
+        response/ok)
+      (do (dao/update-active! id true)
+          (->> all-params
+            dao/find
+            response/ok)))))
 
 
 (defn unregister-shooter! [{:keys [all-params]}]
