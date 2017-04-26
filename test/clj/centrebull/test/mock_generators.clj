@@ -86,3 +86,8 @@
    :competition/id (uuid)
    :shooter/sid (rand-int 99999)
    :shooter/grade (string)})
+
+(defn gen-registration-with-shooter
+  "Generates a entry.registraions with a shooter"
+  []
+  (merge (gen-entry) (gen-shooter)))

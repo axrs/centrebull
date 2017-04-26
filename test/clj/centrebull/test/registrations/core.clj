@@ -1,5 +1,6 @@
 (ns centrebull.test.registrations.core
   (:require [clojure.test :refer :all]
+            [centrebull.test.util :refer [uuid]]
             [centrebull.test.mock-generators :refer :all]
             [centrebull.db.entries :as dao]
             [centrebull.registrations.core :refer :all]
@@ -41,4 +42,9 @@
           (is (= status 200))))))
 
   (testing "retrieve registrations"
-    (let [expected (gen)])))
+    (let [expected (gen-registration-with-shooter)
+          id (uuid)]
+      (with-redefs [dao/retrieve-registrations (mock/retrieve-registrations id expected)]
+        (let [{:keys [status body]} (registrations/retrieve-registrations {:all-params {:competition/id id}})]
+          (is (= body expected))
+          (is (= status 200)))))))
