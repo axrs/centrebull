@@ -48,7 +48,8 @@
                         "sql/competitions.sql"
                         "sql/entries.sql"
                         "sql/activities.sql"
-                        "sql/ranges.sql")
+                        "sql/ranges.sql"
+                        "sql/results.sql")
 
 (defn to-date [^java.sql.Date sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
