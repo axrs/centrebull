@@ -33,3 +33,21 @@
     (is-not (s/valid? ::non-empty-string ""))
     (is-not (s/valid? ::non-empty-string nil))
     (is-not (s/valid? ::non-empty-string 123))))
+
+(def ^:private shot-length-10-15 #'centrebull.spec/shot-length-10-15)
+(deftest test-score-length
+  (testing "Conforms an incoming :activity/shots is of length 10-12 or 15-17 inclusive"
+    (is (s/invalid? (shot-length-10-15 "VVV")))
+    (is (s/invalid? (shot-length-10-15 "")))
+    (is (s/invalid? (shot-length-10-15 "VVV444555")))
+    ;;10
+    (is (= "VVV4445556" (shot-length-10-15 "VVV4445556")))
+    (is (= "VVV44455566" (shot-length-10-15 "VVV44455566")))
+    (is (= "VVV444555666" (shot-length-10-15 "VVV444555666")))
+    (is (s/invalid? (shot-length-10-15 "VVV4445556667")))
+    (is (s/invalid? (shot-length-10-15 "VVV44455566677")))
+    ;;15
+    (is (= "VVV444555666777" (shot-length-10-15 "VVV444555666777")))
+    (is (= "VVV4445556667778" (shot-length-10-15 "VVV4445556667778")))
+    (is (= "VVV44455566677788" (shot-length-10-15 "VVV44455566677788")))
+    (is (s/invalid? (shot-length-10-15 "VVV444555666777788")))))

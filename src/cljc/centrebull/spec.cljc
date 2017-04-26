@@ -72,6 +72,11 @@
                      :cljs (UUID. s nil))
     :else ::s/invalid))
 
+(defn- shot-length-10-15 [s]
+  (if (some #{(count s)} [10 11 12 15 16 17])
+    s
+    ::s/invalid))
+
 ;Clojure spec predicate for a non empty string
 (def non-empty-string (s/and string? #(not= "" %)))
 
@@ -108,6 +113,9 @@
 (s/def :activity/date is-date?)
 
 (s/def :search/q string?)
+
+(s/def :result/id (s/conformer ->uuid))
+;(s/def :result/shots (s/conformer shots))
 
 (s/def :entry/id (s/conformer ->uuid))
 ;----------------------------------------
