@@ -25,7 +25,6 @@
 
 (defn- single-activity []
   (let [act @(rf/subscribe [:active-activity])]
-    (prn act)
     (v/single-activity-page act)))
 
 (secretary/defroute "/activities" []

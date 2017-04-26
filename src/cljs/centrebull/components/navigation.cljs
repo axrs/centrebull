@@ -20,7 +20,7 @@
 (defn activity-section []
   (let [all-activities @(rf/subscribe [:activities])]
     [:li
-     [:label "All activities"
+     [:label "All Activities"
       [:ul
        (map activity-link all-activities)]]]))
 
