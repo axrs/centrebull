@@ -153,7 +153,6 @@
 (s/def :result/shots (s/and string?
                        shot-length-10-15
                        valid-shot-chars-only))
-;(s/conformer calcualte-result)))
 
 (s/def :entry/id (s/conformer ->uuid))
 ;----------------------------------------
