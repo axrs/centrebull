@@ -87,8 +87,7 @@
     s
     ::s/invalid))
 
-(defn- calculate-vs [s]
-  (count (filter #(= \V %) s)))
+
 
 (defn- shot->int [v]
   (case v
@@ -110,6 +109,13 @@
       (subs s 0)
       (map shot->int)
       (apply +))))
+
+(defn- calculate-vs [s]
+  (count (filter #(= \V %) s)))
+
+(defn- calcualte-result [{:keys [shots] :as m}]
+  (-> m
+    (merge {:score (calculate-score shots) :vs (calculate-vs shots)})))
 
 ;Clojure spec predicate for a non empty string
 (def non-empty-string (s/and string? #(not= "" %)))
