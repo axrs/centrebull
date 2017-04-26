@@ -77,6 +77,11 @@
     s
     ::s/invalid))
 
+(defn- valid-shot-chars-only [s]
+  (if (empty? (filter #(not (some #{%} "-0123456VX")) s))
+    s
+    ::s/invalid))
+
 ;Clojure spec predicate for a non empty string
 (def non-empty-string (s/and string? #(not= "" %)))
 

@@ -51,3 +51,11 @@
     (is (= "VVV4445556667778" (shot-length-10-15 "VVV4445556667778")))
     (is (= "VVV44455566677788" (shot-length-10-15 "VVV44455566677788")))
     (is (s/invalid? (shot-length-10-15 "VVV444555666777788")))))
+
+(def ^:private valid-shot-chars-only #'centrebull.spec/valid-shot-chars-only)
+(deftest test-valid-shot-chars-only
+  (testing "Should ensure only valid chracters are used"
+    (is (= "VVV" (valid-shot-chars-only "VVV")))
+    (is (= "-0123456VXXX" (valid-shot-chars-only "-0123456VXXX")))
+    (is (s/invalid? (valid-shot-chars-only "a")))
+    (is (s/invalid? (valid-shot-chars-only "VVV4VVV5VVa")))))
