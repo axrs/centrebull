@@ -6,6 +6,7 @@
             [centrebull.db.core :refer [entries-create!
                                         entries-update-active!
                                         competitions-suggest-registration
+                                        competitions-retrieve-registrations
                                         entries-find]]))
 
 (def ^:private key-map {:entry/id       :id
@@ -37,4 +38,9 @@
 (defn suggest-registration [s id]
   (->> {:id id :s (prepare-search-terms s)}
        competitions-suggest-registration
+       out-mapper))
+
+(defn retrieve-registrations [id]
+  (->> {:competition-id id}
+       competitions-retrieve-registrations
        out-mapper))
