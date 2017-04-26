@@ -14,4 +14,4 @@
   :set-active-competition
   (fn [{:keys [db]} [_ competition]]
     {:db       (assoc db :active-competition competition)
-     :dispatch [:set-page-url "/shooters"]}))
+     :dispatch-n [[:set-page-url "/shooters"] [:refresh-activities]]}))
