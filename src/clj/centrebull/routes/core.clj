@@ -7,6 +7,7 @@
             [centrebull.shooters.core :as shooters]
             [centrebull.activities.core :as activities]
             [centrebull.ranges.core :as ranges]
+            [centrebull.results.core :as results]
             [centrebull.competitions.core :as competitions]
             [centrebull.registrations.core :as registrations]))
 
@@ -70,6 +71,11 @@
     (GET "/" {:as request}
       :spec :api/competition-id-only
       (registrations/retrieve-registrations request)))
+
+  (context "/results" []
+    (POST "/" {:as request}
+      :spec :api/result-create
+      (results/create! request)))
 
   (context "/activities" []
     (POST "/" {:as request}
