@@ -21,9 +21,13 @@
       :spec :api/shooter-create
       (shooters/create! request))
 
-    (GET "/search" {:as request} (shooters/suggest request))
+    (GET "/search" {:as request}
+      :spec :api/search
+      (shooters/suggest request))
 
-    (POST "/search" {:as request} (shooters/suggest request))
+    (POST "/search" {:as request}
+      :spec :api/search
+      (shooters/suggest request))
 
     (GET "/:shooter--sid" {:as request}
       :spec :api/shooter-id-only
@@ -35,7 +39,7 @@
       (competitions/create! request))
 
     (POST "/search" {:as request}
-      :spec :api/competition-suggest
+      :spec :api/search
       (competitions/suggest request))
 
     (GET "/:competition--id" {:as request}
@@ -78,7 +82,7 @@
       (ranges/create! request))
 
     (POST "/search" {:as request}
-      :spec :api/ranges-suggest
+      :spec :api/search
       (ranges/suggest request))
 
     (DELETE "/:range--id" {:as request}
