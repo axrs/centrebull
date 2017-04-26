@@ -19,7 +19,7 @@
                              " " last-name)]
      [:div {:local "4/12"} club]
      [:div {:local "3/12"}
-      (if id [:h4 {:style {:color "indianred"}} "Registed"]
+      (if id [:h4.registed "Registed"]
              [:button {:on-click #(let [body {:shooter/sid    sid
                                               :shooter/grade  (js/prompt "Shooter Grade")
                                               :competition/id competition-id}]
