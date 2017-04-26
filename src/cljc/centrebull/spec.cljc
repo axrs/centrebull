@@ -113,7 +113,9 @@
 (defn- calculate-vs [s]
   (count (filter #(= \V %) s)))
 
-(defn- calcualte-result [{:keys [shots] :as m}]
+(defn- calcualte-result [{:keys [shots]
+                          :or   {shots ""}
+                          :as   m}]
   (-> m
     (merge {:score (calculate-score shots) :vs (calculate-vs shots)})))
 
