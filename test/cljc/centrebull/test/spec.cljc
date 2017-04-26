@@ -81,7 +81,7 @@
     (is (= 74 (calculate-score "34VVVVVVVVVVVVVV4")))
     (is (= 75 (calculate-score "34VVVVVVVVVVVVVVV")))))
 
-(def ^:private calculate-result #'centrebull.spec/calcualte-result)
+(def ^:private calculate-result #'centrebull.spec/calculate-result)
 (deftest test-calculate-result
   (testing "Should calculate :score and :vs from a map containing :shots"
     (is (= {:result/score 0 :result/vs 0} (calculate-result {})))

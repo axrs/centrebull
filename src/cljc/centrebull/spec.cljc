@@ -107,11 +107,10 @@
 (defn- calculate-vs [s]
   (count (filter #(= \V %) s)))
 
-(defn- calcualte-result [{:keys [result/shots]
+(defn- calculate-result [{:keys [result/shots]
                           :or   {shots ""}
                           :as   m}]
-  (-> m
-    (merge {:result/score (calculate-score shots) :result/vs (calculate-vs shots)})))
+  (merge m {:result/score (calculate-score shots) :result/vs (calculate-vs shots)}))
 
 ;Clojure spec predicate for a non empty string
 (def non-empty-string (s/and string? #(not= "" %)))
@@ -227,4 +226,4 @@
 (s/def :api/activity-result
   (s/and
     (s/keys :req [:result/shots :activity/id :shooter/sid])
-    (s/conformer calcualte-result)))
+    (s/conformer calculate-result)))
