@@ -7,7 +7,8 @@
             [ring.util.http-response :as response]
             [centrebull.test.mock-generators :refer :all]
             [centrebull.test.util :refer :all]
-            [centrebull.test.wrapper :refer [wrap-test]]))
+            [centrebull.test.wrapper :refer [wrap-test]]
+            [cheshire.core :as cheshire]))
 
 (use-fixtures :once wrap-test)
 
@@ -26,10 +27,9 @@
 
   (testing "Search Shooter Route"
     (with-redefs [shooters/suggest (constantly (response/ok {:shooter-suggest "called"}))]
-      (let [{:keys [status body]} ((app) (request :post "/shooters/search" {:search/q "asdf"}))]
+      (let [{:keys [status body]} ((app) (json-request :post "/shooters/search" {:search/q "asdf"}))]
         (is (= status 200))
         (is (= {:shooter-suggest "called"} (parse-body body))))))
-
 
   (testing "Find Shooter by ID Route"
     (with-redefs [shooters/find-by-id (constantly (response/ok {:shooter-find-by-id "called"}))]

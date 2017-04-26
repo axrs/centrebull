@@ -32,7 +32,6 @@
 (defn- dissoc-keys
   "Removes keys and values from a map which are not shared with the provided spec"
   [spec m]
-  (prn spec)
   (if spec
     (let [k (distinct (apply concat (filter #(vector? %) (s/describe spec))))
           ik (difference (set (keys m)) (set k))]
@@ -42,10 +41,10 @@
 (defn validate
   "Validates an incoming endpoint request against a spec, throwing a bad request if invalid"
   [spec params]
-  (clojure.pprint/pprint (s/form spec))
-  (clojure.pprint/pprint (s/explain-data spec params))
   (let [errors (if spec (validate-spec spec params))]
-    (if errors (response/bad-request! {:errors errors}))
+    (if errors (do
+                 (clojure.pprint/pprint (s/explain-data spec params))
+                 (response/bad-request! {:errors errors})))
     params))
 
 (defn conform
@@ -56,6 +55,7 @@
   (log/info "Wrapping route in spec validation " spec)
   (fn [h]
     (fn [{body :body-params query :query-params route :route-params :as r}]
+      (clojure.pprint/pprint r)
       (->> (merge body query route)
         convert-string-keys
         (dissoc-keys spec)
