@@ -13,15 +13,12 @@
       [:li (when (= page @selected-page) {:fx "active"})
        [:a {:on-click action} title]])))
 
-
-
-(defn- sidebar []
+(defn- sidebar []K
   (let [is-open? (rf/subscribe [:sidebar-open?])
         competiton-id (rf/subscribe [:active-competition-id])
         is-forced? (rf/subscribe [:force-sidebar-open?])]
     [:sidebar
      [:ul {:style {:transform (when (and (not @is-open?) (not @is-forced?)) "translate3d(-100%,0,0)")}}
-
       [sidebar-link #(accountant/navigate! "#/shooters") "Shooters" :shooters @competiton-id]
       [sidebar-link #(accountant/navigate! "#/activities") "Activities" :activities @competiton-id]
       [sidebar-link #(accountant/navigate! "#/competitions") "Competitions" :competitions (not @competiton-id)]
