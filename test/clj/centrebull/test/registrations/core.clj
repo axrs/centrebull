@@ -38,4 +38,7 @@
       (with-redefs [dao/suggest-registration (mock/suggest-registration q id expected)]
         (let [{:keys [status body]} (registrations/suggest-registration {:all-params expected-input})]
           (is (= body expected))
-          (is (= status 200)))))))
+          (is (= status 200))))))
+
+  (testing "retrieve registrations"
+    (let [expected (gen)])))
