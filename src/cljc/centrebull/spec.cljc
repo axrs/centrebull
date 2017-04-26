@@ -4,6 +4,7 @@
   (:require
     [clojure.spec :as s]
     [clojure.walk :refer [postwalk]]
+    [clojure.string :as string]
     [clojure.tools.reader :refer [read-string]]))
 
 ; Spec error mapping for human readable messages
@@ -72,6 +73,45 @@
                      :cljs (UUID. s nil))
     :else ::s/invalid))
 
+(defn- shot-length-10-15
+  "Ensures the shots are either 10 or 15 shot matches (with 2 optional siders)"
+  [s]
+  (some #{(count s)} [10 11 12 15 16 17]))
+
+(defn- valid-shot-chars-only
+  "Ensures the shots are either -0123456V or X"
+  [s]
+  (empty? (filter #(not (some #{%} "-0123456VX")) s)))
+
+(defn- shot->int [v]
+  (case v
+    \X 10
+    \6 6
+    \V 5
+    \5 5
+    \4 4
+    \3 3
+    \2 2
+    \1 1
+    0))
+
+(defn- calculate-score [s]
+  (let [s (string/reverse s)
+        c (count s)
+        len (if (< 12 c) 15 10)]
+    (->> (min c len)
+      (subs s 0)
+      (map shot->int)
+      (apply +))))
+
+(defn- calculate-vs [s]
+  (count (filter #(= \V %) s)))
+
+(defn- calculate-result [{:keys [result/shots]
+                          :or   {shots ""}
+                          :as   m}]
+  (merge m {:result/score (calculate-score shots) :result/vs (calculate-vs shots)}))
+
 ;Clojure spec predicate for a non empty string
 (def non-empty-string (s/and string? #(not= "" %)))
 
@@ -108,6 +148,11 @@
 (s/def :activity/date is-date?)
 
 (s/def :search/q string?)
+
+(s/def :result/id (s/conformer ->uuid))
+(s/def :result/shots (s/and string?
+                       shot-length-10-15
+                       valid-shot-chars-only))
 
 (s/def :entry/id (s/conformer ->uuid))
 ;----------------------------------------
@@ -176,3 +221,8 @@
 (s/def :api/ranges-suggest
   (s/keys
     :req [:search/q]))
+
+(s/def :api/activity-result
+  (s/and
+    (s/keys :req [:result/shots :activity/id :shooter/sid])
+    (s/conformer calculate-result)))
