@@ -91,3 +91,13 @@
   "Generates a entry.registraions with a shooter"
   []
   (merge (gen-entry) (gen-shooter)))
+
+(defn gen-result
+ "Generates a result"
+  []
+  {:result/id    (uuid)
+   :result/vs    (rand-int 10)
+   :result/score (rand-int 50)
+   :result/shots (string)
+   :shooter/sid  (rand-int 99999)
+   :activity/id  (uuid)})
