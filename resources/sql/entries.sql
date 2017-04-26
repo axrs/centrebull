@@ -14,3 +14,11 @@ WHERE id = :id::UUID;
 SELECT *
 FROM entries
 WHERE competition_id = :competition-id::UUID AND sid = :sid;
+
+-- :name competitions-retrieve-registrations :? :*
+-- :doc Retrieves all registrations for a competition
+SELECT *
+FROM entries
+JOIN shooters
+  ON entries.sid = shooters.sid
+WHERE entries.active = TRUE AND entries.competition_id = :competition-id::UUID;
