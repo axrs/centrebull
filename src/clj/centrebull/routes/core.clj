@@ -61,7 +61,11 @@
 
     (POST "/search" {:as request}
       :spec :api/competition-suggest-registration
-      (registrations/suggest-registration request)))
+      (registrations/suggest-registration request))
+
+    (GET "/" {:as request}
+      :spec :api/competition-id-only
+      (registrations/retrieve-registrations request)))
 
   (context "/activities" []
     (POST "/" {:as request}
