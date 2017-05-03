@@ -165,7 +165,7 @@
 (s/def :entry/id (s/conformer ->uuid))
 
 (s/def :aggregate/activities (s/coll-of ->uuid))
-(s/def :aggregate/name string?)
+(s/def :aggregate/description string?)
 (s/def :aggregate/priority integer?)
 (s/def :competition/id ->uuid)
 
@@ -248,6 +248,6 @@
 (s/def :api/aggregate-create
   (s/keys
     :req [:aggregate/activities
-          :aggregate/name
+          :aggregate/description
           :aggregate/priority
           :competition/id]))

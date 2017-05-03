@@ -107,6 +107,6 @@
   "Generates an aggregate"
   []
   {:aggregate/activities (take (rand-int 10) (repeatedly uuid))
-   :aggregate/name (string)
+   :aggregate/description (string)
    :aggregate/priority (rand-int 99999)
    :competition/id (uuid)})
