@@ -1,6 +1,7 @@
 (ns centrebull.activities.core
   (:require
     [secretary.core :as secretary]
+    [centrebull.components.modal :as modal]
     [centrebull.activities.handlers]
     [centrebull.activities.views :as v]
     [re-frame.core :as rf]
@@ -9,18 +10,18 @@
 
 (defn- page []
   (let [activites (rf/subscribe [:activities])
-        show-modal? (r/atom false)
         competition-id @(rf/subscribe [:active-competition-id])
-        new (r/atom {})
-        toggle-action #(rf/dispatch [:toggle show-modal? new])
-        submit-action #(rf/dispatch [:activity-create @new [[:refresh-activities] [:toggle show-modal? new]]])
-        valid? (fn [] (s/valid? :api/activity-create @new))]
+        new-activity (r/atom {:competition/id competition-id})
+        toggle-action #(modal/toggle new-activity)
+        reset-action #(modal/toggle new-activity)
+        submit-action #(rf/dispatch [:activity-create @new-activity [:refresh-activities] reset-action])
+        valid? (fn [] (prn @new-activity) (s/valid? :api/activity-create @new-activity))]
     (fn []
       [:div
        [v/activites-page toggle-action @activites]
-       (when @show-modal?
-         (swap! new assoc :competition/id competition-id :activity/priority 0)
-         [v/register-modal toggle-action submit-action new valid?])])))
+       [modal/modal {:state new-activity
+                     :title ""
+                     :view  [v/register submit-action valid? new-activity]}]])))
 
 (defn- single-activity []
   (let [act @(rf/subscribe [:active-activity])

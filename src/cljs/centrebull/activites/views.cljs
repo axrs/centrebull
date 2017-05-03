@@ -25,31 +25,29 @@
     (for [act activities]
       ^{:key (:activity/id act)} [activity-row act])]])
 
-(defn register-modal [toggle submit state valid?]
-  [:modal {:on-click toggle}
-   [:card {:on-click #(.stopPropagation %)}
-    [:h2 "Register New Activity"]
-    [:grid
-     [autocomplete "/ranges/search" {:title "Range" :k :range/description :on-select #(swap! state assoc :activity/range-id (:range/id %))}]
-     [input {:title       "Date"
-             :grid        "1/2"
-             :ratom       state
-             :key         :activity/date
-             :placeholder "YYYY-MM-DD"
-             :required?   true}]
-     [input {:title       "Priority"
-             :grid        "1/2"
-             :ratom       state
-             :key         :activity/priority
-             :placeholder "0"
-             :required?   true}]]
-    [:button {:data-pull-left "9/12"
-              :local          "3/12"
-              :data-m-full    ""
-              :data-primary   ""
-              :on-click       submit
-              :disabled       (not (valid?))}
-     "Save"]]])
+(defn register [submit valid? state]
+  [:div
+   [:grid
+    [autocomplete "/ranges/search" {:title "Range" :k :range/description :on-select #(swap! state assoc :activity/range-id (:range/id %))}]
+    [input {:title       "Date"
+            :grid        "1/2"
+            :ratom       state
+            :key         :activity/date
+            :placeholder "YYYY-MM-DD"
+            :required?   true}]
+    [input {:title       "Priority"
+            :grid        "1/2"
+            :ratom       state
+            :key         :activity/priority
+            :placeholder "0"
+            :required?   true}]]
+   [:button {:data-pull-left "9/12"
+             :local          "3/12"
+             :data-m-full    ""
+             :data-primary   ""
+             :on-click       submit
+             :disabled       (not (valid?))}
+    "Save"]])
 
 (defn register-result-modal [toggle submit state valid?]
   (let [valid? (valid?)

@@ -5,7 +5,7 @@
 
 (reg-event-fx
   :activity-create
-  (fn [_ [_ state after-success]]
+  (fn [_ [_ state & after-success]]
     (post-json {:url           "/activities"
                 :body          state
                 :after-success after-success})))
