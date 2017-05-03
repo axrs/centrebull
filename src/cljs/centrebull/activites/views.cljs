@@ -68,17 +68,15 @@
        [:h3 {:local "1/3"} (:result/score score) [:sup (:result/vs score)]]
        [:button {:data-pull-left "9/12" :local "3/12" :data-m-full "" :data-primary "" :disabled (not valid?)} "Save"]]]]))
 
-(defn row-render [{:keys [:shooter/first-name :shooter/last-name :shooter/sid :result/shots :result/score :shooter/grade]}]
-  [:tr
+(defn row-render [toggle {:keys [:shooter/first-name :shooter/last-name :shooter/sid :result/shots :result/score :shooter/grade]}]
+  [:tr {:on-click toggle}
    [:td sid]
    [:td grade]
    [:td first-name " " last-name]
    [:td shots]
    [:td score]])
 
-
-
-(defn generate-table [results]
+(defn generate-table [toogle results]
   [:table
    [:thead
     [:tr
@@ -88,14 +86,14 @@
      [:th "Shots"]
      [:th "Score"]]]
    [:tbody
-    (for [r results] (row-render r))]])
+    (for [r results] (row-render toogle r))]])
 
 
-(defn single-activity-page [{:keys [range/description activity/priority activity/date]} results]
+(defn single-activity-page [toggle {:keys [range/description activity/priority activity/date]} results]
   [:section
    [:card
     [:h2 description [:sub "#" priority " " (format-date date)]]
     [:h3 "Shooters"]]
    [:card
-    [generate-table results]]])
+    [generate-table toggle results]]])
 

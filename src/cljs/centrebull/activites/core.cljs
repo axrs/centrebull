@@ -32,7 +32,7 @@
         valid? (fn [] (s/valid? :api/result-create @new))]
     (fn []
       [:div
-       [v/single-activity-page act results]
+       [v/single-activity-page toggle-action act results]
        (when @show-modal?
          (swap! new assoc :activity/id (:activity/id act) :shooter/sid 123)
          [v/register-result-modal toggle-action submit-action new valid?])])))
