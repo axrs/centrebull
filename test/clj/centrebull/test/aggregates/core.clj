@@ -13,5 +13,13 @@
       (with-redefs [dao/create! (mock-dao/create! expected nil)]
         (let [{:keys [status body]} (aggregates/create! {:all-params expected})]
           (is (= body nil))
-          (is (= status 200)))))))
+          (is (= status 200))))))
 
+  (testing "Aggregates-Find"
+    (let [expected {:competition/id (uuid)}
+          aggregates [(gen-aggregate)]]
+      (with-redefs [dao/find-aggregates (mock-dao/find-aggregates expected aggregates)]
+        (let [{:keys [status body]} (aggregates/find-aggregates {:all-params expected})]
+          (is (= body aggregates))
+          (is (= status 200)))))))
+        

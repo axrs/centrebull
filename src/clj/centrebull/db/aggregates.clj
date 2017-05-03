@@ -19,3 +19,5 @@
        in-mapper
        aggregates-create!
        out-mapper))
+
+(defn find-aggregates [competition-id] nil)
