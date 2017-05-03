@@ -7,7 +7,7 @@
                         :result/vs            :vs
                         :result/score         :score
                         :result/shots         :shots
-                        :result/shots-reverse :shots-reverse
+                        :result/shots-mirror :shots-mirror
                         :shooter/sid          :sid
                         :activity/id          :activity-id})
 
