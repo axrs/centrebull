@@ -3,12 +3,13 @@
             [centrebull.db.util :refer [mapper]]
             [centrebull.db.core :refer [results-create!]]))
 
-(def ^:private key-map {:result/id    :id
-                        :result/vs    :vs
-                        :result/score :score
-                        :result/shots :shots
-                        :shooter/sid  :sid
-                        :activity/id  :activity-id})
+(def ^:private key-map {:result/id            :id
+                        :result/vs            :vs
+                        :result/score         :score
+                        :result/shots         :shots
+                        :result/shots-mirror :shots-mirror
+                        :shooter/sid          :sid
+                        :activity/id          :activity-id})
 
 (def default-fields {:vs 0
                      :score 0})
