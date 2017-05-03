@@ -21,10 +21,10 @@
 
 (defn create! [result]
     (->> result
-        in-mapper
-        (merge default-fields)
-        results-create!
-        out-mapper))
+         in-mapper
+         (merge default-fields)
+         results-create!
+         out-mapper))
 
 (defn exists? [result]
     (->> result
