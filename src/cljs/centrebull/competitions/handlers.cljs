@@ -4,14 +4,13 @@
 
 (reg-event-fx
   :competitions-create
-  (fn [_ [_ state errors after-success]]
+  (fn [_ [_ state & after-success]]
     (post-json {:url           "/competitions"
                 :body          state
-                :errors        errors
                 :after-success after-success})))
 
 (reg-event-fx
   :set-active-competition
   (fn [{:keys [db]} [_ competition]]
-    {:db       (assoc db :active-competition competition)
+    {:db         (assoc db :active-competition competition)
      :dispatch-n [[:set-page-url "/shooters"] [:refresh-activities]]}))

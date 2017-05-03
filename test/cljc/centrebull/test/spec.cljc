@@ -68,7 +68,9 @@
   (testing "Should count the number of Vs in a string"
     (is (= 0 (calculate-vs "")))
     (is (= 3 (calculate-vs "VVV")))
-    (is (= 3 (calculate-vs "aV VxV")))))
+    (is (= 3 (calculate-vs "aV VxV")))
+    (is (= 9 (calculate-vs "4VVVVVVVVVV4")))
+    (is (= 10 (calculate-vs "33VVVVV55555VVVVV")))))
 
 (def ^:private calculate-score #'centrebull.spec/calculate-score)
 (deftest test-calculate-score

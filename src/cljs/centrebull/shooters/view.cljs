@@ -23,7 +23,7 @@
              [:button {:on-click #(let [body {:shooter/sid    sid
                                               :shooter/grade  (js/prompt "Shooter Grade")
                                               :competition/id competition-id}]
-                                    (rf/dispatch [:shooters-register body results (r/atom {}) [[:update-registered-shooters body results]]]))}
+                                    (rf/dispatch [:shooters-register body [:update-registered-shooters body results]]))}
               "Register"])]
      [:div {:local "1/12"}
       (when id
@@ -40,39 +40,37 @@
           atom (r/atom {:competition/id competition-id})]
       [search endpoint {:atom atom :row (shooter-row competition-id)}])]])
 
-(defn register-modal [state valid? toggle-action submit-action]
-  [:modal {:on-click toggle-action}
-   [:card {:on-click #(.stopPropagation %)}
-    [:h2 "Register New Shooter"]
-    [:grid
-     [input {:title       "Sid"
-             :grid        "1/3"
-             :ratom       state
-             :key         :shooter/sid
-             :placeholder "sid"
-             :required?   true}]
-     [input {:title       "First Name"
-             :grid        "1/3"
-             :ratom       state
-             :key         :shooter/first-name
-             :placeholder "First Name"
-             :required?   true}]
-     [input {:title       "Last Name"
-             :grid        "1/3"
-             :ratom       state
-             :key         :shooter/last-name
-             :placeholder "Last Name"
-             :required?   true}]
-     [input {:title       "Preferred name"
-             :grid        "1/3"
-             :ratom       state
-             :key         :shooter/preferred-name
-             :placeholder "Preferred Name"
-             :required?   false}]
-     [input {:title       "Club"
-             :grid        "1/3"
-             :ratom       state
-             :key         :shooter/club
-             :placeholder "Club"
-             :required?   false}]]
-    [:button {:data-pull-left "9/12" :local "3/12" :data-m-full "" :data-primary "" :on-click submit-action :disabled (not (valid?))} "Save"]]])
+(defn register [submit-action valid? state]
+  [:div
+   [:grid
+    [input {:title       "Sid"
+            :grid        "1/3"
+            :ratom       state
+            :key         :shooter/sid
+            :placeholder "sid"
+            :required?   true}]
+    [input {:title       "First Name"
+            :grid        "1/3"
+            :ratom       state
+            :key         :shooter/first-name
+            :placeholder "First Name"
+            :required?   true}]
+    [input {:title       "Last Name"
+            :grid        "1/3"
+            :ratom       state
+            :key         :shooter/last-name
+            :placeholder "Last Name"
+            :required?   true}]
+    [input {:title       "Preferred name"
+            :grid        "1/3"
+            :ratom       state
+            :key         :shooter/preferred-name
+            :placeholder "Preferred Name"
+            :required?   false}]
+    [input {:title       "Club"
+            :grid        "1/3"
+            :ratom       state
+            :key         :shooter/club
+            :placeholder "Club"
+            :required?   false}]]
+   [:button {:data-pull-left "9/12" :local "3/12" :data-m-full "" :data-primary "" :on-click submit-action :disabled (not (valid?))} "Save"]])

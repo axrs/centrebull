@@ -76,7 +76,7 @@
 (defn- shot-length-10-15
   "Ensures the shots are either 10 or 15 shot matches (with 2 optional siders)"
   [s]
-  (some #{(count s)} [10 11 12 15 16 17]))
+  (not (nil? (some #{(count s)} [10 11 12 15 16 17]))))
 
 (defn- valid-shot-chars-only
   "Ensures the shots are either -0123456V or X"
@@ -95,17 +95,25 @@
     \1 1
     0))
 
-(defn- calculate-score [s]
+(defn- last-required-shots [s]
   (let [s (string/reverse s)
         c (count s)
         len (if (< 12 c) 15 10)]
-    (->> (min c len)
-      (subs s 0)
-      (map shot->int)
-      (apply +))))
+    (->> len
+      (min c)
+      (subs s 0))))
+
+(defn- calculate-score [s]
+  (->> s
+    last-required-shots
+    (map shot->int)
+    (apply +)))
 
 (defn- calculate-vs [s]
-  (count (filter #(= \V %) s)))
+  (->> s
+    last-required-shots
+    (filter #(= \V %))
+    count))
 
 (defn- calculate-result [{:keys [result/shots]
                           :or   {shots ""}

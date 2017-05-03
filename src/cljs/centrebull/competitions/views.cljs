@@ -26,27 +26,25 @@
      {:header competition-header
       :row    competition-row}]]])
 
-(defn register-modal [state valid? toggle-action submit-action]
-  [:modal {:on-click toggle-action}
-   [:card {:on-click #(.stopPropagation %)}
-    [:h2 "Register New Competition"]
-    [:grid
-     [input {:title       "Description"
-             :grid        "1/1"
-             :ratom       state
-             :key         :competition/description
-             :placeholder "Description"
-             :required?   true}]
-     [input {:title       "Start Date"
-             :grid        "1/2"
-             :ratom       state
-             :key         :competition/start-date
-             :placeholder "YYYY-MM-DD"
-             :required?   true}]
-     [input {:title       "End Date"
-             :grid        "1/2"
-             :ratom       state
-             :key         :competition/end-date
-             :placeholder "YYYY-MM-DD"
-             :required?   true}]]
-    [:button {:data-pull-left "9/12" :local "3/12" :data-m-full "" :data-primary "" :on-click submit-action :disabled (not (valid?))} "Save"]]])
+(defn register [submit-action valid? state]
+  [:div
+   [:grid
+    [input {:title       "Description"
+            :grid        "1/1"
+            :ratom       state
+            :key         :competition/description
+            :placeholder "Description"
+            :required?   true}]
+    [input {:title       "Start Date"
+            :grid        "1/2"
+            :ratom       state
+            :key         :competition/start-date
+            :placeholder "YYYY-MM-DD"
+            :required?   true}]
+    [input {:title       "End Date"
+            :grid        "1/2"
+            :ratom       state
+            :key         :competition/end-date
+            :placeholder "YYYY-MM-DD"
+            :required?   true}]]
+   [:button {:data-pull-left "9/12" :local "3/12" :data-m-full "" :data-primary "" :on-click submit-action :disabled (not (valid?))} "Save"]])
