@@ -20,8 +20,8 @@
 (defn- in-mapper [m] (mapper key-map m))
 
 (defn create! [result]
-  (->> result
-       in-mapper
-       (merge default-fields)
-       results-create!
-       out-mapper))
+    (->> result
+        in-mapper
+        (merge default-fields)
+        results-create!
+        out-mapper))
