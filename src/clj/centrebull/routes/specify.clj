@@ -3,6 +3,7 @@
             [compojure.api.meta :refer [restructure-param]]
             [clojure.string :as str]
             [clojure.spec :as s]
+            [com.rpl.specter :refer [walker select]]
             [centrebull.spec :refer [validate-spec]]
             [clojure.set :refer [difference]]
             [clojure.walk :refer [keywordize-keys]]
@@ -33,7 +34,7 @@
   "Removes keys and values from a map which are not shared with the provided spec"
   [spec m]
   (if spec
-    (let [k (distinct (apply concat (filter #(vector? %) (s/describe spec))))
+    (let [k (distinct (apply concat (select (walker vector?) (s/describe spec))))
           ik (difference (set (keys m)) (set k))]
       (apply dissoc m ik))
     m))

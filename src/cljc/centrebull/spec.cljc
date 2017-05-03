@@ -228,6 +228,6 @@
     :req [:search/q]))
 
 (s/def :api/result-create
-  (s/and)
-  (s/keys :req [:result/shots :activity/id :shooter/sid])
-  (s/conformer calculate-result))
+  (s/and
+    (s/keys :req [:result/shots :activity/id :shooter/sid])
+    (s/conformer calculate-result)))
