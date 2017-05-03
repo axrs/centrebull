@@ -42,9 +42,7 @@
   "Validates an incoming endpoint request against a spec, throwing a bad request if invalid"
   [spec params]
   (let [errors (if spec (validate-spec spec params))]
-    (if errors (do
-                 (clojure.pprint/pprint (s/explain-data spec params))
-                 (response/bad-request! {:errors errors})))
+    (if errors (response/bad-request! {:errors errors}))
     params))
 
 (defn conform
@@ -55,7 +53,6 @@
   (log/info "Wrapping route in spec validation " spec)
   (fn [h]
     (fn [{body :body-params query :query-params route :route-params :as r}]
-      (clojure.pprint/pprint r)
       (->> (merge body query route)
         convert-string-keys
         (dissoc-keys spec)
