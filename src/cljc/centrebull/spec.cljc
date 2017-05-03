@@ -156,11 +156,6 @@
 
 (s/def :entry/id (s/conformer ->uuid))
 
-(s/def :result/shots string?)
-(s/def :result/score int?)
-(s/def :result/vs string?)
-(s/def :result/id (s/conformer ->uuid))
-
 ;----------------------------------------
 ; API END POINTS
 ;----------------------------------------
@@ -233,12 +228,6 @@
     :req [:search/q]))
 
 (s/def :api/result-create
-  (s/keys
-    :req [:result/shots
-          :shooter/sid
-          :activity/id]))
-
-(s/def :api/activity-result
-  (s/and
-    (s/keys :req [:result/shots :activity/id :shooter/sid])
-    (s/conformer calculate-result)))
+  (s/and)
+  (s/keys :req [:result/shots :activity/id :shooter/sid])
+  (s/conformer calculate-result))

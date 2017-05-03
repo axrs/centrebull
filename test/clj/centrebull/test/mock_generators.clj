@@ -96,8 +96,9 @@
  "Generates a result"
   []
   {:result/id    (uuid)
-   :result/vs    (rand-int 10)
-   :result/score (rand-int 50)
-   :result/shots (string)
+   :result/shots (->> #(nth [\1 \2 \3 \4 \V \5] (rand-int 5))
+                      repeatedly    
+                      (take 10)
+                      (apply str))
    :shooter/sid  (rand-int 99999)
    :activity/id  (uuid)})

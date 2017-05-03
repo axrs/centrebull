@@ -96,28 +96,28 @@
     (is-not (s/valid? :result/shots "abcde"))
     (is-not (s/valid? :result/shots "VVVVVV"))))
 
-(deftest test-activity-result-spec
+(deftest test-result-create-spec
   (testing "Should calculate results if all required keys exist"
-    (is-not (s/valid? :api/activity-result {}))
-    (is-not (s/valid? :api/activity-result {:result/shots ""}))
-    (is-not (s/valid? :api/activity-result {:result/shots ""
+    (is-not (s/valid? :api/result-create {}))
+    (is-not (s/valid? :api/result-create {:result/shots ""}))
+    (is-not (s/valid? :api/result-create {:result/shots ""
                                             :activity/id  (random-uuid)}))
-    (is-not (s/valid? :api/activity-result {:result/shots ""
+    (is-not (s/valid? :api/result-create {:result/shots ""
                                             :shooter/sid  123
                                             :activity/id  (random-uuid)}))
-    (is-not (s/valid? :api/activity-result {:result/shots "VVV"
+    (is-not (s/valid? :api/result-create {:result/shots "VVV"
                                             :shooter/sid  123
                                             :activity/id  (random-uuid)}))
-    (is-not (s/valid? :api/activity-result {:result/shots "1234567890123456"
+    (is-not (s/valid? :api/result-create {:result/shots "1234567890123456"
                                             :shooter/sid  123
                                             :activity/id  (random-uuid)}))
-    (is-not (s/valid? :api/activity-result {:result/shots "a234567890123456"
+    (is-not (s/valid? :api/result-create {:result/shots "a234567890123456"
                                             :shooter/sid  123
                                             :activity/id  (random-uuid)}))
-    (is (s/valid? :api/activity-result {:result/shots "1234512345"
+    (is (s/valid? :api/result-create {:result/shots "1234512345"
                                         :shooter/sid  123
                                         :activity/id  (random-uuid)}))
-    (is (s/valid? :api/activity-result {:result/shots "123451234512345"
+    (is (s/valid? :api/result-create {:result/shots "123451234512345"
                                         :shooter/sid  123
                                         :activity/id  (random-uuid)}))
     (let [u (random-uuid)]
@@ -126,6 +126,6 @@
               :activity/id  u
               :result/score 45
               :result/vs    0}
-            (s/conform :api/activity-result {:result/shots "123451234512345"
+            (s/conform :api/result-create {:result/shots "123451234512345"
                                              :shooter/sid  123
                                              :activity/id  u}))))))
