@@ -36,4 +36,4 @@
 
 (def pages
   {:activities #'page
-   :activity    #'single-activity})
+   :activity   #'single-activity})
