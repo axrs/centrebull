@@ -53,6 +53,7 @@
   (let [valid? (valid?)
         score (when valid? (s/conform :api/result-create @state))]
     [:div
+     [:h3 (:shooter/name @state)]
      [:grid
       [input {:title       "Shots"
               :ratom       state
@@ -64,12 +65,13 @@
       [:button {:data-pull-left "9/12" :local "3/12" :data-m-full "" :data-primary "" :on-click submit :disabled (not valid?)} "Save"]]]))
 
 (defn row-render [toggle {:keys [:shooter/first-name :shooter/last-name :shooter/sid :result/shots :result/vs :result/score :shooter/grade]}]
-  [:tr {:on-click #(toggle sid)}
-   [:td sid]
-   [:td grade]
-   [:td first-name " " last-name]
-   [:td shots]
-   [:td score [:sup vs]]])
+  (let [n (str first-name " " last-name)]
+    [:tr {:on-click #(toggle sid n)}
+     [:td sid]
+     [:td grade]
+     [:td n]
+     [:td shots]
+     [:td score [:sup vs]]]))
 
 (defn generate-table [toogle results]
   [:table

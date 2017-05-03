@@ -24,8 +24,9 @@
                      :view  [v/register submit-action valid? new-activity]}]])))
 
 (defn- set-sid-fn [state]
-  (fn [sid]
+  (fn [sid name]
     (swap! state assoc :shooter/sid sid)
+    (swap! state assoc :shooter/name name)
     (modal/toggle state)))
 
 (defn- single-activity []
