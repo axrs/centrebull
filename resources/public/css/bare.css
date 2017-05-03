@@ -1528,6 +1528,9 @@ header:not([class]) caption[xx],
 header[xx] caption[xx] {
   text-align: left;
 }
+.registed {
+  color: indianred;
+}
 /*	buttons
 ----------------------------------------------------------------------*/
 message:not([class]),
