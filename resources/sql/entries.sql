@@ -23,9 +23,9 @@ SELECT
   shooters.*,
   results.*
 FROM entries
-  JOIN shooters
-    ON entries.sid = shooters.sid
-  LEFT JOIN results ON shooters.sid = results.sid
+  JOIN shooters ON entries.sid = shooters.sid
+  LEFT OUTER JOIN (SELECT *
+                   FROM results
+                   WHERE activity_id = :activity-id::UUID) AS results ON shooters.sid = results.sid
 WHERE entries.active = TRUE AND entries.competition_id = :competition-id::UUID
-      AND :activity-id = results.activity_id
-ORDER BY entries.class DESC, results.score DESC, results.vs DESC, results.shots_mirror DESC;
+ORDER BY entries.class ASC, results.score DESC, results.vs DESC, results.shots_mirror DESC;
