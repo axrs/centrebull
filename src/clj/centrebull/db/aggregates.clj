@@ -1,3 +1,21 @@
-(ns centrebull.db.aggregates)
+(ns centrebull.db.aggregates
+  (:require [clojure.string :refer [split lower-case]]
+            [clojure.set :refer [map-invert]]
+            [centrebull.db.util :refer [mapper]]
+            [centrebull.db.core :refer [aggregates-create!]]))
 
-(defn create! [aggregate] nil)
+(def ^:private key-map {:aggregate/activities :activities
+                        :aggregate/name       :name
+                        :aggregate/priority   :priority
+                        :competition/id       :competition-id})
+
+(def ^:private value-map (map-invert key-map))
+
+(defn- out-mapper [m] (mapper value-map m))
+(defn- in-mapper [m] (mapper key-map m))
+
+(defn create! [aggregate]
+  (->> aggregate
+       in-mapper
+       aggregates-create!
+       out-mapper))
