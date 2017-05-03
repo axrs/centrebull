@@ -31,4 +31,4 @@
 
 (reg-sub
   :active-activity-results
-  (fn [db _] (::active-activity-results db)))
+  (fn [db _] (:active-activity-results db)))

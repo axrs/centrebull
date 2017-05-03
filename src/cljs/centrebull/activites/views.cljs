@@ -49,7 +49,7 @@
               :disabled       (not (valid?))}
      "Save"]]])
 
-(defn single-activity-page [{:keys [range/description activity/priority activity/date]}]
+(defn single-activity-page [{:keys [range/description activity/priority activity/date]} results]
   [:section
    [:card
     [:h2 description [:sub "#" priority " " (format-date date)]]
