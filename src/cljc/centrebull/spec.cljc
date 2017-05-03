@@ -164,6 +164,11 @@
 
 (s/def :entry/id (s/conformer ->uuid))
 
+(s/def :aggregate/activities (s/coll-of ->uuid))
+(s/def :aggregate/name string?)
+(s/def :aggregate/priority integer?)
+(s/def :competition/id ->uuid)
+
 ;----------------------------------------
 ; API END POINTS
 ;----------------------------------------
@@ -239,3 +244,10 @@
   (s/and
     (s/keys :req [:result/shots :activity/id :shooter/sid])
     (s/conformer calculate-result)))
+
+(s/def :api/aggregate-create
+  (s/keys
+    :req [:aggregate/activities
+          :aggregate/name
+          :aggregate/priority
+          :competition/id]))
