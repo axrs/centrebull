@@ -10,6 +10,14 @@
                 :body          state
                 :after-success after-success})))
 
+
+(reg-event-fx
+  :activity-create-result
+  (fn [_ [_ state & after-success]]
+    (post-json {:url           "/results"
+                :body          state
+                :after-success after-success})))
+
 (reg-event-fx
   ::set-active-activites
   (fn [{:keys [db]} [_ results]]

@@ -49,30 +49,27 @@
              :disabled       (not (valid?))}
     "Save"]])
 
-(defn register-result-modal [toggle submit state valid?]
+(defn register-result [submit valid? state]
   (let [valid? (valid?)
         score (when valid? (s/conform :api/result-create @state))]
-    (prn score)
-    [:modal {:on-click toggle}
-     [:card {:on-click #(.stopPropagation %)}
-      [:h2 "Register shots for shooter"]
-      [:grid
-       [input {:title       "Shots"
-               :ratom       state
-               :grid        "2/3"
-               :key         :result/shots
-               :required?   true
-               :placeholder "shots"}]
-       [:h3 {:local "1/3"} (:result/score score) [:sup (:result/vs score)]]
-       [:button {:data-pull-left "9/12" :local "3/12" :data-m-full "" :data-primary "" :disabled (not valid?)} "Save"]]]]))
+    [:div
+     [:grid
+      [input {:title       "Shots"
+              :ratom       state
+              :grid        "2/3"
+              :key         :result/shots
+              :required?   true
+              :placeholder "shots"}]
+      [:h3 {:local "1/3"} (:result/score score) [:sup (:result/vs score)]]
+      [:button {:data-pull-left "9/12" :local "3/12" :data-m-full "" :data-primary "" :on-click submit :disabled (not valid?)} "Save"]]]))
 
-(defn row-render [toggle {:keys [:shooter/first-name :shooter/last-name :shooter/sid :result/shots :result/score :shooter/grade]}]
-  [:tr {:on-click toggle}
+(defn row-render [toggle {:keys [:shooter/first-name :shooter/last-name :shooter/sid :result/shots :result/vs :result/score :shooter/grade]}]
+  [:tr {:on-click #(toggle sid)}
    [:td sid]
    [:td grade]
    [:td first-name " " last-name]
    [:td shots]
-   [:td score]])
+   [:td score [:sup vs]]])
 
 (defn generate-table [toogle results]
   [:table
@@ -86,7 +83,6 @@
    [:tbody
     (for [r results] (row-render toogle r))]])
 
-
 (defn single-activity-page [toggle {:keys [range/description activity/priority activity/date]} results]
   [:section
    [:card
@@ -94,4 +90,3 @@
     [:h3 "Shooters"]]
    [:card
     [generate-table toggle results]]])
-

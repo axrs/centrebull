@@ -15,28 +15,34 @@
         toggle-action #(modal/toggle new-activity)
         reset-action #(modal/toggle new-activity)
         submit-action #(rf/dispatch [:activity-create @new-activity [:refresh-activities] reset-action])
-        valid? (fn [] (prn @new-activity) (s/valid? :api/activity-create @new-activity))]
+        valid? (fn [] (s/valid? :api/activity-create @new-activity))]
     (fn []
       [:div
        [v/activites-page toggle-action @activites]
        [modal/modal {:state new-activity
-                     :title ""
+                     :title "Register a new Activity"
                      :view  [v/register submit-action valid? new-activity]}]])))
+
+(defn- set-sid-fn [state]
+  (fn [sid]
+    (swap! state assoc :shooter/sid sid)
+    (modal/toggle state)))
 
 (defn- single-activity []
   (let [act @(rf/subscribe [:active-activity])
-        results @(rf/subscribe [:active-activity-results])
-        show-modal? (r/atom false)
-        new (r/atom {})
-        toggle-action #(rf/dispatch [:toggle show-modal? new])
-        submit-action #(rf/dispatch [:activity-create-result @new [[:refresh-activity-results] [:toggle show-modal? new]]])
-        valid? (fn [] (s/valid? :api/result-create @new))]
+        results (rf/subscribe [:active-activity-results])
+        new-result (r/atom {:activity/id (:activity/id act)})
+        toggle-action #(modal/toggle new-result)
+        reset-action #(modal/reset new-result)
+        row-click (set-sid-fn new-result)
+        submit-action #(rf/dispatch [:activity-create-result @new-result [:refresh-activity-results] reset-action])
+        valid? (fn [] (s/valid? :api/result-create @new-result))]
     (fn []
       [:div
-       [v/single-activity-page toggle-action act results]
-       (when @show-modal?
-         (swap! new assoc :activity/id (:activity/id act) :shooter/sid 123)
-         [v/register-result-modal toggle-action submit-action new valid?])])))
+       [v/single-activity-page row-click act @results]
+       [modal/modal {:state new-result
+                     :title "Register Result"
+                     :view  [v/register-result submit-action valid? new-result]}]])))
 
 (secretary/defroute "/activities" []
   (rf/dispatch [:activities-load]))
