@@ -6,6 +6,7 @@
             [centrebull.db.core :refer [entries-create!
                                         entries-update-active!
                                         competitions-suggest-registration
+                                        competitions-retrieve-registrations
                                         entries-find]]))
 
 (def ^:private key-map {:entry/id               :id
@@ -15,7 +16,11 @@
                         :shooter/last-name      :last-name
                         :shooter/preferred-name :preferred-name
                         :shooter/club           :club
-                        :shooter/grade          :class})
+                        :shooter/grade          :class
+                        :activity/id            :activity-id
+                        :result/vs              :vs
+                        :result/score           :score
+                        :result/shots           :shots})
 
 (def ^:private value-map (map-invert key-map))
 
@@ -41,4 +46,9 @@
 (defn suggest-registration [s id]
   (->> {:id id :s (prepare-search-terms s)}
     competitions-suggest-registration
+    out-mapper))
+
+(defn retrieve-registrations [comp-id activity-id]
+  (->> {:competition-id comp-id :activity-id activity-id}
+    competitions-retrieve-registrations
     out-mapper))

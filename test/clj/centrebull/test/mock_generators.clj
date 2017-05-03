@@ -86,3 +86,19 @@
    :competition/id (uuid)
    :shooter/sid (rand-int 99999)
    :shooter/grade (string)})
+
+(defn gen-registration-with-shooter
+  "Generates a entry.registraions with a shooter"
+  []
+  (merge (gen-entry) (gen-shooter)))
+
+(defn gen-result
+ "Generates a result"
+  []
+  {:result/id    (uuid)
+   :result/shots (->> #(nth [\1 \2 \3 \4 \V \5] (rand-int 5))
+                      repeatedly    
+                      (take 10)
+                      (apply str))
+   :shooter/sid  (rand-int 99999)
+   :activity/id  (uuid)})
