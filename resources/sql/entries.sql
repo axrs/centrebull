@@ -24,4 +24,5 @@ FROM entries
   LEFT JOIN activities ON activities.competition_id = entries.competition_id
   LEFT JOIN results ON results.activity_id = activities.id
 WHERE entries.active = TRUE AND entries.competition_id = :competition-id::UUID
-      AND :activity-id = activities.id;
+      AND :activity-id = activities.id
+ORDER BY entries.grade DESC, results.score DESC, results.vs DESC, results.shots_reverse DESC;
