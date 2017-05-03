@@ -15,7 +15,6 @@
         toggle-action #(rf/dispatch [:toggle show-modal? new])
         submit-action #(rf/dispatch [:activity-create @new [[:refresh-activities] [:toggle show-modal? new]]])
         valid? (fn [] (s/valid? :api/activity-create @new))]
-
     (fn []
       [:div
        [v/activites-page toggle-action @activites]
@@ -26,12 +25,11 @@
 (defn- single-activity []
   (let [act @(rf/subscribe [:active-activity])
         results @(rf/subscribe [:active-activity-results])
-        show-modal? (r/atom true)
+        show-modal? (r/atom false)
         new (r/atom {})
         toggle-action #(rf/dispatch [:toggle show-modal? new])
         submit-action #(rf/dispatch [:activity-create-result @new [[:refresh-activity-results] [:toggle show-modal? new]]])
-        valid? (fn [] (s/valid? :api/activity-result @new))]
-
+        valid? (fn [] (s/valid? :api/result-create @new))]
     (fn []
       [:div
        [v/single-activity-page act results]

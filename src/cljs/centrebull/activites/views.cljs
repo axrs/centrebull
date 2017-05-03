@@ -53,7 +53,8 @@
 
 (defn register-result-modal [toggle submit state valid?]
   (let [valid? (valid?)
-        score (when valid? (s/conform :api/activity-result @state))]
+        score (when valid? (s/conform :api/result-create @state))]
+    (prn score)
     [:modal {:on-click toggle}
      [:card {:on-click #(.stopPropagation %)}
       [:h2 "Register shots for shooter"]
@@ -67,9 +68,34 @@
        [:h3 {:local "1/3"} (:result/score score) [:sup (:result/vs score)]]
        [:button {:data-pull-left "9/12" :local "3/12" :data-m-full "" :data-primary "" :disabled (not valid?)} "Save"]]]]))
 
+(defn row-render [{:keys [:shooter/first-name :shooter/last-name :shooter/sid :result/shots :result/score :shooter/grade]}]
+  [:tr
+   [:td sid]
+   [:td grade]
+   [:td first-name " " last-name]
+   [:td shots]
+   [:td score]])
+
+
+
+(defn generate-table [results]
+  [:table
+   [:thead
+    [:tr
+     [:th "#"]
+     [:th "Grade"]
+     [:th "Name"]
+     [:th "Shots"]
+     [:th "Score"]]]
+   [:tbody
+    (for [r results] (row-render r))]])
+
+
 (defn single-activity-page [{:keys [range/description activity/priority activity/date]} results]
   [:section
    [:card
     [:h2 description [:sub "#" priority " " (format-date date)]]
-    [:h3 "Shooters"]]])
+    [:h3 "Shooters"]]
+   [:card
+    [generate-table results]]])
 

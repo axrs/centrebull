@@ -101,25 +101,25 @@
     (is-not (s/valid? :api/result-create {}))
     (is-not (s/valid? :api/result-create {:result/shots ""}))
     (is-not (s/valid? :api/result-create {:result/shots ""
-                                            :activity/id  (random-uuid)}))
+                                          :activity/id  (random-uuid)}))
     (is-not (s/valid? :api/result-create {:result/shots ""
-                                            :shooter/sid  123
-                                            :activity/id  (random-uuid)}))
+                                          :shooter/sid  123
+                                          :activity/id  (random-uuid)}))
     (is-not (s/valid? :api/result-create {:result/shots "VVV"
-                                            :shooter/sid  123
-                                            :activity/id  (random-uuid)}))
+                                          :shooter/sid  123
+                                          :activity/id  (random-uuid)}))
     (is-not (s/valid? :api/result-create {:result/shots "1234567890123456"
-                                            :shooter/sid  123
-                                            :activity/id  (random-uuid)}))
+                                          :shooter/sid  123
+                                          :activity/id  (random-uuid)}))
     (is-not (s/valid? :api/result-create {:result/shots "a234567890123456"
-                                            :shooter/sid  123
-                                            :activity/id  (random-uuid)}))
+                                          :shooter/sid  123
+                                          :activity/id  (random-uuid)}))
     (is (s/valid? :api/result-create {:result/shots "1234512345"
-                                        :shooter/sid  123
-                                        :activity/id  (random-uuid)}))
+                                      :shooter/sid  123
+                                      :activity/id  (random-uuid)}))
     (is (s/valid? :api/result-create {:result/shots "123451234512345"
-                                        :shooter/sid  123
-                                        :activity/id  (random-uuid)}))
+                                      :shooter/sid  123
+                                      :activity/id  (random-uuid)}))
     (let [u (random-uuid)]
       (is (= {:result/shots "123451234512345"
               :shooter/sid  123
@@ -127,5 +127,5 @@
               :result/score 45
               :result/vs    0}
             (s/conform :api/result-create {:result/shots "123451234512345"
-                                             :shooter/sid  123
-                                             :activity/id  u}))))))
+                                           :shooter/sid  123
+                                           :activity/id  u}))))))
