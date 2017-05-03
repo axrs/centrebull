@@ -23,6 +23,13 @@
     (is (= id expected-id))
     rv))
 
+(defn retrieve-registrations
+  [expected-comp-id expected-activity-id rv]
+  (fn [comp-id activity-id]
+    (is (= expected-comp-id comp-id))
+    (is (= expected-activity-id activity-id))
+    rv))
+
 (defn do-not-call
   [_]
   (throw (Exception. "Should not have been called")))

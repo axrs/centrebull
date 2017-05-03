@@ -51,7 +51,6 @@
               :disabled       (not (valid?))}
      "Save"]]])
 
-
 (defn register-result-modal [toggle submit state valid?]
   (let [valid? (valid?)
         score (when valid? (s/conform :api/activity-result @state))]
@@ -66,11 +65,9 @@
                :required?   true
                :placeholder "shots"}]
        [:h3 {:local "1/3"} (:result/score score) [:sup (:result/vs score)]]
-
        [:button {:data-pull-left "9/12" :local "3/12" :data-m-full "" :data-primary "" :disabled (not valid?)} "Save"]]]]))
 
-
-(defn single-activity-page [{:keys [range/description activity/priority activity/date]}]
+(defn single-activity-page [{:keys [range/description activity/priority activity/date]} results]
   [:section
    [:card
     [:h2 description [:sub "#" priority " " (format-date date)]]

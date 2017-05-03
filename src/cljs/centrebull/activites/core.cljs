@@ -23,9 +23,9 @@
          (swap! new assoc :competition/id competition-id :activity/priority 0)
          [v/register-modal toggle-action submit-action new valid?])])))
 
-
 (defn- single-activity []
   (let [act @(rf/subscribe [:active-activity])
+        results @(rf/subscribe [:active-activity-results])
         show-modal? (r/atom true)
         new (r/atom {})
         toggle-action #(rf/dispatch [:toggle show-modal? new])
@@ -34,18 +34,16 @@
 
     (fn []
       [:div
-       [v/single-activity-page act]
+       [v/single-activity-page act results]
        (when @show-modal?
          (swap! new assoc :activity/id (:activity/id act) :shooter/sid 123)
          [v/register-result-modal toggle-action submit-action new valid?])])))
-
 
 (secretary/defroute "/activities" []
   (rf/dispatch [:activities-load]))
 
 (secretary/defroute "/activities/:id" {id :id :as params}
   (rf/dispatch [:set-active-activity id]))
-
 
 (def pages
   {:activities #'page

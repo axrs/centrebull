@@ -24,7 +24,6 @@
                    :after-success [[::set-active-activites]]})
         {}))))
 
-
 (reg-event-fx
   :activities-create
   (fn [_ [_ state errors after-success]]
@@ -39,9 +38,28 @@
     {:dispatch-n [[:set-active-page :activities]
                   [:refresh-activities]]}))
 
-
 (reg-event-fx
   :set-active-activity
   (fn [{:keys [db]} [_ id]]
-    {:db       (assoc db :active-activity (first (filter #(= id (:activity/id %)) (:activities db))))
-     :dispatch [:set-active-page :activity]}))
+    {:db         (assoc db :active-activity (first (filter #(= id (:activity/id %)) (:activities db))))
+     :dispatch-n [[:set-active-page :activity] [:refresh-activity-results]]}))
+
+(reg-event-fx
+  :refresh-activity-results
+  (fn [{:keys [db]} _]
+    (let [activity (get-in db [:active-activity])
+          a-id (:activity/id activity)
+          c-id (:competition/id activity)]
+      (if c-id
+        (post-json {:url           (str "competitions/" c-id "/registrations")
+                    :body          activity
+                    :after-success [[::set-active-activity-results a-id]]})
+        {}))))
+
+(reg-event-fx
+  ::set-active-activity-results
+  (fn [{:keys [db]} [_ id results]]
+    (let [a-id (get-in db [:active-activity :activity/id])]
+      (if (= a-id id)
+        {:db (assoc db :active-activity-results results)}
+        {}))))

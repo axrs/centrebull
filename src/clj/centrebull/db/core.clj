@@ -20,12 +20,12 @@
 (defn result-one-snake->kebab
   [this result options]
   (->> (hugsql.adapter/result-one this result options)
-       (transform-keys ->kebab-case-keyword)))
+    (transform-keys ->kebab-case-keyword)))
 
 (defn result-many-snake->kebab
   [this result options]
   (->> (hugsql.adapter/result-many this result options)
-       (map #(transform-keys ->kebab-case-keyword %))))
+    (map #(transform-keys ->kebab-case-keyword %))))
 
 (defmethod hugsql.core/hugsql-result-fn :1 [sym]
   'centrebull.db.core/result-one-snake->kebab)
@@ -40,15 +40,16 @@
   'centrebull.db.core/result-many-snake->kebab)
 
 (defstate ^:dynamic *db*
-          :start (conman/connect! {:jdbc-url (env :database-url)})
-          :stop (conman/disconnect! *db*))
+  :start (conman/connect! {:jdbc-url (env :database-url)})
+  :stop (conman/disconnect! *db*))
 
 (conman/bind-connection *db*
-                        "sql/shooters.sql"
-                        "sql/competitions.sql"
-                        "sql/entries.sql"
-                        "sql/activities.sql"
-                        "sql/ranges.sql")
+  "sql/shooters.sql"
+  "sql/competitions.sql"
+  "sql/entries.sql"
+  "sql/activities.sql"
+  "sql/ranges.sql"
+  "sql/results.sql")
 
 (defn to-date [^java.sql.Date sql-date]
   (-> sql-date (.getTime) (java.util.Date.)))
