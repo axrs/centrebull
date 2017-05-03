@@ -1,6 +1,6 @@
 -- :name aggregates-create! :<! :1
 -- :doc create an aggregate
 INSERT INTO aggregates
-(name, priority, competition_id, activities)
-VALUES (:name, :priority, :competition-id :activities)
+(description, priority, competition_id, activities)
+VALUES (:description, :priority, :competition-id::UUID, :activities::UUID[])
 RETURNING *;
