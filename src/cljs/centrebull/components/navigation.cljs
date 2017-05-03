@@ -7,10 +7,22 @@
     [goog.events :as events]
     [ajax.core :refer [GET POST]]))
 
-(defn sidebar-link [action title page]
-  (let [selected-page (rf/subscribe [:page])]
-    [:li (when (= page @selected-page) {:fx "active"})
-     [:a {:on-click action} title]]))
+(defn sidebar-link [action title page show?]
+  (when show?
+    (let [selected-page (rf/subscribe [:page])]
+      [:li (when (= page @selected-page) {:fx "active"})
+       [:a {:on-click action} title]])))
+
+(defn activity-link [{:keys [range/description activity/id]}]
+  [:li
+   [:a {:on-click #(accountant/navigate! (str "#/activities/" id))} description]])
+
+(defn activity-section []
+  (let [all-activities @(rf/subscribe [:activities])]
+    [:li
+     [:label "All Activities"
+      [:ul
+       (map activity-link all-activities)]]]))
 
 (defn- sidebar []
   (let [is-open? (rf/subscribe [:sidebar-open?])
@@ -18,11 +30,11 @@
         is-forced? (rf/subscribe [:force-sidebar-open?])]
     [:sidebar
      [:ul {:style {:transform (when (and (not @is-open?) (not @is-forced?)) "translate3d(-100%,0,0)")}}
-      [sidebar-link #(accountant/navigate! "#/ranges") "Ranges" :ranges]
-      [sidebar-link #(accountant/navigate! "#/shooters") "Shooters" :shooters]
-      (if @competiton-id
-        [sidebar-link #(accountant/navigate! "#/activities") "Activities" :activities]
-        [sidebar-link #(accountant/navigate! "#/competitions") "Competitions" :competitions])]]))
+      [sidebar-link #(accountant/navigate! "#/shooters") "Shooters" :shooters @competiton-id]
+      [sidebar-link #(accountant/navigate! "#/competitions") "Competitions" :competitions (not @competiton-id)]
+      [sidebar-link #(accountant/navigate! "#/ranges") "Ranges" :ranges true]
+      [sidebar-link #(accountant/navigate! "#/activities") "New activity" :activities @competiton-id]
+      (activity-section)]]))
 
 (defn topbar []
   [:nav

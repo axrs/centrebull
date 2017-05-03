@@ -48,3 +48,9 @@
               :on-click       submit
               :disabled       (not (valid?))}
      "Save"]]])
+
+(defn single-activity-page [{:keys [range/description activity/priority activity/date]}]
+  [:section
+   [:card
+    [:h2 {:local "9/12"} priority " - " description " " (format-date date)]
+    [:h3 "Shooters"]]])
