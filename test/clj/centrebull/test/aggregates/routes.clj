@@ -23,4 +23,11 @@
     (with-redefs [aggregates/create! (constantly (response/ok {:aggregate-create! "called"}))]
       (let [{:keys [status body]} ((app) (json-request :post "/aggregates" (gen-aggregate)))]
         (is (= status 200))
-        (is (= {:aggregate-create! "called"} (parse-body body)))))))
+        (is (= {:aggregate-create! "called"} (parse-body body))))))
+
+  (testing "Find Aggregate"
+    (let [competition-id (uuid)]
+      (with-redefs [aggregates/find-aggregates (constantly (response/ok {:aggregate-find "called"}))]
+        (let [{:keys [status body]} ((app) (json-request :get (str "/competitions/" competition-id "/aggregates")))]
+          (is (= status 200))
+          (is (= {:aggregate-find "called"} (parse-body body))))))))

@@ -59,7 +59,11 @@
 
       (GET "/registrations" {:as request}
         :spec :api/competition-and-activity-id-only
-        (registrations/retrieve-registrations request))))
+        (registrations/retrieve-registrations request))
+
+      (GET "/aggregates" {:as request}
+        :spec :api/competition-id-only
+        (aggregates/find-aggregates request))))
 
   (context "/registrations" []
     (DELETE "/:entry--id" {:as request}
