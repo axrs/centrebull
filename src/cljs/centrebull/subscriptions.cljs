@@ -28,3 +28,7 @@
 (reg-sub
   :active-activity
   (fn [db _] (:active-activity db)))
+
+(reg-sub
+  :active-activity-results
+  (fn [db _] (:active-activity-results db)))

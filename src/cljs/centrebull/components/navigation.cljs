@@ -4,6 +4,7 @@
     [reagent.core :as r]
     [re-frame.core :as rf]
     [secretary.core :as secretary]
+    [centrebull.date-utils :refer [format-date]]
     [goog.events :as events]
     [ajax.core :refer [GET POST]]))
 
@@ -13,9 +14,9 @@
       [:li (when (= page @selected-page) {:fx "active"})
        [:a {:on-click action} title]])))
 
-(defn activity-link [{:keys [range/description activity/id]}]
+(defn activity-link [{:keys [range/description activity/id activity/priority activity/date] :as r}]
   [:li
-   [:a {:on-click #(accountant/navigate! (str "#/activities/" id))} description]])
+   [:a {:on-click #(accountant/navigate! (str "#/activities/" id))} description [:sub (str " " priority " (" (format-date date) ")")]]])
 
 (defn activity-section []
   (let [all-activities @(rf/subscribe [:activities])]
