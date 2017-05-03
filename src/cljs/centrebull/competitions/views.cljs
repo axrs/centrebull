@@ -26,7 +26,7 @@
      {:header competition-header
       :row    competition-row}]]])
 
-(defn register [sumbit-action valid? state]
+(defn register [submit-action valid? state]
   [:div
    [:grid
     [input {:title       "Description"

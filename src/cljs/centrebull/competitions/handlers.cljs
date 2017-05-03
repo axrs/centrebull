@@ -5,6 +5,7 @@
 (reg-event-fx
   :competitions-create
   (fn [_ [_ state & after-success]]
+    (prn "competition create")
     (post-json {:url           "/competitions"
                 :body          state
                 :after-success after-success})))

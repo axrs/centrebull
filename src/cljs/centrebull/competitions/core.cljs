@@ -17,10 +17,9 @@
     (fn []
       [:div
        [v/competitions-page toggle-action]
-
        [modal/modal {:state new-competition
                      :title "Register New Competition"
-                     :view  [v/register new-competition valid? toggle-action submit-action]}]])))
+                     :view  [v/register submit-action valid? new-competition]}]])))
 
 (secretary/defroute "/competitions" []
   (rf/dispatch [:set-active-page :competitions]))
