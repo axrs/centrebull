@@ -9,7 +9,8 @@
             [centrebull.ranges.core :as ranges]
             [centrebull.results.core :as results]
             [centrebull.competitions.core :as competitions]
-            [centrebull.registrations.core :as registrations]))
+            [centrebull.registrations.core :as registrations]
+            [centrebull.aggregates.core :as aggregates]))
 
 (defn home-page []
   (layout/render "home.html"))
@@ -98,5 +99,9 @@
 
     (DELETE "/:range--id" {:as request}
       :spec :api/range-id-only
-      (ranges/delete! request))))
+      (ranges/delete! request)))
 
+  (context "/aggregates" []
+    (POST "/" {:as request}
+      :spec :api/aggregate-create
+      (aggregates/create! request))))
