@@ -155,6 +155,7 @@
                        valid-shot-chars-only))
 
 (s/def :entry/id (s/conformer ->uuid))
+
 ;----------------------------------------
 ; API END POINTS
 ;----------------------------------------
@@ -183,6 +184,11 @@
   (s/keys
     :req [:competition/id]))
 
+(s/def :api/competition-and-activity-id-only
+  (s/keys
+    :req [:competition/id
+          :activity/id]))
+
 (s/def :api/search (s/keys :req [:search/q]))
 
 (s/def :api/competition-create
@@ -196,7 +202,6 @@
     :req [:competition/id
           :shooter/sid
           :shooter/grade]))
-
 
 (s/def :api/competition-unregister-shooter
   (s/keys
@@ -222,7 +227,7 @@
   (s/keys
     :req [:search/q]))
 
-(s/def :api/activity-result
+(s/def :api/result-create
   (s/and
     (s/keys :req [:result/shots :activity/id :shooter/sid])
     (s/conformer calculate-result)))

@@ -10,7 +10,7 @@
                shooter/first-name
                shooter/last-name
                shooter/club
-               competition/id]}
+               competition/id] :as shooter}
        results]
     [:div
      [:div {:local "1/12"} sid]
@@ -19,7 +19,7 @@
                              " " last-name)]
      [:div {:local "4/12"} club]
      [:div {:local "3/12"}
-      (if id [:h4 {:style {:color "indianred"}} "Registed"]
+      (if id [:h4.registed "Registed"]
              [:button {:on-click #(let [body {:shooter/sid    sid
                                               :shooter/grade  (js/prompt "Shooter Grade")
                                               :competition/id competition-id}]
@@ -27,9 +27,8 @@
               "Register"])]
      [:div {:local "1/12"}
       (when id
-        [:button {:on-click #(rf/dispatch [:shooters-unregister id results])}
+        [:button {:on-click #(rf/dispatch [:shooters-unregister (:entry/id shooter) results])}
          "Unregister"])]]))
-
 
 (defn shooters-page [toggle-action]
   [:section

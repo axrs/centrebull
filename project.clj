@@ -31,6 +31,7 @@
                  [org.webjars/font-awesome "4.7.0"]
                  [org.webjars/webjars-locator-jboss-vfs "0.1.0"]
                  [re-frame "0.9.1"]
+                 [com.rpl/specter "1.0.1"]
                  [day8.re-frame/http-fx "0.1.3"]
                  [reagent "0.6.0"]
                  [reagent-utils "0.2.0"]
