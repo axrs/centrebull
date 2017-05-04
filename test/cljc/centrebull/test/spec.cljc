@@ -68,7 +68,9 @@
   (testing "Should count the number of Vs in a string"
     (is (= 0 (calculate-vs "")))
     (is (= 3 (calculate-vs "VVV")))
-    (is (= 3 (calculate-vs "aV VxV")))))
+    (is (= 3 (calculate-vs "aV VxV")))
+    (is (= 9 (calculate-vs "4VVVVVVVVVV4")))
+    (is (= 10 (calculate-vs "33VVVVV55555VVVVV")))))
 
 (def ^:private calculate-score #'centrebull.spec/calculate-score)
 (deftest test-calculate-score
@@ -101,25 +103,25 @@
     (is-not (s/valid? :api/result-create {}))
     (is-not (s/valid? :api/result-create {:result/shots ""}))
     (is-not (s/valid? :api/result-create {:result/shots ""
-                                            :activity/id  (random-uuid)}))
+                                          :activity/id  (random-uuid)}))
     (is-not (s/valid? :api/result-create {:result/shots ""
-                                            :shooter/sid  123
-                                            :activity/id  (random-uuid)}))
+                                          :shooter/sid  123
+                                          :activity/id  (random-uuid)}))
     (is-not (s/valid? :api/result-create {:result/shots "VVV"
-                                            :shooter/sid  123
-                                            :activity/id  (random-uuid)}))
+                                          :shooter/sid  123
+                                          :activity/id  (random-uuid)}))
     (is-not (s/valid? :api/result-create {:result/shots "1234567890123456"
-                                            :shooter/sid  123
-                                            :activity/id  (random-uuid)}))
+                                          :shooter/sid  123
+                                          :activity/id  (random-uuid)}))
     (is-not (s/valid? :api/result-create {:result/shots "a234567890123456"
-                                            :shooter/sid  123
-                                            :activity/id  (random-uuid)}))
+                                          :shooter/sid  123
+                                          :activity/id  (random-uuid)}))
     (is (s/valid? :api/result-create {:result/shots "1234512345"
-                                        :shooter/sid  123
-                                        :activity/id  (random-uuid)}))
+                                      :shooter/sid  123
+                                      :activity/id  (random-uuid)}))
     (is (s/valid? :api/result-create {:result/shots "123451234512345"
-                                        :shooter/sid  123
-                                        :activity/id  (random-uuid)}))
+                                      :shooter/sid  123
+                                      :activity/id  (random-uuid)}))
     (let [u (random-uuid)]
       (is (= {:result/shots "123451234512345"
               :shooter/sid  123
@@ -127,5 +129,5 @@
               :result/score 45
               :result/vs    0}
             (s/conform :api/result-create {:result/shots "123451234512345"
-                                             :shooter/sid  123
-                                             :activity/id  u}))))))
+                                           :shooter/sid  123
+                                           :activity/id  u}))))))

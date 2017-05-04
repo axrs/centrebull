@@ -58,6 +58,10 @@
 
       (GET "/registrations" {:as request}
         :spec :api/competition-and-activity-id-only
+        (registrations/retrieve-registrations request))
+
+      (POST "/registrations" {:as request}
+        :spec :api/competition-and-activity-id-only
         (registrations/retrieve-registrations request))))
 
   (context "/registrations" []
