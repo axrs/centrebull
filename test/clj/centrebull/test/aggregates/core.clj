@@ -21,5 +21,12 @@
       (with-redefs [dao/find-aggregates (mock-dao/find-aggregates expected aggregates)]
         (let [{:keys [status body]} (aggregates/find-aggregates {:all-params expected})]
           (is (= body aggregates))
-          (is (= status 200)))))))
+          (is (= status 200))))))
         
+  (testing "Aggregates-Delete!"
+    (let [all-params {:aggregate/id (uuid) :competition/id (uuid)}]
+      (with-redefs [dao/delete-aggregate! (mock-dao/delete-aggregate! all-params nil)]
+        (let [{:keys [status body]} (aggregates/delete-aggregate! {:all-params all-params})]
+          (is (= body nil))
+          (is (= status 200)))))))
+            

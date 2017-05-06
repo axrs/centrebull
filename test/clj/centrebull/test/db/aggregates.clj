@@ -12,3 +12,9 @@
   (fn [competition-id]
     (is (= em competition-id))
     rv))
+
+(defn delete-aggregate!
+  [em rv]
+  (fn [id-map]
+    (is (= em id-map))
+    rv))

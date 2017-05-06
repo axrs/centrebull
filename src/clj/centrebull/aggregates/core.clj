@@ -9,4 +9,4 @@
   (response/ok (dao/find-aggregates all-params)))
 
 (defn delete-aggregate! [{:keys [all-params]}]
-  (response/ok (dao/delete-aggregates! all-params)))
+  (response/ok (dao/delete-aggregate! all-params)))
