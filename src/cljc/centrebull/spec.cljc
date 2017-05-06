@@ -167,7 +167,7 @@
 (s/def :aggregate/activities (s/coll-of ->uuid))
 (s/def :aggregate/description string?)
 (s/def :aggregate/priority integer?)
-(s/def :competition/id ->uuid)
+(s/def :aggregate/id (s/conformer ->uuid))
 
 ;----------------------------------------
 ; API END POINTS
@@ -250,4 +250,9 @@
     :req [:aggregate/activities
           :aggregate/description
           :aggregate/priority
+          :competition/id]))
+
+(s/def :delete-aggregate
+  (s/keys
+    :req [:aggregate/id
           :competition/id]))
