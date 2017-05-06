@@ -7,3 +7,5 @@
 
 (defn find-aggregates [{:keys [all-params]}]
   (response/ok (dao/find-aggregates all-params)))
+
+(defn delete-aggregate! [& params] (constantly params))
