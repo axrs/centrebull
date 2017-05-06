@@ -25,3 +25,5 @@
        in-mapper
        aggregates-find
        out-mapper))
+
+(defn delete-aggregates! [_])
