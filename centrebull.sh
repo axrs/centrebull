@@ -62,23 +62,20 @@ abort_on_error() {
 	fi
 }
 
-db_drop_db() {
-  echo_message "DROPPING DB $1"
-  vagrant ssh -c "export PGPASSWORD=${DATABASE_PASSWORD}; dropdb --host=localhost --port=5432 --username=${DATABASE_USER} --no-password  $1"
-}
-
 db_create_db() {
   echo_message "Creating DB $1"
   vagrant ssh -c "export PGPASSWORD=${DATABASE_PASSWORD}; createdb --host=localhost --port=5432 --username=${DATABASE_USER} --no-password --owner=${DATABASE_USER} --encoding=UTF-8 $1"
 }
 
 reset() {
+	check_exec_exists "psql"
 	echo_message 'Resetting database'
 
-	db_drop_db "centrebull_dev"
-	db_drop_db "centrebull_test"
-	db_create_db "centrebull_dev"
-	db_create_db "centrebull_test"
+	dropdb --if-exists --host=localhost --port=5432 --username=$DATABASE_USER -w centrebull_dev 
+	dropdb --if-exists --host=localhost --port=5432 --username=$DATABASE_USER -w centrebull_test
+
+	createdb --host=localhost --port=5432 --username=$DATABASE_USER -w --owner=$DATABASE_USER --encoding=UTF-8 centrebull_dev
+	createdb --host=localhost --port=5432 --username=$DATABASE_USER -w --owner=$DATABASE_USER --encoding=UTF-8 centrebull_test
 
 	abort_on_error "Reset failed, exiting."
 }
