@@ -30,4 +30,12 @@
       (with-redefs [aggregates/find-aggregates (constantly (response/ok {:aggregate-find "called"}))]
         (let [{:keys [status body]} ((app) (json-request :get (str "/competitions/" competition-id "/aggregates")))]
           (is (= status 200))
-          (is (= {:aggregate-find "called"} (parse-body body))))))))
+          (is (= {:aggregate-find "called"} (parse-body body)))))))
+
+  (testing "Delete Aggregate"
+    (let [competition-id (uuid)
+          aggregate-id (uuid)]
+      (with-redefs [aggregates/delete-aggregate! (constantly (response/ok {:aggregate-delete! "called"}))]
+        (let [{:keys [status body]} ((app) (json-request :delete (str "/competitions/" competition-id "/aggregates/" aggregate-id)))]
+          (is (= status 200))
+          (is (= {:aggregate-delete! "called"} (parse-body body))))))))
