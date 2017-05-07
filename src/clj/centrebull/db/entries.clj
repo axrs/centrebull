@@ -10,6 +10,7 @@
                                         entries-find]]))
 
 (def ^:private key-map {:entry/id               :id
+                        :entry/active           :active
                         :competition/id         :competition-id
                         :shooter/sid            :sid
                         :shooter/first-name     :first-name
@@ -21,6 +22,7 @@
                         :result/vs              :vs
                         :result/score           :score
                         :result/shots           :shots})
+
 
 (def ^:private value-map (map-invert key-map))
 
@@ -39,8 +41,8 @@
     entries-find
     out-mapper))
 
-(defn update-active! [id active?]
-  (->> {:id id :active active?}
+(defn update-active! [id class active?]
+  (->> {:id id :class class :active active?}
     entries-update-active!))
 
 (defn suggest-registration [s id]
