@@ -25,6 +25,13 @@
 
 (reg-sub :aggregates (fn [db _] (:aggregates db)))
 
+(reg-sub :aggregates-and-activities
+  (fn [db _]
+    (->> (:aggregates db)
+      (into (:activities db))
+      (mapv #(assoc % :priority (or (:aggregate/priority %) (:activity/priority %))))
+      (sort-by :priority))))
+
 (reg-sub
   :active-activity
   (fn [db _] (:active-activity db)))
