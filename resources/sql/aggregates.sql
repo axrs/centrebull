@@ -9,3 +9,9 @@ RETURNING *;
 -- :doc finds aggregates for a competition
 SELECT * FROM aggregates
 WHERE competition_id = :competition-id::UUID
+
+-- :name aggregates-delete!  :! :n
+-- :doc deletes an aggregate for a competition
+DELETE
+FROM aggregates
+WHERE id = :id::UUID AND competition_id = :competition-id::UUID;

@@ -2,9 +2,10 @@
   (:require [clojure.string :refer [split lower-case]]
             [clojure.set :refer [map-invert]]
             [centrebull.db.util :refer [mapper]]
-            [centrebull.db.core :refer [aggregates-create! aggregates-find]]))
+            [centrebull.db.core :refer [aggregates-create! aggregates-find aggregates-delete!]]))
 
-(def ^:private key-map {:aggregate/activities  :activities
+(def ^:private key-map {:aggregate/id          :id
+                        :aggregate/activities  :activities
                         :aggregate/description :description
                         :aggregate/priority    :priority
                         :competition/id        :competition-id})
@@ -26,4 +27,8 @@
        aggregates-find
        out-mapper))
 
-(defn delete-aggregate! [_])
+(defn delete-aggregate! [delete-params]
+  (->> delete-params
+       in-mapper
+       aggregates-delete!))
+       
