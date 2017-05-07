@@ -50,9 +50,18 @@
              :disabled       (not (valid?))}
     "Save"]])
 
+(defn clean-shots [{:keys [result/shots] :as state}]
+  (if (empty? shots)
+      state
+      (assoc state :result/shots
+        (-> shots
+          (clojure.string/replace #"-| " "")
+          clojure.string/upper-case))))
+    
+
 (defn register-result [submit valid? state]
   (let [valid? (valid?)
-        score (when valid? (s/conform :api/result-create @state))]
+        score (when valid? (s/conform :api/result-create (clean-shots @state)))]
     [:div
      [:h3 (:shooter/name @state)]
      [:grid
@@ -61,7 +70,8 @@
               :grid        "2/3"
               :key         :result/shots
               :required?   true
-              :placeholder "shots"}]
+              :placeholder "shots"
+              :submit submit}]
       [:h3 {:local "1/3"} (:result/score score) [:sup (:result/vs score)]]
       [:button {:data-pull-left "9/12" :local "3/12" :data-m-full "" :data-primary "" :on-click submit :disabled (not valid?)} "Save"]]]))
 
@@ -82,7 +92,7 @@
 (defn generate-table [search toogle results]
   [:table
    [:thead
-    [:tr [:th {:col-span 5} [input {:key :search :ratom search}]]]
+    [:tr [:th {:col-span 5} [input {:key :search :ratom search :list "results-autocomplete"}]]]
     [:tr
      [:th "#"]
      [:th "Grade"]
