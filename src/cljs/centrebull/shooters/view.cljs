@@ -1,34 +1,47 @@
 (ns centrebull.shooters.view
   (:require [centrebull.components.search :refer [search]]
+            [centrebull.components.select :refer [select]]
             [centrebull.components.input :refer [input]]
             [re-frame.core :as rf]
-            [reagent.core :as r]))
+            [reagent.core :as r]
+            [clojure.spec :as s]))
+
+(def grade-list [{:id "" :name "Select a Grade" :disabled? false :selected? true}
+                 {:id "A" :name "A"}
+                 {:id "B" :name "B"}
+                 {:id "C" :name "C"}
+                 {:id "FO" :name "FO"}
+                 {:id "FS" :name "FS"}])
 
 (defn shooter-row [competition-id]
-  (fn [{:keys [shooter/sid
-               shooter/preferred-name
-               shooter/first-name
-               shooter/last-name
-               shooter/club
-               competition/id] :as shooter}
-       results]
-    [:div
-     [:div {:local "1/12"} sid]
-     [:div {:local "4/12"} (str first-name
-                             (when preferred-name (str " (" preferred-name ")"))
-                             " " last-name)]
-     [:div {:local "4/12"} club]
-     [:div {:local "3/12"}
-      (if id [:h4.registed "Registed"]
-             [:button {:on-click #(let [body {:shooter/sid    sid
-                                              :shooter/grade  (js/prompt "Shooter Grade")
-                                              :competition/id competition-id}]
-                                    (rf/dispatch [:shooters-register body [:update-registered-shooters body results]]))}
-              "Register"])]
-     [:div {:local "1/12"}
-      (when id
-        [:button {:on-click #(rf/dispatch [:shooters-unregister (:entry/id shooter) results])}
-         "Unregister"])]]))
+  (let [grade (r/atom nil)]
+    (fn [{:keys [shooter/sid
+                 shooter/preferred-name
+                 shooter/first-name
+                 shooter/last-name
+                 shooter/club
+                 competition/id] :as shooter}
+         results]
+      ^{:key sid}
+      (let [grade-select (select #(if (= % "Select a Grade") (reset! grade "") (reset! grade %)))
+            body {:competition/id competition-id :shooter/grade @grade :shooter/sid sid}
+            valid? (s/valid? :api/competition-register-shooter body)]
+        [:div
+         [:div {:local "1/12"} sid]
+         [:div {:local "4/12"} (str first-name
+                                 (when preferred-name (str " (" preferred-name ")"))
+                                 " " last-name)]
+         [:div {:local "3/12"} club]
+         [:div {:local "2/12"}
+          (if id
+            [:h4.registed "Registed - Class " (:shooter/grade shooter)]
+            (grade-select grade-list))]
+         [:div {:local "2/12"}
+          (if id
+            [:button {:on-click #(rf/dispatch [:shooters-unregister (:entry/id shooter) results])} "Unregister"]
+            [:button {:disabled (not valid?)
+                      :on-click #(rf/dispatch [:shooters-register body [:update-registered-shooters body results]])}
+             "Register"])]]))))
 
 (defn shooters-page [toggle-action]
   [:section
@@ -38,7 +51,7 @@
     (let [competition-id @(rf/subscribe [:active-competition-id])
           endpoint (if competition-id "/registrations/search" "/shooters/search")
           atom (r/atom {:competition/id competition-id})]
-      [search endpoint {:atom atom :row (shooter-row competition-id)}])]])
+      [search endpoint {:atom atom :row #(shooter-row competition-id)}])]])
 
 (defn register [submit-action valid? state]
   [:div
