@@ -3,15 +3,15 @@
             [centrebull.db.util :refer [mapper]]
             [centrebull.db.core :refer [results-create! results-exist?]]))
 
-(def ^:private key-map {:result/id            :id
-                        :result/vs            :vs
-                        :result/score         :score
-                        :result/shots         :shots
+(def ^:private key-map {:result/id           :id
+                        :result/vs           :vs
+                        :result/score        :score
+                        :result/shots        :shots
                         :result/shots-mirror :shots-mirror
-                        :shooter/sid          :sid
-                        :activity/id          :activity-id})
+                        :shooter/sid         :sid
+                        :activity/id         :activity-id})
 
-(def default-fields {:vs 0
+(def default-fields {:vs    0
                      :score 0})
 
 (def ^:private value-map (map-invert key-map))
@@ -20,13 +20,14 @@
 (defn- in-mapper [m] (mapper key-map m))
 
 (defn create! [result]
-    (->> result
-         in-mapper
-         (merge default-fields)
-         results-create!
-         out-mapper))
+  (->> result
+    in-mapper
+    (merge default-fields)
+    results-create!
+    out-mapper))
 
 (defn exists? [result]
-    (->> result
-         in-mapper
-         results-exist?))
+  (->> result
+    in-mapper
+    results-exist?
+    :exists))

@@ -6,7 +6,8 @@
     [centrebull.date-utils :refer [format-date]]
     [re-frame.core :as rf]
     [reagent.core :as r]
-    [cljs.spec :as s]))
+    [cljs.spec :as s]
+    [clojure.string :as string]))
 
 (defn activity-row
   [{:keys [activity/date
@@ -70,25 +71,38 @@
      [:td sid]
      [:td grade]
      [:td n]
-     [:td shots]
+     [:td {:style {:text-align "right"}} shots]
      [:td score [:sup vs]]]))
 
-(defn generate-table [toogle results]
+(defn shooter-match [search r]
+  (let [n (string/join " " (map (comp string/lower-case str) (filter some? (vals r))))
+        search (string/split (string/lower-case search) " ")]
+    (not-empty (filter seq (map #(re-find (re-pattern %) n) search)))))
+
+(defn generate-table [search toogle results]
   [:table
    [:thead
+    [:tr [:th {:col-span 5} [input {:key :search :ratom search}]]]
     [:tr
      [:th "#"]
      [:th "Grade"]
      [:th "Name"]
-     [:th "Shots"]
+     [:th {:style {:text-align "right"}} "Shots"]
      [:th "Score"]]]
    [:tbody
-    (for [r results] (row-render toogle r))]])
+    (let [filtered (if (not-empty (:search @search))
+                     (filter #(shooter-match (:search @search) %) results)
+                     results)]
+      (for [r filtered]
+        ^{:key (:shooter/sid r)} [row-render toogle r]))]])
+
 
 (defn single-activity-page [toggle {:keys [range/description activity/priority activity/date]} results]
-  [:section
-   [:card
-    [:h2 description [:sub "#" priority " " (format-date date)]]
-    [:h3 "Shooters"]]
-   [:card
-    [generate-table toggle results]]])
+  (let [search (r/atom {:search ""})]
+    (fn []
+      [:section
+       [:card
+        [:h2 description [:sub "#" priority " " (format-date date)]]
+        [:h3 "Shooters"]]
+       [:card
+        [generate-table search toggle @results]]])))
