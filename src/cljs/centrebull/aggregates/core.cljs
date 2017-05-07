@@ -10,18 +10,39 @@
 
 (defn- page []
   (let [activites (rf/subscribe [:activities])
+        aggregates (rf/subscribe [:aggregates])
         competition-id @(rf/subscribe [:active-competition-id])
-        new-activity (r/atom {:competition/id competition-id})
-        toggle-action #(modal/toggle new-activity)
-        reset-action #(modal/toggle new-activity)
-        submit-action #(rf/dispatch [:activity-create @new-activity [:refresh-activities] reset-action])
-        valid? (fn [] (s/valid? :api/activity-create @new-activity))]
+        aggregated (r/atom {:competition/id        competition-id
+                            :activities            []
+                            :aggregate/activities  []
+                            :aggregate/priority    1
+                            :aggregate/description ""})
+        reset-action #(reset! aggregated {:compeition/id competition-id :activities []})
+        remove (fn [id] (rf/dispatch [:activities-delete id [:refresh-aggregates]]))
+        submit #(rf/dispatch [:aggregate-create @aggregated [:refresh-aggregates] reset-action])
+        valid? (fn [] (s/valid? :api/aggregate-create @aggregated))
+        toggle-action (fn [res add?]
+                        (if add?
+                          (->>
+                            (into (:activities @aggregated) [res])
+                            distinct
+                            (sort-by :activity/priority)
+                            (swap! aggregated assoc :activities))
+                          (->> @aggregated
+                            :activities
+                            (filter (partial not= res))
+                            (sort-by :activity/priority)
+                            (swap! aggregated assoc :activities)))
+                        (swap! aggregated assoc :aggregate/activities (mapv :activity/id (:activities @aggregated))))]
     (fn []
-      [:div
-       [v/activites-page toggle-action @activites]
-       [modal/modal {:state new-activity
-                     :title "Register a new Activity"
-                     :view  [v/register submit-action valid? new-activity]}]])))
+      [v/aggregates-page
+       @activites
+       @aggregates
+       toggle-action
+       submit
+       valid?
+       remove
+       aggregated])))
 
 (secretary/defroute "/aggregates" []
   (rf/dispatch [:aggregates-load]))

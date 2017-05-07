@@ -10,21 +10,87 @@
     [clojure.string :as string]))
 
 (defn activity-row
-  [{:keys [activity/date
-           range/description
-           activity/priority]}]
-  [:div
-   [:div {:local "2/12"} priority]
-   [:div {:local "5/12"} (format-date date)]
-   [:div {:local "5/12"} description]])
+  [submit {:keys [activity/id
+                  activity/date
+                  range/description
+                  activity/priority] :as act} add?]
+  [:tr
+   [:td priority]
+   [:td description]
+   [:td (format-date date)]
+   [:td [:button {:on-click #(submit act add?)} (if add? "Add" "Remove")]]])
 
-(defn activites-page [toggle-action activities]
+(defn aggregate-form [state]
+  [:grid
+   [input {:title       "Description"
+           :grid        "3/4"
+           :ratom       state
+           :key         :aggregate/description
+           :placeholder "Description"
+           :required?   true}]
+   [input {:title       "Priority"
+           :grid        "1/4"
+           :ratom       state
+           :key         :aggregate/priority
+           :placeholder "1"
+           :required?   true}]])
+
+(defn aggregate-table-head []
+  [:thead
+   [:th "#"]
+   [:th "Range"]
+   [:th "Date"]
+   [:th "Actions"]])
+
+(defn aggregate-row
+  [remove {:keys [aggregate/id
+                  aggregate/priority
+                  aggregate/description :as act]}]
+  [:tr
+   [:td priority]
+   [:td description]
+   [:td [:button {:on-click #(remove id)} "Delete"]]])
+
+(defn aggregate-section [aggregates remove]
   [:section
    [:card
-    [:h2 {:local "9/12"} "Activities"]
-    [:button {:local "3/12" :on-click toggle-action} "New Activity"]
-    (for [act activities]
-      ^{:key (:activity/id act)} [activity-row act])]])
+    [:table
+     [:thead
+      [:th "#"]
+      [:th "Description"]
+      [:th ""]]
+     [:tbody
+      (for [agg aggregates]
+        ^{:key (:aggregate/id agg)} [aggregate-row remove agg])]]]])
+
+(defn aggregates-page [activities aggregates action submit valid? remove aggregated]
+  [:div
+   [:section
+    [:card
+     [:h2 {:local "9/12"} "Aggregates"]]]
+   [aggregate-section aggregates remove]
+   [:section
+    [:card
+     [:h4 "Create new Activity"]
+     [aggregate-form aggregated]
+     [:table
+      [aggregate-table-head]
+      [:tbody
+       (for [act (:activities @aggregated)]
+         ^{:key (:activity/id act)} [activity-row action act false])]]
+     [:button {:data-pull-left "9/12"
+               :local          "3/12"
+               :data-m-full    ""
+               :data-primary   ""
+               :on-click       submit
+               :disabled       (not (valid?))} "Submit"]]]
+   [:section
+    [:card
+     [:table
+      [aggregate-table-head]
+      [:tbody
+       (for [act activities]
+         ^{:key (:activity/id act)} [activity-row action act true])]]]]])
 
 (defn register [submit valid? state]
   [:div
