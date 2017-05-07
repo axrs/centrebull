@@ -45,6 +45,6 @@
       [:input {:type "checkbox" :value @is-open? :on-change #(rf/dispatch [:toggle-sidebar])}])
     [:header
      (let [comp-desc (:competition/description @(rf/subscribe [:active-competition]))]
-       [:a {:on-click #(accountant/navigate! "#/")} "Centre" [:strong "Bull"]
+       [:a {:on-click #(accountant/navigate! "#/")} [:img {:src "/favicon.ico"}] "Centre" [:strong "Bull"]
         (when comp-desc [:span {:style {:font-weight 100}} (str " - " comp-desc)])])]]])
 

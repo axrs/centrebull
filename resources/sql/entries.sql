@@ -7,7 +7,7 @@ RETURNING *;
 -- :name entries-update-active! :! :n
 -- :doc updates an entries active column
 UPDATE entries
-SET active = :active
+SET active = :active, class = :class
 WHERE id = :id::UUID;
 
 -- :name entries-find :<! :1
