@@ -102,3 +102,11 @@
                       (apply str))
    :shooter/sid  (rand-int 99999)
    :activity/id  (uuid)})
+
+(defn gen-aggregate
+  "Generates an aggregate"
+  []
+  {:aggregate/activities (take (rand-int 10) (repeatedly uuid))
+   :aggregate/description (string)
+   :aggregate/priority (rand-int 99999)
+   :competition/id (uuid)})

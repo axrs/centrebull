@@ -17,3 +17,9 @@ FROM activities a
 LEFT JOIN ranges r ON a.range_id = r.id
 WHERE competition_id = :competition-id::UUID
 ORDER BY date ASC, priority ASC;
+
+-- :name activities-find-for-competition-and-in-coll :? :*
+-- :doc Finds all activities for a competition where activity-id exists in collection
+SELECT *
+FROM activities
+WHERE activities.competition_id = :competition-id::UUID AND activities.id = ANY (:activities::UUID[])

@@ -7,19 +7,20 @@
 (defn register-shooter! [{:keys [all-params]}]
   (let [id (-> all-params
              dao/find
-             :entry/id)]
+             :entry/id)
+        class (:shooter/grade all-params)]
     (if (nil? id)
       (->> all-params
         dao/create!
         response/ok)
-      (do (dao/update-active! id true)
+      (do (dao/update-active! id class true)
           (->> all-params
             dao/find
             response/ok)))))
 
 
 (defn unregister-shooter! [{:keys [all-params]}]
-  (response/ok (dao/update-active! (:entry/id all-params) false)))
+  (response/ok (dao/update-active! (:entry/id all-params) "not active" false)))
 
 (defn suggest-registration [{:keys [all-params] :as req}]
   (response/ok (dao/suggest-registration (:search/q all-params) (:competition/id all-params))))
