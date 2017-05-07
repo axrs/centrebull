@@ -16,7 +16,7 @@
 
 (defn activity-link [{:keys [range/description activity/id activity/priority activity/date] :as r}]
   [:li
-   [:a {:on-click #(accountant/navigate! (str "#/activities/" id))} description [:sub (str " " priority " (" (format-date date) ")")]]])
+   [:a.sidebar-link {:on-click #(accountant/navigate! (str "#/activities/" id))}  priority ": " description]])
 
 (defn activity-section []
   (let [all-activities @(rf/subscribe [:activities])]
