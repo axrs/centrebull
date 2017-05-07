@@ -21,9 +21,16 @@
   :active-competition-id
   (fn [db _] (get-in db [:active-competition :competition/id])))
 
-(reg-sub
-  :activities
-  (fn [db _] (:activities db)))
+(reg-sub :activities (fn [db _] (:activities db)))
+
+(reg-sub :aggregates (fn [db _] (:aggregates db)))
+
+(reg-sub :aggregates-and-activities
+  (fn [db _]
+    (->> (:aggregates db)
+      (into (:activities db))
+      (mapv #(assoc % :priority (or (:aggregate/priority %) (:activity/priority %))))
+      (sort-by :priority))))
 
 (reg-sub
   :active-activity

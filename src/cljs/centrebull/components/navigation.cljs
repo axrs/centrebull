@@ -18,12 +18,16 @@
   [:li
    [:a {:on-click #(accountant/navigate! (str "#/activities/" id))} description [:sub (str " " priority " (" (format-date date) ")")]]])
 
+(defn aggregate-link [{:keys [aggregate/description aggregate/id aggregate/priority] :as r}]
+  [:li
+   [:a {:on-click #(accountant/navigate! (str "#/aggregates/" id))} description [:sub priority]]])
+
 (defn activity-section []
-  (let [all-activities @(rf/subscribe [:activities])]
+  (let [all-activities @(rf/subscribe [:aggregates-and-activities])]
     [:li
      [:label "All Activities"
       [:ul
-       (map activity-link all-activities)]]]))
+       (map #(if (:activity/id %) (activity-link %) (aggregate-link %)) all-activities)]]]))
 
 (defn- sidebar []
   (let [is-open? (rf/subscribe [:sidebar-open?])
@@ -35,6 +39,7 @@
       [sidebar-link #(accountant/navigate! "#/competitions") "Competitions" :competitions (not @competiton-id)]
       [sidebar-link #(accountant/navigate! "#/ranges") "Ranges" :ranges true]
       [sidebar-link #(accountant/navigate! "#/activities") "New activity" :activities @competiton-id]
+      [sidebar-link #(accountant/navigate! "#/aggregates") "Aggregates" :aggregate @competiton-id]
       (activity-section)]]))
 
 (defn topbar []
