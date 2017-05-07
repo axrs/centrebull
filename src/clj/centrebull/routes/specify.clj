@@ -51,7 +51,6 @@
   (if spec (s/conform spec params) params))
 
 (defn specify [spec]
-  (log/info "Wrapping route in spec validation " spec)
   (fn [h]
     (fn [{body :body-params query :query-params route :route-params :as r}]
       (->> (merge body query route)
