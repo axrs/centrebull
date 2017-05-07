@@ -18,3 +18,10 @@
   (fn [id]
     (is (= ei id))
     rv))
+
+(defn find-for-competition-and-in-coll
+  [em rv]
+  (fn [activities competition-id]
+    (is (= activities (:aggregate/activities em)))
+    (is (= competition-id (:competition/id em)))
+    rv))

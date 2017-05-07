@@ -23,7 +23,8 @@
       (swap! results #(map (fn [shooter] (if (= (:shooter/sid shooter) sid)
                                            (-> shooter
                                              (assoc :competition/id (:competition/id result))
-                                             (assoc :entry/id (:entry/id result)))
+                                             (assoc :entry/id (:entry/id result))
+                                             (assoc :shooter/grade (:shooter/grade result)))
                                            shooter))
                         @results)))
     {}))
