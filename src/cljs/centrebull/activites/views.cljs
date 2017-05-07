@@ -50,9 +50,19 @@
              :disabled       (not (valid?))}
     "Save"]])
 
+(defn clean-shots [state]
+  (let [shots (:result/shots state)]
+    (if (nil? shots)
+        state
+        (assoc state :result/shots
+          (-> shots
+            (clojure.string/replace #"-| " "")
+            clojure.string/upper-case)))))
+    
+
 (defn register-result [submit valid? state]
   (let [valid? (valid?)
-        score (when valid? (s/conform :api/result-create @state))]
+        score (when valid? (s/conform :api/result-create (clean-shots @state)))]
     [:div
      [:h3 (:shooter/name @state)]
      [:grid
