@@ -70,6 +70,7 @@
     (is (= 3 (calculate-vs "VVV")))
     (is (= 3 (calculate-vs "aV VxV")))
     (is (= 9 (calculate-vs "4VVVVVVVVVV4")))
+    (is (= 10 (calculate-vs "33VVVVV55555XXXXX")))
     (is (= 10 (calculate-vs "33VVVVV55555VVVVV")))))
 
 (def ^:private calculate-score #'centrebull.spec/calculate-score)
@@ -78,7 +79,7 @@
     (is (= 0 (calculate-score "")))
     (is (= 16 (calculate-score "VV42")))
     (is (= 19 (calculate-score "VV54")))
-    (is (= 30 (calculate-score "XXX")))
+    (is (= 18 (calculate-score "XXX")))
     (is (= 50 (calculate-score "34VVVVVVVVVV")))
     (is (= 74 (calculate-score "34VVVVVVVVVVVVVV4")))
     (is (= 75 (calculate-score "34VVVVVVVVVVVVVVV")))))
