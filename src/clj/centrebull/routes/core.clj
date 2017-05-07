@@ -68,7 +68,12 @@
           
         (DELETE "/:aggregate--id" {:as request}
           :spec :api/delete-aggregate
-          (aggregates/delete-aggregate! request)))))
+          (aggregates/delete-aggregate! request))
+        
+        (POST "/" {:as request}
+          :spec :api/aggregate-create
+          (aggregates/create! request)))))
+    
 
   (context "/registrations" []
     (DELETE "/:entry--id" {:as request}
@@ -108,9 +113,4 @@
 
     (DELETE "/:range--id" {:as request}
       :spec :api/range-id-only
-      (ranges/delete! request)))
-
-  (context "/aggregates" []
-    (POST "/" {:as request}
-      :spec :api/aggregate-create
-      (aggregates/create! request))))
+      (ranges/delete! request))))
