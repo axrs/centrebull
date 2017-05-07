@@ -50,14 +50,13 @@
              :disabled       (not (valid?))}
     "Save"]])
 
-(defn clean-shots [state]
-  (let [shots (:result/shots state)]
-    (if (nil? shots)
-        state
-        (assoc state :result/shots
-          (-> shots
-            (clojure.string/replace #"-| " "")
-            clojure.string/upper-case)))))
+(defn clean-shots [{:keys [result/shots] :as state}]
+  (if (empty? shots)
+      state
+      (assoc state :result/shots
+        (-> shots
+          (clojure.string/replace #"-| " "")
+          clojure.string/upper-case))))
     
 
 (defn register-result [submit valid? state]
