@@ -35,6 +35,7 @@
       [sidebar-link #(accountant/navigate! "#/competitions") "Competitions" :competitions (not @competiton-id)]
       [sidebar-link #(accountant/navigate! "#/ranges") "Ranges" :ranges true]
       [sidebar-link #(accountant/navigate! "#/activities") "New activity" :activities @competiton-id]
+      [sidebar-link #(accountant/navigate! "#/aggregates") "Aggregates" :aggregate @competiton-id]
       (activity-section)]]))
 
 (defn topbar []
