@@ -9,7 +9,8 @@
             [centrebull.ranges.core :as ranges]
             [centrebull.results.core :as results]
             [centrebull.competitions.core :as competitions]
-            [centrebull.registrations.core :as registrations]))
+            [centrebull.registrations.core :as registrations]
+            [centrebull.aggregates.core :as aggregates]))
 
 (defn home-page []
   (layout/render "home.html"))
@@ -59,10 +60,23 @@
       (GET "/registrations" {:as request}
         :spec :api/competition-and-activity-id-only
         (registrations/retrieve-registrations request))
-
+    
       (POST "/registrations" {:as request}
         :spec :api/competition-and-activity-id-only
-        (registrations/retrieve-registrations request))))
+        (registrations/retrieve-registrations request))
+
+      (context "/aggregates" []
+        (GET "/" {:as request}
+          :spec :api/competition-id-only
+          (aggregates/find-aggregates request))
+          
+        (DELETE "/:aggregate--id" {:as request}
+          :spec :api/delete-aggregate
+          (aggregates/delete-aggregate! request))
+        
+        (POST "/" {:as request}
+          :spec :api/aggregate-create
+          (aggregates/create! request)))))
 
   (context "/registrations" []
     (DELETE "/:entry--id" {:as request}
@@ -103,4 +117,3 @@
     (DELETE "/:range--id" {:as request}
       :spec :api/range-id-only
       (ranges/delete! request))))
-
