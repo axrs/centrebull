@@ -3,7 +3,8 @@
             [centrebull.db.util :refer [mapper]]
             [centrebull.db.core :refer [activities-create!
                                         activities-delete!
-                                        activities-find-for-competition]]))
+                                        activities-find-for-competition
+                                        activities-find-for-competition-and-in-coll]]))
 
 (def ^:private key-map {:activity/id       :id
                         :competition/id    :competition-id
@@ -31,3 +32,8 @@
   (->> {:competition-id id}
     activities-find-for-competition
     out-mapper))
+
+(defn find-for-competition-and-in-coll [activities competition-id]
+  (->> {:activities activities :competition-id competition-id}
+    activities-find-for-competition-and-in-coll))
+    
