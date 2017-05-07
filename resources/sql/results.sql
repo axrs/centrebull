@@ -9,4 +9,5 @@ RETURNING *;
 -- :doc checks whether results have already been added
 SELECT EXISTS (SELECT *
 FROM results
-WHERE results.sid = :sid AND results.activity_id = :activity-id);
+WHERE results.sid = :sid AND results.activity_id = :activity-id)
+LIMIT 1;
