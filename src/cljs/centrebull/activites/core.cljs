@@ -3,6 +3,7 @@
     [secretary.core :as secretary]
     [centrebull.components.modal :as modal]
     [centrebull.activities.handlers]
+    [centrebull.handlers]
     [centrebull.activities.views :as v]
     [re-frame.core :as rf]
     [reagent.core :as r]
@@ -38,7 +39,8 @@
         reset-action #(reset! new-result {:activity/id act-id})
         row-click (set-sid-fn new-result)]
     (fn []
-      (let [submit-action #(rf/dispatch [:activity-create-result (v/clean-shots @new-result) [:refresh-activity-results] reset-action])
+      (let [submit-action #(do (rf/dispatch [:activity-create-result (v/clean-shots @new-result) [:refresh-activity-results] reset-action])
+                               (rf/dispatch [:select-autocomplete-text "awesomplete-results-autocomplete"]))
             valid? (fn [] (s/valid? :api/result-create (v/clean-shots @new-result)))]
         [:div
          [(v/single-activity-page row-click @act results)]
