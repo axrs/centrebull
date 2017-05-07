@@ -30,20 +30,21 @@
     (modal/toggle state)))
 
 (defn- single-activity []
-  (let [act @(rf/subscribe [:active-activity])
+  (let [act (rf/subscribe [:active-activity])
+        act-id (:activity/id @act)
         results (rf/subscribe [:active-activity-results])
-        new-result (r/atom {:activity/id (:activity/id act)})
+        new-result (r/atom {:activity/id act-id})
         toggle-action #(modal/toggle new-result)
-        reset-action #(modal/reset new-result)
-        row-click (set-sid-fn new-result)
-        submit-action #(rf/dispatch [:activity-create-result @new-result [:refresh-activity-results] reset-action])
-        valid? (fn [] (s/valid? :api/result-create @new-result))]
+        reset-action #(reset! new-result {:activity/id act-id})
+        row-click (set-sid-fn new-result)]
     (fn []
-      [:div
-       [v/single-activity-page row-click act @results]
-       [modal/modal {:state new-result
-                     :title "Register Result"
-                     :view  [v/register-result submit-action valid? new-result]}]])))
+      (let [submit-action #(rf/dispatch [:activity-create-result @new-result [:refresh-activity-results] reset-action])
+            valid? (fn [] (s/valid? :api/result-create @new-result))]
+        [:div
+         [(v/single-activity-page row-click @act results)]
+         [modal/modal {:state new-result
+                       :title "Register Result"
+                       :view  [v/register-result submit-action valid? new-result]}]]))))
 
 (secretary/defroute "/activities" []
   (rf/dispatch [:activities-load]))

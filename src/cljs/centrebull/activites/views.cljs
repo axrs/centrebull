@@ -71,7 +71,7 @@
      [:td sid]
      [:td grade]
      [:td n]
-     [:td shots]
+     [:td {:style {:text-align "right"}} shots]
      [:td score [:sup vs]]]))
 
 (defn shooter-match [search r]
@@ -87,14 +87,14 @@
      [:th "#"]
      [:th "Grade"]
      [:th "Name"]
-     [:th "Shots"]
+     [:th {:style {:text-align "right"}} "Shots"]
      [:th "Score"]]]
    [:tbody
     (let [filtered (if (not-empty (:search @search))
                      (filter #(shooter-match (:search @search) %) results)
                      results)]
       (for [r filtered]
-        ^{:key (:shooter/sid r)} (row-render toogle r)))]])
+        ^{:key (:shooter/sid r)} [row-render toogle r]))]])
 
 
 (defn single-activity-page [toggle {:keys [range/description activity/priority activity/date]} results]
@@ -105,4 +105,4 @@
         [:h2 description [:sub "#" priority " " (format-date date)]]
         [:h3 "Shooters"]]
        [:card
-        [generate-table search toggle results]]])))
+        [generate-table search toggle @results]]])))
