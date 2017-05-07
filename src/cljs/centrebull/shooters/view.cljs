@@ -11,7 +11,8 @@
                  {:id "B" :name "B"}
                  {:id "C" :name "C"}
                  {:id "FO" :name "FO"}
-                 {:id "FS" :name "FS"}])
+                 {:id "FS1" :name "FS1"}
+                 {:id "FS2" :name "FS2"}])
 
 (defn shooter-row [competition-id]
   (let [grade (r/atom nil)]
