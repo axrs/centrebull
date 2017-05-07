@@ -29,7 +29,3 @@
     (is (= expected-comp-id comp-id))
     (is (= expected-activity-id activity-id))
     rv))
-
-(defn do-not-call
-  [_]
-  (throw (Exception. "Should not have been called")))
