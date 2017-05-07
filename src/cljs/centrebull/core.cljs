@@ -16,6 +16,7 @@
     [centrebull.subscriptions]
     [centrebull.competitions.core :as competitions]
     [centrebull.activities.core :as activities]
+    [centrebull.aggregates.core :as aggregates]
     [centrebull.shooters.core :as shooters]
     [centrebull.ranges.core :as ranges])
   (:import goog.History))
@@ -40,6 +41,7 @@
       ranges/pages
       competitions/pages
       activities/pages
+      aggregates/pages
       shooters/pages)))
 
 (defn page []

@@ -165,8 +165,8 @@
 (s/def :entry/id (s/conformer ->uuid))
 
 (s/def :aggregate/activities (s/coll-of ->uuid :min-count 2 :distinct true))
-(s/def :aggregate/description string?)
-(s/def :aggregate/priority integer?)
+(s/def :aggregate/description non-empty-string)
+(s/def :aggregate/priority is-integer)
 (s/def :aggregate/id (s/conformer ->uuid))
 
 ;----------------------------------------
