@@ -85,7 +85,7 @@
 
 (defn- shot->int [v]
   (case v
-    \X 10
+    \X 6
     \6 6
     \V 5
     \5 5
@@ -112,7 +112,7 @@
 (defn- calculate-vs [s]
   (->> s
     last-required-shots
-    (filter #(= \V %))
+    (filter #(or (= \X %) (= \V %)))
     count))
 
 (defn- calculate-result [{:keys [result/shots]
