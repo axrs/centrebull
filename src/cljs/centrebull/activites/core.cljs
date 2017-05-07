@@ -38,7 +38,7 @@
         reset-action #(reset! new-result {:activity/id act-id})
         row-click (set-sid-fn new-result)]
     (fn []
-      (let [submit-action #(rf/dispatch [:activity-create-result @new-result [:refresh-activity-results] reset-action])
+      (let [submit-action #(rf/dispatch [:activity-create-result (v/clean-shots @new-result) [:refresh-activity-results] reset-action])
             valid? (fn [] (s/valid? :api/result-create (v/clean-shots @new-result)))]
         [:div
          [(v/single-activity-page row-click @act results)]

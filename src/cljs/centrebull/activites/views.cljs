@@ -71,7 +71,8 @@
               :grid        "2/3"
               :key         :result/shots
               :required?   true
-              :placeholder "shots"}]
+              :placeholder "shots"
+              :submit submit}]
       [:h3 {:local "1/3"} (:result/score score) [:sup (:result/vs score)]]
       [:button {:data-pull-left "9/12" :local "3/12" :data-m-full "" :data-primary "" :on-click submit :disabled (not valid?)} "Save"]]]))
 
