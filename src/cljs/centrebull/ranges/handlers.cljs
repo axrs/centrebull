@@ -4,7 +4,7 @@
 
 (reg-event-fx
   :ranges-create
-  (fn [_ [_ state after-success]]
+  (fn [_ [_ state & after-success]]
     (post-json {:url           "/ranges"
                 :body          state
                 :after-success after-success})))

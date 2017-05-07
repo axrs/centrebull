@@ -9,7 +9,7 @@
 (defn default-headers [request]
   (if (local-uri? request)
     (-> request
-        (update :uri #(str js/context %)))
+      (update :uri #(str js/context %)))
     ;(update :headers #(merge {"Authorization" (str "Token " @(rf/subscribe [:auth-token]))})))
     request))
 
@@ -20,11 +20,11 @@
 
 (defn load-interceptors! []
   (swap! ajax/default-interceptors
-         conj
-         (ajax/to-interceptor {:name    "default headers"
-                               :request default-headers})
-         (ajax/to-interceptor {:name     "JSON special case nil"
-                               :response empty-means-nil})))
+    conj
+    (ajax/to-interceptor {:name    "default headers"
+                          :request default-headers})
+    (ajax/to-interceptor {:name     "JSON special case nil"
+                          :response empty-means-nil})))
 
 (declare clj->jskw)
 
@@ -32,9 +32,9 @@
   (if (satisfies? IEncodeJS k)
     (-clj->js k)
     (if (or (string? k)
-            (number? k)
-            (keyword? k)
-            (symbol? k))
+          (number? k)
+          (keyword? k)
+          (symbol? k))
       (clj->jskw k)
       (pr-str k))))
 
@@ -60,24 +60,36 @@
                     arr)
         :else x))))
 
+(defn- invoke-or-append [r f]
+  (cond
+    (vector? f) (conj f r)
+    (ifn? f) (do (apply f r) nil)
+    :else nil))
+
 (defn- append-result
   "Appends the HTTP result object to the end of all after requests"
   [result afters]
-  (into [] (map #(conj % result) afters)))
+  (into [] (filter some? (map (partial invoke-or-append result) afters))))
 
 (rf/reg-event-fx
   ::good-http-result
   (fn [db [_ errors after-success result]]
     (if (instance? reagent.ratom/RAtom errors)
       (reset! errors nil))
-    {:dispatch-n (append-result result after-success)}))
+    (let [dp (append-result result after-success)]
+      (if (empty? dp)
+        {}
+        {:dispatch-n dp}))))
 
 (rf/reg-event-fx
   ::bad-http-result
   (fn [db [_ errors after-errors result]]
     (if (instance? reagent.ratom/RAtom errors)
       (reset! errors (get-in result [:response :errors])))
-    {:dispatch-n (append-result result after-errors)}))
+    (let [dp (append-result result after-errors)]
+      (if (empty? dp)
+        {}
+        {:dispatch-n dp}))))
 
 (defn get-json
   "Issues a GET request to a specified URL, dispatching success or error handlers respectively"

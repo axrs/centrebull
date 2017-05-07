@@ -23,15 +23,13 @@
      {:header ranges-header
       :row    ranges-row}]]])
 
-(defn register-modal [state valid? toggle-action submit-action]
-  [:modal {:on-click toggle-action}
-   [:card {:on-click #(.stopPropagation %)}
-    [:h2 "Register New Competition"]
-    [:grid
-     [input {:title       "Description"
-             :grid        "1/1"
-             :ratom       state
-             :key         :range/description
-             :placeholder "Description"
-             :required?   true}]]
-    [:button {:data-pull-left "9/12" :local "3/12" :data-m-full "" :data-primary "" :on-click submit-action :disabled (not (valid?))} "Save"]]])
+(defn register [submit-action valid? state]
+  [:div
+   [:grid
+    [input {:title       "Description"
+            :grid        "1/1"
+            :ratom       state
+            :key         :range/description
+            :placeholder "Description"
+            :required?   true}]]
+   [:button {:data-pull-left "9/12" :local "3/12" :data-m-full "" :data-primary "" :on-click submit-action :disabled (not (valid?))} "Save"]])

@@ -140,7 +140,7 @@
 (s/def :shooter/last-name non-empty-string)
 (s/def :shooter/preferred-name string?)
 (s/def :shooter/club string?)
-(s/def :shooter/grade string?)
+(s/def :shooter/grade non-empty-string)
 
 (s/def :range/id (s/conformer ->uuid))
 (s/def :range/description non-empty-string)

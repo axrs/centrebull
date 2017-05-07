@@ -4,18 +4,16 @@
 
 (reg-event-fx
   :shooters-create
-  (fn [_ [_ state errors after-success]]
+  (fn [_ [_ state & after-success]]
     (post-json {:url           "/shooters"
                 :body          state
-                :errors        errors
                 :after-success after-success})))
 
 (reg-event-fx
   :shooters-register
-  (fn [_ [_ body results errors after-success]]
+  (fn [_ [_ body & after-success]]
     (post-json {:url           "/registrations"
                 :body          body
-                :errors        errors
                 :after-success after-success})))
 
 (reg-event-fx
@@ -27,7 +25,7 @@
                                              (assoc :competition/id (:competition/id result))
                                              (assoc :entry/id (:entry/id result)))
                                            shooter))
-                           @results)))
+                        @results)))
     {}))
 
 (reg-event-fx
@@ -38,10 +36,10 @@
                                            (dissoc :entry/id)
                                            (dissoc :competition/id))
                                          shooter))
-                         @results))))
+                      @results))))
 
 (reg-event-fx
   :shooters-unregister
   (fn [_ [_ id results shooter]]
-    (delete-json {:url (str "/registrations/" id)
+    (delete-json {:url           (str "/registrations/" id)
                   :after-success [[::shooters-unregister-in-atom id results shooter]]})))

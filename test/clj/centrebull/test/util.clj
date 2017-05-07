@@ -16,3 +16,7 @@
   ([method uri body]
    (-> (request method uri (json/generate-string body))
        (content-type "application/json"))))
+
+(defn do-not-call
+  [_]
+  (throw (Exception. "Should not have been called")))
