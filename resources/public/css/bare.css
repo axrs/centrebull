@@ -798,9 +798,6 @@ auto-complete[xx] li {
   white-space: nowrap;
   overflow: hidden;
 }
-.sidebar-link {
-  padding-left: 0em;
-}
 /*	navigation
 ----------------------------------------------------------------------*/
 nav:not([class]),
@@ -895,7 +892,7 @@ nav[xx] ul li ul li a,
 sidebar:not([class]) ul li ul li a,
 sidebar[xx] ul li ul li a {
   text-transform: none;
-  padding: 0.5rem 2rem 0.5rem 2.6rem;
+  padding: 0.5rem 2rem 0.5rem 0.5rem;
   border: none;
   font-size: 1.2rem;
 }
