@@ -6,9 +6,11 @@
     (is (= all-params m))
     rv))
 
-(defn update-active! [expected-id expected-active]
-  (fn [id active?]
+(defn update-active! [expected-id expected-grade expected-active]
+  (fn [id grade active?]
     (is (= id expected-id))
+    (if active? (= grade expected-grade)
+                (= grade "not active"))
     (is (= active? expected-active))))
 
 (defn create! [m]

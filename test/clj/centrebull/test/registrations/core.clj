@@ -12,7 +12,7 @@
         request {:all-params expected}]
       (testing "register shooter with existing registration"
         (with-redefs [dao/find (mock/find expected expected)
-                      dao/update-active! (mock/update-active! (:entry/id expected) true)
+                      dao/update-active! (mock/update-active! (:entry/id expected) (:shooter/grade expected) true)
                       dao/create! do-not-call]
           (let [{:keys [status body]} (register-shooter! request)]
             (is (= body expected))
@@ -27,7 +27,7 @@
             (is (= status 200)))))
 
       (testing "unregister shooter"
-        (with-redefs [dao/update-active! (mock/update-active! (:entry/id expected) false)]
+        (with-redefs [dao/update-active! (mock/update-active! (:entry/id expected) (:shooter/grade expected) false)]
           (let [{:keys [status]} (registrations/unregister-shooter! request)]
             (is (= status 200))))))
 
