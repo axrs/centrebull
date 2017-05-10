@@ -41,7 +41,7 @@ WHERE activity_id IN (SELECT unnest(activities)
                             competition_id = :competition-id::UUID)
 ORDER BY class, sid, priority ASC;
 
--- :name activities-find-for-competition-and-in-coll :? :*
+-- :name aggregates-find-for-competition-and-in-coll :? :*
 -- :doc Finds all aggregates for a competition where aggregate-id exists in collection
 SELECT *
 FROM aggregates
