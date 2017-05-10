@@ -6,7 +6,7 @@
             [clojure.spec :as s]))
 
 (defn- page []
-  (let [activites (rf/subscribe [:activities])
+  (let [aggregates (rf/subscribe [:aggregates])
         competition-id @(rf/subscribe [:active-competition-id])
         aggregated (r/atom {:competition/id        competition-id
                             :activities            []
@@ -33,7 +33,7 @@
                         (swap! aggregated assoc :aggregate/activities (mapv :activity/id (:activities @aggregated))))
         ;; CHANGE BELOW
         valid? (fn [] (s/valid? :api/aggregate-create @aggregated))]
-    (v/grand-aggregates-page activites toggle-action submit valid? aggregated)))
+    (v/grand-aggregates-page @aggregates toggle-action submit valid? aggregated)))
 
 (def pages
   {:grand-aggregates #'page})

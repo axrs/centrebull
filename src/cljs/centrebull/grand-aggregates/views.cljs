@@ -9,16 +9,14 @@
     [:th "Description"]
     [:th "Actions"]]])
 
-(defn activity-row
-  [submit {:keys [activity/id
-                  activity/date
-                  range/description
-                  activity/priority] :as act} add?]
+(defn aggregate-row
+  [submit {:keys [aggregate/id
+                  aggregate/description
+                  aggregate/priority] :as aggregate} add?]
   [:tr
    [:td priority]
    [:td description]
-   [:td (format-date date)]
-   [:td [:button {:on-click #(submit act add?)} (if add? "Add" "Remove")]]])
+   [:td [:button {:on-click #(submit aggregate add?)} (if add? "Add" "Remove")]]])
 
 (defn grand-aggregates-page [aggregates action submit valid? aggregated]
   [:div
@@ -34,7 +32,7 @@
           [aggregate-table-head]
           [:tbody]
           (for [act (:activities @aggregated)]
-            ^{:key (:activity/id act)} [activity-row action act false])]
+            ^{:key (:activity/id act)} [aggregate-row action act false])]
         [:button {:data-pull-left "9/12"
                   :local          "3/12"
                   :data-m-full    ""
@@ -44,7 +42,7 @@
     [:section
      [:card
       [:table
-       [aggregate-table-head
-        [:tbody
-         (for [aggregate aggregates]
-          [activity-row action aggregate true])]]]]]])
+       [aggregate-table-head]
+       [:tbody
+        (for [aggregate aggregates]
+         ^{:key (:aggregate/id aggregate)} [aggregate-row action aggregate true])]]]]])
