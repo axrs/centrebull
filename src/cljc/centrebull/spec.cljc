@@ -169,6 +169,9 @@
 (s/def :aggregate/priority is-integer)
 (s/def :aggregate/id (s/conformer ->uuid))
 
+(s/def :grand-aggregate/aggregates (s/coll-of ->uuid :min-count 2 :distinct true))
+(s/def :grand-aggregate/id (s/conformer ->uuid))
+
 ;----------------------------------------
 ; API END POINTS
 ;----------------------------------------
@@ -252,7 +255,15 @@
           :aggregate/priority
           :competition/id]))
 
-(s/def :api/competition-aggregate-ids
+(s/def :api/grand-aggregate-create
   (s/keys
-    :req [:aggregate/id
+    :req [:grand-aggregate/activities
+          :aggregate/description
+          :aggregate/priority
           :competition/id]))
+
+(s/def :api/competition-aggregate-ids
+  (s/keys :req [:aggregate/id :competition/id]))
+
+(s/def :api/competition-grand-aggregate-ids
+  (s/keys :req [:grand-aggregate/id :competition/id]))
