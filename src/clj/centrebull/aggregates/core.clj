@@ -8,7 +8,7 @@
         competition-id (:competition/id all-params)
         activities-count (count activities)
         valid-activities-count (count (activities-dao/find-for-competition-and-in-coll activities competition-id))]
-    (if (= activities-count valid-activities-count)                                                                   
+    (if (= activities-count valid-activities-count)
       (response/ok (dao/create! all-params))
       (response/bad-request {:errors {:aggregate/activities "Not all activies found in competition."}}))))
 
@@ -17,3 +17,6 @@
 
 (defn delete-aggregate! [{:keys [all-params]}]
   (response/ok (dao/delete-aggregate! all-params)))
+
+(defn find-aggregate-results [{:keys [all-params]}]
+  (response/ok (dao/find-results all-params)))
