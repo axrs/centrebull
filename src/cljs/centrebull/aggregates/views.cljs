@@ -73,7 +73,7 @@
    [aggregate-section aggregates remove]
    [:section
     [:card
-     [:h4 "Create new Activity"]
+     [:h4 "Create new aggregate"]
      [aggregate-form aggregated]
      [:table
       [aggregate-table-head]
