@@ -60,7 +60,7 @@
       (GET "/registrations" {:as request}
         :spec :api/competition-and-activity-id-only
         (registrations/retrieve-registrations request))
-    
+
       (POST "/registrations" {:as request}
         :spec :api/competition-and-activity-id-only
         (registrations/retrieve-registrations request))
@@ -69,11 +69,15 @@
         (GET "/" {:as request}
           :spec :api/competition-id-only
           (aggregates/find-aggregates request))
-          
+
+        (GET "/:aggregate--id/results" {:as request}
+          :spec :api/competition-aggregate-ids
+          (aggregates/find-aggregate-results request))
+
         (DELETE "/:aggregate--id" {:as request}
-          :spec :api/delete-aggregate
+          :spec :api/competition-aggregate-ids
           (aggregates/delete-aggregate! request))
-        
+
         (POST "/" {:as request}
           :spec :api/aggregate-create
           (aggregates/create! request)))))
