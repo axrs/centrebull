@@ -41,6 +41,28 @@ WHERE activity_id IN (SELECT unnest(activities)
                             competition_id = :competition-id::UUID)
 ORDER BY class, sid, priority ASC;
 
+-- :name aggregate-find-result :? :*
+-- :doc finds the results for an aggregate
+SELECT
+  class,
+  r.sid,
+  first_name,
+  last_name,
+  club,
+  (SELECT priority
+   FROM aggregates
+   WHERE id = :id::UUID),
+  sum(score),
+  sum(vs)
+FROM results r
+  LEFT JOIN shooters s ON s.sid = r.sid
+  LEFT JOIN entries e ON e.sid = r.sid
+WHERE activity_id IN (SELECT unnest(activities)
+                      FROM aggregates
+                      WHERE id = :id::UUID)
+GROUP BY r.sid, first_name, last_name, club, class
+ORDER BY class, sid, priority ASC;
+
 -- :name aggregates-find-for-competition-and-in-coll :? :*
 -- :doc Finds all aggregates for a competition where aggregate-id exists in collection
 SELECT *

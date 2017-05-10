@@ -55,7 +55,7 @@
   (loop [agg aggregates
          results []]
     (if (not-empty agg)
-      (recur (next aggregates) (concat results (aggregate-find-results (assoc find-params :aggregate/id (first agg)))))
+      (recur (next aggregates) (concat results (aggregate-find-results {:id (first agg)})))
       results)))
 
 (defn find-results [find-params]
