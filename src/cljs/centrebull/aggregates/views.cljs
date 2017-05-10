@@ -121,7 +121,6 @@
    [:td grade]
    [:td first-name " " last-name]
    [:td club]
-   (prn results)
    (for [r pri]
      ^{:key (str sid r)} (let [res (first (filter #(= r (:aggregate/priority %)) results))]
                            [:td (or (:result/score res) [:code]) [:sup (:result/vs res)]]))
