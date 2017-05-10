@@ -4,6 +4,7 @@
             [centrebull.db.util :refer [mapper]]
             [centrebull.db.core :refer [aggregates-create!
                                         aggregates-find
+                                        aggregates-find-for-competition-and-in-coll
                                         aggregates-find-results
                                         aggregates-delete!]]))
 
@@ -49,3 +50,10 @@
     in-mapper
     aggregates-find-results
     out-mapper))
+
+
+(defn find-for-competition-and-in-coll [aggregates competition-id]
+  (->> {:aggregates aggregates :competition-id competition-id}
+    aggregates-find-for-competition-and-in-coll))
+
+
