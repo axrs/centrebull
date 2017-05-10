@@ -24,20 +24,21 @@
                      :title "Register a new Activity"
                      :view  [v/register submit-action valid? new-activity]}]])))
 
-(defn- set-sid-fn [state]
+(defn- set-sid-fn [state active-activity]
   (fn [sid name]
     (swap! state assoc :shooter/sid sid)
     (swap! state assoc :shooter/name name)
+    (swap! state assoc :activity/id (:activity/id @active-activity))
     (modal/toggle state)))
 
 (defn- single-activity []
   (let [act (rf/subscribe [:active-activity])
         act-id (:activity/id @act)
         results (rf/subscribe [:active-activity-results])
-        new-result (r/atom {:activity/id act-id})
+        new-result (r/atom {})
         toggle-action #(modal/toggle new-result)
-        reset-action #(reset! new-result {:activity/id act-id})
-        row-click (set-sid-fn new-result)]
+        reset-action #(reset! new-result {})
+        row-click (set-sid-fn new-result act)]
     (fn []
       (let [submit-action #(do (rf/dispatch [:activity-create-result (v/clean-shots @new-result) [:refresh-activity-results] reset-action])
                                (rf/dispatch [:select-autocomplete-text "awesomplete-results-autocomplete"]))
