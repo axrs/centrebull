@@ -97,9 +97,4 @@
   (rf/dispatch-sync [:initialize-db])
   (load-interceptors!)
   (hook-browser-navigation!)
-  (mount-components))
-
-
-[[149 45 10 50] [149 45 10 40] [149 45 10 44] [149 45 10 46] [149 45 10 55]]
-  
-
+  (mount-components))  
