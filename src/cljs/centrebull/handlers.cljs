@@ -39,7 +39,8 @@
 
 (reg-event-fx ::update-results-atom
   (fn [_ [_ ratom results]]
-    (reset! ratom results)))
+    (reset! ratom results)
+    {}))
 
 (reg-event-fx
   :search
