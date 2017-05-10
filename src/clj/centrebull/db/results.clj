@@ -1,7 +1,7 @@
 (ns centrebull.db.results
   (:require [clojure.set :refer [map-invert]]
             [centrebull.db.util :refer [mapper]]
-            [centrebull.db.core :refer [results-create! results-exist?]]))
+            [centrebull.db.core :refer [results-create! results-exist? results-update!]]))
 
 (def ^:private key-map {:result/id           :id
                         :result/vs           :vs
@@ -24,6 +24,12 @@
     in-mapper
     (merge default-fields)
     results-create!
+    out-mapper))
+
+(defn update! [result]
+  (->> result
+    in-mapper
+    results-update!
     out-mapper))
 
 (defn exists? [result]

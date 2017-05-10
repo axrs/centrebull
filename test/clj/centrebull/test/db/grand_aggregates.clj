@@ -1,4 +1,4 @@
-(ns centrebull.test.db.aggregates
+(ns centrebull.test.db.grand-aggregates
   (:require [clojure.test :refer :all]))
 
 (defn create!
@@ -7,10 +7,16 @@
     (is (= em aggregate))
     rv))
 
-(defn find-aggregates
+(defn find
   [em rv]
   (fn [competition-id]
     (is (= em competition-id))
+    rv))
+
+(defn find-by-id
+  [em rv]
+  (fn [param-map]
+    (is (= em param-map))
     rv))
 
 (defn delete-aggregate!
@@ -23,11 +29,4 @@
   [em rv]
   (fn [id-map]
     (is (= em id-map))
-    rv))
-
-(defn find-for-competition-and-in-coll
-  [em rv]
-  (fn [aggregates competition-id]
-    (is (= aggregates (:grand-aggregate/aggregates em)))
-    (is (= competition-id (:competition/id em)))
     rv))
