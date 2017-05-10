@@ -70,6 +70,7 @@
               :grid        "2/3"
               :key         :result/shots
               :required?   true
+              :auto-focus? true
               :placeholder "shots"
               :submit submit}]
       [:h3 {:local "1/3"} (:result/score score) [:sup (:result/vs score)]]
@@ -92,7 +93,7 @@
 (defn generate-table [search toogle results]
   [:table
    [:thead
-    [:tr [:th {:col-span 5} [input {:key :search :ratom search :list "results-autocomplete"}]]]
+    [:tr [:th {:col-span 5} [input {:key :search :ratom search :list "results-autocomplete" :auto-focus? true}]]]
     [:tr
      [:th "#"]
      [:th "Grade"]

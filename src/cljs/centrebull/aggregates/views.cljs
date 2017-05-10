@@ -117,3 +117,34 @@
              :on-click       submit
              :disabled       (not (valid?))}
     "Save"]])
+
+(defn agg-row [pri {:keys [shooter/grade shooter/first-name shooter/last-name shooter/club shooter/sid aggregate/results aggregate/score aggregate/vs]}]
+  [:tr
+   [:td grade]
+   [:td first-name " " last-name]
+   [:td club]
+   (for [r pri]
+     ^{:key (str sid r)} (let [res (first (filter #(= r (:aggregate/priority %)) results))]
+                           [:td (or (:result/score res) [:code]) [:sup (:result/vs res)]]))
+   [:td score [:sup vs]]])
+
+(defn aggregate-page [{:keys [aggregate/description aggregate/priority]} results]
+  (let [f (first results)
+        pri (mapv :aggregate/priority (:aggregate/results f))]
+    [:section
+     [:card
+      [:h2 description [:sub "#" priority]]
+      [:h3 "Aggregate Results"]]
+     [:card
+      [:table
+       [:thead
+        [:tr
+         [:th "Grade"]
+         [:th "Name"]
+         [:th "Club"]
+         (for [r (:aggregate/results f)]
+           ^{:key (str "agg" (:aggregate/priority r))} [:th "#" (:aggregate/priority r)])
+         [:th "Total"]]]
+       [:tbody
+        (for [s results]
+          ^{:key (:shooter/sid s)} [agg-row pri s])]]]]))

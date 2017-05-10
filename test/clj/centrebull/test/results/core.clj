@@ -16,9 +16,10 @@
           (is (= status 200))))))
 
   (testing "Results-Create! conflict"
-    (let [result (gen-result)]
+    (let [expected (gen-result)]
       (with-redefs [dao/create! do-not-call
+                    dao/update! (mock-dao/create! expected expected)
                     dao/exists? (constantly true)]
-        (let [{:keys [status body]} (results/create! {:all-params result})]
-          (is (= body {:errors {:conflict "Results for shooter on this activity already exist!"}}))
-          (is (= status 409)))))))
+        (let [{:keys [status body]} (results/create! {:all-params expected})]
+          (is (= body expected))
+          (is (= status 200)))))))

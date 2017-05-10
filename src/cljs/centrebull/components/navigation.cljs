@@ -16,16 +16,16 @@
 
 (defn activity-link [{:keys [range/description activity/id activity/priority activity/date] :as r}]
   ^{:key id}[:li
-              [:a.sidebar-link {:on-click #(accountant/navigate! (str "#/activities/" id))}  priority ": " description]])
+               [:a {:on-click #(accountant/navigate! (str "#/activities/" id))} priority ": " description]])
 
 (defn aggregate-link [{:keys [aggregate/description aggregate/id aggregate/priority] :as r}]
   ^{:key id}[:li
-              [:a {:on-click #(accountant/navigate! (str "#/aggregates/" id))} description [:sub priority]]])
+              [:a {:on-click #(accountant/navigate! (str "#/aggregates/" id))} priority ": " [:strong description]]])
 
 (defn activity-section []
   (let [all-activities @(rf/subscribe [:aggregates-and-activities])]
     [:li
-     [:label "All Activities"
+     [:label
       [:ul
        (map #(if (:activity/id %) (activity-link %) (aggregate-link %)) all-activities)]]]))
 
