@@ -59,10 +59,9 @@
       results)))
 
 (defn find-results [find-params]
-  (let [aggregates]
-    (->> find-params
-      in-mapper
-      find-by-id
-      :aggregates
-      find-grand-results
-      out-mapper)))
+  (->> find-params
+    in-mapper
+    find-by-id
+    :aggregates
+    find-grand-results
+    out-mapper))

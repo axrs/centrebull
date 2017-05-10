@@ -24,3 +24,10 @@
   (fn [id-map]
     (is (= em id-map))
     rv))
+
+(defn find-for-competition-and-in-coll
+  [em rv]
+  (fn [aggregates competition-id]
+    (is (= aggregates (:grand-aggregate/aggregates em)))
+    (is (= competition-id (:competition/id em)))
+    rv))
