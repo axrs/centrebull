@@ -9,7 +9,7 @@ RETURNING *;
 -- :doc finds aggregates for a competition
 SELECT *
 FROM aggregates
-WHERE competition_id = :competition-id::UUID
+WHERE competition_id = :competition-id::UUID;
 
 -- :name aggregates-delete!  :! :n
 -- :doc deletes an aggregate for a competition
@@ -46,3 +46,16 @@ ORDER BY class, sid, priority ASC;
 INSERT INTO grand_aggregates (description, priority, competition_id, aggregates)
 VALUES (:description, :priority, :competition-id::UUID, :aggregates::UUID [])
 RETURNING *;
+
+-- :name grand-aggregates-find :? :*
+-- :doc finds grand aggregates for a competition
+SELECT *
+FROM grand_aggregates
+WHERE competition_id = :competition-id::UUID;
+
+-- :name grand-aggregates-find-by-id :? :*
+-- :doc Finds a shooter by an id
+SELECT *
+FROM grand_aggregates
+WHERE id = :id::UUID AND competition_id = :competition-id::UUID
+LIMIT 1;
