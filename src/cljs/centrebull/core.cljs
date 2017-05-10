@@ -21,6 +21,8 @@
     [centrebull.ranges.core :as ranges])
   (:import goog.History))
 
+(def default-route "#/competition/")
+
 (defn about-page []
   [:div.container
    [:div.row
@@ -91,7 +93,13 @@
   (rf/dispatch [:set-page-width (.-innerWidth js/window)]))
 
 (defn init! []
+  (accountant/navigate! default-route)
   (rf/dispatch-sync [:initialize-db])
   (load-interceptors!)
   (hook-browser-navigation!)
   (mount-components))
+
+
+[[149 45 10 50] [149 45 10 40] [149 45 10 44] [149 45 10 46] [149 45 10 55]]
+  
+

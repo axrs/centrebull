@@ -1,5 +1,5 @@
 (ns centrebull.db)
 
 (def default-db
-  {:page          :home
+  {:page          :competitions
    :sidebar-open? false})
