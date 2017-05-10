@@ -37,7 +37,7 @@
   (testing "Aggregates-Find-Results"
     (let [expected {:competition/id (uuid) :activity/id (uuid)}
           aggregates [(gen-aggregate-result)]]
-      (with-redefs [dao/find-aggregates (mock-dao/find-results expected aggregates)]
+      (with-redefs [dao/find-results (mock-dao/find-results expected aggregates)]
         (let [{:keys [status body]} (aggregates/find-aggregate-results {:all-params expected})]
           (is (= body aggregates))
           (is (= status 200))))))
