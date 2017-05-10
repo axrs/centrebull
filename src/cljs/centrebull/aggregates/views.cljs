@@ -37,10 +37,11 @@
 
 (defn aggregate-table-head []
   [:thead
-   [:th "#"]
-   [:th "Range"]
-   [:th "Date"]
-   [:th "Actions"]])
+   [:tr
+    [:th "#"]
+    [:th "Range"]
+    [:th "Date"]
+    [:th "Actions"]]])
 
 (defn aggregate-row
   [remove {:keys [aggregate/id
@@ -56,9 +57,10 @@
    [:card
     [:table
      [:thead
-      [:th "#"]
-      [:th "Description"]
-      [:th ""]]
+      [:tr
+        [:th "#"]
+        [:th "Description"]
+        [:th ""]]]
      [:tbody
       (for [agg aggregates]
         ^{:key (:aggregate/id agg)} [aggregate-row remove agg])]]]])
