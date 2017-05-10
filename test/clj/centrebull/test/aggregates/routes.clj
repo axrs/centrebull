@@ -18,7 +18,7 @@
       (let [{:keys [status body]} ((app) (json-request :post (str "/competitions/" (uuid) "/aggregates") nil))]
         (is (= status 400))
         (is (contains? (parse-body body) :errors)))))
-    
+
   (testing "Create Aggregate Route"
     (with-redefs [aggregates/create! (constantly (response/ok {:aggregate-create! "called"}))]
       (let [{:keys [status body]} ((app) (json-request :post (str "/competitions/" (uuid) "/aggregates") (gen-aggregate)))]
@@ -31,6 +31,14 @@
         (let [{:keys [status body]} ((app) (json-request :get (str "/competitions/" competition-id "/aggregates")))]
           (is (= status 200))
           (is (= {:aggregate-find "called"} (parse-body body)))))))
+
+  (testing "Find Aggregate Results"
+    (let [competition-id (uuid)
+          aggregate-id (uuid)]
+      (with-redefs [aggregates/find-aggregate-results (constantly (response/ok {:aggregate-find-results "called"}))]
+        (let [{:keys [status body]} ((app) (json-request :get (str "/competitions/" competition-id "/aggregates/" aggregate-id "/results")))]
+          (is (= status 200))
+          (is (= {:aggregate-find-results "called"} (parse-body body)))))))
 
   (testing "Delete Aggregate"
     (let [competition-id (uuid)

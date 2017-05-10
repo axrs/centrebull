@@ -5,7 +5,7 @@
   [em rv]
   (fn [aggregate]
     (is (= em aggregate))
-    rv))  
+    rv))
 
 (defn find-aggregates
   [em rv]
@@ -14,6 +14,12 @@
     rv))
 
 (defn delete-aggregate!
+  [em rv]
+  (fn [id-map]
+    (is (= em id-map))
+    rv))
+
+(defn find-results
   [em rv]
   (fn [id-map]
     (is (= em id-map))
