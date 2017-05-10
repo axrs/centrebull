@@ -10,6 +10,7 @@
             [centrebull.results.core :as results]
             [centrebull.competitions.core :as competitions]
             [centrebull.registrations.core :as registrations]
+            [centrebull.aggregates.grand :as grand-aggregates]
             [centrebull.aggregates.core :as aggregates]))
 
 (defn home-page []
@@ -80,7 +81,24 @@
 
         (POST "/" {:as request}
           :spec :api/aggregate-create
-          (aggregates/create! request)))))
+          (aggregates/create! request)))
+
+      (context "/grand-aggregates" []
+        (GET "/" {:as request}
+          :spec :api/competition-id-only
+          (grand-aggregates/find-aggregates request))
+
+        (GET "/:grand-aggregate--id/results" {:as request}
+          :spec :api/competition-grand-aggregate-ids
+          (grand-aggregates/find-aggregate-results request))
+
+        (DELETE "/:grand-aggregate--id" {:as request}
+          :spec :api/competition-grand-aggregate-ids
+          (grand-aggregates/delete-aggregate! request))
+
+        (POST "/" {:as request}
+          :spec :api/aggregate-create
+          (grand-aggregates/create! request)))))
 
   (context "/registrations" []
     (DELETE "/:entry--id" {:as request}
