@@ -798,9 +798,6 @@ auto-complete[xx] li {
   white-space: nowrap;
   overflow: hidden;
 }
-.sidebar-link {
-  padding-left: 0em !important;
-}
 /*	navigation
 ----------------------------------------------------------------------*/
 nav:not([class]),
@@ -895,9 +892,28 @@ nav[xx] ul li ul li a,
 sidebar:not([class]) ul li ul li a,
 sidebar[xx] ul li ul li a {
   text-transform: none;
-  padding: 0.5rem 2rem 0.5rem 2.6rem;
+  padding: 0.5rem 2rem 0.5rem 0rem;
   border: none;
   font-size: 1.2rem;
+  overflow: hidden;
+}
+nav:not([class]) ul li ul li a strong,
+nav[xx] ul li ul li a strong,
+sidebar:not([class]) ul li ul li a strong,
+sidebar[xx] ul li ul li a strong {
+  color: indianred;
+}
+nav:not([class]) ul li ul li a:hover,
+nav[xx] ul li ul li a:hover,
+sidebar:not([class]) ul li ul li a:hover,
+sidebar[xx] ul li ul li a:hover {
+  color: #fff !important;
+}
+nav:not([class]) ul li ul li a:hover strong,
+nav[xx] ul li ul li a:hover strong,
+sidebar:not([class]) ul li ul li a:hover strong,
+sidebar[xx] ul li ul li a:hover strong {
+  color: #fff;
 }
 @media (min-width: 50.1rem) {
   nav:not([class]) ul li:hover menu,

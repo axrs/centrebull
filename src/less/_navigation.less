@@ -74,9 +74,20 @@ nav@{n}, nav@{x}, sidebar@{n}, sidebar@{x} {
 
           a {
             text-transform: none;
-            padding: 0.5rem 2rem 0.5rem 2.6rem;
+            padding: 0.5rem 2rem 0.5rem 0rem;
             border: none;
             font-size: @fs-s;
+
+            overflow: hidden;
+            strong {
+              color: @primary;
+            }
+            &:hover {
+              color: @primary-- !important;
+              strong {
+                color: @primary--;
+              }
+            }
           }
         }
       }
