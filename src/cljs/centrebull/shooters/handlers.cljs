@@ -37,7 +37,8 @@
                                            (dissoc :entry/id)
                                            (dissoc :competition/id))
                                          shooter))
-                      @results))))
+                      @results))
+    {}))
 
 (reg-event-fx
   :shooters-unregister

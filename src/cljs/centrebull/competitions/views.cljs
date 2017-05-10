@@ -7,8 +7,9 @@
 (defn- competition-header [results]
   (when @results
     [:header
-     [:caption {:local "3/4"} "Description"]
-     [:caption {:local "1/4"} "Dates"]]))
+      [:table
+        [:caption {:local "3/4"} "Description"]
+        [:caption {:local "1/4"} "Dates"]]]))
 
 (defn- competition-row [{:keys [competition/id competition/description
                                 competition/start-date competition/end-date] :as comp}]

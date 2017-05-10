@@ -13,7 +13,6 @@
 (defn- render-option [{:keys [id name label selected? disabled?]}]
   (let [attr (filter-empty {:value    id
                             :label    label
-                            :selected selected?
                             :disabled disabled?})]
     ^{:key id} [:option attr name]))
 
