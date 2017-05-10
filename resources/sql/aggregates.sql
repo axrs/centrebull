@@ -41,7 +41,7 @@ WHERE activity_id IN (SELECT unnest(activities)
                             competition_id = :competition-id::UUID)
 ORDER BY class, sid, priority ASC;
 
--- :name aggregate-find-result :? :*
+-- :name aggregate-find-results :? :*
 -- :doc finds the results for an aggregate
 SELECT
   class,

@@ -257,7 +257,7 @@
 
 (s/def :api/grand-aggregate-create
   (s/keys
-    :req [:grand-aggregate/activities
+    :req [:grand-aggregate/aggregates
           :aggregate/description
           :aggregate/priority
           :competition/id]))

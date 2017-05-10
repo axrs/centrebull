@@ -13,7 +13,7 @@
   (testing "Aggregates-Create!"
     (let [expected (gen-aggregate)]
       (with-redefs [dao/create! (mock-dao/create! expected nil)
-                    aggregates-dao/find-for-competition-and-in-coll (aggregates-mock-dao/find-for-competition-and-in-coll expected (:aggregate/activities expected))]
+                    aggregates-dao/find-for-competition-and-in-coll (aggregates-mock-dao/find-for-competition-and-in-coll expected (:grand-aggregate/activities expected))]
         (let [{:keys [status body]} (grand/create! {:all-params expected})]
           (is (= body nil))
           (is (= status 200))))))
@@ -23,7 +23,7 @@
       (with-redefs [dao/create! (mock-dao/create! expected nil)
                     aggregates-dao/find-for-competition-and-in-coll (aggregates-mock-dao/find-for-competition-and-in-coll expected [])]
         (let [{:keys [status body]} (grand/create! {:all-params expected})]
-          (is (= body {:errors {:aggregate/activities "Not all activies found in competition."}}))
+          (is (= body {:errors {:grand-aggregate/activities "Not all aggregates found in competition."}}))
           (is (= status 400))))))
 
   (testing "Aggregates-Find"
