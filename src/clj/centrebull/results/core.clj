@@ -4,6 +4,6 @@
 
 (defn create! [{:keys [all-params]}]
   (if (dao/exists? all-params)
-      (response/conflict {:errors {:conflict "Results for shooter on this activity already exist!"}})
+      (response/ok (dao/update! all-params))
       (response/ok (dao/create! all-params))))
 

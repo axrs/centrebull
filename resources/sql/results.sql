@@ -5,6 +5,13 @@ INSERT INTO results
   VALUES (:sid, :activity-id, :shots, :score, :vs)
 RETURNING *;
 
+-- :name results-update! :<! :1
+-- :doc updates shots on a results record
+UPDATE results
+SET shots = :shots
+WHERE sid = :sid AND activity_id = :activity-id
+RETURNING *;
+
 -- :name results-exist? :? :1
 -- :doc checks whether results have already been added
 SELECT EXISTS (SELECT *
