@@ -40,3 +40,9 @@ WHERE activity_id IN (SELECT unnest(activities)
                       WHERE id = :id::UUID AND
                             competition_id = :competition-id::UUID)
 ORDER BY class, sid, priority ASC;
+
+-- :name grand-aggregates-create! :<! :1
+-- :doc creates a grand
+INSERT INTO grand_aggregates (description, priority, competition_id, aggregates)
+VALUES (:description, :priority, :competition-id::UUID, :aggregates::UUID [])
+RETURNING *;
