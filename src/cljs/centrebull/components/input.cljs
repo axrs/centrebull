@@ -18,6 +18,7 @@
             :required     required?
             :placeholder  placeholder
             :min          0
+            :auto-focus    true
             :id           (when list (str "awesomplete-" list))
             :list         list
             :on-change    #(swap! ratom assoc key (.-target.value %))
