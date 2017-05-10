@@ -44,8 +44,18 @@
        remove
        aggregated])))
 
+(defn- single []
+  (let [aggregate (rf/subscribe [:active-aggregate])
+        results (rf/subscribe [:active-aggregate-results])]
+    (fn []
+      [v/aggregate-page @aggregate @results])))
+
 (secretary/defroute "/aggregates" []
   (rf/dispatch [:aggregates-load]))
 
+(secretary/defroute "/aggregates/:id" {id :id :as params}
+  (rf/dispatch [:set-active-aggregate id]))
+
 (def pages
-  {:aggregates #'page})
+  {:aggregates #'page
+   :aggregate  #'single})
