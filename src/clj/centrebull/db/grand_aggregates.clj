@@ -8,20 +8,20 @@
                                         grand-aggregates-find-by-id
                                         grand-aggregates-delete!]]))
 
-(def ^:private key-map {:aggregate/id          :id
-                        :aggregate/activities  :activities
-                        :aggregate/description :description
-                        :aggregate/priority    :priority
-                        :competition/id        :competition-id
-                        :shooter/grade         :class
-                        :shooter/sid           :sid
-                        :shooter/first-name    :first-name
-                        :shooter/last-name     :last-name
-                        :shooter/club          :club
-                        :result/score          :score
-                        :result/vs             :vs
-                        :activity/id           :activity-id
-                        :range/description     :description})
+(def ^:private key-map {:grand-aggregate/id         :id
+                        :grand-aggregate/aggregates :aggregates
+                        :aggregate/description      :description
+                        :aggregate/priority         :priority
+                        :competition/id             :competition-id
+                        :shooter/grade              :class
+                        :shooter/sid                :sid
+                        :shooter/first-name         :first-name
+                        :shooter/last-name          :last-name
+                        :shooter/club               :club
+                        :result/score               :score
+                        :result/vs                  :vs
+                        :activity/id                :activity-id
+                        :range/description          :description})
 
 (def ^:private value-map (map-invert key-map))
 

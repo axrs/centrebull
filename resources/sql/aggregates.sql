@@ -41,6 +41,12 @@ WHERE activity_id IN (SELECT unnest(activities)
                             competition_id = :competition-id::UUID)
 ORDER BY class, sid, priority ASC;
 
+-- :name activities-find-for-competition-and-in-coll :? :*
+-- :doc Finds all aggregates for a competition where aggregate-id exists in collection
+SELECT *
+FROM aggregates
+WHERE aggregates.competition_id = :competition-id::UUID AND aggregates.id = ANY (:aggregates::UUID []);
+
 -- :name grand-aggregates-create! :<! :1
 -- :doc creates a grand
 INSERT INTO grand_aggregates (description, priority, competition_id, aggregates)
