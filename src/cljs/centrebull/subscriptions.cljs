@@ -32,10 +32,7 @@
       (mapv #(assoc % :priority (or (:aggregate/priority %) (:activity/priority %))))
       (sort-by :priority))))
 
-(reg-sub
-  :active-activity
-  (fn [db _] (:active-activity db)))
-
-(reg-sub
-  :active-activity-results
-  (fn [db _] (:active-activity-results db)))
+(reg-sub :active-activity (fn [db _] (:active-activity db)))
+(reg-sub :active-activity-results (fn [db _] (:active-activity-results db)))
+(reg-sub :active-aggregate (fn [db _] (:active-aggregate db)))
+(reg-sub :active-aggregate-results (fn [db _] (:active-aggregate-results db)))

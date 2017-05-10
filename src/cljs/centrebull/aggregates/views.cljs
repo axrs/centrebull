@@ -115,3 +115,7 @@
              :on-click       submit
              :disabled       (not (valid?))}
     "Save"]])
+
+(defn aggregate-page [results]
+  [:h1 "Check console"]
+  (cljs.pprint/pprint results))
