@@ -48,7 +48,7 @@
   (let [aggregate (rf/subscribe [:active-aggregate])
         results (rf/subscribe [:active-aggregate-results])]
     (fn []
-      [v/aggregate-page @results])))
+      [v/aggregate-page @aggregate @results])))
 
 (secretary/defroute "/aggregates" []
   (rf/dispatch [:aggregates-load]))

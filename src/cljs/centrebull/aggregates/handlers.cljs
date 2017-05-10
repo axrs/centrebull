@@ -55,6 +55,20 @@
         (recur (dec p) (concat return [(sort-format (or (:result/score r) 0)) (sort-format (or (:result/vs r) 0))])))
       return)))
 
+(defn- translate-grade [g]
+  (cond
+    (= "A" g) "10"
+    (= "B" g) "09"
+    (= "C" g) "08"
+    (= "D" g) "07"
+    (= "FS" g) "06"
+    (= "FS1" g) "05"
+    (= "FS2" g) "04"
+    (= "FO" g) "03"
+    (= "FO1" g) "02"
+    (= "FO2" g) "01"
+    :else "00"))
+
 (defn- update-shooter [max-priorities]
   (fn [[sid v]]
     (let [r (first v)
@@ -66,7 +80,7 @@
       (-> r
         (dissoc :activity/id :aggregate/description :result/score :result/vs)
         (assoc :aggregate/score score :aggregate/vs vs :aggregate/results results)
-        (assoc :sort-key (str g
+        (assoc :sort-key (str (translate-grade g)
                            (sort-format (or score 0))
                            (sort-format (or vs 0))
                            (apply str sort-key)))))))
