@@ -799,7 +799,7 @@ auto-complete[xx] li {
   overflow: hidden;
 }
 .sidebar-link {
-  padding-left: 0em;
+  padding-left: 0em !important;
 }
 /*	navigation
 ----------------------------------------------------------------------*/
