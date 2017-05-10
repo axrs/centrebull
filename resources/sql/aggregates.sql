@@ -59,3 +59,9 @@ SELECT *
 FROM grand_aggregates
 WHERE id = :id::UUID AND competition_id = :competition-id::UUID
 LIMIT 1;
+
+-- :name grand-aggregates-delete!  :! :n
+-- :doc deletes a grand aggregate for a competition
+DELETE
+FROM grand_aggregates
+WHERE id = :id::UUID AND competition_id = :competition-id::UUID;
