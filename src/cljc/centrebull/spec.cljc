@@ -252,7 +252,7 @@
           :aggregate/priority
           :competition/id]))
 
-(s/def :api/delete-aggregate
+(s/def :api/competition-aggregate-ids
   (s/keys
     :req [:aggregate/id
           :competition/id]))

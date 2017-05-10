@@ -17,7 +17,7 @@
         (let [{:keys [status body]} (aggregates/create! {:all-params expected})]
           (is (= body nil))
           (is (= status 200))))))
-  
+
   (testing "Aggregates-Create! with invalid activity ids"
     (let [expected (gen-aggregate)]
       (with-redefs [dao/create! (mock-dao/create! expected nil)
@@ -33,7 +33,15 @@
         (let [{:keys [status body]} (aggregates/find-aggregates {:all-params expected})]
           (is (= body aggregates))
           (is (= status 200))))))
-        
+
+  (testing "Aggregates-Find-Results"
+    (let [expected {:competition/id (uuid) :activity/id (uuid)}
+          aggregates [(gen-aggregate-result)]]
+      (with-redefs [dao/find-aggregates (mock-dao/find-results expected aggregates)]
+        (let [{:keys [status body]} (aggregates/find-aggregate-results {:all-params expected})]
+          (is (= body aggregates))
+          (is (= status 200))))))
+
   (testing "Aggregates-Delete!"
     (let [all-params {:aggregate/id (uuid) :competition/id (uuid)}]
       (with-redefs [dao/delete-aggregate! (mock-dao/delete-aggregate! all-params nil)]

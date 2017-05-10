@@ -82,10 +82,10 @@
 (defn gen-entry
   "Generates an entry/registrations"
   []
-  {:entry/id (uuid)
+  {:entry/id       (uuid)
    :competition/id (uuid)
-   :shooter/sid (rand-int 99999)
-   :shooter/grade (string)})
+   :shooter/sid    (rand-int 99999)
+   :shooter/grade  (string)})
 
 (defn gen-registration-with-shooter
   "Generates a entry.registraions with a shooter"
@@ -93,20 +93,35 @@
   (merge (gen-entry) (gen-shooter)))
 
 (defn gen-result
- "Generates a result"
+  "Generates a result"
   []
   {:result/id    (uuid)
    :result/shots (->> #(nth [\1 \2 \3 \4 \V \5] (rand-int 5))
-                      repeatedly    
-                      (take 10)
-                      (apply str))
+                   repeatedly
+                   (take 10)
+                   (apply str))
    :shooter/sid  (rand-int 99999)
    :activity/id  (uuid)})
 
 (defn gen-aggregate
   "Generates an aggregate"
   []
-  {:aggregate/activities (take (rand-int 10) (repeatedly uuid))
+  {:aggregate/activities  (take (rand-int 10) (repeatedly uuid))
    :aggregate/description (string)
+   :aggregate/priority    (rand-int 99999)
+   :competition/id        (uuid)})
+
+(defn gen-aggregate-result
+  "Generates an aggregate result"
+  []
+  {:range/description  (string)
    :aggregate/priority (rand-int 99999)
-   :competition/id (uuid)})
+   :activity/id        (uuid)
+   :shooter/first-name (string)
+   :shooter/last-name  (string)
+   :shooter/sid        (rand-int 99999)
+   :shooter/grade      (string)
+   :shooter/club       (string)
+   :result/score       (rand-int 75)
+   :result/vs          (rand-int 15)
+   :competition/id     (uuid)})
