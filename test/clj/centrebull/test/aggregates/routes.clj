@@ -50,7 +50,6 @@
           (is (= {:aggregate-delete! "called"} (parse-body body))))))))
 
 
-
 (deftest test-grand-aggregates-routes
   (testing "Create Grand Aggregate Route - Invalid spec"
     (with-redefs [grand-aggregates/create! (constantly (response/ok {:grand-aggregate-create! "called"}))]

@@ -97,7 +97,7 @@
           (grand-aggregates/delete-aggregate! request))
 
         (POST "/" {:as request}
-          :spec :api/aggregate-create
+          :spec :api/grand-aggregate-create
           (grand-aggregates/create! request)))))
 
   (context "/registrations" []

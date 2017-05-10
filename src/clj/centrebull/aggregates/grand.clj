@@ -11,7 +11,7 @@
         valid-aggregate-count (count (aggregates-dao/find-for-competition-and-in-coll aggregates competition-id))]
     (if (= aggregate-count valid-aggregate-count)
       (response/ok (dao/create! all-params))
-      (response/bad-request {:errors {:grand-aggregate/activities "Not all activies found in competition."}}))))
+      (response/bad-request {:errors {:grand-aggregate/aggregates "Not all aggregates found in competition."}}))))
 
 (defn find-aggregates [{:keys [all-params]}]
   (response/ok (dao/find all-params)))
