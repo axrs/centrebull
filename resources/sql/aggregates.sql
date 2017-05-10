@@ -52,8 +52,8 @@ SELECT
   (SELECT priority
    FROM aggregates
    WHERE id = :id::UUID),
-  sum(score),
-  sum(vs)
+  sum(score) as score,
+  sum(vs) as vs
 FROM results r
   LEFT JOIN shooters s ON s.sid = r.sid
   LEFT JOIN entries e ON e.sid = r.sid
@@ -81,8 +81,8 @@ SELECT *
 FROM grand_aggregates
 WHERE competition_id = :competition-id::UUID;
 
--- :name grand-aggregates-find-by-id :? :*
--- :doc Finds a shooter by an id
+-- :name grand-aggregates-find-by-id :? :1
+-- :doc Finds a grand aggregate by an id
 SELECT *
 FROM grand_aggregates
 WHERE id = :id::UUID AND competition_id = :competition-id::UUID

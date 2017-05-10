@@ -35,6 +35,7 @@
     out-mapper))
 
 (defn find [competition-id]
+  (prn competition-id)
   (->> competition-id
     in-mapper
     grand-aggregates-find
@@ -55,13 +56,12 @@
   (loop [agg aggregates
          results []]
     (if (not-empty agg)
-      (recur (next aggregates) (concat results (aggregate-find-results {:id (first agg)})))
+      (recur (next agg) (concat results (aggregate-find-results {:id (first agg)})))
       results)))
 
 (defn find-results [find-params]
   (->> find-params
-    in-mapper
     find-by-id
-    :aggregates
+    :grand-aggregate/aggregates
     find-grand-results
     out-mapper))
