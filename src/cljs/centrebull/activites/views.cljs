@@ -93,7 +93,7 @@
 (defn generate-table [search toogle results]
   [:table
    [:thead
-    [:tr [:th {:col-span 5} [input {:key :search :ratom search :list "results-autocomplete"}]]]
+    [:tr [:th {:col-span 5} [input {:key :search :ratom search :list "results-autocomplete" :auto-focus? true}]]]
     [:tr
      [:th "#"]
      [:th "Grade"]
