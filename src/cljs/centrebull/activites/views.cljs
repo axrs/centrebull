@@ -70,6 +70,7 @@
               :grid        "2/3"
               :key         :result/shots
               :required?   true
+              :auto-focus? true
               :placeholder "shots"
               :submit submit}]
       [:h3 {:local "1/3"} (:result/score score) [:sup (:result/vs score)]]

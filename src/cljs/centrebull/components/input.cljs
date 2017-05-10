@@ -10,15 +10,15 @@
   required?: Is the input field required? [Optional, defaults to true]
   submit: Action to run when 'enter' is pressed on the field [Optional]
   "
-  [{:keys [key ratom grid placeholder required? type submit title list]
-    :or   {grid "" placeholder "" required? true type "text" submit nil title nil list nil}}]
+  [{:keys [key ratom grid placeholder required? type submit title list auto-focus?]
+    :or   {grid "" placeholder "" required? true type "text" submit nil title nil list nil auto-focus? false}}]
   [:div (when (not-empty grid) {:local grid})
    (when title [:label title])
    [:input {:type         type
             :required     required?
             :placeholder  placeholder
             :min          0
-            :auto-focus    true
+            :auto-focus    auto-focus?
             :id           (when list (str "awesomplete-" list))
             :list         list
             :on-change    #(swap! ratom assoc key (.-target.value %))
