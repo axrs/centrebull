@@ -39,3 +39,6 @@
 (reg-sub :active-activity-results (fn [db _] (:active-activity-results db)))
 (reg-sub :active-aggregate (fn [db _] (:active-aggregate db)))
 (reg-sub :active-aggregate-results (fn [db _] (:active-aggregate-results db)))
+
+(reg-sub :active-grand-aggregate (fn [db _] (:active-grand-aggregate db)))
+(reg-sub :active-grand-aggregate-results (fn [db _] (:active-grand-aggregate-results db)))

@@ -1,5 +1,5 @@
 (ns centrebull.grand-aggregates.views
-  (:require [centrebull.aggregates.views :refer [aggregate-section aggregate-form]]
+  (:require [centrebull.aggregates.views :refer [aggregate-section aggregate-form agg-row]]
             [centrebull.date-utils :refer [format-date]]
             [reagent.core :as r]))
 
@@ -47,3 +47,24 @@
        [:tbody
         (for [aggregate aggregates]
          ^{:key (:aggregate/id aggregate)} [aggregate-row action aggregate true])]]]]])
+
+(defn grand-aggregate-page [{:keys [aggregate/description aggregate/priority]} results]
+    (let [f (first results)
+          pri (mapv :aggregate/priority (:aggregate/results f))]
+      [:section]
+      [:card
+        [:h2 description [:sub "#" priority]]
+        [:h3 "Aggregate Results"]]
+      [:card
+        [:table
+          [:thead
+            [:tr]
+            [:th "Grade"]
+            [:th "Name"]
+            [:th "Club"]
+            (for [r (:aggregate/results f)]
+              [:th "#" (:aggregate/priority r)])
+            [:th "Total"]]
+          [:tbody
+            (for [s results]
+              ^{:key (:shooter/sid s)} [agg-row pri s])]]]))

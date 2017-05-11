@@ -34,11 +34,18 @@
         valid? (fn [] (s/valid? :api/grand-aggregate-create @grand-aggregate))]
     [v/grand-aggregates-page grand-aggregate @aggregates toggle-action submit valid?]))
 
-(def pages
-  {:grand-aggregates #'page})
+(defn- single []
+  (let [aggregate (rf/subscribe [:active-grand-aggregate])
+        results (rf/subscribe [:active-grand-aggregate-results])]
+    (fn []
+      [v/grand-aggregate-page @aggregate @results])))
 
-; (secretary/defroute "/grand-aggregates" []
-;   (rf/dispatch [:set-active-page :grand-aggregates]))
+(def pages
+  {:grand-aggregates #'page
+   :grand-aggregate-page #'single})
+
+(secretary/defroute "/grand-aggregates/:id" {id :id :as params}
+  (rf/dispatch [:set-active-grand-aggregate id]))
 
 (secretary/defroute "/grand-aggregates" []
   (rf/dispatch [:grand-aggregates-load]))
