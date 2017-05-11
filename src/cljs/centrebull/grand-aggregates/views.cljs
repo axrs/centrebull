@@ -19,6 +19,15 @@
    [:td description]
    [:td [:button {:on-click #(submit aggregate add?)} (if add? "Add" "Remove")]]])
 
+(defn grand-aggregate-row
+  [remove {:keys [grand-aggregate/id
+                  aggregate/priority
+                  aggregate/description :as act]}]
+  [:tr
+   [:td priority]
+   [:td description]
+   [:td [:button {:on-click #(remove id)} "Delete"]]])
+
 (defn grand-aggregate-section [grand-aggregates remove]
   [:section
     [:card
@@ -30,9 +39,9 @@
           [:th ""]]
         [:tbody]
         (for [agg grand-aggregates]
-          ^{:key (:grand-aggregate/id agg)} [aggregate-row remove agg])]]])
+          ^{:key (:grand-aggregate/id agg)} [grand-aggregate-row remove agg])]]])
 
-(defn grand-aggregates-page [grand-aggregate grand-aggregates aggregates action submit valid?]
+(defn grand-aggregates-page [grand-aggregate grand-aggregates aggregates action submit valid? remove]
   [:div
     [:section
       [:card

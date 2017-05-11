@@ -16,7 +16,7 @@
                                  :aggregate/priority    1
                                  :aggregate/description ""})
         reset-action #(reset! grand-aggregate {:compeition/id competition-id :aggregates []})
-        remove (fn [id] (rf/dispatch [:aggregates-delete id [:refresh-grand-aggregates]]))
+        remove (fn [id] (rf/dispatch [:grand-aggregates-delete id [:refresh-grand-aggregates]]))
         submit #(rf/dispatch [:grand-aggregate-create @grand-aggregate [:refresh-grand-aggregates] reset-action])
         toggle-action (fn [res add?]
                         (if add?
@@ -32,7 +32,7 @@
                             (swap! grand-aggregate assoc :aggregates)))
                         (swap! grand-aggregate assoc :grand-aggregate/aggregates (mapv :aggregate/id (:aggregates @grand-aggregate))))
         valid? (fn [] (s/valid? :api/grand-aggregate-create @grand-aggregate))]
-    [v/grand-aggregates-page grand-aggregate @grand-aggregates @aggregates toggle-action submit valid?]))
+    [v/grand-aggregates-page grand-aggregate @grand-aggregates @aggregates toggle-action submit valid? remove]))
 
 (defn- single []
   (let [aggregate (rf/subscribe [:active-grand-aggregate])

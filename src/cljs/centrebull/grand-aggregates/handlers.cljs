@@ -61,7 +61,7 @@
      :dispatch-n [[:set-active-page :grand-aggregate-page] [:refresh-grand-aggregate-results]]}))
 
 (reg-event-fx
-  :aggregates-delete
+  :grand-aggregates-delete
   (fn [{:keys [db]} [_ id & after-success]]
     (let [competition-id (get-in db [:active-competition :competition/id])]
       (delete-json {:url           (str "competitions/" competition-id "/grand-aggregates/" id)
