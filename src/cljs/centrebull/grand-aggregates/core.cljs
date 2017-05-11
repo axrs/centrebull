@@ -15,9 +15,7 @@
                                  :aggregate/priority    1
                                  :aggregate/description ""})
         reset-action #(reset! grand-aggregate {:compeition/id competition-id :aggregates []})
-        ;; CHANGE BELOW
         submit #(rf/dispatch [:grand-aggregate-create @grand-aggregate [:refresh-grand-aggregates] reset-action])
-        ;; CHANGE BELOW
         toggle-action (fn [res add?]
                         (if add?
                           (->>
