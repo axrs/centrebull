@@ -33,7 +33,7 @@
           [aggregate-table-head]
           [:tbody]
           (for [aggregate (:aggregates @grand-aggregate)]
-            ^{:key (:aggregate/id aggregate)} [aggregate-row action aggregate false])]
+            ^{:key (:grand-aggregate/id aggregate)} [aggregate-row action aggregate false])]
         [:button {:data-pull-left "9/12"
                   :local          "3/12"
                   :data-m-full    ""

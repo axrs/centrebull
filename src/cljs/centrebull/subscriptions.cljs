@@ -25,10 +25,13 @@
 
 (reg-sub :aggregates (fn [db _] (:aggregates db)))
 
+(reg-sub :grand-aggregates (fn [db _] (:grand-aggregates db)))
+
 (reg-sub :aggregates-and-activities
   (fn [db _]
     (->> (:aggregates db)
       (into (:activities db))
+      (into (:grand-aggregates db))
       (mapv #(assoc % :priority (or (:aggregate/priority %) (:activity/priority %))))
       (sort-by :priority))))
 

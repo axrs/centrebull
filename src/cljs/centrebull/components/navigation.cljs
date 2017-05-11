@@ -22,12 +22,20 @@
   ^{:key id}[:li
               [:a {:on-click #(accountant/navigate! (str "#/aggregates/" id))} priority ": " [:strong description]]])
 
+(defn grand-aggregate-link [{:keys [aggregate/description grand-aggregate/id aggregate/priority] :as r}]
+  ^{:key id}[:li
+              [:a {:on-click #(accountant/navigate! (str "#/grand-aggregates/" id))} priority ": " [:strong description]]])
+
 (defn activity-section []
   (let [all-activities @(rf/subscribe [:aggregates-and-activities])]
     [:li
      [:label
       [:ul
-       (map #(if (:activity/id %) (activity-link %) (aggregate-link %)) all-activities)]]]))
+       (map #(cond
+              (:activity/id %) (activity-link %)
+              (:aggregate/id %) (aggregate-link %)
+              :else (grand-aggregate-link %))
+        all-activities)]]]))
 
 (defn- sidebar []
   (let [is-open? (rf/subscribe [:sidebar-open?])

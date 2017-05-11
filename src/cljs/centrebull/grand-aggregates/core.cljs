@@ -31,11 +31,14 @@
                             (sort-by :aggregate/priority)
                             (swap! grand-aggregate assoc :aggregates)))
                         (swap! grand-aggregate assoc :grand-aggregate/aggregates (mapv :aggregate/id (:aggregates @grand-aggregate))))
-        valid? (fn [] (prn @grand-aggregate) (s/valid? :api/grand-aggregate-create @grand-aggregate))]
+        valid? (fn [] (s/valid? :api/grand-aggregate-create @grand-aggregate))]
     [v/grand-aggregates-page grand-aggregate @aggregates toggle-action submit valid?]))
 
 (def pages
   {:grand-aggregates #'page})
 
+; (secretary/defroute "/grand-aggregates" []
+;   (rf/dispatch [:set-active-page :grand-aggregates]))
+
 (secretary/defroute "/grand-aggregates" []
-  (rf/dispatch [:set-active-page :grand-aggregates]))
+  (rf/dispatch [:grand-aggregates-load]))

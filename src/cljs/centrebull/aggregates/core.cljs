@@ -20,7 +20,7 @@
         reset-action #(reset! aggregated {:compeition/id competition-id :activities []})
         remove (fn [id] (rf/dispatch [:activities-delete id [:refresh-aggregates]]))
         submit #(rf/dispatch [:aggregate-create @aggregated [:refresh-aggregates] reset-action])
-        valid? (fn [] (prn @aggregated) (s/valid? :api/aggregate-create @aggregated))
+        valid? (fn [] (s/valid? :api/aggregate-create @aggregated))
         toggle-action (fn [res add?]
                         (if add?
                           (->>
