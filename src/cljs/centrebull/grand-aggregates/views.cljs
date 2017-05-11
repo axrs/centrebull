@@ -1,5 +1,5 @@
 (ns centrebull.grand-aggregates.views
-  (:require [centrebull.aggregates.views :refer [aggregate-section aggregate-form agg-row]]
+  (:require [centrebull.aggregates.views :refer [aggregate-form agg-row]]
             [centrebull.date-utils :refer [format-date]]
             [reagent.core :as r]))
 
@@ -19,12 +19,25 @@
    [:td description]
    [:td [:button {:on-click #(submit aggregate add?)} (if add? "Add" "Remove")]]])
 
-(defn grand-aggregates-page [grand-aggregate aggregates action submit valid?]
+(defn grand-aggregate-section [grand-aggregates remove]
+  [:section
+    [:card
+      [:table
+        [:thead]
+        [:tr
+          [:th "#"]
+          [:th "Description"]
+          [:th ""]]
+        [:tbody]
+        (for [agg grand-aggregates]
+          ^{:key (:grand-aggregate/id agg)} [aggregate-row remove agg])]]])
+
+(defn grand-aggregates-page [grand-aggregate grand-aggregates aggregates action submit valid?]
   [:div
     [:section
       [:card
         [:h2 {:local "9/12"} "Grand Aggregates"]]]
-    [aggregate-section]
+    [grand-aggregate-section grand-aggregates remove]
     [:section
       [:card
         [:h4 "Create new grand aggregate"]

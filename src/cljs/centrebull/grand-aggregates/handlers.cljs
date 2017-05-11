@@ -59,3 +59,10 @@
   (fn [{:keys [db]} [_ id]]
     {:db         (assoc db :active-grand-aggregate (first (filter #(= id (:grand-aggregate/id %)) (:grand-aggregates db))))
      :dispatch-n [[:set-active-page :grand-aggregate-page] [:refresh-grand-aggregate-results]]}))
+
+(reg-event-fx
+  :aggregates-delete
+  (fn [{:keys [db]} [_ id & after-success]]
+    (let [competition-id (get-in db [:active-competition :competition/id])]
+      (delete-json {:url           (str "competitions/" competition-id "/grand-aggregates/" id)
+                    :after-success after-success}))))
