@@ -12,12 +12,12 @@
    [:td description]
    [:td [:button {:on-click #(submit aggregate add?)} (if add? "Add" "Remove")]]])
 
-(defn aggregate-table-head [])]
+(defn aggregate-table-head []
   [:thead
    [:tr
     [:th "#"]
     [:th "Description"]
-    [:th "Actions"]]]
+    [:th "Actions"]]])
 
 (defn grand-aggregate-row
   [remove {:keys [grand-aggregate/id
@@ -32,16 +32,16 @@
   [:section
     [:card
       [:table
-        [:thead]
-        [:tr
-          [:th "#"]
-          [:th "Description"]
-          [:th ""]]
-        [:tbody]
-        (for [agg grand-aggregates]
-          ^{:key (:grand-aggregate/id agg)} [grand-aggregate-row remove agg])]]])
+        [:thead
+          [:tr
+            [:th "#"]
+            [:th "Description"]
+            [:th ""]]]
+        [:tbody
+          (for [agg grand-aggregates]
+            ^{:key (:grand-aggregate/id agg)} [grand-aggregate-row remove agg])]]]])
 
-(defn grand-aggregates-page [grand-aggregates aggregates action submit valid? remove grand-aggregate]
+(defn grand-aggregates-page [aggregates grand-aggregates action submit valid? remove grand-aggregate]
   [:div
     [:section
       [:card
@@ -53,9 +53,9 @@
         [aggregate-form grand-aggregate]
         [:table
           [aggregate-table-head]
-          [:tbody]
-          (for [aggregate (:aggregates @grand-aggregate)]
-            ^{:key (:grand-aggregate/id aggregate)} [aggregate-row action aggregate false])]
+          [:tbody
+            (for [aggregate (:aggregates @grand-aggregate)]
+              ^{:key (:aggregate/id aggregate)} [aggregate-row action aggregate false])]]
         [:button {:data-pull-left "9/12"
                   :local          "3/12"
                   :data-m-full    ""
