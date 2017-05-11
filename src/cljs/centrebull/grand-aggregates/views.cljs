@@ -3,13 +3,6 @@
             [centrebull.date-utils :refer [format-date]]
             [reagent.core :as r]))
 
-(defn aggregate-table-head []
-  [:thead
-   [:tr
-    [:th "#"]
-    [:th "Description"]
-    [:th "Actions"]]])
-
 (defn aggregate-row
   [submit {:keys [aggregate/id
                   aggregate/description
@@ -18,6 +11,13 @@
    [:td priority]
    [:td description]
    [:td [:button {:on-click #(submit aggregate add?)} (if add? "Add" "Remove")]]])
+
+(defn aggregate-table-head [])]
+  [:thead
+   [:tr
+    [:th "#"]
+    [:th "Description"]
+    [:th "Actions"]]]
 
 (defn grand-aggregate-row
   [remove {:keys [grand-aggregate/id
@@ -41,7 +41,7 @@
         (for [agg grand-aggregates]
           ^{:key (:grand-aggregate/id agg)} [grand-aggregate-row remove agg])]]])
 
-(defn grand-aggregates-page [grand-aggregate grand-aggregates aggregates action submit valid? remove]
+(defn grand-aggregates-page [grand-aggregates aggregates action submit valid? remove grand-aggregate]
   [:div
     [:section
       [:card
