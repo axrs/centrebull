@@ -1245,6 +1245,7 @@ table[xx] thh {
   border-bottom: 2px solid #ebeaeb;
   padding: 1rem;
   display: table-cell;
+  vertical-align: middle;
 }
 table:not([class]) thh,
 table[xx] thh,
