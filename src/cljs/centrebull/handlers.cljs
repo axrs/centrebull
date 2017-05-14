@@ -48,11 +48,11 @@
   (if (instance? reagent.ratom/RAtom a)
     (reset! a {})))
 
-
 (reg-event-fx
   :select-autocomplete-text
   (fn [_ [_ id]]
-    (.select (.getElementById js/document id))))
+    (.select (.getElementById js/document id))
+    {}))
 
 (reg-event-fx
   :toggle
@@ -82,9 +82,20 @@
   :bull-clicked
   (fn [{:keys [db]}]
     {:dispatch-n [[:set-active-page :tv]]
-     :db     (assoc db :sidebar-is-hidden? true)}))
+     :db         (assoc db :sidebar-is-hidden? true)}))
 
 (reg-event-fx
   :select-autocomplete-text
   (fn [_ [_ id]]
-    (.select (.getElementById js/document id))))
+    (.select (.getElementById js/document id))
+    {}))
+
+(reg-event-fx
+  :update-tv
+  (fn [{:keys [db]} [_]]
+    (let [page (get-in db [:page])]
+      (if (= page :tv)
+        {:dispatch-n [[:refresh-aggregates]
+                      [:refresh-all-results]
+                      [:refresh-grand-tv-results]]}
+        {}))))

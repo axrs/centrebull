@@ -16,6 +16,4 @@
      :dispatch-n [[:set-page-url "/shooters"]
                   [:refresh-activities]
                   [:refresh-aggregates]
-                  [:refresh-grand-aggregates]
-                  [:refresh-all-results]
-                  [:refresh-grand-tv-results]]}))
+                  [:refresh-grand-aggregates]]}))
