@@ -50,6 +50,7 @@
 
 (defn page []
   [:div
+   (prn @(rf/subscribe [:tv-results]))
    [topbar]
    [sidebar]
    [:page

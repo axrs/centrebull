@@ -20,6 +20,7 @@
                         :shooter/club           :club
                         :shooter/grade          :class
                         :activity/id            :activity-id
+                        :aggregate/priority     :priority
                         :result/vs              :vs
                         :result/score           :score
                         :result/shots           :shots})

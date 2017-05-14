@@ -1,5 +1,7 @@
 (ns centrebull.subscriptions
-  (:require [re-frame.core :refer [reg-sub]]))
+  (:require
+    [re-frame.core :refer [reg-sub]]
+    [centrebull.aggregates.handlers :refer [process-aggregates]]))
 
 (reg-sub
   :page
@@ -42,3 +44,12 @@
 
 (reg-sub :active-grand-aggregate (fn [db _] (:active-grand-aggregate db)))
 (reg-sub :active-grand-aggregate-results (fn [db _] (:active-grand-aggregate-results db)))
+
+(reg-sub :grand-tv-results (fn [db _] (:grand-tv-results db)))
+(reg-sub :all-results (fn [db _] (:all-results db)))
+
+(reg-sub :tv-results
+  :<- [:all-results]
+  :<- [:grand-tv-results]
+  (fn [[all grand] _]
+    (process-aggregates (concat all grand))))
