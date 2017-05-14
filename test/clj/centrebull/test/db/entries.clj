@@ -34,6 +34,6 @@
 
 (defn retrieve-all-registrations
   [expected-comp-id rv]
-  (fn [comp-id activity-id]
+  (fn [comp-id]
     (is (= expected-comp-id comp-id))
     rv))

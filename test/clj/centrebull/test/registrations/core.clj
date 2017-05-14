@@ -50,7 +50,7 @@
           (is (= body expected))
           (is (= status 200))))))
 
-  (testing "retrieve ll registrations"
+  (testing "retrieve all registrations"
     (let [expected (gen-registration-with-shooter)
           c-id (uuid)]
       (with-redefs [dao/retrieve-all-registrations (mock/retrieve-all-registrations c-id expected)]
