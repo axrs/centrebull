@@ -85,16 +85,18 @@
                            (sort-format (or vs 0))
                            (apply str sort-key)))))))
 
+(defn process-aggregates [results]
+  (let [h (find-max-priorities results)
+        pred (update-shooter h)
+        grouped (group-by :shooter/sid results)]
+    (->> grouped
+      (map pred)
+      (sort-by :sort-key >))))
+
 (reg-event-fx
   ::set-active-aggregate-results
   (fn [{:keys [db]} [_ results]]
-    (let [h (find-max-priorities results)
-          pred (update-shooter h)
-          grouped (group-by :shooter/sid results)]
-
-      {:db (assoc db :active-aggregate-results (->> grouped
-                                                 (map pred)
-                                                 (sort-by :sort-key >)))})))
+    {:db (assoc db :active-aggregate-results (process-aggregates results))}))
 
 (reg-event-fx
   :refresh-aggregate-results

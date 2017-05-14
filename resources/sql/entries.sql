@@ -33,6 +33,7 @@ ORDER BY entries.class ASC, results.score DESC, results.vs DESC, results.shots_m
 -- :name competitions-retrieve-all-registrations :? :*
 -- :doc Retrieves all registrations for a competition
 SELECT
+  (select priority from activities WHERE id = results.activity_id) as priority,
   entries.*,
   shooters.*,
   results.*
