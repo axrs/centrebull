@@ -1799,16 +1799,12 @@ autocomplete li:hover {
   background-color: #f8f7f8;
 }
 tv card {
-  float: left;
   max-width: 48.5%;
   width: 48.5%;
+  max-height: 25em;
+  overflow-y: hidden;
 }
-tv card:nth-child(odd) {
-  margin-right: 1.5%;
-}
-tv card:nth-child(even) {
-  margin-left: 1.5%;
-}
-tv card + card {
-  margin-top: 0;
+tv ul {
+  list-style-type: none;
+  display: inline-block;
 }

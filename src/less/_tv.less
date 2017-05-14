@@ -1,18 +1,26 @@
 
 tv {
   card {
-    float: left;
+    // float: left;
     max-width: 48.5%;
     width: 48.5%;
+    max-height: 25em;
+    overflow-y: hidden;
   }
-  card:nth-child(odd) {
-    margin-right: 1.5%;
+  // card:nth-child(3), card:nth-child(4), card:nth-child(5) {
+  //   float: right;
+  // }
+  // card:nth-child(even) {
+  //   margin-left: 1.5%;
+  // }
+  // card + card {
+  //   margin-top: 0;
+  // }
+}
 
-  }
-  card:nth-child(even) {
-    margin-left: 1.5%;
-  }
-  card + card {
-    margin-top: 0;
+tv {
+  ul {
+    list-style-type: none;
+    display: inline-block;
   }
 }
