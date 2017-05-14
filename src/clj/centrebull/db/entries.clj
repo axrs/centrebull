@@ -6,6 +6,7 @@
             [centrebull.db.core :refer [entries-create!
                                         entries-update-active!
                                         competitions-suggest-registration
+                                        competitions-retrieve-all-registrations
                                         competitions-retrieve-registrations
                                         entries-find]]))
 
@@ -53,4 +54,9 @@
 (defn retrieve-registrations [comp-id activity-id]
   (->> {:competition-id comp-id :activity-id activity-id}
     competitions-retrieve-registrations
+    out-mapper))
+
+(defn retrieve-all-registrations [comp-id]
+  (->> {:competition-id comp-id}
+    competitions-retrieve-all-registrations
     out-mapper))

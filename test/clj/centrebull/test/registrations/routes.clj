@@ -43,4 +43,16 @@
     (with-redefs [registrations/retrieve-registrations (constantly (response/ok {:retrieve-registrations-post "called"}))]
       (let [{:keys [status body]} ((app) (json-request :post (str "/competitions/" (uuid) "/registrations") {:activity/id (uuid)}))]
         (is (= status 200))
-        (is (= {:retrieve-registrations-post "called"} (parse-body body)))))))
+        (is (= {:retrieve-registrations-post "called"} (parse-body body))))))
+
+  (testing "Retrieve all registrations"
+    (with-redefs [registrations/retrieve-all-registrations (constantly (response/ok {:retrieve-all-registrations "called"}))]
+      (let [{:keys [status body]} ((app) (json-request :get (str "/competitions/" (uuid) "/registrations/all")))]
+        (is (= status 200))
+        (is (= {:retrieve-all-registrations "called"} (parse-body body))))))
+
+  (testing "Retrieve all registrations"
+    (with-redefs [registrations/retrieve-all-registrations (constantly (response/ok {:retrieve-all-registrations-post "called"}))]
+      (let [{:keys [status body]} ((app) (json-request :post (str "/competitions/" (uuid) "/registrations/all")))]
+        (is (= status 200))
+        (is (= {:retrieve-all-registrations-post "called"} (parse-body body)))))))

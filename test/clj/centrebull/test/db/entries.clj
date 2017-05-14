@@ -31,3 +31,9 @@
     (is (= expected-comp-id comp-id))
     (is (= expected-activity-id activity-id))
     rv))
+
+(defn retrieve-all-registrations
+  [expected-comp-id rv]
+  (fn [comp-id activity-id]
+    (is (= expected-comp-id comp-id))
+    rv))

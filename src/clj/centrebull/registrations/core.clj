@@ -27,3 +27,9 @@
 
 (defn retrieve-registrations [{:keys [all-params]}]
   (response/ok (dao/retrieve-registrations (:competition/id all-params) (:activity/id all-params))))
+
+(defn retrieve-all-registrations [{:keys [all-params]}]
+  (->> all-params
+    :competition/id
+    dao/retrieve-all-registrations
+    response/ok))

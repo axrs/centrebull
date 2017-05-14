@@ -66,6 +66,14 @@
         :spec :api/competition-and-activity-id-only
         (registrations/retrieve-registrations request))
 
+      (GET "/registrations/all" {:as request}
+        :spec :api/competition-id-only
+        (registrations/retrieve-all-registrations request))
+
+      (POST "/registrations/all" {:as request}
+        :spec :api/competition-id-only
+        (registrations/retrieve-all-registrations request))
+
       (context "/aggregates" []
         (GET "/" {:as request}
           :spec :api/competition-id-only
