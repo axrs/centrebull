@@ -1248,7 +1248,9 @@ table[xx] thh {
   vertical-align: middle;
 }
 table:not([class]) tdh,
-table[xx] tdh {
+table[xx] tdh,
+table:not([class]) tdc,
+table[xx] tdc {
   font-weight: bold;
 }
 table:not([class]) thh,
@@ -1333,6 +1335,13 @@ table[xx] tdp span {
 table:not([class]) tbody tr:hover,
 table[xx] tbody tr:hover {
   background: #f8f7f8;
+}
+table:not([class]) tbody tr td:only-child,
+table[xx] tbody tr td:only-child {
+  background-color: #f8f7f8;
+  font-weight: bold;
+  color: indianred;
+  text-align: center;
 }
 table:not([class]) tr[data-state="0"],
 table[xx] tr[data-state="0"] {
@@ -1827,6 +1836,40 @@ autocomplete li:hover {
   background-color: #f8f7f8;
 }
 tv card {
+  padding: 0;
+}
+tv tbody {
   max-height: 25em;
   overflow-y: hidden;
+}
+tv td,
+tv tdp,
+tv tdh {
+  padding: 0.5rem !important;
+}
+tv th:nth-child(n+3),
+tv thh,
+tv td:nth-child(n+3),
+tv tdh {
+  text-align: center;
+}
+#tv-page nav {
+  background-color: #fff;
+}
+#tv-page nav header a {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+#tv-page page {
+  background-color: indianred;
+}
+#tv-page page card {
+  background-color: #fff;
+}
+#tv-page page section:first-of-type {
+  margin: 0 !important;
+  margin-top: 0.5rem !important;
+  padding-left: 0rem;
+  padding-right: 0rem;
 }
