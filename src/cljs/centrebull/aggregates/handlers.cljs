@@ -45,7 +45,7 @@
 
 (def sort-format (partial gstring/format "%04d"))
 
-(defn- find-max-priorities [results]
+(defn find-max-priorities [results]
   (->> results (map :aggregate/priority) distinct set last))
 
 (defn- calc-sort-str [max results]
@@ -70,7 +70,7 @@
     (= "FO2" g) "01"
     :else "00"))
 
-(defn- update-shooter [max-priorities]
+(defn update-shooter [max-priorities]
   (fn [[sid v]]
     (let [r (first v)
           g (:shooter/grade r)
