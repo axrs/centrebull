@@ -22,18 +22,27 @@
   ^{:key id}[:li
               [:a {:on-click #(accountant/navigate! (str "#/aggregates/" id))} priority ": " [:strong description]]])
 
+(defn grand-aggregate-link [{:keys [aggregate/description grand-aggregate/id aggregate/priority] :as r}]
+  ^{:key id}[:li
+              [:a {:on-click #(accountant/navigate! (str "#/grand-aggregates/" id))} priority ": " [:strong description]]])
+
 (defn activity-section []
   (let [all-activities @(rf/subscribe [:aggregates-and-activities])]
     [:li
      [:label
       [:ul
-       (map #(if (:activity/id %) (activity-link %) (aggregate-link %)) all-activities)]]]))
+       (map #(cond
+              (:activity/id %) (activity-link %)
+              (:aggregate/id %) (aggregate-link %)
+              :else (grand-aggregate-link %))
+        all-activities)]]]))
 
 (defn- sidebar []
   (let [is-open? (rf/subscribe [:sidebar-open?])
         competiton-id (rf/subscribe [:active-competition-id])
         is-hidden? (rf/subscribe [:sidebar-is-hidden?])
         is-forced? (rf/subscribe [:force-sidebar-open?])]
+
     (when (not @is-hidden?)
       [:sidebar
        [:ul {:style {:transform (when (and (not @is-open?) (not @is-forced?)) "translate3d(-100%,0,0)")}}
@@ -42,6 +51,7 @@
         [sidebar-link #(accountant/navigate! "#/ranges") "Ranges" :ranges true]
         [sidebar-link #(accountant/navigate! "#/activities") "New activity" :activities @competiton-id]
         [sidebar-link #(accountant/navigate! "#/aggregates") "Aggregates" :aggregate @competiton-id]
+        [sidebar-link #(accountant/navigate! "#/grand-aggregates") "Grand Aggregates" :grand-aggregate @competiton-id]
         (activity-section)]])))
 
 (defn topbar []

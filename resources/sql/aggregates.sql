@@ -52,8 +52,8 @@ SELECT
   (SELECT priority
    FROM aggregates
    WHERE id = :id::UUID),
-  sum(score) as score,
-  sum(vs) as vs
+  sum(score) AS score,
+  sum(vs)    AS vs
 FROM results r
   LEFT JOIN shooters s ON s.sid = r.sid
   LEFT JOIN entries e ON e.sid = r.sid
@@ -93,3 +93,10 @@ LIMIT 1;
 DELETE
 FROM grand_aggregates
 WHERE id = :id::UUID AND competition_id = :competition-id::UUID;
+
+-- :name grand-aggregates-find-for-tv :? :1
+-- :doc Finds a grand aggregate by priority
+SELECT *
+FROM grand_aggregates
+WHERE competition_id = :competition-id::UUID AND priority = -1
+LIMIT 1;

@@ -66,6 +66,14 @@
         :spec :api/competition-and-activity-id-only
         (registrations/retrieve-registrations request))
 
+      (GET "/registrations/all" {:as request}
+        :spec :api/competition-id-only
+        (registrations/retrieve-all-registrations request))
+
+      (POST "/registrations/all" {:as request}
+        :spec :api/competition-id-only
+        (registrations/retrieve-all-registrations request))
+
       (context "/aggregates" []
         (GET "/" {:as request}
           :spec :api/competition-id-only
@@ -87,6 +95,10 @@
         (GET "/" {:as request}
           :spec :api/competition-id-only
           (grand-aggregates/find-aggregates request))
+
+        (GET "/tv" {:as request}
+          :spec :api/competition-id-only
+          (grand-aggregates/find-tv-aggregate-results request))
 
         (GET "/:grand-aggregate--id/results" {:as request}
           :spec :api/competition-grand-aggregate-ids

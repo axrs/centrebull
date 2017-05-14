@@ -17,6 +17,7 @@
     [centrebull.competitions.core :as competitions]
     [centrebull.activities.core :as activities]
     [centrebull.aggregates.core :as aggregates]
+    [centrebull.grand-aggregates.core :as grand-aggregates]
     [centrebull.shooters.core :as shooters]
     [centrebull.ranges.core :as ranges]
     [centrebull.display.core :as tv])
@@ -48,7 +49,8 @@
       activities/pages
       aggregates/pages
       shooters/pages
-      tv/pages)))
+      tv/pages
+      grand-aggregates/pages)))
 
 (defn page []
   [:div

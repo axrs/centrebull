@@ -84,3 +84,7 @@
     {:dispatch-n [[:set-active-page :tv]]
      :db     (assoc db :sidebar-is-hidden? true)}))
 
+(reg-event-fx
+  :select-autocomplete-text
+  (fn [_ [_ id]]
+    (.select (.getElementById js/document id))))
