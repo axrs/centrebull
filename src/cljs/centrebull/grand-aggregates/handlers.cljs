@@ -30,7 +30,6 @@
   :grand-aggregates-load
   (fn [_ _]
     {:dispatch-n [[:set-active-page :grand-aggregates]
-                  ; [:refresh-activities]
                   [:refresh-grand-aggregates]]}))
 
 (reg-event-fx

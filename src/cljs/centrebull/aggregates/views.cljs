@@ -73,7 +73,7 @@
    [aggregate-section aggregates remove]
    [:section
     [:card
-     [:h4 "Create new aggregate"]
+     [:h4 "Create new Aggregate"]
      [aggregate-form aggregated]
      [:table
       [aggregate-table-head]

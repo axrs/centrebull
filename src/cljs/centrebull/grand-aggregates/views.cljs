@@ -85,7 +85,7 @@
               [:th "Name"]
               [:th "Club"]
               (for [r (:aggregate/results f)]
-                [:th "#" (:aggregate/priority r)])
+                ^{:key (str "grand-agg" (:aggregate/priority r))} [:th "#" (:aggregate/priority r)])
               [:th "Total"]]
             [:tbody
               (for [s results]
