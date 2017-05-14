@@ -1,9 +1,8 @@
 (ns centrebull.grand-aggregates.handlers
   (:require
     [centrebull.ajax :refer [post-json get-json delete-json]]
-    [centrebull.aggregates.handlers :refer [find-max-priorities update-shooter]]
     [re-frame.core :refer [dispatch reg-event-fx]]
-    [centrebull.utils :refer [rank-results]]))
+    [centrebull.utils :refer [rank-results sorted-results]]))
 
 (reg-event-fx
   ::set-active-grand-aggregates
@@ -36,13 +35,7 @@
 (reg-event-fx
   ::set-active-grand-aggregate-results
   (fn [{:keys [db]} [_ results]]
-    (let [h (find-max-priorities results)
-          pred (update-shooter h)
-          grouped (group-by :shooter/sid results)
-          results (->> grouped
-                    (map pred)
-                    (sort-by :sort-key >))]
-      {:db (assoc db :active-grand-aggregate-results (rank-results results))})))
+   {:db (assoc db :active-grand-aggregate-results (rank-results (sorted-results results)))}))
 
 (reg-event-fx
   :refresh-grand-aggregate-results

@@ -80,13 +80,14 @@
         [:card
           [:table
             [:thead
-              [:tr]
-              [:th "Grade"]
-              [:th "Name"]
-              [:th "Club"]
-              (for [r (:aggregate/results f)]
-                ^{:key (str "grand-agg" (:aggregate/priority r))} [:th "#" (:aggregate/priority r)])
-              [:th "Total"]]
+              [:tr
+               [:th "Rank"]
+               [:th "Grade"]
+               [:th "Name"]
+               [:th "Club"]
+               (for [r (:aggregate/results f)]
+                 ^{:key (str "grand-agg" (:aggregate/priority r))} [:th "#" (:aggregate/priority r)])
+               [:th "Total"]]]
             [:tbody
               (for [s results]
                 ^{:key (:shooter/sid s)} [agg-row pri s])]]]]))
