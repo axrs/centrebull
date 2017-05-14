@@ -9,6 +9,8 @@
 
 (def ^:private date-formatter (f/formatter "yyyy-MM-dd"))
 
+(defn rand-str [] (apply str (take 128 (repeatedly #(char (+ (rand 26) 65))))))
+
 (defn gen-shooter
   "Generates a random shooter with fields similar to the database result
   id [optional] - id to use"
@@ -85,7 +87,7 @@
   {:entry/id       (uuid)
    :competition/id (uuid)
    :shooter/sid    (rand-int 99999)
-   :shooter/grade  (string)})
+   :shooter/grade  (rand-str)})
 
 (defn gen-registration-with-shooter
   "Generates a entry.registraions with a shooter"
@@ -106,7 +108,7 @@
 (defn gen-aggregate
   "Generates an aggregate"
   []
-  {:aggregate/activities (take (+ (rand-int 10) 2) (repeatedly uuid))
+  {:aggregate/activities  (take (+ (rand-int 10) 2) (repeatedly uuid))
    :aggregate/description (string)
    :aggregate/priority    (rand-int 99999)
    :competition/id        (uuid)})
@@ -114,7 +116,7 @@
 (defn gen-grand-aggregate
   "Generates a grand aggregate"
   []
-  {:grand-aggregate/aggregates (take (rand-int 10) (repeatedly uuid))
+  {:grand-aggregate/aggregates (take (+ (rand-int 10) 2) (repeatedly uuid))
    :aggregate/description      (string)
    :aggregate/priority         (rand-int 99999)
    :competition/id             (uuid)})

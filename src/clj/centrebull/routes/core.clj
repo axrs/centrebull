@@ -96,6 +96,10 @@
           :spec :api/competition-id-only
           (grand-aggregates/find-aggregates request))
 
+        (GET "/tv" {:as request}
+          :spec :api/competition-id-only
+          (grand-aggregates/find-tv-aggregate-results request))
+
         (GET "/:grand-aggregate--id/results" {:as request}
           :spec :api/competition-grand-aggregate-ids
           (grand-aggregates/find-aggregate-results request))

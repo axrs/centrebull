@@ -21,3 +21,6 @@
 
 (defn find-aggregate-results [{:keys [all-params]}]
   (response/ok (dao/find-results all-params)))
+
+(defn find-tv-aggregate-results [{:keys [all-params]}]
+  (response/ok (dao/find-tv-results all-params)))

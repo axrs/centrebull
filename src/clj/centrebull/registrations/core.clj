@@ -18,7 +18,6 @@
             dao/find
             response/ok)))))
 
-
 (defn unregister-shooter! [{:keys [all-params]}]
   (response/ok (dao/update-active! (:entry/id all-params) "not active" false)))
 
