@@ -22,11 +22,6 @@
   (fn [_ [_ url]] (accountant/navigate! (prefix-url url))))
 
 (reg-event-db
-  :toggle-sidebar
-  (fn [db [_]]
-    (assoc db :sidebar-open? (not (:sidebar-open? db)))))
-
-(reg-event-db
   :try-force-sidebar-open
   (fn [db [_ value]]
     (assoc db :force-sidebar-open? (> value 800))))
@@ -53,6 +48,12 @@
   (if (instance? reagent.ratom/RAtom a)
     (reset! a {})))
 
+
+(reg-event-fx
+  :select-autocomplete-text
+  (fn [_ [_ id]]
+    (.select (.getElementById js/document id))))
+
 (reg-event-fx
   :toggle
   (fn [_ [_ ratom & others]]
@@ -60,7 +61,26 @@
     (doall (map reset-atom others))
     {}))
 
+(reg-event-db
+  :sidebar-open
+  (fn [db [_]]
+    (assoc db :sidebar-open? true)))
+
+(reg-event-db
+  :sidebar-close
+  (fn [db [_]]
+    (-> db
+      (assoc :sidebar-open? false)
+      (assoc :force-sidebar-open? false))))
+
+(reg-event-db
+  :toggle-sidebar
+  (fn [db [_]]
+    (assoc db :sidebar-open? (not (:sidebar-open? db)))))
+
 (reg-event-fx
-  :select-autocomplete-text
-  (fn [_ [_ id]]
-    (.select (.getElementById js/document id))))
+  :bull-clicked
+  (fn [{:keys [db]}]
+    {:dispatch-n [[:set-active-page :tv]]
+     :db     (assoc db :sidebar-is-hidden? true)}))
+

@@ -682,12 +682,16 @@ body section:first-of-type {
 }
 page:not([class]),
 page[xx] {
-  left: 20rem;
+  left: 0rem;
   position: fixed;
   right: 0rem;
   top: 2rem;
   bottom: 0rem;
   overflow: auto;
+}
+sidebar + page:not([class]),
+sidebar + page[xx] {
+  left: 20rem;
 }
 p:not([class]),
 p[xx] {
@@ -1793,4 +1797,18 @@ autocomplete li {
 autocomplete li:hover {
   cursor: pointer;
   background-color: #f8f7f8;
+}
+tv card {
+  float: left;
+  max-width: 48.5%;
+  width: 48.5%;
+}
+tv card:nth-child(odd) {
+  margin-right: 1.5%;
+}
+tv card:nth-child(even) {
+  margin-left: 1.5%;
+}
+tv card + card {
+  margin-top: 0;
 }

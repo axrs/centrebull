@@ -18,7 +18,10 @@
     [centrebull.activities.core :as activities]
     [centrebull.aggregates.core :as aggregates]
     [centrebull.shooters.core :as shooters]
-    [centrebull.ranges.core :as ranges])
+    [centrebull.ranges.core :as ranges]
+    [centrebull.display.core :as tv])
+
+
   (:import goog.History))
 
 (def default-route "#/competition/")
@@ -44,7 +47,8 @@
       competitions/pages
       activities/pages
       aggregates/pages
-      shooters/pages)))
+      shooters/pages
+      tv/pages)))
 
 (defn page []
   [:div

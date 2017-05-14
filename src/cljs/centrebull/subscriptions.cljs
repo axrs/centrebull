@@ -36,3 +36,5 @@
 (reg-sub :active-activity-results (fn [db _] (:active-activity-results db)))
 (reg-sub :active-aggregate (fn [db _] (:active-aggregate db)))
 (reg-sub :active-aggregate-results (fn [db _] (:active-aggregate-results db)))
+
+(reg-sub :sidebar-is-hidden? (fn [db _] (:sidebar-is-hidden? db)))
