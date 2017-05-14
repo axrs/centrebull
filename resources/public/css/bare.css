@@ -1799,12 +1799,6 @@ autocomplete li:hover {
   background-color: #f8f7f8;
 }
 tv card {
-  max-width: 48.5%;
-  width: 48.5%;
   max-height: 25em;
   overflow-y: hidden;
-}
-tv ul {
-  list-style-type: none;
-  display: inline-block;
 }

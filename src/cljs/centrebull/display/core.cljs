@@ -13,18 +13,18 @@
                            [:td (or (:result/score res) [:code]) [:sup (:result/vs res)]]))])
 
 (defn- grade-card [grouped-results pri]
-  (for [grade (keys grouped-results)
-            [:card
-              [:h4 (str "Grade: " grade)]
-              [:table
-                [:thead
-                  [:tr]
-                  [:th "Name"]
-                  (for [r pri]
-                    ^{:key (str "grand-agg"  r)} [:th "#" r])]
-                [:tbody
-                  (for [s (get grouped-results grade)]
-                    ^{:key (:shooter/sid s)} [agg-row pri s])]]]]))
+  (for [grade (keys grouped-results)]
+    [:card
+      [:h4 (str "Grade: " grade)]
+      [:table
+        [:thead
+          [:tr]
+          [:th "Name"]
+          (for [r pri]
+            ^{:key (str "grand-agg"  r)} [:th "#" r])]
+        [:tbody
+          (for [s (get grouped-results grade)]
+            ^{:key (:shooter/sid s)} [agg-row pri s])]]]))
 
 (defn- page []
   (let [results @(rf/subscribe [:tv-results])
@@ -35,8 +35,8 @@
         pri (apply sorted-set (into #{} (map :aggregate/priority (:aggregate/results f))))]
     [:section
       [:tv
-        [:ul (grade-card left-col pri)]
-        [:ul (grade-card right-col pri)]]]))
+        [:div {:local "1/2"} (grade-card left-col pri)]
+        [:div {:local "1/2"} (grade-card right-col pri)]]]))
 
 (secretary/defroute "/tv" []
   (rf/dispatch [:bull-clicked]))
