@@ -6,6 +6,7 @@
                                         aggregate-find-results
                                         grand-aggregates-find
                                         grand-aggregates-find-by-id
+                                        grand-aggregates-find-for-tv
                                         grand-aggregates-delete!]]))
 
 (def ^:private key-map {:grand-aggregate/id         :id
@@ -63,5 +64,12 @@
   (->> find-params
     find-by-id
     :grand-aggregate/aggregates
+    find-grand-results
+    out-mapper))
+
+(defn find-tv-results [find-params]
+  (->> find-params
+    grand-aggregates-find-for-tv
+    :aggregates
     find-grand-results
     out-mapper))

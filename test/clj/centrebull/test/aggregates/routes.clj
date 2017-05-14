@@ -70,6 +70,13 @@
           (is (= status 200))
           (is (= {:grand-aggregate-find "called"} (parse-body body)))))))
 
+  (testing "Find Grand Aggregate Results For TV"
+    (let [competition-id (uuid)]
+      (with-redefs [grand-aggregates/find-tv-aggregate-results (constantly (response/ok {:grand-aggregate-find-tv-results "called"}))]
+        (let [{:keys [status body]} ((app) (json-request :get (str "/competitions/" competition-id "/grand-aggregates/tv")))]
+          (is (= status 200))
+          (is (= {:grand-aggregate-find-tv-results "called"} (parse-body body)))))))
+
   (testing "Find Grand Aggregate Results"
     (let [competition-id (uuid)
           aggregate-id (uuid)]

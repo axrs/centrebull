@@ -18,3 +18,11 @@ SELECT EXISTS (SELECT *
 FROM results
 WHERE results.sid = :sid AND results.activity_id = :activity-id)
 LIMIT 1;
+
+-- :name results-update! :<! :1
+-- :doc updates shots on a results record
+UPDATE results
+SET shots = :shots
+WHERE sid = :sid AND activity_id = :activity-id
+RETURNING *;
+
