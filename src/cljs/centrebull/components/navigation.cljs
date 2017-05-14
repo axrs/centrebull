@@ -15,15 +15,15 @@
        [:a {:on-click action} title]])))
 
 (defn activity-link [{:keys [range/description activity/id activity/priority activity/date] :as r}]
-  ^{:key id}[:li
-               [:a {:on-click #(accountant/navigate! (str "#/activities/" id))} priority ": " description]])
+  ^{:key id} [:li
+              [:a {:on-click #(accountant/navigate! (str "#/activities/" id))} priority ": " description]])
 
 (defn aggregate-link [{:keys [aggregate/description aggregate/id aggregate/priority] :as r}]
-  ^{:key id}[:li
+  ^{:key id} [:li
               [:a {:on-click #(accountant/navigate! (str "#/aggregates/" id))} priority ": " [:strong description]]])
 
 (defn grand-aggregate-link [{:keys [aggregate/description grand-aggregate/id aggregate/priority] :as r}]
-  ^{:key id}[:li
+  ^{:key id} [:li
               [:a {:on-click #(accountant/navigate! (str "#/grand-aggregates/" id))} priority ": " [:strong description]]])
 
 (defn activity-section []
@@ -32,10 +32,10 @@
      [:label
       [:ul
        (map #(cond
-              (:activity/id %) (activity-link %)
-              (:aggregate/id %) (aggregate-link %)
-              :else (grand-aggregate-link %))
-        all-activities)]]]))
+               (:activity/id %) (activity-link %)
+               (:aggregate/id %) (aggregate-link %)
+               :else (grand-aggregate-link %))
+         all-activities)]]]))
 
 (defn- sidebar []
   (let [is-open? (rf/subscribe [:sidebar-open?])
@@ -53,6 +53,7 @@
         [sidebar-link #(accountant/navigate! "#/aggregates") "Aggregates" :aggregate @competiton-id]
         [sidebar-link #(accountant/navigate! "#/grand-aggregates") "Grand Aggregates" :grand-aggregate @competiton-id]
         (activity-section)]])))
+
 
 (defn topbar []
   [:nav
