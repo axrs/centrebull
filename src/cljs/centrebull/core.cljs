@@ -17,6 +17,7 @@
     [centrebull.competitions.core :as competitions]
     [centrebull.activities.core :as activities]
     [centrebull.aggregates.core :as aggregates]
+    [centrebull.grand-aggregates.core :as grand-aggregates]
     [centrebull.shooters.core :as shooters]
     [centrebull.ranges.core :as ranges])
   (:import goog.History))
@@ -44,10 +45,12 @@
       competitions/pages
       activities/pages
       aggregates/pages
-      shooters/pages)))
+      shooters/pages
+      grand-aggregates/pages)))
 
 (defn page []
   [:div
+   (prn @(rf/subscribe [:tv-results]))
    [topbar]
    [sidebar]
    [:page

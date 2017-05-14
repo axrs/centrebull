@@ -42,6 +42,14 @@
           (is (= body aggregates))
           (is (= status 200))))))
 
+  (testing "Aggregates-Find-TV-Results"
+    (let [expected {:competition/id (uuid)}
+          aggregates [(gen-aggregate-result)]]
+      (with-redefs [dao/find-tv-results (mock-dao/find-tv-results expected aggregates)]
+        (let [{:keys [status body]} (grand/find-tv-aggregate-results {:all-params expected})]
+          (is (= body aggregates))
+          (is (= status 200))))))
+
   (testing "Aggregates-Delete!"
     (let [all-params {:aggregate/id (uuid) :competition/id (uuid)}]
       (with-redefs [dao/delete-aggregate! (mock-dao/delete-aggregate! all-params nil)]

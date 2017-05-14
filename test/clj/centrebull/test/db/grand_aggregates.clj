@@ -30,3 +30,9 @@
   (fn [id-map]
     (is (= em id-map))
     rv))
+
+(defn find-tv-results
+  [em rv]
+  (fn [id-map]
+    (is (= em id-map))
+    rv))

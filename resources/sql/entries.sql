@@ -29,3 +29,21 @@ FROM entries
                    WHERE activity_id = :activity-id::UUID) AS results ON shooters.sid = results.sid
 WHERE entries.active = TRUE AND entries.competition_id = :competition-id::UUID
 ORDER BY entries.class ASC, results.score DESC, results.vs DESC, results.shots_mirror DESC;
+
+-- :name competitions-retrieve-all-registrations :? :*
+-- :doc Retrieves all registrations for a competition
+SELECT
+  (select priority from activities WHERE id = results.activity_id) as priority,
+  entries.*,
+  shooters.*,
+  results.*
+FROM entries
+  JOIN shooters ON entries.sid = shooters.sid
+  LEFT OUTER JOIN (SELECT *
+                   FROM results
+                   WHERE activity_id IN (SELECT id
+                                         FROM activities
+                                         WHERE competition_id = :competition-id::UUID)) AS results
+    ON shooters.sid = results.sid
+WHERE entries.active = TRUE AND entries.competition_id = :competition-id::UUID
+ORDER BY entries.class ASC, results.score DESC, results.vs DESC, results.shots_mirror DESC;

@@ -6,7 +6,9 @@
                                         aggregate-find-results
                                         grand-aggregates-find
                                         grand-aggregates-find-by-id
-                                        grand-aggregates-delete!]]))
+                                        grand-aggregates-find-for-tv
+                                        grand-aggregates-delete!]]
+            [clojure.tools.logging :as log]))
 
 (def ^:private key-map {:grand-aggregate/id         :id
                         :grand-aggregate/aggregates :aggregates
@@ -53,15 +55,26 @@
     grand-aggregates-delete!))
 
 (defn- find-grand-results [aggregates]
-  (loop [agg aggregates
-         results []]
-    (if (not-empty agg)
-      (recur (next agg) (concat results (aggregate-find-results {:id (first agg)})))
-      results)))
+  (log/info "Finding aggregate results for" aggregates)
+  (when aggregates
+    (loop [agg aggregates
+           results []]
+      (if (not-empty agg)
+        (recur (next agg) (concat results (aggregate-find-results {:id (first agg)})))
+        results))))
 
 (defn find-results [find-params]
   (->> find-params
     find-by-id
     :grand-aggregate/aggregates
+    find-grand-results
+    out-mapper))
+
+(defn find-tv-results [find-params]
+  (log/info "Finding tv aggregates for: " find-params)
+  (->> find-params
+    in-mapper
+    grand-aggregates-find-for-tv
+    :aggregates
     find-grand-results
     out-mapper))
