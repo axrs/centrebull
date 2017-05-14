@@ -1,7 +1,7 @@
 (ns centrebull.subscriptions
   (:require
     [re-frame.core :refer [reg-sub]]
-    [centrebull.aggregates.handlers :refer [process-aggregates]]))
+    [centrebull.utils :refer [rank-results sorted-results]]))
 
 (reg-sub
   :page
@@ -52,4 +52,4 @@
   :<- [:all-results]
   :<- [:grand-tv-results]
   (fn [[all grand] _]
-    (process-aggregates (concat all grand))))
+    (rank-results (sorted-results (concat all grand)))))

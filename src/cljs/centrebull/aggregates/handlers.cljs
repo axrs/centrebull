@@ -1,10 +1,9 @@
 (ns centrebull.aggregates.handlers
   (:require
     [centrebull.ajax :refer [post-json get-json delete-json]]
-    [goog.string :as gstring]
-    [goog.string.format]
     [re-frame.core :refer [dispatch reg-event-fx]]
-    [re-frame.core :as rf]))
+    [re-frame.core :as rf]
+    [centrebull.utils :refer [rank-results sorted-results]]))
 
 (reg-event-fx
   ::set-active-aggregates
@@ -42,61 +41,10 @@
       (delete-json {:url           (str "competitions/" competition-id "/aggregates/" id)
                     :after-success after-success}))))
 
-(def sort-format (partial gstring/format "%04d"))
-
-(defn find-max-priorities [results]
-  (->> results (map :aggregate/priority) distinct set last))
-
-(defn- calc-sort-str [max results]
-  (loop [p max
-         return []]
-    (if (not= -1 p)
-      (let [r (first (filter #(= p (:aggregate/priority %)) results))]
-        (recur (dec p) (concat return [(sort-format (or (:result/score r) 0)) (sort-format (or (:result/vs r) 0))])))
-      return)))
-
-(defn- translate-grade [g]
-  (cond
-    (= "A" g) "10"
-    (= "B" g) "09"
-    (= "C" g) "08"
-    (= "D" g) "07"
-    (= "FS" g) "06"
-    (= "FS1" g) "05"
-    (= "FS2" g) "04"
-    (= "FO" g) "03"
-    (= "FO1" g) "02"
-    (= "FO2" g) "01"
-    :else "00"))
-
-(defn update-shooter [max-priorities]
-  (fn [[sid v]]
-    (let [r (first v)
-          g (:shooter/grade r)
-          results (->> v (mapv #(select-keys % [:result/score :result/vs :aggregate/priority])))
-          score (->> v (map :result/score) (apply +))
-          vs (->> v (map :result/vs) (apply +))
-          sort-key (calc-sort-str max-priorities results)]
-      (-> r
-        (dissoc :activity/id :aggregate/description :result/score :result/vs)
-        (assoc :aggregate/score score :aggregate/vs vs :aggregate/results results)
-        (assoc :sort-key (str (translate-grade g)
-                           (sort-format (or score 0))
-                           (sort-format (or vs 0))
-                           (apply str sort-key)))))))
-
-(defn process-aggregates [results]
-  (let [h (find-max-priorities results)
-        pred (update-shooter h)
-        grouped (group-by :shooter/sid results)]
-    (->> grouped
-      (map pred)
-      (sort-by :sort-key >))))
-
 (reg-event-fx
   ::set-active-aggregate-results
   (fn [{:keys [db]} [_ results]]
-    {:db (assoc db :active-aggregate-results (process-aggregates results))}))
+      {:db (assoc db :active-aggregate-results (rank-results (sorted-results results)))}))
 
 (reg-event-fx
   :refresh-aggregate-results

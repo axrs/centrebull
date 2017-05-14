@@ -118,14 +118,15 @@
              :disabled       (not (valid?))}
     "Save"]])
 
-(defn agg-row [pri {:keys [shooter/grade shooter/first-name shooter/last-name shooter/club shooter/sid aggregate/results aggregate/score aggregate/vs]}]
+(defn agg-row [pri {:keys [rank shooter/grade shooter/first-name shooter/last-name shooter/club shooter/sid aggregate/results aggregate/score aggregate/vs]}]
   [:tr
+   [:td rank]
    [:td grade]
    [:td first-name " " last-name]
    [:td club]
    (for [r pri]
-     ^{:key (str sid r)} (let [res (first (filter #(= r (:aggregate/priority %)) results))]
-                           [:td (or (:result/score res) [:code]) [:sup (:result/vs res)]]))
+    (let [res (first (filter #(= r (:aggregate/priority %)) results))]
+     ^{:key (str sid r)} [:td (or (:result/score res) [:code]) [:sup (:result/vs res)]]))
    [:td score [:sup vs]]])
 
 (defn aggregate-page [{:keys [aggregate/description aggregate/priority]} results]
@@ -139,6 +140,7 @@
       [:table
        [:thead
         [:tr
+         [:th "Rank"]
          [:th "Grade"]
          [:th "Name"]
          [:th "Club"]
