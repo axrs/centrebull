@@ -55,7 +55,7 @@
           [aggregate-table-head]
           [:tbody
             (for [aggregate (:aggregates @grand-aggregate)]
-              ^{:key (:aggregate/id aggregate)} [aggregate-row action aggregate false])]]
+              ^{:key (str "grand-agg" (:aggregate/id aggregate))} [aggregate-row action aggregate false])]]
         [:button {:data-pull-left "9/12"
                   :local          "3/12"
                   :data-m-full    ""
@@ -90,4 +90,4 @@
                [:th "Total"]]]
             [:tbody
               (for [s results]
-                ^{:key (:shooter/sid s)} [agg-row pri s])]]]]))
+                ^{:key (str "grand-agg" (:shooter/sid s))} [agg-row pri s])]]]]))

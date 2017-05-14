@@ -125,8 +125,8 @@
    [:td first-name " " last-name]
    [:td club]
    (for [r pri]
-     ^{:key (str sid r)} (let [res (first (filter #(= r (:aggregate/priority %)) results))]
-                           [:td (or (:result/score res) [:code]) [:sup (:result/vs res)]]))
+    (let [res (first (filter #(= r (:aggregate/priority %)) results))]
+     ^{:key (str sid r)} [:td (or (:result/score res) [:code]) [:sup (:result/vs res)]]))
    [:td score [:sup vs]]])
 
 (defn aggregate-page [{:keys [aggregate/description aggregate/priority]} results]
