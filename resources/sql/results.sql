@@ -8,7 +8,7 @@ RETURNING *;
 -- :name results-update! :<! :1
 -- :doc updates shots on a results record
 UPDATE results
-SET shots = :shots
+SET shots = :shots, score = :score, vs = :vs
 WHERE sid = :sid AND activity_id = :activity-id
 RETURNING *;
 
