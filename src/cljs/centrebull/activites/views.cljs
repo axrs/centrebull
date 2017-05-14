@@ -76,9 +76,10 @@
       [:h3 {:local "1/3"} (:result/score score) [:sup (:result/vs score)]]
       [:button {:data-pull-left "9/12" :local "3/12" :data-m-full "" :data-primary "" :on-click submit :disabled (not valid?)} "Save"]]]))
 
-(defn row-render [toggle {:keys [:shooter/first-name :shooter/last-name :shooter/sid :result/shots :result/vs :result/score :shooter/grade]}]
+(defn row-render [toggle {:keys [:rank :shooter/first-name :shooter/last-name :shooter/sid :result/shots :result/vs :result/score :shooter/grade]}]
   (let [n (str first-name " " last-name)]
     [:tr {:on-click #(toggle sid n)}
+     [:td rank]
      [:td sid]
      [:td grade]
      [:td n]
@@ -95,6 +96,7 @@
    [:thead
     [:tr [:th {:col-span 5} [input {:key :search :ratom search :list "results-autocomplete" :auto-focus? true}]]]
     [:tr
+     [:th "Rank"]
      [:th "#"]
      [:th "Grade"]
      [:th "Name"]

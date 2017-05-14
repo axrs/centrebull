@@ -1,7 +1,8 @@
 (ns centrebull.activities.handlers
   (:require [centrebull.ajax :refer [post-json get-json]]
             [re-frame.core :refer [dispatch reg-event-fx]]
-            [re-frame.core :as rf]))
+            [re-frame.core :as rf]
+            [centrebull.aggregates.handlers :refer [rank-results]]))
 
 (reg-event-fx
   :activity-create
@@ -21,7 +22,8 @@
 (reg-event-fx
   ::set-active-activites
   (fn [{:keys [db]} [_ results]]
-    {:db (assoc db :activities results)}))
+    (cljs.pprint/pprint (rank-results results))
+    {:db (assoc db :activities (rank-results results))}))
 
 (reg-event-fx
   :refresh-activities
@@ -69,5 +71,5 @@
   (fn [{:keys [db]} [_ id results]]
     (let [a-id (get-in db [:active-activity :activity/id])]
       (if (= a-id id)
-        {:db (assoc db :active-activity-results results)}
+        {:db (assoc db :active-activity-results (rank-results results))}
         {}))))

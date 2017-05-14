@@ -85,6 +85,12 @@
                            (sort-format (or vs 0))
                            (apply str sort-key)))))))
 
+(defn rank-results [results]
+  (let [grouped-results (group-by :shooter/grade results)
+        ranked-grouped-results (map (fn [[grade group]] (map-indexed #(assoc %2 :rank (inc %1)) group)) grouped-results)
+        merged-ranked-grouped-results (apply concat ranked-grouped-results)]
+   merged-ranked-grouped-results))
+
 (reg-event-fx
   ::set-active-aggregate-results
   (fn [{:keys [db]} [_ results]]
@@ -93,11 +99,8 @@
           grouped (group-by :shooter/sid results)
           results (->> grouped
                     (map pred)
-                    (sort-by :sort-key >))
-          grouped-results (group-by :shooter/grade results)
-          ranked-grouped-results (map (fn [[grade group]] (map-indexed #(assoc %2 :rank (inc %1)) group)) grouped-results)
-          merged-ranked-grouped-results (apply concat ranked-grouped-results)]
-      {:db (assoc db :active-aggregate-results merged-ranked-grouped-results)})))
+                    (sort-by :sort-key >))]
+      {:db (assoc db :active-aggregate-results (rank-results results))})))
 
 (reg-event-fx
   :refresh-aggregate-results
