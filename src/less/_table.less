@@ -12,12 +12,22 @@ table@{n}, table@{x} {
   overflow: hidden;
   font-size: @fs-m;
 
-  th, td, tdp {
+  th, td, tdp, tdh, thh {
     border-bottom: 2px solid @grey-midlight;
     padding: 1rem;
+    display: table-cell;
+    vertical-align: middle;
   }
 
-  th {
+  tdh {
+    font-weight: bold;
+  }
+
+  thh, tdh {
+    background: @grey-ultralight;
+  }
+
+  th, thh {
     font-weight: 700;
     color: @primary;
 
@@ -41,7 +51,7 @@ table@{n}, table@{x} {
     }
   }
 
-  td, tdp {
+  td, tdp, tdh {
     border-bottom-width: 1px;
     a {
       color: @primary;

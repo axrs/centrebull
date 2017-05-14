@@ -682,12 +682,16 @@ body section:first-of-type {
 }
 page:not([class]),
 page[xx] {
-  left: 20rem;
+  left: 0rem;
   position: fixed;
   right: 0rem;
   top: 2rem;
   bottom: 0rem;
   overflow: auto;
+}
+sidebar + page:not([class]),
+sidebar + page[xx] {
+  left: 20rem;
 }
 p:not([class]),
 p[xx] {
@@ -1233,17 +1237,37 @@ table[xx] th,
 table:not([class]) td,
 table[xx] td,
 table:not([class]) tdp,
-table[xx] tdp {
+table[xx] tdp,
+table:not([class]) tdh,
+table[xx] tdh,
+table:not([class]) thh,
+table[xx] thh {
   border-bottom: 2px solid #ebeaeb;
   padding: 1rem;
+  display: table-cell;
+  vertical-align: middle;
+}
+table:not([class]) tdh,
+table[xx] tdh {
+  font-weight: bold;
+}
+table:not([class]) thh,
+table[xx] thh,
+table:not([class]) tdh,
+table[xx] tdh {
+  background: #f8f7f8;
 }
 table:not([class]) th,
-table[xx] th {
+table[xx] th,
+table:not([class]) thh,
+table[xx] thh {
   font-weight: 700;
   color: indianred;
 }
 table:not([class]) th:before,
-table[xx] th:before {
+table[xx] th:before,
+table:not([class]) thh:before,
+table[xx] thh:before {
   content: "";
   width: 100%;
   height: 10000%;
@@ -1257,27 +1281,35 @@ table[xx] th:before {
   visibility: hidden;
 }
 table:not([class]) th:hover:before,
-table[xx] th:hover:before {
+table[xx] th:hover:before,
+table:not([class]) thh:hover:before,
+table[xx] thh:hover:before {
   opacity: 1;
   visibility: visible;
 }
 table:not([class]) td,
 table[xx] td,
 table:not([class]) tdp,
-table[xx] tdp {
+table[xx] tdp,
+table:not([class]) tdh,
+table[xx] tdh {
   border-bottom-width: 1px;
 }
 table:not([class]) td a,
 table[xx] td a,
 table:not([class]) tdp a,
-table[xx] tdp a {
+table[xx] tdp a,
+table:not([class]) tdh a,
+table[xx] tdh a {
   color: indianred;
   display: block;
 }
 table:not([class]) td[data-fixed-small],
 table[xx] td[data-fixed-small],
 table:not([class]) tdp[data-fixed-small],
-table[xx] tdp[data-fixed-small] {
+table[xx] tdp[data-fixed-small],
+table:not([class]) tdh[data-fixed-small],
+table[xx] tdh[data-fixed-small] {
   max-width: 10rem;
   width: 10rem;
 }
@@ -1793,4 +1825,8 @@ autocomplete li {
 autocomplete li:hover {
   cursor: pointer;
   background-color: #f8f7f8;
+}
+tv card {
+  max-height: 25em;
+  overflow-y: hidden;
 }

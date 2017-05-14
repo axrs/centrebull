@@ -15,15 +15,15 @@
        [:a {:on-click action} title]])))
 
 (defn activity-link [{:keys [range/description activity/id activity/priority activity/date] :as r}]
-  ^{:key id}[:li
-               [:a {:on-click #(accountant/navigate! (str "#/activities/" id))} priority ": " description]])
+  ^{:key id} [:li
+              [:a {:on-click #(accountant/navigate! (str "#/activities/" id))} priority ": " description]])
 
 (defn aggregate-link [{:keys [aggregate/description aggregate/id aggregate/priority] :as r}]
-  ^{:key id}[:li
+  ^{:key id} [:li
               [:a {:on-click #(accountant/navigate! (str "#/aggregates/" id))} priority ": " [:strong description]]])
 
 (defn grand-aggregate-link [{:keys [aggregate/description grand-aggregate/id aggregate/priority] :as r}]
-  ^{:key id}[:li
+  ^{:key id} [:li
               [:a {:on-click #(accountant/navigate! (str "#/grand-aggregates/" id))} priority ": " [:strong description]]])
 
 (defn activity-section []
@@ -32,24 +32,29 @@
      [:label
       [:ul
        (map #(cond
-              (:activity/id %) (activity-link %)
-              (:aggregate/id %) (aggregate-link %)
-              :else (grand-aggregate-link %))
-        all-activities)]]]))
+               (:activity/id %) (activity-link %)
+               (:aggregate/id %) (aggregate-link %)
+               :else (grand-aggregate-link %))
+         all-activities)]]]))
 
 (defn- sidebar []
   (let [is-open? (rf/subscribe [:sidebar-open?])
         competiton-id (rf/subscribe [:active-competition-id])
+        is-hidden? (rf/subscribe [:sidebar-is-hidden?])
         is-forced? (rf/subscribe [:force-sidebar-open?])]
-    [:sidebar
-     [:ul {:style {:transform (when (and (not @is-open?) (not @is-forced?)) "translate3d(-100%,0,0)")}}
-      [sidebar-link #(accountant/navigate! "#/shooters") "Shooters" :shooters @competiton-id]
-      [sidebar-link #(accountant/navigate! "#/competitions") "Competitions" :competitions (not @competiton-id)]
-      [sidebar-link #(accountant/navigate! "#/ranges") "Ranges" :ranges true]
-      [sidebar-link #(accountant/navigate! "#/activities") "New activity" :activities @competiton-id]
-      [sidebar-link #(accountant/navigate! "#/aggregates") "Aggregates" :aggregate @competiton-id]
-      [sidebar-link #(accountant/navigate! "#/grand-aggregates") "Grand Aggregates" :grand-aggregate @competiton-id]
-      (activity-section)]]))
+
+    (when (not @is-hidden?)
+      [:sidebar
+       [:ul {:style {:transform (when (and (not @is-open?) (not @is-forced?)) "translate3d(-100%,0,0)")}}
+        [sidebar-link #(accountant/navigate! "#/tv") "TV Display" :tv @competiton-id]
+        [sidebar-link #(accountant/navigate! "#/shooters") "Shooters" :shooters @competiton-id]
+        [sidebar-link #(accountant/navigate! "#/competitions") "Competitions" :competitions (not @competiton-id)]
+        [sidebar-link #(accountant/navigate! "#/ranges") "Ranges" :ranges true]
+        [sidebar-link #(accountant/navigate! "#/activities") "New activity" :activities @competiton-id]
+        [sidebar-link #(accountant/navigate! "#/aggregates") "Aggregates" :aggregate @competiton-id]
+        [sidebar-link #(accountant/navigate! "#/grand-aggregates") "Grand Aggregates" :grand-aggregate @competiton-id]
+        (activity-section)]])))
+
 
 (defn topbar []
   [:nav
@@ -59,6 +64,6 @@
       [:input {:type "checkbox" :value @is-open? :on-change #(rf/dispatch [:toggle-sidebar])}])
     [:header
      (let [comp-desc (:competition/description @(rf/subscribe [:active-competition]))]
-       [:a {:on-click #(accountant/navigate! "#/")} [:img {:src "/favicon.ico"}] "Centre" [:strong "Bull"]
+       [:a {:on-click #(accountant/navigate! "#/tv")} [:img {:src "/favicon.ico"}] "Centre" [:strong "Bull"]
         (when comp-desc [:span {:style {:font-weight 100}} (str " - " comp-desc)])])]]])
 

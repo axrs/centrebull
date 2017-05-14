@@ -19,7 +19,10 @@
     [centrebull.aggregates.core :as aggregates]
     [centrebull.grand-aggregates.core :as grand-aggregates]
     [centrebull.shooters.core :as shooters]
-    [centrebull.ranges.core :as ranges])
+    [centrebull.ranges.core :as ranges]
+    [centrebull.display.core :as tv])
+
+
   (:import goog.History))
 
 (def default-route "#/competition/")
@@ -46,11 +49,11 @@
       activities/pages
       aggregates/pages
       shooters/pages
+      tv/pages
       grand-aggregates/pages)))
 
 (defn page []
   [:div
-   (prn @(rf/subscribe [:tv-results]))
    [topbar]
    [sidebar]
    [:page

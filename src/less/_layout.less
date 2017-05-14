@@ -21,14 +21,16 @@ body {
     }
   }
 }
-
 page@{n}, page@{x} {
-  left: @sidebar-width + 0rem;
+  left: 0rem;
   position: fixed;
   right: 0rem;
   top: 2rem;
   bottom: 0rem;
   overflow: auto;
+}
+sidebar + page@{n}, sidebar + page@{x} {
+  left: @sidebar-width + 0rem;
 }
 
 p@{n}, p@{x} {

@@ -13,4 +13,7 @@
   :set-active-competition
   (fn [{:keys [db]} [_ competition]]
     {:db         (assoc db :active-competition competition)
-     :dispatch-n [[:set-page-url "/shooters"] [:refresh-activities] [:refresh-all-results] [:refresh-grand-tv-results]]}))
+     :dispatch-n [[:set-page-url "/shooters"]
+                  [:refresh-activities]
+                  [:refresh-aggregates]
+                  [:refresh-grand-aggregates]]}))
