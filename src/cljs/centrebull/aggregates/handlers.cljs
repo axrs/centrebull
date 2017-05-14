@@ -4,7 +4,8 @@
     [goog.string :as gstring]
     [goog.string.format]
     [re-frame.core :refer [dispatch reg-event-fx]]
-    [re-frame.core :as rf]))
+    [re-frame.core :as rf]
+    [centrebull.utils :refer [rank-results]]))
 
 (reg-event-fx
   ::set-active-aggregates
@@ -84,12 +85,6 @@
                            (sort-format (or score 0))
                            (sort-format (or vs 0))
                            (apply str sort-key)))))))
-
-(defn rank-results [results]
-  (let [grouped-results (group-by :shooter/grade results)
-        ranked-grouped-results (map (fn [[grade group]] (map-indexed #(assoc %2 :rank (inc %1)) group)) grouped-results)
-        merged-ranked-grouped-results (apply concat ranked-grouped-results)]
-   merged-ranked-grouped-results))
 
 (reg-event-fx
   ::set-active-aggregate-results

@@ -2,7 +2,7 @@
   (:require [centrebull.ajax :refer [post-json get-json]]
             [re-frame.core :refer [dispatch reg-event-fx]]
             [re-frame.core :as rf]
-            [centrebull.aggregates.handlers :refer [rank-results]]))
+            [centrebull.utils :refer [rank-results]]))
 
 (reg-event-fx
   :activity-create
@@ -22,7 +22,6 @@
 (reg-event-fx
   ::set-active-activites
   (fn [{:keys [db]} [_ results]]
-    (cljs.pprint/pprint (rank-results results))
     {:db (assoc db :activities (rank-results results))}))
 
 (reg-event-fx
