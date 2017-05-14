@@ -1247,6 +1247,10 @@ table[xx] thh {
   display: table-cell;
   vertical-align: middle;
 }
+table:not([class]) tdh,
+table[xx] tdh {
+  font-weight: bold;
+}
 table:not([class]) thh,
 table[xx] thh,
 table:not([class]) tdh,
