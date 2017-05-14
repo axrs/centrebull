@@ -35,8 +35,8 @@
         pri (apply sorted-set (into #{} (map :aggregate/priority (:aggregate/results f))))]
     [:section
      [:tv
-      [:ul (grade-card left-col pri)]
-      [:ul (grade-card right-col pri)]]]))
+      [:div {:local "1/2"} (grade-card left-col pri)]
+      [:div {:local "1/2"} (grade-card right-col pri)]]]))
 
 (secretary/defroute "/tv" []
   (rf/dispatch [:bull-clicked]))
