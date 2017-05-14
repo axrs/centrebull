@@ -11,7 +11,6 @@
                 :body          state
                 :after-success after-success})))
 
-
 (reg-event-fx
   :activity-create-result
   (fn [_ [_ state & after-success]]
@@ -72,3 +71,17 @@
       (if (= a-id id)
         {:db (assoc db :active-activity-results (rank-results results))}
         {}))))
+
+(reg-event-fx
+  :refresh-all-results
+  (fn [{:keys [db]} _]
+    (let [competition-id (get-in db [:active-competition :competition/id])]
+      (if competition-id
+        (get-json {:url           (str "competitions/" competition-id "/registrations/all")
+                   :after-success [[::set-all-results]]})
+        {}))))
+
+(reg-event-fx
+  ::set-all-results
+  (fn [{:keys [db]} [_ results]]
+    {:db (assoc db :all-results results)}))

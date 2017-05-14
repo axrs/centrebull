@@ -10,26 +10,26 @@
 (deftest registrations
   (let [expected (gen-entry)
         request {:all-params expected}]
-      (testing "register shooter with existing registration"
-        (with-redefs [dao/find (mock/find expected expected)
-                      dao/update-active! (mock/update-active! (:entry/id expected) (:shooter/grade expected) true)
-                      dao/create! do-not-call]
-          (let [{:keys [status body]} (register-shooter! request)]
-            (is (= body expected))
-            (is (= status 200)))))
+    (testing "register shooter with existing registration"
+      (with-redefs [dao/find (mock/find expected expected)
+                    dao/update-active! (mock/update-active! (:entry/id expected) (:shooter/grade expected) true)
+                    dao/create! do-not-call]
+        (let [{:keys [status body]} (register-shooter! request)]
+          (is (= body expected))
+          (is (= status 200)))))
 
-      (testing "register shooter without existing registration"
-        (with-redefs [dao/find (mock/find expected nil)
-                      dao/update-active! do-not-call
-                      dao/create! (mock/create! expected)]
-          (let [{:keys [status body]} (register-shooter! request)]
-            (is (= body expected))
-            (is (= status 200)))))
+    (testing "register shooter without existing registration"
+      (with-redefs [dao/find (mock/find expected nil)
+                    dao/update-active! do-not-call
+                    dao/create! (mock/create! expected)]
+        (let [{:keys [status body]} (register-shooter! request)]
+          (is (= body expected))
+          (is (= status 200)))))
 
-      (testing "unregister shooter"
-        (with-redefs [dao/update-active! (mock/update-active! (:entry/id expected) (:shooter/grade expected) false)]
-          (let [{:keys [status]} (registrations/unregister-shooter! request)]
-            (is (= status 200))))))
+    (testing "unregister shooter"
+      (with-redefs [dao/update-active! (mock/update-active! (:entry/id expected) (:shooter/grade expected) false)]
+        (let [{:keys [status]} (registrations/unregister-shooter! request)]
+          (is (= status 200))))))
 
   (testing "suggest registration"
     (let [expected (gen-shooters-registered)
@@ -47,5 +47,13 @@
           c-id (uuid)]
       (with-redefs [dao/retrieve-registrations (mock/retrieve-registrations c-id a-id expected)]
         (let [{:keys [status body]} (registrations/retrieve-registrations {:all-params {:competition/id c-id :activity/id a-id}})]
+          (is (= body expected))
+          (is (= status 200))))))
+
+  (testing "retrieve all registrations"
+    (let [expected (gen-registration-with-shooter)
+          c-id (uuid)]
+      (with-redefs [dao/retrieve-all-registrations (mock/retrieve-all-registrations c-id expected)]
+        (let [{:keys [status body]} (registrations/retrieve-all-registrations {:all-params {:competition/id c-id}})]
           (is (= body expected))
           (is (= status 200)))))))
