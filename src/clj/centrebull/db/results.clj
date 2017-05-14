@@ -30,7 +30,6 @@
   (->> result
     in-mapper
     results-update!
-    prn
     out-mapper))
 
 (defn exists? [result]
