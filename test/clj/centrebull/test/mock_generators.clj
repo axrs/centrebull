@@ -114,7 +114,7 @@
 (defn gen-grand-aggregate
   "Generates a grand aggregate"
   []
-  {:grand-aggregate/aggregates (take (rand-int 10) (repeatedly uuid))
+  {:grand-aggregate/aggregates (take (+ (rand-int 10) 2) (repeatedly uuid))
    :aggregate/description      (string)
    :aggregate/priority         (rand-int 99999)
    :competition/id             (uuid)})
