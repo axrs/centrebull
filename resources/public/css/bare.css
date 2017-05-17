@@ -712,7 +712,7 @@ hr[xx] {
 @media (max-width: 50rem) {
   page:not([class]),
   page[xx] {
-    left: 2rem;
+    left: 0 !important;
   }
 }
 /*	lists
