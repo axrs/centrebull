@@ -9,7 +9,7 @@
     :competitions         false
     :activity             false
     :aggregate            false
-    :grand-aggregate-page false
+    :grand-aggregate false
     :tv                   false
     true))
     
