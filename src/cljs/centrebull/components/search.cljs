@@ -7,7 +7,7 @@
     [reagent.core :as reagent]))
 
 (defn- results-table [results row-render]
-  [:div
+  [:tbody
    (if-not (empty? @results)
      (if (nil? @results)
        [:p "No results found"]
@@ -34,7 +34,8 @@
        :reagent-render      (fn []
                               [:div
                                [input {:ratom atom :key :search/q :placeholder "Search" :required? false :autofocus true}]
-                               (when header [header results])
-                               [results-table results row]
-                               (when footer [footer results])])})))
+                               [:table
+                                (when header [header results])
+                                [results-table results row]
+                                (when footer [footer results])]])})))
 
