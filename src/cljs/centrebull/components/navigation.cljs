@@ -46,15 +46,15 @@
     (when (not @is-hidden?)
       [:sidebar
        (let [admin? @(rf/subscribe [:admin?])]
-        [:ul {:style {:transform (when (and (not @is-open?) (not @is-forced?)) "translate3d(-100%,0,0)")}}
-         (when admin? [sidebar-link #(accountant/navigate! "#/tv") "TV Display" :tv @competiton-id])
-         (when admin? [sidebar-link #(accountant/navigate! "#/shooters") "Shooters" :shooters @competiton-id])
-         (when admin? [sidebar-link #(accountant/navigate! "#/competitions") "Competitions" :competitions (not @competiton-id)])
-         (when admin? [sidebar-link #(accountant/navigate! "#/ranges") "Ranges" :ranges true])
-         (when admin? [sidebar-link #(accountant/navigate! "#/activities") "New activity" :activities @competiton-id])
-         (when admin? [sidebar-link #(accountant/navigate! "#/aggregates") "Aggregates" :aggregate @competiton-id])
-         (when admin? [sidebar-link #(accountant/navigate! "#/grand-aggregates") "Grand Aggregates" :grand-aggregate @competiton-id])
-         (activity-section)])])))
+         [:ul {:style {:transform (when (and (not @is-open?) (not @is-forced?)) "translate3d(-100%,0,0)")}}
+          (when admin? [sidebar-link #(accountant/navigate! "#/tv") "TV Display" :tv @competiton-id])
+          (when admin? [sidebar-link #(accountant/navigate! "#/shooters") "Shooters" :shooters @competiton-id])
+          (when admin? [sidebar-link #(accountant/navigate! "#/competitions") "Competitions" :competitions (not @competiton-id)])
+          (when admin? [sidebar-link #(accountant/navigate! "#/ranges") "Ranges" :ranges true])
+          (when admin? [sidebar-link #(accountant/navigate! "#/activities") "New activity" :activities @competiton-id])
+          (when admin? [sidebar-link #(accountant/navigate! "#/aggregates") "Aggregates" :aggregate @competiton-id])
+          (when admin? [sidebar-link #(accountant/navigate! "#/grand-aggregates") "Grand Aggregates" :grand-aggregate @competiton-id])
+          (activity-section)])])))
 
 
 (defn topbar []
@@ -65,6 +65,6 @@
       [:input {:type "checkbox" :value @is-open? :on-change #(rf/dispatch [:toggle-sidebar])}])
     [:header
      (let [comp-desc (:competition/description @(rf/subscribe [:active-competition]))]
-       [:a {:on-click #(accountant/navigate! "#/tv")} [:img {:src "/favicon.ico"}] "Centre" [:strong "Bull"]
+       [:a [:img {:src "/favicon.ico"}] "Centre" [:strong "Bull"]
         (when comp-desc [:span {:style {:font-weight 100}} (str " - " comp-desc)])])]]])
 
