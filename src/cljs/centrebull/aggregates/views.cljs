@@ -58,9 +58,9 @@
     [:table
      [:thead
       [:tr
-        [:th "#"]
-        [:th "Description"]
-        [:th ""]]]
+       [:th "#"]
+       [:th "Description"]
+       [:th ""]]]
      [:tbody
       (for [agg aggregates]
         ^{:key (:aggregate/id agg)} [aggregate-row remove agg])]]]])
@@ -120,14 +120,12 @@
 
 (defn agg-row [pri {:keys [rank shooter/grade shooter/first-name shooter/last-name shooter/club shooter/sid aggregate/results aggregate/score aggregate/vs]}]
   [:tr
-   [:td rank]
-   [:td grade]
+   [:td grade rank]
    [:td first-name " " last-name]
-   [:td club]
    (for [r pri]
-    (let [res (first (filter #(= r (:aggregate/priority %)) results))]
-     ^{:key (str sid r)} [:td (or (:result/score res) [:code]) [:sup (:result/vs res)]]))
-   [:td score [:sup vs]]])
+     (let [res (first (filter #(= r (:aggregate/priority %)) results))]
+       ^{:key (str sid r)} [:td (or (:result/score res) [:code]) [:sup (:result/vs res)]]))
+   [:tdh score [:sup vs]]])
 
 (defn aggregate-page [{:keys [aggregate/description aggregate/priority]} results]
   (let [f (first results)
@@ -140,13 +138,11 @@
       [:table
        [:thead
         [:tr
-         [:th "Rank"]
-         [:th "Grade"]
+         [:th ""]
          [:th "Name"]
-         [:th "Club"]
          (for [r (:aggregate/results f)]
            ^{:key (str "agg" (:aggregate/priority r))} [:th "#" (:aggregate/priority r)])
-         [:th "Total"]]]
+         [:thh "Total"]]]
        [:tbody
         (for [s results]
           ^{:key (:shooter/sid s)} [agg-row pri s])]]]]))

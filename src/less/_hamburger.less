@@ -1,0 +1,94 @@
+@import (reference) "_variables";
+// clears the top of the page for the fixed nav
+body {
+  padding-top: 4.4rem;
+}
+
+nav@{n}, nav@{x} {
+  position: fixed;
+  padding: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    &:before, &:after {
+      display: block
+    }
+    a {
+      left: 6rem;
+    }
+  }
+
+  label {
+    height: 4.4rem;
+
+    // hides the nav off screen
+
+    > ul {
+      position: fixed;
+      top: 4.4rem;
+      right: 0;
+      bottom: 0;
+      padding: 0;
+      transform: translate3d(100%, 0, 0);
+      border-top: 1px solid @primary;
+      text-align: left;
+      background: #fff;
+      box-shadow: @box-shadow;
+      overflow-x: visible;
+      overflow-y: auto;
+
+      li {
+        display: block;
+        border-top: 1px solid @grey-light;
+      }
+
+      a {
+        padding: 1rem 6rem 1rem 2rem;
+        border: none;
+      }
+    }
+
+    input {
+      &:checked {
+
+        // shows the nav when input is checked
+
+        ~ ul {
+          transform: none;
+        }
+
+        // hides the hamburger and shows the cross when the input is checked
+
+        ~ header {
+          &:before {
+            transform: rotate(-180deg);
+            opacity: 0;
+          }
+
+          &:after {
+            transform: none;
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    menu {
+      menuitem, mi {
+        border-color: @grey-light;
+      }
+
+      a {
+        padding-left: 4rem;
+      }
+    }
+  }
+}

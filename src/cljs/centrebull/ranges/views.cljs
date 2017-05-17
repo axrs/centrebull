@@ -6,13 +6,12 @@
 
 (defn- ranges-header [results]
   [:thead
-    [:tr]
-      [:td "Description"]])
+   [:tr
+    [:th "Description"]]])
 
 (defn- ranges-row [{:keys [range/id range/description]}]
   [:tr
-   [:td
-    [:p {:style {:text-align "left"}} description]]])
+   [:td description]])
 
 (defn ranges-page [toggle-action]
   [:section
