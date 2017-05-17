@@ -19,7 +19,7 @@ table@{n}, table@{x} {
     vertical-align: middle;
   }
 
-  tdh {
+  tdh, tdc {
     font-weight: bold;
   }
 
@@ -81,6 +81,13 @@ table@{n}, table@{x} {
 
   tbody tr:hover {
     background: @grey-ultralight
+  }
+
+  tbody tr td:only-child {
+    background-color: @grey-ultralight;
+    font-weight: bold;
+    color: @primary;
+    text-align: center;
   }
 
   tr {

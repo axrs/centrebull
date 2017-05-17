@@ -1,17 +1,47 @@
+@import (reference) "_variables";
 
 tv {
   card {
-    // float: left;
+    padding: 0;
+  }
+  tbody {
     max-height: 25em;
     overflow-y: hidden;
   }
-  // card:nth-child(3), card:nth-child(4), card:nth-child(5) {
-  //   float: right;
-  // }
-  // card:nth-child(even) {
-  //   margin-left: 1.5%;
-  // }
-  // card + card {
-  //   margin-top: 0;
-  // }
+
+  td, tdp, tdh {
+    padding: 0.5rem !important;
+  }
+
+  th:nth-child(n+3), thh,
+  td:nth-child(n+3), tdh {
+    text-align: center;
+  }
+
+}
+
+#tv-page {
+  nav {
+    background-color: @primary--;
+    header {
+      a {
+        display: block;
+        text-align: center;
+        width: 100%;
+      }
+    }
+
+  }
+  page {
+    background-color: @primary; //Caleb's Homage
+    card {
+      background-color: @primary--;
+    }
+    section:first-of-type {
+      margin: 0 !important;
+      margin-top: 0.5rem !important;
+      padding-left: 0rem;
+      padding-right: 0rem;
+    }
+  }
 }

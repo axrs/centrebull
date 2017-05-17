@@ -53,11 +53,12 @@
       grand-aggregates/pages)))
 
 (defn page []
-  [:div
-   [topbar]
-   [sidebar]
-   [:page
-    [((pages) @(rf/subscribe [:page]))]]])
+  (let [page @(rf/subscribe [:page])]
+    [:div {:id (str (name page) "-page")}
+     [topbar]
+     [sidebar]
+     [:page
+      [((pages) page)]]]))
 
 
 ;; -------------------------
