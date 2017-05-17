@@ -10,7 +10,6 @@
     :activity             false
     :aggregate            false
     :grand-aggregate      false
-    :tv                   false
     true))
     
 

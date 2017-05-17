@@ -47,7 +47,7 @@
       [:sidebar
        (let [admin? @(rf/subscribe [:admin?])]
         [:ul {:style {:transform (when (and (not @is-open?) (not @is-forced?)) "translate3d(-100%,0,0)")}}
-         [sidebar-link #(accountant/navigate! "#/tv") "TV Display" :tv @competiton-id]
+         (when admin? [sidebar-link #(accountant/navigate! "#/tv") "TV Display" :tv @competiton-id])
          (when admin? [sidebar-link #(accountant/navigate! "#/shooters") "Shooters" :shooters @competiton-id])
          (when admin? [sidebar-link #(accountant/navigate! "#/competitions") "Competitions" :competitions (not @competiton-id)])
          (when admin? [sidebar-link #(accountant/navigate! "#/ranges") "Ranges" :ranges true])
