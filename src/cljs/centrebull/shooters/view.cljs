@@ -39,7 +39,7 @@
             valid? (s/valid? :api/competition-register-shooter body)]
         [:tr
          [:td sid]
-         [:td (str first-name (when preferred-name (str " (" preferred-name ")") " " last-name))]
+         [:td (str first-name " " (when preferred-name (str " (" preferred-name ")") " " last-name))]
          [:td club]
          [:td
           (if id
