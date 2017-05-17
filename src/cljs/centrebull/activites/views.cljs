@@ -93,7 +93,7 @@
      [:td {:style {:text-align "right"}} shots]
      [:td {:style {:text-align "right"}} score [:sup vs]]
      [:td {:style {:text-align "right"}}
-      [:button {:type "button" :on-click #(toggle sid n)} "Edit"]]]))
+      (when @(rf/subscribe [:admin?]) [:button {:type "button" :on-click #(toggle sid n)} "Edit"])]]))
 
 (defn shooter-match [search r]
   (let [n (string/join " " (map (comp string/lower-case str) (filter some? (vals r))))
