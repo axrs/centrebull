@@ -13,6 +13,7 @@
   [:tr
    [:td description]])
 
+
 (defn ranges-page [toggle-action]
   [:section
    [:card

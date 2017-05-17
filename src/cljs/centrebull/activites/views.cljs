@@ -26,9 +26,9 @@
     [:table
      [:thead
       [:tr
-       [:td "Priority"]
-       [:td "Date"]
-       [:td "Description"]]]
+       [:th "Priority"]
+       [:th "Date"]
+       [:th "Description"]]]
      [:tbody
       (for [act activities]
         ^{:key (:activity/id act)} [activity-row act])]]]])
