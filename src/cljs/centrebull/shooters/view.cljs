@@ -19,11 +19,10 @@
   (fn []
     [:thead
       [:tr
-        [:td "Sid"]
-        [:td "Name"]
-        [:td "Club"]
-        [:td "Status"]
-        [:td]]]))
+        [:th "Sid"]
+        [:th "Name"]
+        [:th "Club"]
+        [:th "Status"]]]))
 
 (defn shooter-row [competition-id]
   (let [grade (r/atom nil)]
