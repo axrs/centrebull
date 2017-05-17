@@ -26,10 +26,11 @@
 
 (defn- set-sid-fn [state active-activity]
   (fn [sid name]
-    (swap! state assoc :shooter/sid sid)
-    (swap! state assoc :shooter/name name)
-    (swap! state assoc :activity/id (:activity/id @active-activity))
-    (modal/toggle state)))
+    (when @(rf/subscribe [:admin?])
+     (swap! state assoc :shooter/sid sid)
+     (swap! state assoc :shooter/name name)
+     (swap! state assoc :activity/id (:activity/id @active-activity))
+     (modal/toggle state))))
 
 (defn- single-activity []
   (let [act (rf/subscribe [:active-activity])

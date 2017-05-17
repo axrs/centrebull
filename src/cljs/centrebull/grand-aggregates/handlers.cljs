@@ -51,7 +51,7 @@
   :set-active-grand-aggregate
   (fn [{:keys [db]} [_ id]]
     {:db         (assoc db :active-grand-aggregate (first (filter #(= id (:grand-aggregate/id %)) (:grand-aggregates db))))
-     :dispatch-n [[:set-active-page :grand-aggregate-page] [:refresh-grand-aggregate-results]]}))
+     :dispatch-n [[:set-active-page :grand-aggregate] [:refresh-grand-aggregate-results]]}))
 
 (reg-event-fx
   :grand-aggregates-delete
