@@ -10,6 +10,17 @@
 
 (defonce timeout (set-timeout))
 
+(defn grade-limit [grade]
+  (case grade
+    "A"   10
+    "B"   8
+    "C"   5
+    "FO"  5
+    "FTR" 5
+    "FSA" 6
+    "FSB" 6))
+  
+
 (defn agg-row [pri aggs {:keys [rank shooter/grade shooter/first-name shooter/last-name shooter/club shooter/sid aggregate/results aggregate/score aggregate/vs]}]
   [:tr
    [:td rank]
@@ -25,15 +36,17 @@
     ^{:key (str "grade-card-" grade)}
     [:tbody
      [:tr [:td {:col-span "50"} "Grade: " grade]]
-     (for [s (get grouped-results grade)]
-       ^{:key (:shooter/sid s)} [agg-row pri aggs s])]))
+     (let [results (get grouped-results grade)
+           limited-results (take (grade-limit grade) results)]
+      (for [s limited-results]
+        ^{:key (:shooter/sid s)} [agg-row pri aggs s]))]))
 
 (defn- page []
   (let [results @(rf/subscribe [:tv-results])
         aggregate-priorities (map :aggregate/priority @(rf/subscribe [:aggregates]))
         grouped-results (group-by :shooter/grade results)
-        left-col (dissoc grouped-results "FSA" "FSA" "FO" "FTR")
-        right-col (dissoc grouped-results "A" "B" "C")
+        right-col (dissoc grouped-results "FO" "FTR" "FSA" "FSB")
+        left-col (dissoc grouped-results "A" "B" "C")
         f (first results)
         pri (apply sorted-set (into #{} (map :aggregate/priority (:aggregate/results f))))]
     [:section
@@ -49,7 +62,7 @@
              (if (some #{r} aggregate-priorities)
                ^{:key (str "grand-agg" r)} [:thh "#" r]
                ^{:key (str "grand-agg" r)} [:th "#" r]))]]
-         (grade-card left-col pri aggregate-priorities)]]]
+         (grade-card right-col pri aggregate-priorities)]]]
       [:div {:local "1/2"}
        [:card
         [:table
@@ -61,7 +74,7 @@
              (if (some #{r} aggregate-priorities)
                ^{:key (str "grand-agg" r)} [:thh "#" r]
                ^{:key (str "grand-agg" r)} [:th "#" r]))]]
-         (grade-card right-col pri aggregate-priorities)]]]]]))
+         (grade-card left-col pri aggregate-priorities)]]]]]))
 
 (secretary/defroute "/tv" []
   (rf/dispatch [:bull-clicked]))
