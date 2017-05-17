@@ -13,18 +13,25 @@
   [{:keys [activity/date
            range/description
            activity/priority]}]
-  [:div
-   [:div {:local "2/12"} priority]
-   [:div {:local "5/12"} (format-date date)]
-   [:div {:local "5/12"} description]])
+  [:tr
+   [:td priority]
+   [:td (format-date date)]
+   [:td description]])
 
 (defn activites-page [toggle-action activities]
   [:section
    [:card
     [:h2 {:local "9/12"} "Activities"]
     [:button {:local "3/12" :on-click toggle-action} "New Activity"]
-    (for [act activities]
-      ^{:key (:activity/id act)} [activity-row act])]])
+    [:table
+     [:thead
+      [:tr
+       [:td "Priority"]
+       [:td "Date"]
+       [:td "Description"]]]
+     [:tbody
+      (for [act activities]
+       ^{:key (:activity/id act)} [activity-row act])]]]])
 
 (defn register [submit valid? state]
   [:div
