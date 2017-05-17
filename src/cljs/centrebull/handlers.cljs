@@ -99,3 +99,8 @@
                       [:refresh-all-results]
                       [:refresh-grand-tv-results]]}
         {}))))
+
+(reg-event-fx
+  :set-admin?
+  (fn [{:keys [db]} [_ admin?]]
+    {:db (assoc db :admin admin?)}))
