@@ -24,7 +24,7 @@
       (if (or (not protected?)
               (:admin? db))
                   
-          {:db (assoc db :page page)}
+          {:db (assoc db :page page :sidebar-open? false)}
           {}))))
 
 (defn- prefix-url [u]

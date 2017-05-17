@@ -31,7 +31,7 @@
        [:th "Description"]]]
      [:tbody
       (for [act activities]
-       ^{:key (:activity/id act)} [activity-row act])]]]])
+        ^{:key (:activity/id act)} [activity-row act])]]]])
 
 (defn register [submit valid? state]
   [:div
@@ -59,12 +59,12 @@
 
 (defn clean-shots [{:keys [result/shots] :as state}]
   (if (empty? shots)
-      state
-      (assoc state :result/shots
-        (-> shots
-          (clojure.string/replace #"-| " "")
-          clojure.string/upper-case))))
-    
+    state
+    (assoc state :result/shots
+                 (-> shots
+                   (clojure.string/replace #"-| " "")
+                   clojure.string/upper-case))))
+
 
 (defn register-result [submit valid? state]
   (let [valid? (valid?)
@@ -79,19 +79,17 @@
               :required?   true
               :auto-focus? true
               :placeholder "shots"
-              :submit submit}]
+              :submit      submit}]
       [:h3 {:local "1/3"} (:result/score score) [:sup (:result/vs score)]]
       [:button {:data-pull-left "9/12" :local "3/12" :data-m-full "" :data-primary "" :on-click submit :disabled (not valid?)} "Save"]]]))
 
 (defn row-render [toggle {:keys [:rank :shooter/first-name :shooter/last-name :shooter/sid :result/shots :result/vs :result/score :shooter/grade]}]
   (let [n (str first-name " " last-name)]
     [:tr
-     [:td rank]
-     [:td sid]
-     [:td grade]
+     [:td grade rank]
      [:td n]
      [:td {:style {:text-align "right"}} shots]
-     [:td {:style {:text-align "right"}} score [:sup vs]]
+     [:tdh {:style {:text-align "right"}} score [:sup vs]]
      [:td {:style {:text-align "right"}}
       (when @(rf/subscribe [:admin?]) [:button {:type "button" :on-click #(toggle sid n)} "Edit"])]]))
 
@@ -103,14 +101,12 @@
 (defn generate-table [search toogle results]
   [:table
    [:thead
-    [:tr [:th {:col-span 7} [input {:key :search :ratom search :list "results-autocomplete" :auto-focus? true}]]]
+    [:tr [:th {:col-span 7} [input {:key :search :placeholder "Type to Filter or Search" :ratom search :list "results-autocomplete" :auto-focus? true}]]]
     [:tr
-     [:th "Rank"]
-     [:th "#"]
-     [:th "Grade"]
+     [:th ""]
      [:th "Name"]
      [:th {:style {:text-align "right"}} "Shots"]
-     [:th {:style {:text-align "right"}} "Score"]
+     [:thh {:style {:text-align "right"}} "Score"]
      [:th]]]
    [:tbody
     (let [filtered (if (not-empty (:search @search))

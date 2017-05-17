@@ -42,3 +42,21 @@ card {
     }
   }
 }
+
+@media only screen
+and (min-device-width: 414px)
+and (max-device-width: 736px)
+and (orientation: landscape)
+and (-webkit-min-device-pixel-ratio: 3) {
+  card {
+    padding: 0.5rem;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: @mobile) {
+  card {
+    padding: 0.5rem;
+    box-shadow: none;
+  }
+}
