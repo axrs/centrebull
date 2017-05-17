@@ -75,6 +75,7 @@
   (rf/dispatch [:set-active-page :about]))
 
 (secretary/defroute "/c967c421-16b8-428d-9984-2698ecac1a72" []
+  (prn "Admin enabled.")
   (rf/dispatch [:set-admin? true]))
 
 ;; -------------------------

@@ -9,7 +9,7 @@
     :competitions         false
     :activity             false
     :aggregate            false
-    :grand-aggregate false
+    :grand-aggregate      false
     :tv                   false
     true))
     
@@ -22,9 +22,10 @@
   :set-active-page
   (fn [{:keys [db]} [_ page]]
     (let [protected? (protected-page? page)]
+      (cljs.pprint/pprint db)
       (if (or (not protected?)
-              (and protected?
-                  (:admin? db)))
+              (:admin? db))
+                  
           {:db (assoc db :page page)}
           {}))))
 
@@ -117,4 +118,4 @@
 (reg-event-fx
   :set-admin?
   (fn [{:keys [db]} [_ admin?]]
-    {:db (assoc db :admin admin?)}))
+    {:db (assoc db :admin? admin?)}))
