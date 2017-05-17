@@ -9,16 +9,13 @@
 
 (defn- translate-grade [g]
   (cond
-    (= "A" g) "10"
-    (= "B" g) "09"
-    (= "C" g) "08"
-    (= "D" g) "07"
-    (= "FS" g) "06"
-    (= "FS1" g) "05"
-    (= "FS2" g) "04"
-    (= "FO" g) "03"
-    (= "FO1" g) "02"
-    (= "FO2" g) "01"
+    (= "A" g) "07"
+    (= "B" g) "06"
+    (= "C" g) "05"
+    (= "FO" g) "04"
+    (= "FSA" g) "03"
+    (= "FSB" g) "02"
+    (= "FTR" g) "01"
     :else "00"))
 
 (defn- calc-sort-str [max results]
