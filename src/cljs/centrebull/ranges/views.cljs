@@ -5,13 +5,14 @@
     [re-frame.core :as rf]))
 
 (defn- ranges-header [results]
-  (when @results
-    [:header
-     [:caption "Description"]]))
+  [:thead
+    [:tr]
+      [:td "Description"]])
 
 (defn- ranges-row [{:keys [range/id range/description]}]
-  [:div
-   [:p description]])
+  [:tr
+   [:td
+    [:p {:style {:text-align "left"}} description]]])
 
 (defn ranges-page [toggle-action]
   [:section

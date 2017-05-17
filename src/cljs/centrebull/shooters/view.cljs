@@ -15,6 +15,16 @@
                  {:id "FSB" :name "FSB"}
                  {:id "FTR" :name "FTR"}])
 
+(defn- shooter-header []
+  (fn []
+    [:thead
+      [:tr
+        [:td "Sid"]
+        [:td "Name"]
+        [:td "Club"]
+        [:td "Status"]
+        [:td]]]))
+
 (defn shooter-row [competition-id]
   (let [grade (r/atom nil)]
     (fn [{:keys [shooter/sid
@@ -28,17 +38,15 @@
       (let [grade-select (select #(if (= % "Select a Grade") (reset! grade "") (reset! grade %)))
             body {:competition/id competition-id :shooter/grade @grade :shooter/sid sid}
             valid? (s/valid? :api/competition-register-shooter body)]
-        [:div
-         [:div {:local "1/12"} sid]
-         [:div {:local "4/12"} (str first-name
-                                 (when preferred-name (str " (" preferred-name ")"))
-                                 " " last-name)]
-         [:div {:local "3/12"} club]
-         [:div {:local "2/12"}
+        [:tr
+         [:td sid]
+         [:td (str first-name (when preferred-name (str " (" preferred-name ")") " " last-name))]
+         [:td club]
+         [:td
           (if id
             [:h4.registed "Registed - Class " (:shooter/grade shooter)]
             (grade-select grade-list))]
-         [:div {:local "2/12"}
+         [:td
           (if id
             [:button {:on-click #(rf/dispatch [:shooters-unregister (:entry/id shooter) results])} "Unregister"]
             [:button {:disabled (not valid?)
@@ -53,7 +61,7 @@
     (let [competition-id @(rf/subscribe [:active-competition-id])
           endpoint (if competition-id "/registrations/search" "/shooters/search")
           atom (r/atom {:competition/id competition-id})]
-      [search endpoint {:atom atom :row #(shooter-row competition-id)}])]])
+        [search endpoint {:atom atom :row #(shooter-row competition-id) :header #(shooter-header)}])]])
 
 (defn register [submit-action valid? state]
   [:div
