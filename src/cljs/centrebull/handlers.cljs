@@ -22,7 +22,6 @@
   :set-active-page
   (fn [{:keys [db]} [_ page]]
     (let [protected? (protected-page? page)]
-      (cljs.pprint/pprint db)
       (if (or (not protected?)
               (:admin? db))
                   
