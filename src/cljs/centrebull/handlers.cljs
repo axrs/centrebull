@@ -4,6 +4,14 @@
             [re-frame.core :refer [dispatch reg-event-db reg-event-fx]]
             [accountant.core :as accountant]
             [clojure.string :as str]))
+(defn- protected-page? [page]
+  (case page
+    :competitions         false
+    :activity             false
+    :aggregate            false
+    :grand-aggregate      false
+    true))
+    
 
 (reg-event-db
   :initialize-db
@@ -12,7 +20,12 @@
 (reg-event-fx
   :set-active-page
   (fn [{:keys [db]} [_ page]]
-    {:db (assoc db :page page)}))
+    (let [protected? (protected-page? page)]
+      (if (or (not protected?)
+              (:admin? db))
+                  
+          {:db (assoc db :page page)}
+          {}))))
 
 (defn- prefix-url [u]
   (if (str/starts-with? u "#") u (str "#" u)))
@@ -99,3 +112,8 @@
                       [:refresh-all-results]
                       [:refresh-grand-tv-results]]}
         {}))))
+
+(reg-event-fx
+  :set-admin?
+  (fn [{:keys [db]} [_ admin?]]
+    {:db (assoc db :admin? admin?)}))
