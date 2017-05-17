@@ -78,13 +78,15 @@
 
 (defn row-render [toggle {:keys [:rank :shooter/first-name :shooter/last-name :shooter/sid :result/shots :result/vs :result/score :shooter/grade]}]
   (let [n (str first-name " " last-name)]
-    [:tr {:on-click #(toggle sid n)}
+    [:tr
      [:td rank]
      [:td sid]
      [:td grade]
      [:td n]
      [:td {:style {:text-align "right"}} shots]
-     [:td score [:sup vs]]]))
+     [:td {:style {:text-align "right"}} score [:sup vs]]
+     [:td {:style {:text-align "right"}}
+      [:button {:type "button" :on-click #(toggle sid n)} "Edit"]]]))
 
 (defn shooter-match [search r]
   (let [n (string/join " " (map (comp string/lower-case str) (filter some? (vals r))))
@@ -94,14 +96,15 @@
 (defn generate-table [search toogle results]
   [:table
    [:thead
-    [:tr [:th {:col-span 5} [input {:key :search :ratom search :list "results-autocomplete" :auto-focus? true}]]]
+    [:tr [:th {:col-span 7} [input {:key :search :ratom search :list "results-autocomplete" :auto-focus? true}]]]
     [:tr
      [:th "Rank"]
      [:th "#"]
      [:th "Grade"]
      [:th "Name"]
      [:th {:style {:text-align "right"}} "Shots"]
-     [:th "Score"]]]
+     [:th {:style {:text-align "right"}} "Score"]
+     [:th]]]
    [:tbody
     (let [filtered (if (not-empty (:search @search))
                      (filter #(shooter-match (:search @search) %) results)
