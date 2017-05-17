@@ -21,7 +21,7 @@
   [:section
    [:card
     [:h2 {:local "9/12"} "Competitions"]
-    [:button {:local "3/12" :on-click toggle-action} "New Competition"]
+    (when @(rf/subscribe [:admin?]) [:button {:local "3/12" :on-click toggle-action} "New Competition"])
 
     [search "/competitions/search"
      {:header competition-header

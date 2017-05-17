@@ -51,7 +51,7 @@
 
 (def pages
   {:grand-aggregates #'page
-   :grand-aggregate-page #'single})
+   :grand-aggregate #'single})
 
 (secretary/defroute "/grand-aggregates/:id" {id :id :as params}
   (rf/dispatch [:set-active-grand-aggregate id]))

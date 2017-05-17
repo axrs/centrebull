@@ -56,3 +56,5 @@
   :<- [:grand-tv-results]
   (fn [[all grand] _]
     (rank-results (sorted-results (concat all grand)))))
+
+(reg-sub :admin? (fn [db _] (:admin? db)))
