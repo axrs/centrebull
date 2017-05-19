@@ -10,6 +10,16 @@
 
 (defonce timeout (set-timeout))
 
+(defn- get-priorities [shooters]
+  (->> shooters
+    vals
+    (map first)
+    (map :aggregate/results)
+    flatten
+    (map :aggregate/priority)
+    (into #{})
+    (apply sorted-set)))
+
 (defn- page []
   (let [results @(rf/subscribe [:tv-results])
         aggregate-priorities (map :aggregate/priority @(rf/subscribe [:aggregates]))
@@ -17,7 +27,7 @@
         right-col (dissoc grouped-results "FO" "FTR" "FSA" "FSB")
         left-col (dissoc grouped-results "A" "B" "C")
         f (first results)
-        pri (apply sorted-set (into #{} (map :aggregate/priority (:aggregate/results f))))]
+        pri (get-priorities grouped-results)]
     [v/display-page results aggregate-priorities grouped-results right-col left-col pri]))
 
 (secretary/defroute "/tv" []

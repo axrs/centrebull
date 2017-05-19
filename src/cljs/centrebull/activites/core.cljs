@@ -41,7 +41,7 @@
         reset-action #(reset! new-result {})
         row-click (set-sid-fn new-result act)]
     (fn []
-      (let [submit-action #(do (rf/dispatch [:activity-create-result (v/clean-shots @new-result) [:refresh-activity-results] reset-action])
+      (let [submit-action #(do (rf/dispatch [:activity-create-result (v/clean-shots @new-result) reset-action])
                                (rf/dispatch [:select-autocomplete-text "awesomplete-results-autocomplete"]))
             valid? (fn [] (s/valid? :api/result-create (v/clean-shots @new-result)))]
         [:div

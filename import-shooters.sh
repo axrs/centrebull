@@ -4,8 +4,8 @@
 cat ./resources/data/shooters.csv | while read line
 do
         sid=$(echo $line | cut -d',' -f2)
-        first=$(echo $line | cut -d',' -f3)
-        last=$(echo $line | cut -d',' -f4)
+        first=$(echo $line | cut -d',' -f4)
+        last=$(echo $line | cut -d',' -f3)
         pref=$(echo $line | cut -d',' -f5)
         club=$(echo $line | cut -d',' -f6)
 
