@@ -65,6 +65,7 @@
       [:input {:type "checkbox" :value @is-open? :on-change #(rf/dispatch [:toggle-sidebar])}])
     [:header
      (let [comp-desc (:competition/description @(rf/subscribe [:active-competition]))]
-       [:a [:img {:src "/favicon.ico"}] "Centre" [:strong "Bull"]
+       [:a {:on-click #(rf/dispatch [:toggle-sidebar])}
+        [:img {:src "/favicon.ico"}] "Centre" [:strong "Bull"]
         (when comp-desc [:span {:style {:font-weight 100}} (str " - " comp-desc)])])]]])
 
