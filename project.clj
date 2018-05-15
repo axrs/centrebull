@@ -10,6 +10,7 @@
                  [com.andrewmcveigh/cljs-time "0.4.0"]
                  [cljs-ajax "0.5.8"]
                  [compojure "1.5.2"]
+                 [bk/ring-gzip "0.3.0"]
                  [metosin/compojure-api "1.1.10"]
                  [conman "0.6.3"]
                  [cprop "0.1.10"]

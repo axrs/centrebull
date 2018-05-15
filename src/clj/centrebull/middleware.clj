@@ -4,6 +4,7 @@
             [centrebull.layout :refer [*app-context* error-page]]
             [ring.middleware.webjars :refer [wrap-webjars]]
             [ring.middleware.format :refer [wrap-restful-format]]
+            [ring.middleware.gzip :refer [wrap-gzip]]
             [centrebull.config :refer [env]]
             [ring.middleware.flash :refer [wrap-flash]]
             [immutant.web.middleware :refer [wrap-session]]
@@ -64,4 +65,5 @@
             (assoc-in [:security :anti-forgery] false)
             (dissoc :session)))
       wrap-context
-      wrap-internal-error))
+      wrap-internal-error
+      wrap-gzip))

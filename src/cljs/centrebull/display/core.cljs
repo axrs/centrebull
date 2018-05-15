@@ -26,7 +26,6 @@
         grouped-results (group-by :shooter/grade results)
         right-col (dissoc grouped-results "FO" "FTR" "FSA" "FSB")
         left-col (dissoc grouped-results "A" "B" "C")
-        f (first results)
         pri (get-priorities grouped-results)]
     [v/display-page results aggregate-priorities grouped-results right-col left-col pri]))
 
