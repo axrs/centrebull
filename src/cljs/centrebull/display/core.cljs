@@ -22,7 +22,7 @@
 
 (defn- page []
   (let [results @(rf/subscribe [:tv-results])
-        aggregate-priorities (map :aggregate/priority @(rf/subscribe [:aggregates]))
+        aggregate-priorities (mapv :aggregate/priority @(rf/subscribe [:aggregates]))
         grouped-results (group-by :shooter/grade results)
         right-col (dissoc grouped-results "FO" "FTR" "FSA" "FSB")
         left-col (dissoc grouped-results "A" "B" "C")
